@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
+  devise_for :admin_users, controllers: {
+    sessions: 'admin/users/sessions'
+  }
+
+  namespace :admin do
+    root 'dashboard#index'
+    resources :users
+    get 'dashboard' => 'dashboard#index'
+    get 'customizer' => 'dashboard#customizer'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

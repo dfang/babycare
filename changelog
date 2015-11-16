@@ -1,0 +1,7 @@
+有两个问题
+
+1. http://localhost:3000/admin/customizer
+为什么右侧的齿轮按钮点了不会弹出，非得手动运行下Core.init()
+
+
+2. Fix ajax loading

@@ -18,6 +18,20 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+
+gem 'devise'
+gem 'inherited_resources'
+gem 'friendly_id'
+gem 'rails_config'
+
+gem 'jquery-validation-rails'
+gem 'haml-rails'
+gem 'kaminari'
+gem 'simple_form'
+gem 'nested_form'
+gem 'holder_rails'
+gem 'tinymce-rails', '~> 4.1.6'
+
 group :development, :test do
   # gem 'byebug'
 end

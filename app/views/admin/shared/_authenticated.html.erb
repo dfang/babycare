@@ -1,0 +1,35 @@
+<body class="dashboard-page">
+<script> var boxtest = localStorage.getItem('boxed'); if (boxtest === 'true') {document.body.className+=' boxed-layout';} </script>
+
+<%= render 'admin/shared/skin_toolbox' %>
+
+<%= render 'admin/shared/header' %>
+
+<div id="main">
+
+  <%= render 'admin/shared/left_sidebar' %>
+
+  <%= yield %>
+
+  <!-- 'admin/shared/right_sidebar' -->
+
+</div>
+
+<%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
+
+
+<script type="text/javascript">
+
+jQuery(document).ready(function () {
+
+   "use strict";
+
+     // Init Theme Core
+     Core.init();
+
+     // Enable Ajax Loading
+     Ajax.init();
+
+  });
+</script>
+</body>

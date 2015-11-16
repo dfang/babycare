@@ -1,0 +1,467 @@
+<!-- Start: Content -->
+<section id="content_wrapper">
+<div id="topbar">
+  <div class="topbar-left">
+    <ol class="breadcrumb">
+      <li class="crumb-active"><a href="customizer.html">Customizer</a></li>
+      <li class="crumb-icon"><a href="dashboard.html"><span class="glyphicon glyphicon-home"></span></a></li>
+      <li class="crumb-link"><a href="index.html">Home</a></li>
+      <li class="crumb-trail">Customizer</li>
+    </ol>
+  </div>
+</div>
+<div id="content" class="skin-menu">
+<div class="content-header mt10 mb20">
+  <div class="pull-left"> <a data-toggle="tab" href="#tab1" data-color="purple" class="btn bg-purple2 mr5 active"><span class="glyphicons glyphicons-hand_up mr5"></span> Header</a> <a data-toggle="tab" href="#tab3" data-color="orange" class="btn bg-orange mr5"><span class="glyphicons glyphicons-hand_up mr5"></span> Breadcrumbs</a> <a data-toggle="tab" href="#tab2" data-color="grey" class="btn bg-grey mr5"><span class="glyphicons glyphicons-hand_left mr5"></span> SideMenu</a> <a data-toggle="tab" href="#tab4" data-color="teal" class="btn bg-teal mr5"><span class="glyphicons glyphicons-hand_down mr5"></span> Portlets</a> <a data-toggle="tab" href="#tab5" data-color="green" class="btn bg-green mr5"><span class="glyphicons glyphicons-imac mr5"></span> Body</a> </div>
+  <div class="pull-right">
+    <button type="button" data-toggle="modal" data-target="#skinModal" class="skin-modal-open btn bg-purple2 mr5"> <span class="glyphicons glyphicons-download_alt mr5"></span> Save CSS </button>
+    <a href="customizer.html" class="btn bg-red2"><span class="glyphicons glyphicons-delete mr5"></span> Reset</a> </div>
+  <div class="clearfix"></div>
+</div>
+<div class="panel overflow-v">
+  <div class="panel-heading"> <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> Theme Customizer </span> </div>
+  <div class="panel-body pn">
+    <div class="tab-content pl15 pr15 border-none">
+      <div id="tab1" class="tab-pane active">
+        <div class="form-group">
+          <div class="cBox cBox-inline">
+            <input type="checkbox" id="custom1" data-modify='{"selector":".skin-set-1", "style": "gradient"}'>
+            <label for="custom1">Switch to <b>Gradient</b></label>
+          </div>
+          <div class="cBox cBox-inline ml20">
+            <input type="checkbox" id="custom2" data-modify='{"selector":".navbar", "style": 1}'>
+            <label for="custom2">Add <b>Box-Shadow</b> </label>
+          </div>
+        </div>
+        <hr class="short alt" />
+        <div class="skin-items skin-set-1" data-modify='{"selector":".navbar", "style": "background-color"}'>
+          <div class="bg-blue-alt"></div>
+          <div class="bg-blue2-alt"></div>
+          <div class="bg-blue3-alt"></div>
+          <div class="bg-blue4-alt"></div>
+          <div class="bg-blue5-alt"></div>
+          <div class="bg-blue6-alt"></div>
+          <div class="bg-blue7-alt"></div>
+          <div class="bg-purple"></div>
+          <div class="bg-purple2"></div>
+          <div class="bg-purple3"></div>
+          <div class="bg-green-alt"></div>
+          <div class="bg-green2-alt"></div>
+          <div class="bg-green3-alt"></div>
+          <div class="bg-green4-alt"></div>
+          <div class="bg-green5-alt"></div>
+          <div class="bg-red-alt"></div>
+          <div class="bg-red2-alt"></div>
+          <div class="bg-red3-alt"></div>
+          <div class="bg-red4-alt"></div>
+          <div class="bg-orange-alt"></div>
+          <div class="bg-orange2-alt"></div>
+          <div class="bg-yellow-alt"></div>
+          <div class="bg-yellow2-alt"></div>
+          <div class="bg-creme-alt"></div>
+          <div class="bg-creme2-alt"></div>
+          <div class="bg-brown-alt"></div>
+          <div class="bg-brown2-alt"></div>
+          <div class="bg-brown3-alt"></div>
+          <div class="bg-dark5"></div>
+          <div class="bg-dark4"></div>
+          <div class="bg-dark3"></div>
+          <div class="bg-dark2"></div>
+          <div class="bg-dark"></div>
+          <div class="bg-light7"></div>
+          <div class="bg-light6"></div>
+          <div class="bg-light5"></div>
+          <div class="bg-light4"></div>
+          <div class="bg-light3"></div>
+          <div class="bg-light2"></div>
+          <div class="bg-light"></div>
+        </div>
+        <hr class="short alt" />
+        <ul class="nav well-tabs well-tabs-inverse mb25">
+          <li class="active"><a href="#header-left" data-toggle="tab">Left Menu</a></li>
+          <li><a href="#header-right" data-toggle="tab">Right Menu</a></li>
+          <li><a href="#header-borders" data-toggle="tab">Menu Dividers</a></li>
+          <li><a href="#header-misc" data-toggle="tab">Misc</a></li>
+        </ul>
+        <div class="tab-content border-none pn">
+          <div class="tab-pane active" id="header-left">
+            <h6> Left Side Buttons</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"#toggle_sidemenu_l", "style": "color"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Toggle Icon </button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"#settings_menu", "style": "color"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Settings Icon </button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"#language_menu a > span", "style": "color"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Language Text </button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"#language_menu a > i", "style": "color"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Language Caret </button>
+          </div>
+          <div class="tab-pane" id="header-right">
+            <h6> Right Side Icons</h6>
+            <button type="button" class="btn btn-default btn-gradient mr10 pull-left" data-modify='{"selector":".navbar-menus > .btn-group > button", "style": "color"}' data-toggle="popover"> <i class="fa fa-check-square-o"></i> Icon Color </button>
+            <button type="button" class="btn btn-default btn-gradient mr10 pull-left" data-modify='{"selector":".navbar-menus > .btn-group > button:hover", "style": "color"}' data-toggle="popover" data-help-text="Change will only be visible in CSS"> <i class="fa fa-hand-o-up"></i> Icon Hover </button>
+            <select class="form-control pull-left mw200" data-modify='{"selector":".navbar-menus > div > button > span", "style": "font-size"}'>
+              <option>14px</option>
+              <option>16px</option>
+              <option>18px</option>
+              <option selected>22px</option>
+              <option>24px</option>
+            </select>
+            <div class="clearfix"></div>
+            <h6 class="mt20"> Right Side Labels</h6>
+            <div class="form-group">
+              <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".navbar-menus > .btn-group > button > b", "style": "background-color"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Label Color </button>
+              <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".navbar-menus > .btn-group > button > b", "style": "color", "popover": "text-shadow"}' data-toggle="popover"> <i class="fa fa-font"></i> Label Text</button>
+              <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".navbar-menus > .btn-group > button > b", "style": "border-color"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Label Border </button>
+            </div>
+          </div>
+          <div class="tab-pane" id="header-borders">
+            <h6 class="mt20"> Borders and Dividers </h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".navbar-divider", "style": "border-color", "popover": "border"}' data-toggle="popover"> Left Divider</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".navbar-menus .btn-group", "style": "border-color", "popover": "border"}' data-toggle="popover"> Right Menu Dividers</button>
+          </div>
+          <div class="tab-pane" id="header-misc">
+            <h6 class="mt20"> Header Bottom Border</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".navbar", "style": "border-bottom-color", "popover": "border"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Bottom Border </button>
+            <h6 class="mt20"> Header Search Text</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".navbar-search input[placeholder]", "style": "color"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Search Text Color </button>
+          </div>
+        </div>
+      </div>
+      <div id="tab2" class="tab-pane">
+        <ul class="nav well-tabs well-tabs-inverse mb25">
+          <li class="active"><a href="#usermenu" data-toggle="tab">User Menu</a></li>
+          <li><a href="#sidebar-bg" data-toggle="tab">Sidebar BGs</a></li>
+          <li><a href="#sidebar-text" data-toggle="tab">Sidebar Text</a></li>
+          <li><a href="#sidebar-icons" data-toggle="tab">Sidebar Icons</a></li>
+        </ul>
+        <div class="tab-content border-none pn">
+          <div class="tab-pane active" id="usermenu">
+            <h6 class=""> User Menu Divider</h6>
+            <div class="cBox cBox-inline">
+              <input type="checkbox" id="custom5" data-modify='{"selector":".user-divider", "style": 11}'>
+              <label for="custom5">Small <b>Divider</b></label>
+            </div>
+            <div class="reveal-group well mt15">
+              <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".user-info", "style": "border-top-color"}' data-toggle="popover"><i class="fa fa-rocket"></i> Menu Top Border</button>
+              <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".user-info", "style": "border-bottom-color"}' data-toggle="popover"><i class="fa fa-rocket"></i> Menu Bottom Border</button>
+            </div>
+            <h6 class="mt20"> User Menu Background</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".user-info", "style": "background"}' data-toggle="popover"><i class="fa fa-rocket"></i> Background Color </button>
+            <h6 class="mt20"> User Menu Avatar</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".user-info .media-object", "style": "border-color"}' data-toggle="popover">Border Color</button>
+            <h6 class="mt20"> User Menu Text</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".user-info .media-heading", "style": "color"}' data-toggle="popover">User Color</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".user-info .media-links a", "style": "color"}' data-toggle="popover">Links Color</button>
+          </div>
+          <div class="tab-pane" id="sidebar-bg">
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"#sidebar_left", "style": "background"}' data-toggle="popover"><i class="fa fa-rocket"></i> Sidebar Background </button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".sidebar-menu ul.sub-nav", "style": "background"}' data-toggle="popover"><i class="fa fa-rocket text-red"></i> Submenu Background</button>
+          </div>
+          <div class="tab-pane" id="sidebar-text">
+            <h6 class=""> Menu Item</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"ul.sidebar-nav .sidebar-title", "style": "color"}' data-toggle="popover"><i class="fa fa-font"></i> Text</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"ul.sidebar-nav > li.active .sidebar-title", "style": "color"}' data-toggle="popover"><i class="fa fa-font text-red"></i>ctive Text</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"ul.sidebar-nav > li > a .glyphicons", "style": "color", "popover": "icon-border"}' data-toggle="popover"><i class="fa fa-rocket"></i> Icons</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".sidebar-menu > ul > li.active > a > span:nth-child(1)", "style": "color"}' data-toggle="popover"><i class="fa fa-rocket text-red"></i> Active Icon</button>
+            <h6 class="mt20"> Submenu Item</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"ul.sidebar-nav ul.sub-nav li a", "style": "color"}' data-toggle="popover"><i class="fa fa-font"></i> Text</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"ul.sidebar-nav ul.sub-nav > li.active a", "style": "color"}' data-toggle="popover"><i class="fa fa-font text-red"></i>ctive Text</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"ul.sidebar-nav ul.sub-nav li .glyphicons", "style": "color"}' data-toggle="popover"><i class="fa fa-rocket"></i>Icons</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".sidebar-menu ul.sub-nav > li.active > a > span:nth-child(1)", "style": "color"}' data-toggle="popover"><i class="fa fa-rocket text-red"></i> Active Icon</button>
+            <h6 class="mt20"> Menu Carrets</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"ul.sidebar-nav > li > a span.caret", "style": "color"}' data-toggle="popover"><i class="fa fa-caret-right"></i> Caret</button>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"ul.sidebar-nav > li.active > a span.caret", "style": "color"}' data-toggle="popover"><i class="fa fa-caret-right text-red"></i> Active Caret</button>
+          </div>
+          <div class="tab-pane" id="sidebar-icons">
+            <h6 class="mt20"> Icon Divider</h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".sidebar-menu > ul > li > a > span:nth-child(1)", "style": "border-color"}' data-toggle="popover"><i class="fa fa-caret-right"></i> Border Color</button>
+            <h6 class="mt20"> Icon Spacing</h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" data-modify='{"selector":".sidebar-menu > ul > li > a > span:nth-child(2)", "style": "padding-left"}'>
+                  <option>5px</option>
+                  <option>10px</option>
+                  <option>15px</option>
+                  <option selected>20px</option>
+                  <option>25px</option>
+                  <option>30px</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <h6 class="mt10"> Icon Size</h6>
+                <select class="form-control" data-modify='{"selector":".sidebar-menu > ul > li > a > span:nth-child(1)", "style": "font-size"}'>
+                  <option>12px</option>
+                  <option>14px</option>
+                  <option>16px</option>
+                  <option selected>18px</option>
+                  <option>20px</option>
+                  <option>22px</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <h6 class="mt10"> SubMenu Icon Size</h6>
+                <select class="form-control" data-modify='{"selector":".sidebar-menu ul.sub-nav > li > a > span:nth-child(1)", "style": "font-size"}'>
+                  <option>11px</option>
+                  <option>12px</option>
+                  <option selected>13px</option>
+                  <option>14px</option>
+                  <option>15px</option>
+                  <option>16px</option>
+                  <option>18px</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group hidden">
+        <label class="radio-inline mb10">
+          <input class="radio" type="radio" name="optionsRadios" data-modify='{"selector":"#sidebar", "style": "sidebar-default"}' checked="">
+          Style 1 - <b>Gradient</b> </label>
+        <label class="radio-inline mb10">
+          <input class="radio" type="radio" name="optionsRadios" data-modify='{"selector":"#sidebar", "style": "sidebar-alt-white"}'>
+          Style 2 - <b>Flat White</b> </label>
+        <label class="radio-inline mb10">
+          <input class="radio" type="radio" name="optionsRadios" data-modify='{"selector":"#sidebar", "style": "sidebar-alt-grey"}'>
+          Style 3 - <b>Flat Grey</b> </label>
+      </div>
+      <div id="tab3" class="tab-pane">
+        <ul class="nav well-tabs well-tabs-inverse well-tabs-grey mb25">
+          <li class="active"><a href="#crumb-title" data-toggle="tab">Breadcrumb Title</a></li>
+          <li><a href="#crumb-icon" data-toggle="tab">Breadcrumb Icon</a></li>
+          <li><a href="#crumb-links" data-toggle="tab">Breadcrumb Link</a></li>
+          <li><a href="#crumb-trail" data-toggle="tab">Breadcrumb Trail</a></li>
+          <li><a href="#crumb-bg" data-toggle="tab">Breadcrumb BG</a></li>
+        </ul>
+        <div class="tab-content border-none pn">
+          <div class="tab-pane active" id="crumb-title">
+            <h6> Font Color </h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".breadcrumb > li.crumb-active > a", "style": "color"}' data-toggle="popover"> <i class="fa fa-font"></i> Font Color</button>
+            <h6 class="mt20"> Font Size </h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" data-modify='{"selector":".breadcrumb > li.crumb-active > a", "style": "font-size"}'>
+                  <option>12px</option>
+                  <option>13px</option>
+                  <option>14px</option>
+                  <option>16px</option>
+                  <option>18px</option>
+                  <option selected>20px</option>
+                  <option>22px</option>
+                </select>
+              </div>
+            </div>
+            <h6 class="mt20"> Font Weight </h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" data-modify='{"selector":".breadcrumb > li.crumb-active > a", "style": "font-weight"}'>
+                  <option value="400" selected>Thin</option>
+                  <option value="600">Normal</option>
+                  <option value="800">Bold</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="crumb-icon">
+            <h6> Home Icon Color </h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".breadcrumb > li.crumb-icon span", "style": "color"}' data-toggle="popover"> <i class="fa fa-font"></i> Icon Color</button>
+            <h6 class="mt20"> Icon Size </h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" data-modify='{"selector":".breadcrumb > li.crumb-icon span", "style": "font-size"}'>
+                  <option>10px</option>
+                  <option selected>11px</option>
+                  <option>12px</option>
+                  <option>14px</option>
+                  <option>16px</option>
+                  <option>18px</option>
+                  <option>20px</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="crumb-links">
+            <h6> Font Color </h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".breadcrumb > li.crumb-link > a", "style": "color"}' data-toggle="popover"> <i class="fa fa-font"></i> Font Color</button>
+            <h6 class="mt20"> Font Size </h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" data-modify='{"selector":".breadcrumb > li.crumb-link > a", "style": "font-size"}'>
+                  <option>10px</option>
+                  <option selected>11px</option>
+                  <option>12px</option>
+                  <option>14px</option>
+                  <option>16px</option>
+                  <option>18px</option>
+                  <option>20px</option>
+                </select>
+              </div>
+            </div>
+            <h6 class="mt20"> Font Weight </h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" data-modify='{"selector":".breadcrumb > li.crumb-link > a", "style": "font-weight"}'>
+                  <option value="400" selected>Thin</option>
+                  <option value="600">Normal</option>
+                  <option value="800">Bold</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="crumb-trail">
+            <h6> Trail Color </h6>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".breadcrumb > li.crumb-trail", "style": "color"}' data-toggle="popover"> <i class="fa fa-font"></i> Font Color</button>
+            <h6 class="mt20"> Trail Size </h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" data-modify='{"selector":".breadcrumb > li.crumb-trail", "style": "font-size"}'>
+                  <option>10px</option>
+                  <option selected>11px</option>
+                  <option>12px</option>
+                  <option>14px</option>
+                  <option>16px</option>
+                  <option>18px</option>
+                  <option>20px</option>
+                </select>
+              </div>
+            </div>
+            <h6 class="mt20"> Trail Weight </h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" data-modify='{"selector":".breadcrumb > li.crumb-trail", "style": "font-weight"}'>
+                  <option value="400" selected>Thin</option>
+                  <option value="600">Normal</option>
+                  <option value="800">Bold</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="crumb-bg">
+            <h6 class="mb10 mt25"> Border Options </h6>
+            <div class="cBox mb10">
+              <input type="checkbox" id="custom4" data-modify='{"selector":"#topbar .breadcrumb", "style": 10}'>
+              <label for="custom4">Solid <b>Border</b></label>
+            </div>
+            <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"#topbar .breadcrumb", "style": "border-color", "popover": "border"}' data-toggle="popover"> Border Color</button>
+            <h6 class="mb10 mt25"> Backgrounds </h6>
+            <div class="form-group">
+              <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"#topbar", "style": "background", "popover": "breadcrumb-patterns"}' data-toggle="popover"> <i class="fa fa-puzzle-piece"></i> Patterns </button>
+              <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":"#topbar", "style": "background-color", "popover": "breadcrumb-bg"}' data-toggle="popover"> <i class="fa fa-flask"></i> Colors </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab4" class="tab-pane">
+        <div class="form-group row">
+          <div class="col-md-6">
+            <h6>Header Title Size </h6>
+            <select class="form-control" data-modify='{"selector":".panel-title", "style": "font-size"}'>
+              <option>12px</option>
+              <option>13px</option>
+              <option selected>14px</option>
+              <option>15px</option>
+              <option>16px</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <h6> Header Icon Size </h6>
+            <select class="form-control" data-modify='{"selector":".panel-heading .panel-title .glyphicon", "style": "font-size"}'>
+              <option>13px</option>
+              <option>15px</option>
+              <option selected>17px</option>
+              <option>20px</option>
+              <option>22px</option>
+            </select>
+          </div>
+        </div>
+        <h6 class="mt25"> Header Colors</h6>
+        <button type="button" class="btn btn-default btn-gradient mr10" data-modify='{"selector":".panel-heading", "style": "background-color", "popover": "gradient"}' data-toggle="popover"> <i class="fa fa-flask"></i> Background </button>
+        <button type="button" class="btn btn-default btn-gradient mr10" data-modify='{"selector":".panel-heading .panel-title .glyphicon", "style": "color"}' data-toggle="popover"> <i class="fa fa-rocket"></i> Icon Color </button>
+        <button type="button" class="btn btn-default btn-gradient mr10" data-modify='{"selector":".panel-title", "style": "color", "popover": "text-shadow"}' data-toggle="popover"> <i class="fa fa-font"></i> Text Color </button>
+        <hr class="alt" />
+        <h6> Panel Box-Shadow</h6>
+        <div class="form-group">
+          <label class="radio-inline mb10">
+            <input class="radio" type="radio" name="optionsRadios3" data-modify='{"selector":".panel", "style": 6}' checked="">
+            Black </label>
+          <label class="radio-inline mb10">
+            <input class="radio" type="radio" name="optionsRadios3" data-modify='{"selector":".panel", "style": 7}'>
+            White </label>
+          <label class="radio-inline mb10">
+            <input class="radio" type="radio" name="optionsRadios3" data-modify='{"selector":".panel", "style": 1}'>
+            None </label>
+        </div>
+        <h6> Panel Colors</h6>
+        <div class="form-group">
+          <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".panel", "style": "background-color", "popover": "gradient"}' data-toggle="popover"> <i class="fa fa-flask"></i> Background </button>
+          <button type="button" class="btn btn-default btn-gradient mr5" data-modify='{"selector":".panel", "style": "border-color", "popover": "border"}' data-toggle="popover"> <i class="fa fa-arrows-h"></i> Border Color </button>
+        </div>
+        <div class="form-group hidden">
+          <h6> Header Box-Shadow</h6>
+          <label class="radio-inline mb10">
+            <input class="radio" type="radio" name="optionsRadios2" data-modify='{"selector":".panel-heading", "style": 6}'>
+            Black </label>
+          <label class="radio-inline mb10">
+            <input class="radio" type="radio" name="optionsRadios2" data-modify='{"selector":".panel-heading", "style": 7}' checked="">
+            White </label>
+          <label class="radio-inline mb10">
+            <input class="radio" type="radio" name="optionsRadios2" data-modify='{"selector":".panel-heading", "style": 1}'>
+            None </label>
+        </div>
+      </div>
+      <div id="tab5" class="tab-pane">
+        <h6> Body Background </h6>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="skin-items skin-set-2" data-modify='{"selector":"#main", "style": "background-color"}'>
+              <div class="bg-blue-alt"></div>
+              <div class="bg-blue2-alt"></div>
+              <div class="bg-blue3-alt"></div>
+              <div class="bg-blue4-alt"></div>
+              <div class="bg-blue5-alt"></div>
+              <div class="bg-blue6-alt"></div>
+              <div class="bg-blue7-alt"></div>
+              <div class="bg-green-alt"></div>
+              <div class="bg-green2-alt"></div>
+              <div class="bg-green3-alt"></div>
+              <div class="bg-green4-alt"></div>
+              <div class="bg-green5-alt"></div>
+              <div class="bg-purple"></div>
+              <div class="bg-purple2"></div>
+              <div class="bg-purple3"></div>
+              <div class="bg-red-alt"></div>
+              <div class="bg-red2-alt"></div>
+              <div class="bg-red3-alt"></div>
+              <div class="bg-red4-alt"></div>
+              <div class="bg-orange-alt"></div>
+              <div class="bg-orange2-alt"></div>
+              <div class="bg-yellow-alt"></div>
+              <div class="bg-yellow2-alt"></div>
+              <div class="bg-creme-alt"></div>
+              <div class="bg-creme2-alt"></div>
+              <div class="bg-brown-alt"></div>
+              <div class="bg-brown2-alt"></div>
+              <div class="bg-brown3-alt"></div>
+              <div class="bg-dark5"></div>
+              <div class="bg-dark4"></div>
+              <div class="bg-dark3"></div>
+              <div class="bg-dark2"></div>
+              <div class="bg-dark"></div>
+              <div class="bg-light7"></div>
+              <div class="bg-light6"></div>
+              <div class="bg-light5"></div>
+              <div class="bg-light4"></div>
+              <div class="bg-light3"></div>
+              <div class="bg-light2"></div>
+              <div class="bg-light"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End: Content -->
+

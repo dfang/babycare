@@ -1,0 +1,75 @@
+<body class="minimal login-page" data-pinterest-extension-installed="cr1.39.1">
+<script> var boxtest = localStorage.getItem('boxed'); if (boxtest === 'true') {document.body.className+=' boxed-layout';} </script>
+<a href="/" id="return-arrow">
+  <i class="fa fa-arrow-circle-left fa-3x text-light"></i>
+  <span class="text-light"> Return <br> to Homepage </span>
+</a>
+
+<!-- Start: Main -->
+<div id="main">
+  <div id="content">
+    <div class="row">
+      <div id="page-logo">
+        <img src="/logos/logo-white.png" class="img-responsive" alt="logo">
+      </div>
+    </div>
+    <div class="row">
+      <div class="panel-bg">
+        <div class="panel">
+          <div class="panel-heading">
+            <span class="panel-title">
+              <span class="glyphicon glyphicon-lock text-purple2"></span> Login
+            </span>
+            <!-- <span class="panel-header-menu pull-right mr15 text-muted fs12">Not <b>Cynthia Blue?</b></span> -->
+          </div>
+          <div class="panel-body">
+            <div class="login-avatar">
+              <!-- <img src="img/avatars/login.png" width="150" height="112" alt="avatar">  -->
+              <img src="https://cdn4.iconfinder.com/data/icons/under-construction/512/mehanics-512.png" width="150" height="150" alt="avatar">
+            </div>
+            <div class="form-group">
+              <div class="input-group"> <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span> </span>
+                <input type="text" class="form-control" placeholder="User Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group"> <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span> </span>
+                <input type="text" class="form-control" placeholder="Password">
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer"> <span class="text-muted fs12 lh30"><a> Forgotten Password?</a></span> <a class="btn btn-sm bg-purple2 pull-right" href="dashboard.html"><i class="fa fa-home"></i> Login</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End: Main -->
+
+<div class="overlay-black"></div>
+
+<%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
+
+<script type="text/javascript">
+jQuery(document).ready(function () {
+
+   "use strict";
+
+     // Init Theme Core
+     Core.init();
+
+     // Enable Ajax Loading
+     Ajax.init();
+
+   // Init Full Page BG(Backstretch) plugin
+     $.backstretch("img/stock/splash/2.jpg");
+
+
+
+});
+</script>
+
+
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 267px; width: 1383px; z-index: -999999; position: fixed;"><img src="img/stock/splash/2.jpg" style="position: absolute; margin: 0px; padding: 0px; border: none; width: 1383px; height: 777.938px; max-height: none; max-width: none; z-index: -999999; left: 0px; top: -255.469px;"></div><iframe id="rdbIndicator" width="100%" height="270" border="0" src="chrome-extension://oknpjjbmpnndlpmnhmekjpocelpnlfdi/indicator.html" style="display: none; border: 0; position: fixed; left: 0; top: 0; z-index: 2147483647"></iframe></body>
