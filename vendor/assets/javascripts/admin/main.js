@@ -230,12 +230,21 @@ var Core = function () {
 
         if (swapColor === 'bg-white') {
           navbar.removeClass(colors + ' navbar-white-text').addClass(swapColor);
-          navbarLogo.attr('src', 'img/logos/header-logo.png');
-        } else {
-           navbar.removeClass(colors).addClass(swapColor + ' navbar-white-text');
-           navbarLogo.attr('src', 'img/logos/header-logo_light.png');
+          navbarLogo.attr('src', '/logos/header-logo.png');
+
+          localStorage.setItem('navbarColor', swapColor)
+          localStorage.setItem('navbarLogo', '/logos/header-logo.png')
+
+        }else {
+          navbar.removeClass(colors).addClass(swapColor + ' navbar-white-text');
+          navbarLogo.attr('src', '/logos/header-logo_light.png');
+
+          localStorage.setItem('navbarColor', swapColor + ' navbar-white-text')
+          localStorage.setItem('navbarLogo', '/logos/header-logo_light.png')
         }
       });
+
+      var boxtest = localStorage.getItem('boxed');
 
       // Header Menu dropdown navigations
       $('.navbar-left > div, .navbar-menus > div').on('show.bs.dropdown', function () {
@@ -421,6 +430,19 @@ var Core = function () {
       });
     }
 
+    var initialzeThemeFromLocalStorage = function(){
+      // init navbar color from localStorage
+      var navbar = $('.navbar');
+      var navbarLogo = $('.navbar-brand img');
+      var colors = 'bg-white bg-red2 bg-purple2 bg-purple3 bg-orange2 bg-dark3 bg-brown-alt bg-blue4-alt bg-blue5-alt bg-blue6-alt';
+      var navbarColor = localStorage.getItem('navbarColor')
+      var navbarLogoSrc = localStorage.getItem('navbarLogo')
+      navbar.removeClass(colors).addClass(navbarColor);
+      navbarLogo.attr('src', navbarLogoSrc);
+
+
+    }
+
     return {
         runAnimations: runAnimations,
         runHeader: runHeader,
@@ -428,7 +450,9 @@ var Core = function () {
         runFormElements: runFormElements,
         runChecklists: runChecklists,
         runDemoJS: runDemoJS,
+        initialzeThemeFromLocalStorage: initialzeThemeFromLocalStorage,
         init: function () {
+          initialzeThemeFromLocalStorage();
           runAnimations();
           runSideMenu();
           runFormElements();
