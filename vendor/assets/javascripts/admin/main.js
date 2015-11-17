@@ -187,9 +187,9 @@ var Core = function () {
         // if btn has ".btn-states" class we monitor it for user clicks. On Click we remove
         // the active class from its siblings and give it to the button clicked
         if ($('.btn-states').length) {
-            $('.btn-states').click(function () {
-                $(this).addClass('active').siblings().removeClass('active');
-            });
+          $('.btn-states').click(function () {
+              $(this).addClass('active').siblings().removeClass('active');
+          });
         }
 
     }
@@ -435,12 +435,14 @@ var Core = function () {
       var navbar = $('.navbar');
       var navbarLogo = $('.navbar-brand img');
       var colors = 'bg-white bg-red2 bg-purple2 bg-purple3 bg-orange2 bg-dark3 bg-brown-alt bg-blue4-alt bg-blue5-alt bg-blue6-alt';
+
       var navbarColor = localStorage.getItem('navbarColor')
       var navbarLogoSrc = localStorage.getItem('navbarLogo')
-      navbar.removeClass(colors).addClass(navbarColor);
-      navbarLogo.attr('src', navbarLogoSrc);
 
-
+      if (navbarColor != undefined)
+        navbar.removeClass(colors).addClass(navbarColor).css('background-color', navbarColor);
+      if (navbarLogo != undefined)
+        navbarLogo.attr('src', navbarLogoSrc);
     }
 
     return {
