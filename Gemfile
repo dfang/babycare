@@ -24,6 +24,17 @@ gem 'inherited_resources'
 gem 'friendly_id'
 gem 'rails_config'
 
+gem 'ancestry'
+gem 'has_scope'
+gem 'exception_notification'
+gem 'china_region_fu'
+gem 'stringex'
+gem 'public_activity'
+gem 'aasm'
+gem "paranoia"
+gem 'acts-as-taggable-on'
+
+
 gem 'jquery-validation-rails'
 gem 'haml-rails'
 gem 'kaminari'
@@ -38,6 +49,7 @@ end
 
 group :development do
   # gem 'web-console', '~> 2.0'
-  gem 'spring'
+  # gem 'spring'
+  gem "nifty-generators", github: 'dfang/nifty-generators'
 end
 
