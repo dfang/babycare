@@ -49,7 +49,23 @@ end
 
 group :development do
   # gem 'web-console', '~> 2.0'
-  # gem 'spring'
+  gem 'pry-rails'
   gem "nifty-generators", github: 'dfang/nifty-generators'
+  gem 'annotate'
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  # gem 'capistrano3-puma', '~> 0.6.1'
+
+  gem 'capistrano-postgresql', '~> 4.2.0'
+  # gem 'capistrano-faster-assets'
+  gem 'capistrano-safe-deploy-to', '~> 1.1.1'
+  gem 'capistrano-secrets-yml'
+
+  gem 'capistrano-nginx-unicorn'
+  # gem 'capistrano-db-tasks', github: 'dfang/capistrano-db-tasks', branch: 'master', require: false
+  gem "capistrano-db-tasks", require: false
 end
 
+# gem 'mocha', group: :test
