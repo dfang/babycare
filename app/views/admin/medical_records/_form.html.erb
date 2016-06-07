@@ -1,4 +1,4 @@
-<%= simple_form_for :medical_record, url: url, method: method do |f| %>
+<%= simple_nested_form_for @resource, url: url, method: method do |f| %>
   <div class='form-inputs'>
     <div class="row">
       <div class='col-md-12'>
@@ -11,6 +11,42 @@
             <%= f.input :onset_date, as: :date, wrapper: :fusion_input %>
             <%= f.input :chief_complaint, as: :text, wrapper: :fusion_input %>
             <%= f.input :history_of_present_illness, as: :text, wrapper: :fusion_input %>
+            
+            
+            <!-- <div class='form-group upload'>
+              <p>病例图片: 请至少上传一张图片，单张图片请小于10M(按住Ctrl可多选照片，最多不超过十张)</p>
+            </div>
+            <div class='col-md-12'>
+              <div class='upload-container' id='uploader'>
+                <ul class='upload-list cf'>
+                  <li>
+                    <img src="/assets/admin/background.jpg" alt="Background" width="120" height="120">
+                  </li>
+                </ul>
+              </div>
+            </div> -->
+
+            <div class='form-group upload'>
+              <label class="form-input" for="medical_record_images">病例图片</label>
+              <div class='row'>
+                <div class='col-md-12'>
+                  <div class='uploader-container'>
+                    <p>请至少上传一张图片，单张图片请小于10M(按住Ctrl可多选照片，最多不超过十张。)</p>
+                    <ul id='photos'>
+                      <%= f.simple_fields_for :images %>
+                    </ul>
+                  </div>
+
+                  <%= f.link_to_add :images, class: 'btn btn-sm btn-default', data: { target: '#photos'} do %> 
+                    <i class="fa fa-plus text"></i>
+                    <span class='text'>添加图片</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+
+
             <%= f.input :past_medical_history, as: :text, wrapper: :fusion_input %>
             <%= f.input :allergic_history, as: :text, wrapper: :fusion_input %>
             <%= f.input :personal_history, as: :text, wrapper: :fusion_input %>
@@ -38,4 +74,35 @@
     </div>
   </div>
 
+<% end %>
+
+
+<%- content_for :foot_js do %>
+<script type="text/javascript">
+  $(function(){
+    console.log("image uploader init")
+    
+    new ImageUploader({
+      url: "/admin/images.js",
+      button: 'plupload'
+    })
+
+
+    $(document).on('nested:fieldAdded', function(event){
+      Holder.run()
+
+      // this field was just inserted into your form
+      var field = event.field; 
+      console.log(field)
+      
+      // it's a jQuery object already! Now you can find date input
+      new ImageUploader({
+        url: "/admin/images.js",
+        button: field.find('li')[0]
+      })
+
+    })
+
+  });
+</script>
 <% end %>

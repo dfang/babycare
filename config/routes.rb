@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
   namespace :admin do
+  get 'images/create'
+  end
+
+  namespace :admin do
     resources :people do
       resource :medical_record
     end
@@ -23,6 +27,7 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
+    resources :images, only: :create
     root 'dashboard#index'
     resources :users
     get 'dashboard' => 'dashboard#index'

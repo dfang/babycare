@@ -1,0 +1,74 @@
+<div id="topbar">
+  <div class="topbar-left">
+    <ol class="breadcrumb">
+      <li class="crumb-active"><a href="tables.html">登记</a></li>
+      <li class="crumb-icon"><a href="dashboard.html"><span class="glyphicon glyphicon-home"></span></a></li>
+      <li class="crumb-link"><a href="/admin">Home</a></li>
+      <li class="crumb-trail">登记</li>
+    </ol>
+  </div>
+  <div class="topbar-right">
+    <div class="dashboard-widget-tray">
+      <%= link_to '编辑个人资料', edit_admin_person_path(resource), class:'btn btn-default' %>
+      <%= link_to '查看病历资料', admin_person_medical_record_path(resource), class:'btn btn-default' %>
+      <a href='/admin/people' class='btn btn-default'> 返回 </a>
+    </div>
+  </div>
+</div>
+
+<div id="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel">
+            <div class="panel-heading"> 
+              <span class="panel-title"> 
+              <span> <%= resource.name %> 的资料 </span> 
+            </div>
+            <div class="panel-body">
+              <h3> <%= resource.class.human_attribute_name(:name) %> </h3>
+              <p> <%= resource.name %>
+              <h3> <%= resource.class.human_attribute_name(:mobile_phone) %> </h3>
+              <p> <%= resource.mobile_phone %>
+              <h3> <%= resource.class.human_attribute_name(:birthdate) %> </h3>
+              <p> <%= resource.birthdate %>
+              <h3> <%= resource.class.human_attribute_name(:gender) %> </h3>
+              <p> <%= resource.gender %>
+              <h3> <%= resource.class.human_attribute_name(:email) %> </h3>
+              <p> <%= resource.email %>
+              <h3> <%= resource.class.human_attribute_name(:job) %> </h3>
+              <p> <%= resource.job %>
+              <h3> <%= resource.class.human_attribute_name(:employer) %> </h3>
+              <p> <%= resource.employer %>
+              <h3> <%= resource.class.human_attribute_name(:nationality) %> </h3>
+              <p> <%= resource.nationality %>
+              <h3> <%= resource.class.human_attribute_name(:province_id) %> </h3>
+              <p> <%= resource.province_id %>
+              <h3> <%= resource.class.human_attribute_name(:city_id) %> </h3>
+              <p> <%= resource.city_id %>
+              <h3> <%= resource.class.human_attribute_name(:area_id) %> </h3>
+              <p> <%= resource.area_id %>
+              <h3> <%= resource.class.human_attribute_name(:address) %> </h3>
+              <p> <%= resource.address %>
+              <h3> <%= resource.class.human_attribute_name(:source) %> </h3>
+              <p> <%= resource.source %>
+              <h3> <%= resource.class.human_attribute_name(:wechat) %> </h3>
+              <p> <%= resource.wechat %>
+              <h3> <%= resource.class.human_attribute_name(:qq) %> </h3>
+              <p> <%= resource.qq %>
+              <h3> <%= resource.class.human_attribute_name(:remark) %> </h3>
+              <p> <%= resource.remark %>
+              <h3> <%= resource.class.human_attribute_name(:created_at) %> </h3>
+              <p> <%= resource.created_at %>
+              <h3> <%= resource.class.human_attribute_name(:updated_at) %> </h3>
+              <p> <%= resource.updated_at %>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

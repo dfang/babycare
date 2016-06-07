@@ -11,3 +11,23 @@
     display: inline-block;
   }
 }
+
+
+.uploader-container{
+  ul,li{
+    list-style: none;
+  }
+  ul{
+    margin-bottom: 20px;
+  }
+  li{
+    margin-botton: 0;
+    padding: 0;
+  }
+  ul#photos{
+    padding: 0;
+    li.photo{
+      width: 12.666667%;
+    }
+  }
+}

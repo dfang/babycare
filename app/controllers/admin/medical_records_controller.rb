@@ -5,6 +5,12 @@ class Admin::MedicalRecordsController < Admin::BaseController
   belongs_to :person, optional: true, singleton: true, finder: :find_medical_record
   before_action :ensure_medical_record, only: [ :edit, :show ]
 
+  def new
+    @resource = parent.build_medical_record
+    @resource.images.build
+    super
+  end
+
   def create
     create! { admin_person_medical_record_path(parent) }
   end

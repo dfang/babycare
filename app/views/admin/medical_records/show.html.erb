@@ -1,11 +1,17 @@
 <div id="topbar">
   <div class="topbar-left">
     <ol class="breadcrumb">
-      <li class="crumb-active"><a href="elements.html">Elements</a></li>
+      <li class="crumb-active"><a href="elements.html">病历</a></li>
       <li class="crumb-icon"><a href="dashboard.html"><span class="glyphicon glyphicon-home"></span></a></li>
       <li class="crumb-link"><a href="index.html">Home</a></li>
-      <li class="crumb-trail">Elements</li>
+      <li class="crumb-trail">病历</li>
     </ol>
+  </div>
+  <div class="topbar-right">
+    <div class="dashboard-widget-tray">
+      <%= link_to '编辑', edit_admin_person_medical_record_path(parent), class: 'btn btn-default' %>
+      <%= link_to '返回', admin_person_path(parent), class: 'btn btn-default' %>
+    </div>
   </div>
 </div>
 
