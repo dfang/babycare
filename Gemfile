@@ -43,6 +43,9 @@ gem 'nested_form'
 gem 'holder_rails'
 gem 'tinymce-rails', '~> 4.1.6'
 
+gem 'carrierwave'
+gem 'carrierwave-qiniu'
+
 group :development, :test do
   # gem 'byebug'
 end
@@ -52,7 +55,7 @@ group :development do
   gem 'pry-rails'
   gem "nifty-generators", github: 'dfang/nifty-generators'
   gem 'annotate'
-  gem 'capistrano'
+  gem 'capistrano', '3.5.0'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'

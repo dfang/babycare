@@ -20,11 +20,12 @@ class Admin::BaseController < InheritedResources::Base
     destroy! { collection_path }
   end
 
-  def collection
-    super.page(params[:page])
-  end
+  # def collection
+  #   binding.pry
+  #   super.page(params[:page])
+  # end
 
-  def end_of_association_chain
-    super.order('created_at DESC')
-  end
+  # def end_of_association_chain
+  #   super.order('created_at DESC')
+  # end
 end

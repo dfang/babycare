@@ -1,0 +1,21 @@
+= simple_form_for(@checkin) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :mobile_phone
+    = f.input :birthdate
+    = f.input :gender
+    = f.input :email
+    = f.input :job
+    = f.input :employer
+    = f.input :nationality
+    = f.input :province_id
+    = f.input :city_id
+    = f.input :area_id
+    = f.input :address
+    = f.input :source
+    = f.input :remark
+
+  .form-actions
+    = f.button :submit

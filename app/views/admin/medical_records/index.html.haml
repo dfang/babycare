@@ -1,0 +1,19 @@
+%h1 Listing admin_medical_records
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - collection.each do |admin_medical_record|
+      %tr
+/         %td= link_to 'Show', admin_medical_record
+/         %td= link_to 'Edit', edit_admin_medical_record_path(admin_medical_record)
+/         %td= link_to 'Destroy', admin_medical_record, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+/ %br
+
+/ = link_to 'New Medical record', new_admin_medical_record_path

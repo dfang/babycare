@@ -1,0 +1,56 @@
+<div id="topbar">
+  <div class="topbar-left">
+    <ol class="breadcrumb">
+      <li class="crumb-active"><a href="elements.html">Elements</a></li>
+      <li class="crumb-icon"><a href="dashboard.html"><span class="glyphicon glyphicon-home"></span></a></li>
+      <li class="crumb-link"><a href="index.html">Home</a></li>
+      <li class="crumb-trail">Elements</li>
+    </ol>
+  </div>
+</div>
+
+<div id="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel">
+            <div class="panel-heading"> 
+              <span class="panel-title"> 
+              </span> <%= parent.name %> 的病历 </span> 
+            </div>
+            <div class="panel-body">
+              <h3> <%= resource.class.human_attribute_name(:onset_date) %> </h3>
+              <p> <%= resource.onset_date %>
+              <h3> <%= resource.class.human_attribute_name(:chief_complaint) %> </h3>
+              <p> <%= resource.chief_complaint %>
+              <h3> <%= resource.class.human_attribute_name(:history_of_present_illness) %> </h3>
+              <p> <%= resource.history_of_present_illness %>
+              <h3> <%= resource.class.human_attribute_name(:past_medical_history) %> </h3>
+              <p> <%= resource.past_medical_history %>
+              <h3> <%= resource.class.human_attribute_name(:allergic_history) %> </h3>
+              <p> <%= resource.allergic_history %>
+              <h3> <%= resource.class.human_attribute_name(:personal_history) %> </h3>
+              <p> <%= resource.personal_history %>
+              <h3> <%= resource.class.human_attribute_name(:family_history) %> </h3>
+              <p> <%= resource.family_history %>
+              <h3> <%= resource.class.human_attribute_name(:vaccination_history) %> </h3>
+              <p> <%= resource.vaccination_history %>
+              <h3> <%= resource.class.human_attribute_name(:physical_examination) %> </h3>
+              <p> <%= resource.physical_examination %>
+              <h3> <%= resource.class.human_attribute_name(:laboratory_and_supplementary_examinations) %> </h3>
+              <p> <%= resource.laboratory_and_supplementary_examinations %>
+              <h3> <%= resource.class.human_attribute_name(:preliminary_diagnosis) %> </h3>
+              <p> <%= resource.preliminary_diagnosis %>
+              <h3> <%= resource.class.human_attribute_name(:treatment_recommendation) %> </h3>
+              <p> <%= resource.treatment_recommendation %>
+              <h3> <%= resource.class.human_attribute_name(:remarks) %> </h3>
+              <p> <%= resource.remarks %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

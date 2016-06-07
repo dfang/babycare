@@ -82,6 +82,13 @@ GEM
     capistrano-secrets-yml (1.0.0)
       capistrano (>= 3.1)
       sshkit (>= 1.2.0)
+    carrierwave (0.11.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+      mimemagic (>= 0.3.0)
+    carrierwave-qiniu (0.0.7.1)
     china_region_fu (0.0.6)
       actionpack
       activesupport
@@ -157,6 +164,7 @@ GEM
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
     mime-types (2.6.2)
+    mimemagic (0.3.1)
     mini_portile (0.6.2)
     minitest (5.8.2)
     multi_json (1.11.2)
@@ -266,7 +274,7 @@ DEPENDENCIES
   acts-as-taggable-on
   ancestry
   annotate
-  capistrano
+  capistrano (= 3.5.0)
   capistrano-bundler
   capistrano-db-tasks
   capistrano-nginx-unicorn
@@ -275,6 +283,8 @@ DEPENDENCIES
   capistrano-rbenv
   capistrano-safe-deploy-to (~> 1.1.1)
   capistrano-secrets-yml
+  carrierwave
+  carrierwave-qiniu
   china_region_fu
   coffee-rails (~> 4.1.0)
   devise

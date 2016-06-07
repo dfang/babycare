@@ -1,0 +1,13 @@
+// Place all the styles related to the admin/medical_records controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.medical_record_onset_date{
+  label{
+    display: block;
+  }
+  select {
+    width: 30%;
+    display: inline-block;
+  }
+}

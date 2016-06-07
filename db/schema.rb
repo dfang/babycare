@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116055729) do
+ActiveRecord::Schema.define(version: 20160606001939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,67 @@ ActiveRecord::Schema.define(version: 20151116055729) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "checkins", force: :cascade do |t|
+    t.string   "name"
+    t.string   "mobile_phone"
+    t.string   "birthdate"
+    t.string   "gender"
+    t.string   "email"
+    t.string   "job"
+    t.string   "employer"
+    t.string   "nationality"
+    t.string   "province_id"
+    t.string   "city_id"
+    t.string   "area_id"
+    t.string   "address"
+    t.string   "source"
+    t.text     "remark"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "medical_records", force: :cascade do |t|
+    t.integer  "person_id"
+    t.date     "onset_date"
+    t.text     "chief_complaint"
+    t.text     "history_of_present_illness"
+    t.text     "past_medical_history"
+    t.boolean  "allergic_history"
+    t.text     "personal_history"
+    t.text     "family_history"
+    t.text     "vaccination_history"
+    t.text     "physical_examination"
+    t.text     "laboratory_and_supplementary_examinations"
+    t.text     "preliminary_diagnosis"
+    t.text     "treatment_recommendation"
+    t.text     "remarks"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
+  add_index "medical_records", ["person_id"], name: "index_medical_records_on_person_id", using: :btree
+
+  create_table "people", force: :cascade do |t|
+    t.string   "name"
+    t.string   "mobile_phone"
+    t.string   "birthdate"
+    t.string   "gender"
+    t.string   "email"
+    t.string   "job"
+    t.string   "employer"
+    t.string   "nationality"
+    t.string   "province_id"
+    t.string   "city_id"
+    t.string   "area_id"
+    t.string   "address"
+    t.string   "source"
+    t.string   "wechat"
+    t.string   "qq"
+    t.text     "remark"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -52,4 +113,5 @@ ActiveRecord::Schema.define(version: 20151116055729) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "medical_records", "people"
 end
