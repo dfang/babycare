@@ -43,6 +43,7 @@ gem 'nested_form'
 gem 'holder_rails'
 gem 'tinymce-rails', '~> 4.1.6'
 
+gem 'qiniu-rs'
 gem 'carrierwave'
 gem 'carrierwave-qiniu'
 
