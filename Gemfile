@@ -34,6 +34,8 @@ gem 'aasm'
 gem "paranoia"
 gem 'acts-as-taggable-on'
 
+gem 'awesome_nested_set'
+
 
 gem 'jquery-validation-rails'
 gem 'haml-rails'

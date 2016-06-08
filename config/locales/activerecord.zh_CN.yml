@@ -1,0 +1,42 @@
+zh-CN:
+  helpers:
+    submit:
+      create: "创建%{model}"
+      update: "保存%{model}"
+
+  activerecord:
+    symbolizes:
+      user:
+        gender:
+          male: 男
+          female: 女
+    models:
+      person: 登记
+      user: 用户
+    attributes:
+      common: &common
+        gender: 性别
+        email: 邮箱
+        mobile_phone: 手机号
+        birthdate: 生日
+        nationality: 民族
+        province_id: 省
+        city_id: 市
+        area_id: 区
+        address: 地址
+        remark: 备注
+        created_at: 创建时间 
+        updated_at: 更新时间
+      person:
+        <<: *common
+        name: 姓名
+        job: 工作
+        employer: 工作单位
+        source: 来源
+    errors:
+      models:
+  date:
+    order: ''
+
+
+

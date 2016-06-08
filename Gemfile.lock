@@ -53,6 +53,8 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
     arel (6.0.3)
+    awesome_nested_set (3.0.3)
+      activerecord (>= 4.0.0, < 5)
     bcrypt (3.1.11)
     builder (3.2.2)
     capistrano (3.5.0)
@@ -288,6 +290,7 @@ DEPENDENCIES
   acts-as-taggable-on
   ancestry
   annotate
+  awesome_nested_set
   capistrano (= 3.5.0)
   capistrano-bundler
   capistrano-db-tasks

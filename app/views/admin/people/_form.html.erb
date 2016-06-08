@@ -1,4 +1,4 @@
-<%= simple_form_for resource, url: url, method: method do |f| %>
+<%= simple_nested_form_for resource, url: url, method: method do |f| %>
   <div class='form-inputs'>
     <div class="row">
       <div class='col-md-6'>
@@ -7,32 +7,23 @@
             <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 基本信息 </span>
           </div>
           <div class="panel-body">
-            <div class="form-group">
-              <label for="name">姓名</label>
-              <%= f.input :name, label: false, wrapper: false, input_html: { class: 'form-control' } %>
-            </div>
-            
-            
             <%= f.input :name, wrapper: :fusion_input %>
-
+            
             <div class="form-group">
               <label> 性别 </label>
-              <input type="text" class="form-control" maxlength="10" autocomplete="off" placeholder="* Optional">
+              <input type="text" class="form-control" maxlength="10"  placeholder="* Optional">
             </div>
+            <%= f.input :gender, as: :radio_buttons, wrapper: :fusion_input, :item_wrapper_class => 'inline'
+ %>
 
-            <div class="form-group">
-              <label> 出生年月 </label>
-              <input type="text" class="form-control" maxlength="10" autocomplete="off" placeholder="* Optional">
-            </div>
-            
-            <div class="form-group">
-              <label for="name">邮箱</label>
-              <%= f.input :email, label: false, wrapper: false, input_html: { class: 'form-control' } %>
-            </div>
-            <div class="form-group">
-              <label for="wage">手机号</label>
-              <%= f.input :mobile_phone, label: false, wrapper: false, input_html: { class: 'form-control' } %>
-            </div>
+            <!-- f.input :gender, label: 'What is your gender?', collection: [ ['M', 'Male' ], ['F', 'Female'] ], as: :radio_buttons, label_method: :last, value_method: :first, checked: f.object.gender, item_wrapper_class: 'inline' -->
+
+
+            <%= f.input :birthdate, as: :date, wrapper: :fusion_input %>
+
+            <%= f.input :email, wrapper: :fusion_input %>
+          
+            <%= f.input :mobile_phone, wrapper: :fusion_input %>
             
           </div>
         </div>
@@ -44,14 +35,10 @@
             <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 联系方式 </span>
           </div>
           <div class="panel-body">
-            <div class="form-group">
-              <label> 微信号 </label>
-              <%= f.input :wechat, label: false, wrapper: false, input_html: { class: 'form-control' } %>
-            </div>
-            <div class="form-group">
-              <label> QQ </label>
-              <%= f.input :qq, label: false, wrapper: false, input_html: { class: 'form-control' } %>
-            </div>
+
+            <%= f.input :wechat, wrapper: :fusion_input %>
+            <%= f.input :qq, wrapper: :fusion_input %>
+
             <div class="form-group">
               <label> 家庭住址 </label>
               <input type="text" class="form-control" maxlength="10" autocomplete="off" placeholder="* Optional">
@@ -65,6 +52,30 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel">
+          <div class="panel-heading"> <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 添加孩子 </span>
+            <div class="panel-header-menu pull-right mr10">
+              <%= f.link_to_add "Add", :children, :data => { :target => "#family-member-table" } %>
+            </div>
+          </div>
+          <div class="panel-body">
+            <table id="user" class="table table-bordered table-striped" style="clear: both">
+              <thead>
+                <th>与本人关系</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>手机号</th>
+              </thead>
+              <tbody id='family-member-table'>
+                <%= f.simple_fields_for :children, wrapper: false %> 
+              </tbody>
+            </table>
+          </div>
+        </div>
+  </div>
+    </div>
   </div>
 
   
