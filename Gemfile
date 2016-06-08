@@ -22,7 +22,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'inherited_resources'
 gem 'friendly_id'
-gem 'rails_config'
+gem 'rails_config', '0.4.2'
 
 gem 'ancestry'
 gem 'has_scope'
@@ -43,9 +43,9 @@ gem 'nested_form'
 gem 'holder_rails'
 gem 'tinymce-rails', '~> 4.1.6'
 
-gem 'qiniu-rs'
+gem 'qiniu'
 gem 'carrierwave'
-gem 'carrierwave-qiniu'
+gem 'carrierwave-qiniu', '~> 0.2.3'
 
 group :development, :test do
   # gem 'byebug'

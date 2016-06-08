@@ -1,0 +1,5 @@
+qiniu:
+  access_key: "FMe0QaLkP9HKaxiAz2yXhodZh1Fmy8Uu2XICQent"
+  secret_key: "5SKtm9hPyBbWyzLpwKad-Y-Ll8tbTA0I2B4ZBIxk"
+  bucket: "eclub"
+  bucket_domain: "7xicnh.com1.z0.glb.clouddn.com"

@@ -81,6 +81,7 @@
 <script type="text/javascript">
   $(function(){
     console.log("image uploader init")
+    Holder.run();
     
     new ImageUploader({
       url: "/admin/images.js",
@@ -89,12 +90,15 @@
 
 
     $(document).on('nested:fieldAdded', function(event){
-      Holder.run()
 
       // this field was just inserted into your form
       var field = event.field; 
       console.log(field)
       
+      Holder.run({
+        images: field.find('li img')[0]
+      })
+
       // it's a jQuery object already! Now you can find date input
       new ImageUploader({
         url: "/admin/images.js",

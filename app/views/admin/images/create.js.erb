@@ -2,16 +2,6 @@
   console.log("#<%= params[:holderId] %>")  
   
   $("#<%= params[:holderId] %>").find('li img').attr('src', "<%= @image.data %>")
-  
-  <%- if params[:page].present? %>
-
-    $('.results').append("<%=j render('global_images/image', image: @image) %>")
-
-  <%- elsif params[:dest].present? %>
-
-    $('.target_input', '.upload').val("<%= @image.data.url %>")
-    $('<%= params[:dest] %>', '.upload').attr('src', "<%= @image.data_url(:size_100_100) %>")
-
-  <%- end %>
-
+  $("#<%= params[:holderId] %>").find('.medical_record_images_data input:hidden').val("<%= @image.data.url %>")
+ 
 <%- end %>

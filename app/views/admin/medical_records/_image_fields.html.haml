@@ -1,5 +1,9 @@
 %li.photo.col-sm-2#plupload{class: f.object.is_cover? ? 'active': ''}
-  = holder_tag '100x100', 'Lorem ipsum'
+  - if f.object.data.present?
+    = image_tag f.object.data, size: '100x100'
+  - else
+    = holder_tag '100x100', 'Lorem ipsum'
+
   = f.input :data, as: :hidden
   = f.input :is_cover, as: :hidden, input_html: { class: 'set-cover-input' }
   -# %input{ type: 'hidden', name: "collection_item[photos_attributes][#{photo.id}][data]", value: photo.data }

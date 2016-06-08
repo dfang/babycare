@@ -6,6 +6,8 @@ class Admin::ImagesController < ApplicationController
   def create
     @image = Image.new
     @image.data = params[:image]
+    
+    # binding.pry
     # @image.target_type = params[:page]
     # @image.user = current_user
     @image.save!
