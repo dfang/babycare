@@ -49,6 +49,7 @@ gem 'tinymce-rails', '~> 4.1.6'
 gem 'qiniu'
 gem 'carrierwave'
 gem 'carrierwave-qiniu', '~> 0.2.3'
+gem 'mini_magick'
 
 group :development, :test do
   # gem 'byebug'
