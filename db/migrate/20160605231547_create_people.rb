@@ -3,7 +3,7 @@ class CreatePeople < ActiveRecord::Migration
     create_table :people do |t|
       t.string :name
       t.string :mobile_phone
-      t.string :birthdate
+      t.date :birthdate
       t.string :gender
       t.string :email
       t.string :job

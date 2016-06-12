@@ -97,6 +97,7 @@ GEM
       actionpack
       activesupport
       httparty
+    cocoon (1.2.9)
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -173,7 +174,6 @@ GEM
     minitest (5.9.0)
     multi_json (1.12.1)
     multi_xml (0.5.5)
-    nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
@@ -303,6 +303,7 @@ DEPENDENCIES
   carrierwave
   carrierwave-qiniu (~> 0.2.3)
   china_region_fu
+  cocoon
   coffee-rails (~> 4.1.0)
   devise
   exception_notification
@@ -315,7 +316,6 @@ DEPENDENCIES
   jquery-rails
   jquery-validation-rails
   kaminari
-  nested_form
   nifty-generators!
   paranoia
   pg (~> 0.15)

@@ -1,6 +1,6 @@
 <tr>
   <td style="width: 20%;">
-    <%= select_tag "person", options_for_select([["父母", "parent"], ["子女", "child"]]) %>
+    <%= f.input :relationships, collection: [['父母', 'parent'], ['子女', 'children']], selected: :children, label: false %>
   </td>
   <td style="width: 20%;">
     <%= f.input_field :name %>

@@ -1,4 +1,4 @@
-<%= simple_nested_form_for resource, url: url, method: method do |f| %>
+<%= simple_form_for resource, url: url, method: method do |f| %>
   <div class='form-inputs'>
     <div class="row">
       <div class='col-md-6'>
@@ -57,7 +57,7 @@
         <div class="panel">
           <div class="panel-heading"> <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 添加孩子 </span>
             <div class="panel-header-menu pull-right mr10">
-              <%= f.link_to_add "Add", :children, :data => { :target => "#family-member-table" } %>
+              <%= link_to_add_association "Add", f, :children,  data: { :'association-insertion-node' => "#children", :'association-insertion-method' => 'append' }  %>
             </div>
           </div>
           <div class="panel-body">
@@ -68,8 +68,10 @@
                 <th>性别</th>
                 <th>手机号</th>
               </thead>
-              <tbody id='family-member-table'>
-                <%= f.simple_fields_for :children, wrapper: false %> 
+              <tbody id='children'>
+                <%= f.simple_fields_for :children, wrapper: false do |child| %> 
+                  <%= render 'child_fields', f: child %>
+                <% end %>
               </tbody>
             </table>
           </div>
@@ -87,4 +89,16 @@
     </div>
   </div>
 
+<% end %>
+
+
+
+<%- content_for :foot_js do %>
+<script type="text/javascript">
+  $(function(){
+    $('#children').on('cocoon:after-insert', function(e, added_child) {
+      // $('form').changeFormMethod('PUT');
+    })
+  });
+</script>
 <% end %>

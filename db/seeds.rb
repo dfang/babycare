@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-rake region:download
-rake region:import
+# rake region:download
+# rake region:import
