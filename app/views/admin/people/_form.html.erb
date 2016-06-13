@@ -3,35 +3,35 @@
     <div class="row">
       <div class='col-md-6'>
         <div class="panel">
-          <div class="panel-heading"> 
+          <div class="panel-heading">
             <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 基本信息 </span>
           </div>
           <div class="panel-body">
             <%= f.input :name, wrapper: :fusion_input %>
-            
+
             <div class="form-group">
               <label> 性别 </label>
               <input type="text" class="form-control" maxlength="10"  placeholder="* Optional">
             </div>
-            <%= f.input :gender, as: :radio_buttons, wrapper: :fusion_input, :item_wrapper_class => 'inline'
- %>
+            
+            <%= f.input :gender, as: :radio_buttons, wrapper: :fusion_input, :item_wrapper_class => 'inline' %>
 
             <!-- f.input :gender, label: 'What is your gender?', collection: [ ['M', 'Male' ], ['F', 'Female'] ], as: :radio_buttons, label_method: :last, value_method: :first, checked: f.object.gender, item_wrapper_class: 'inline' -->
 
 
-            <%= f.input :birthdate, as: :date, wrapper: :fusion_input %>
+            <%= f.input :birthdate, as: :string, wrapper: :fusion_input, input_html: { class: 'datepicker' } %>
 
             <%= f.input :email, wrapper: :fusion_input %>
-          
+
             <%= f.input :mobile_phone, wrapper: :fusion_input %>
-            
+
           </div>
         </div>
       </div>
 
       <div class='col-md-6'>
         <div class="panel">
-          <div class="panel-heading"> 
+          <div class="panel-heading">
             <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 联系方式 </span>
           </div>
           <div class="panel-body">
@@ -69,7 +69,7 @@
                 <th>手机号</th>
               </thead>
               <tbody id='children'>
-                <%= f.simple_fields_for :children, wrapper: false do |child| %> 
+                <%= f.simple_fields_for :children, wrapper: false do |child| %>
                   <%= render 'child_fields', f: child %>
                 <% end %>
               </tbody>
@@ -80,7 +80,7 @@
     </div>
   </div>
 
-  
+
   <div class='form-actions'>
     <div class='row'>
       <div class='col-md-12'>
@@ -96,6 +96,8 @@
 <%- content_for :foot_js do %>
 <script type="text/javascript">
   $(function(){
+    $('.datepicker').datepicker();
+
     $('#children').on('cocoon:after-insert', function(e, added_child) {
       // $('form').changeFormMethod('PUT');
     })

@@ -214,7 +214,7 @@ var Core = function () {
                 event.preventDefault();
             });
         };
-        $(".table-checklist tbody tr").disableSelection();
+        // $(".table-checklist tbody tr").disableSelection();
     }
 
     // DEMO FUNCTIONS - primarily trash

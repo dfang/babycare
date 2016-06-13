@@ -1,5 +1,4 @@
 //= require ./common/jQuery
-//= require ./common/jQuery-ui
 //= require ./common/bootstrap
 //= require ./common/underscore
 
@@ -11,4 +10,3 @@
 //= require ./ajax
 
 //= require ./custom
-
