@@ -9,7 +9,7 @@
   </div>
   <div class="topbar-right">
     <div class="dashboard-widget-tray">
-      <%= link_to '编辑', edit_admin_person_medical_record_path(parent), class: 'btn btn-default' %>
+      <%= link_to '编辑', edit_admin_person_medical_record_path(parent, resource), class: 'btn btn-default' %>
       <%= link_to '返回', admin_person_path(parent), class: 'btn btn-default' %>
     </div>
   </div>
@@ -21,9 +21,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="panel">
-            <div class="panel-heading"> 
-              <span class="panel-title"> 
-              </span> <%= parent.name %> 的病历 </span> 
+            <div class="panel-heading">
+              <span class="panel-title">
+              </span> <%= parent.name %> 的病历 </span>
             </div>
             <div class="panel-body">
               <h3> <%= resource.class.human_attribute_name(:onset_date) %> </h3>
@@ -46,6 +46,10 @@
               <p> <%= resource.physical_examination %>
               <h3> <%= resource.class.human_attribute_name(:laboratory_and_supplementary_examinations) %> </h3>
               <p> <%= resource.laboratory_and_supplementary_examinations %>
+
+              <h3> <%= resource.class.human_attribute_name(:imaging_examination) %> </h3>
+              <p> <%= resource.imaging_examination %>
+
               <h3> <%= resource.class.human_attribute_name(:preliminary_diagnosis) %> </h3>
               <p> <%= resource.preliminary_diagnosis %>
               <h3> <%= resource.class.human_attribute_name(:treatment_recommendation) %> </h3>
