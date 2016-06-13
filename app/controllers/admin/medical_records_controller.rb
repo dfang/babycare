@@ -1,4 +1,4 @@
-class Admin::MedicalRecordsController < Admin::BaseController 
+class Admin::MedicalRecordsController < Admin::BaseController
   belongs_to :person
   # defaults :singleton => true
   # nested_belongs_to :person
@@ -6,10 +6,10 @@ class Admin::MedicalRecordsController < Admin::BaseController
   # before_action :ensure_medical_record, only: [ :edit, :show ]
 
   def new
-    @resource = parent.medical_records.build
-    @resource.medical_record_images.build
-    @resource.laboratory_examination_images.build
-    @resource.imaging_examination_images.build
+    # @resource = parent.medical_records.build
+    # @resource.medical_record_images.build
+    # @resource.laboratory_examination_images.build
+    # @resource.imaging_examination_images.build
     super
   end
 
@@ -44,7 +44,7 @@ class Admin::MedicalRecordsController < Admin::BaseController
     # def build_resource
     #   get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_build, *resource_params))
     # end
-    
+
     # def end_of_association_chain
     #   parent || super
     # end
@@ -74,7 +74,7 @@ class Admin::MedicalRecordsController < Admin::BaseController
 
     # def ensure_medical_record
     #   # binding.pry
-    #   redirect_to new_admin_person_medical_record_path(parent) if parent.medical_record.nil? 
+    #   redirect_to new_admin_person_medical_record_path(parent) if parent.medical_record.nil?
     # end
 
     # def collection
@@ -87,4 +87,3 @@ class Admin::MedicalRecordsController < Admin::BaseController
     # end
 
 end
-

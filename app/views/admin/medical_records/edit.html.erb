@@ -9,13 +9,13 @@
   </div>
   <div class="topbar-right">
     <div class="dashboard-widget-tray">
-      <a href='/admin/checkins/new' class='btn btn-default'> New </a>
+      <%= link_to '返回', admin_person_medical_record_path(parent, resource), class: 'btn btn-default' %>
     </div>
   </div>
 </div>
 
 <div id="content">
   <div class="row">
-    <%= render 'form', url: admin_person_medical_record_path(parent), method: 'PUT' %>
+    <%= render 'form', url: admin_person_medical_record_path(parent, resource), method: 'PUT' %>
   </div>
 </div>

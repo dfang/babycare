@@ -17,17 +17,20 @@ class @ImageUploader
     uploader.init()
 
     uploader.bind 'FilesAdded', (up, files) ->
-      console.log('upload start ....')
+      console.log('FilesAdded')
       uploader.start()
 
     uploader.bind "BeforeUpload", (up, file) ->
-      holder = $("##{opts.button}").parent('.fields').attr('id', Math.floor(Math.random()*100000+1))
+      console.log 'BeforeUpload'
+      $button = $(up.settings.browse_button[0])
+
+      holder = $button.parent('.fields').attr('id', Math.floor(Math.random()*100000+1))
       uploader.settings.multipart_params =
         file_id: file.id
         target: opts.button
-        page: $("##{opts.button}").parents('.upload').data('target')
+        page: $button.parents('.upload').data('target')
         authenticity_token: $('meta[name="csrf-token"]').attr('content')
-        holderId: $("##{opts.button}").parent('.fields').attr('id')
+        holderId: $button.parent('.fields').attr('id')
 
     uploader.bind 'Error', (up, err) ->
       up.refresh()

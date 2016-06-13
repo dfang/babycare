@@ -2,6 +2,6 @@
   console.log("#<%= params[:holderId] %>")  
   
   $("#<%= params[:holderId] %>").find('li img').attr('src', "<%= @image.data %>")
-  $("#<%= params[:holderId] %>").find('.medical_record_images_data input:hidden').val("<%= @image.data.url %>")
+  $("#<%= params[:holderId] %>").find('input:hidden.image-field ').val("<%= @image.data.url %>")
  
 <%- end %>

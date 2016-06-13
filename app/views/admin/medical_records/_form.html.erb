@@ -1,9 +1,9 @@
-<%= simple_nested_form_for @resource, url: url, method: method do |f| %>
+<%= simple_nested_form_for resource, url: url, method: method do |f| %>
   <div class='form-inputs'>
     <div class="row">
       <div class='col-md-12'>
         <div class="panel">
-          <div class="panel-heading"> 
+          <div class="panel-heading">
             <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 基本信息 </span>
           </div>
           <div class="panel-body">
@@ -11,8 +11,8 @@
             <%= f.input :onset_date, as: :date, wrapper: :fusion_input %>
             <%= f.input :chief_complaint, as: :text, wrapper: :fusion_input %>
             <%= f.input :history_of_present_illness, as: :text, wrapper: :fusion_input %>
-            
-            
+
+
             <!-- <div class='form-group upload'>
               <p>病例图片: 请至少上传一张图片，单张图片请小于10M(按住Ctrl可多选照片，最多不超过十张)</p>
             </div>
@@ -37,7 +37,7 @@
                     </ul>
                   </div>
 
-                  <%= f.link_to_add :medical_record_images, class: 'btn btn-sm btn-default', data: { target: '#medical_record_images'} do %> 
+                  <%= f.link_to_add :medical_record_images, class: 'btn btn-sm btn-default', data: { target: '#medical_record_images'} do %>
                     <i class="fa fa-plus text"></i>
                     <span class='text'>添加图片</span>
                   <% end %>
@@ -54,7 +54,7 @@
             <%= f.input :vaccination_history, as: :text, wrapper: :fusion_input %>
             <%= f.input :physical_examination, as: :text, wrapper: :fusion_input %>
             <%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :fusion_input %>
-            
+
             <div class='form-group upload'>
               <label class="form-input" for="laboratory_examination_images">实验室检查图片</label>
               <div class='row'>
@@ -66,7 +66,7 @@
                     </ul>
                   </div>
 
-                  <%= f.link_to_add :laboratory_examination_images, class: 'btn btn-sm btn-default', data: { target: '#laboratory_examination_images'} do %> 
+                  <%= f.link_to_add :laboratory_examination_images, class: 'btn btn-sm btn-default', data: { target: '#laboratory_examination_images'} do %>
                     <i class="fa fa-plus text"></i>
                     <span class='text'>添加图片</span>
                   <% end %>
@@ -87,7 +87,7 @@
                     </ul>
                   </div>
 
-                  <%= f.link_to_add :imaging_examination_images, class: 'btn btn-sm btn-default', data: { target: '#imaging_examination_images'} do %> 
+                  <%= f.link_to_add :imaging_examination_images, class: 'btn btn-sm btn-default', data: { target: '#imaging_examination_images'} do %>
                     <i class="fa fa-plus text"></i>
                     <span class='text'>添加图片</span>
                   <% end %>
@@ -106,7 +106,7 @@
 
   </div>
 
-  
+
   <div class='form-actions'>
     <div class='row'>
       <div class='col-md-12'>
@@ -122,23 +122,36 @@
 <script type="text/javascript">
   $(function(){
     console.log("image uploader init")
+
     Holder.run();
-    
+
     new ImageUploader({
       url: "/admin/images.js",
-      button: 'plupload'
+      button: 'plupload1'
     })
 
+
+    new ImageUploader({
+      url: "/admin/images.js",
+      button: 'plupload2'
+    })
+
+
+    new ImageUploader({
+      url: "/admin/images.js",
+      button: 'plupload3'
+    })
 
     $(document).on('nested:fieldAdded', function(event){
 
       // this field was just inserted into your form
-      var field = event.field; 
+      var field = event.field;
       console.log(field)
-      
+
       Holder.run({
         images: field.find('li img')[0]
       })
+
 
       // it's a jQuery object already! Now you can find date input
       new ImageUploader({
