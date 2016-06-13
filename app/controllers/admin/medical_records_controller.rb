@@ -7,7 +7,9 @@ class Admin::MedicalRecordsController < Admin::BaseController
 
   def new
     @resource = parent.medical_records.build
-    @resource.images.build
+    @resource.medical_record_images.build
+    @resource.laboratory_examination_images.build
+    @resource.imaging_examination_images.build
     super
   end
 

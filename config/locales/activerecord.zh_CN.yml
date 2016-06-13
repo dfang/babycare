@@ -47,6 +47,7 @@ zh-CN:
         laboratory_and_supplementary_examinations: 实验室检查
         preliminary_diagnosis:  初步诊断
         treatment_recommendation: 治疗意见
+        imaging_examination: 影像学意见
         remarks: 备注
 
     errors:

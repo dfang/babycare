@@ -1,0 +1,12 @@
+%li.photo.col-sm-2#plupload{class: f.object.is_cover? ? 'active': ''}
+  - if f.object.data.present?
+    = image_tag f.object.data, size: '100x100'
+  - else
+    = holder_tag '100x100', 'Lorem ipsum'
+
+  = f.input :data, as: :hidden
+  = f.input :is_cover, as: :hidden, input_html: { class: 'set-cover-input' }
+  -# %input{ type: 'hidden', name: "collection_item[photos_attributes][#{photo.id}][data]", value: photo.data }
+  / = f.link_to_remove 'x', class: 'remove_nested_fields nested-img-remove btn btn-default btn-sm img-remove'
+  / = link_to 'javascript:void(0);', class: 'nested-img-set-cover btn btn-default btn-sm img-set-cover' do
+  /   封面

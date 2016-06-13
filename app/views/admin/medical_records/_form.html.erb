@@ -32,12 +32,12 @@
                 <div class='col-md-12'>
                   <div class='uploader-container'>
                     <p>请至少上传一张图片，单张图片请小于10M(按住Ctrl可多选照片，最多不超过十张。)</p>
-                    <ul id='photos'>
-                      <%= f.simple_fields_for :images %>
+                    <ul id='medical_record_images'>
+                      <%= f.simple_fields_for :medical_record_images %>
                     </ul>
                   </div>
 
-                  <%= f.link_to_add :images, class: 'btn btn-sm btn-default', data: { target: '#photos'} do %> 
+                  <%= f.link_to_add :medical_record_images, class: 'btn btn-sm btn-default', data: { target: '#medical_record_images'} do %> 
                     <i class="fa fa-plus text"></i>
                     <span class='text'>添加图片</span>
                   <% end %>
@@ -54,6 +54,47 @@
             <%= f.input :vaccination_history, as: :text, wrapper: :fusion_input %>
             <%= f.input :physical_examination, as: :text, wrapper: :fusion_input %>
             <%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :fusion_input %>
+            
+            <div class='form-group upload'>
+              <label class="form-input" for="laboratory_examination_images">实验室检查图片</label>
+              <div class='row'>
+                <div class='col-md-12'>
+                  <div class='uploader-container'>
+                    <p>请至少上传一张图片，单张图片请小于10M(按住Ctrl可多选照片，最多不超过十张。)</p>
+                    <ul id='laboratory_examination_images'>
+                      <%= f.simple_fields_for :laboratory_examination_images %>
+                    </ul>
+                  </div>
+
+                  <%= f.link_to_add :laboratory_examination_images, class: 'btn btn-sm btn-default', data: { target: '#laboratory_examination_images'} do %> 
+                    <i class="fa fa-plus text"></i>
+                    <span class='text'>添加图片</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <%= f.input :imaging_examination, as: :text, wrapper: :fusion_input %>
+
+            <div class='form-group upload'>
+              <label class="form-input" for="imaging_examination_images">影像学意见图片</label>
+              <div class='row'>
+                <div class='col-md-12'>
+                  <div class='uploader-container'>
+                    <p>请至少上传一张图片，单张图片请小于10M(按住Ctrl可多选照片，最多不超过十张。)</p>
+                    <ul id='imaging_examination_images'>
+                      <%= f.simple_fields_for :imaging_examination_images %>
+                    </ul>
+                  </div>
+
+                  <%= f.link_to_add :imaging_examination_images, class: 'btn btn-sm btn-default', data: { target: '#imaging_examination_images'} do %> 
+                    <i class="fa fa-plus text"></i>
+                    <span class='text'>添加图片</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
             <%= f.input :preliminary_diagnosis, as: :text, wrapper: :fusion_input %>
             <%= f.input :treatment_recommendation, as: :text, wrapper: :fusion_input %>
             <%= f.input :remarks, as: :text, wrapper: :fusion_input %>

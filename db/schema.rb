@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608033653) do
+ActiveRecord::Schema.define(version: 20160613020535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,26 @@ ActiveRecord::Schema.define(version: 20160608033653) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "imaging_examination_images", force: :cascade do |t|
+    t.integer  "medical_record_id"
+    t.string   "data"
+    t.boolean  "is_cover"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "imaging_examination_images", ["medical_record_id"], name: "index_imaging_examination_images_on_medical_record_id", using: :btree
+
+  create_table "laboratory_examination_images", force: :cascade do |t|
+    t.integer  "medical_record_id"
+    t.string   "data"
+    t.boolean  "is_cover"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "laboratory_examination_images", ["medical_record_id"], name: "index_laboratory_examination_images_on_medical_record_id", using: :btree
+
   create_table "medical_record_images", force: :cascade do |t|
     t.integer  "medical_record_id"
     t.string   "data"
@@ -118,6 +138,7 @@ ActiveRecord::Schema.define(version: 20160608033653) do
     t.text     "remarks"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.text     "imaging_examination"
   end
 
   add_index "medical_records", ["person_id"], name: "index_medical_records_on_person_id", using: :btree
@@ -178,6 +199,8 @@ ActiveRecord::Schema.define(version: 20160608033653) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "imaging_examination_images", "medical_records"
+  add_foreign_key "laboratory_examination_images", "medical_records"
   add_foreign_key "medical_record_images", "medical_records"
   add_foreign_key "medical_records", "people"
 end
