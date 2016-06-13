@@ -1,22 +1,22 @@
 class Admin::MedicalRecordsController < Admin::BaseController 
-  # belongs_to :person, singleton: true, optional: true
+  belongs_to :person
   # defaults :singleton => true
   # nested_belongs_to :person
-  belongs_to :person, optional: true, singleton: true, finder: :find_medical_record
-  before_action :ensure_medical_record, only: [ :edit, :show ]
+  # belongs_to :person, optional: true, singleton: true, finder: :find_medical_record
+  # before_action :ensure_medical_record, only: [ :edit, :show ]
 
   def new
-    @resource = parent.build_medical_record
+    @resource = parent.medical_records.build
     @resource.images.build
     super
   end
 
   def create
-    create! { admin_person_medical_record_path(parent) }
+    create! { admin_person_medical_records_path(parent) }
   end
 
   def update
-    update! { admin_person_medical_record_path(parent) }
+    update! { admin_person_medical_records_path(parent) }
   end
 
   private
@@ -26,9 +26,9 @@ class Admin::MedicalRecordsController < Admin::BaseController
       params.require(:medical_record).permit!
     end
 
-    def method_for_association_build
-      :build_medical_record
-    end
+    # def method_for_association_build
+    #   :build_medical_record
+    # end
 
     # def build_resource
     #   binding.pry
@@ -43,18 +43,18 @@ class Admin::MedicalRecordsController < Admin::BaseController
     #   get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_build, *resource_params))
     # end
     
-    def end_of_association_chain
-      parent || super
-    end
+    # def end_of_association_chain
+    #   parent || super
+    # end
 
-    def resource
-      if params.key?(:person_id)
-        @resource ||= Person.find(params[:person_id]).medical_record
-        # binding.pry
-      else
-        super
-      end
-    end
+    # def resource
+    #   if params.key?(:person_id)
+    #     @resource ||= Person.find(params[:person_id]).medical_record
+    #     # binding.pry
+    #   else
+    #     super
+    #   end
+    # end
 
     # def resource
     #   binding.pry
@@ -62,27 +62,27 @@ class Admin::MedicalRecordsController < Admin::BaseController
     # end
 
 
-    def parent
-      if params.key?(:person_id)
-        @parent ||= Person.find(params[:person_id])
-      # else
-      #   super
-      end
-    end
+    # def parent
+    #   if params.key?(:person_id)
+    #     @parent ||= Person.find(params[:person_id])
+    #   # else
+    #   #   super
+    #   end
+    # end
 
-    def ensure_medical_record
-      # binding.pry
-      redirect_to new_admin_person_medical_record_path(parent) if parent.medical_record.nil? 
-    end
+    # def ensure_medical_record
+    #   # binding.pry
+    #   redirect_to new_admin_person_medical_record_path(parent) if parent.medical_record.nil? 
+    # end
 
     # def collection
       # binding.pry
       # super
     # end
 
-    def find_medical_record
-      parent.medical_record
-    end
+    # def find_medical_record
+    #   parent.medical_record
+    # end
 
 end
 

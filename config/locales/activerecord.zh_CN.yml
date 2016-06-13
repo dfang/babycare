@@ -33,6 +33,22 @@ zh-CN:
         job: 工作
         employer: 工作单位
         source: 来源
+      medical_record:
+        <<: *common
+        onset_date: 发病日期
+        chief_complaint: 主诉
+        history_of_present_illness: 现病史 
+        past_medical_history: 既往史
+        allergic_history: 过敏史
+        personal_history: 个人史
+        family_history: 家族史
+        vaccination_history: 疫苗史
+        physical_examination: 体格检查
+        laboratory_and_supplementary_examinations: 实验室检查
+        preliminary_diagnosis:  初步诊断
+        treatment_recommendation: 治疗意见
+        remarks: 备注
+
     errors:
       models:
   date:

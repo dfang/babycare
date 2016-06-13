@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-  get 'images/create'
+    get 'images/create'
   end
 
   namespace :admin do
     resources :people do
-      resource :medical_record
+      resources :medical_records
     end
     resources :medical_records
   end
