@@ -4,11 +4,32 @@
       <div class='col-md-12'>
         <div class="panel">
           <div class="panel-heading">
+            <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 关键体征数据 </span>
+          </div>
+          <div class="panel-body">
+            <%= f.input :height, wrapper: :fusion_input %>
+            <%= f.input :weight, wrapper: :fusion_input %>
+            <%= f.input :bmi, wrapper: :fusion_input %>
+            <%= f.input :temperature, wrapper: :fusion_input %>
+            <%= f.input :pulse, wrapper: :fusion_input %>
+            <%= f.input :respiratory_rate, wrapper: :fusion_input %>
+            <%= f.input :blood_pressure, wrapper: :fusion_input %>
+            <%= f.input :oxygen_saturation, wrapper: :fusion_input %>
+            <%= f.input :pain_score, wrapper: :fusion_input %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class='col-md-12'>
+        <div class="panel">
+          <div class="panel-heading">
             <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 基本信息 </span>
           </div>
           <div class="panel-body">
             <%= f.input :person_id, as: :hidden, input_html: { value: f.object.try(:person_id) || parent.id  } %>
-            <%= f.input :onset_date, as: :date, wrapper: :fusion_input %>
+            <%= f.input :onset_date, as: :string, wrapper: :fusion_input, input_html: { class: 'datepicker' } %>
+
             <%= f.input :chief_complaint, as: :text, wrapper: :fusion_input %>
             <%= f.input :history_of_present_illness, as: :text, wrapper: :fusion_input %>
 
@@ -101,9 +122,7 @@
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 
 
@@ -121,6 +140,8 @@
 <%- content_for :foot_js do %>
 <script type="text/javascript">
   $(function(){
+    $('.datepicker').datepicker();
+
     console.log("image uploader init")
 
     Holder.run();

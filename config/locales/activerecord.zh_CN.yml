@@ -25,7 +25,7 @@ zh-CN:
         area_id: 区
         address: 地址
         remark: 备注
-        created_at: 创建时间 
+        created_at: 创建时间
         updated_at: 更新时间
       person:
         <<: *common
@@ -37,7 +37,7 @@ zh-CN:
         <<: *common
         onset_date: 发病日期
         chief_complaint: 主诉
-        history_of_present_illness: 现病史 
+        history_of_present_illness: 现病史
         past_medical_history: 既往史
         allergic_history: 过敏史
         personal_history: 个人史
@@ -49,11 +49,17 @@ zh-CN:
         treatment_recommendation: 治疗意见
         imaging_examination: 影像学意见
         remarks: 备注
+        height: 身高
+        weight: 体重
+        bmi: BMI 指数
+        temperature: 体温(℃)
+        pulse: 脉搏(次/分钟)
+        respiratory_rate: 呼吸次数(次/分钟)
+        blood_pressure: 血压
+        oxygen_saturation: 氧饱和度(%)
+        pain_score: 痛疼指数
 
     errors:
       models:
   date:
     order: ''
-
-
-

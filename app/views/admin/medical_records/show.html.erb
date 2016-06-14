@@ -26,36 +26,55 @@
               </span> <%= parent.name %> 的病历 </span>
             </div>
             <div class="panel-body">
+              <h3> <%= resource.class.human_attribute_name(:height) %> </h3>
+              <p> <%= resource.height %> </p> 
+              <h3> <%= resource.class.human_attribute_name(:weight) %> </h3>
+              <p> <%= resource.weight %> </p>
+              <h3> <%= resource.class.human_attribute_name(:bmi) %> </h3>
+              <p> <%= resource.bmi %> </p>
+              <h3> <%= resource.class.human_attribute_name(:temperature) %> </h3>
+              <p> <%= resource.temperature %> </p>
+              <h3> <%= resource.class.human_attribute_name(:pulse) %> </h3>
+              <p> <%= resource.pulse %> </p>
+              <h3> <%= resource.class.human_attribute_name(:respiratory_rate) %> </h3>
+              <p> <%= resource.respiratory_rate %> </p>
+              <h3> <%= resource.class.human_attribute_name(:blood_pressure) %> </h3>
+              <p> <%= resource.blood_pressure %> </p>
+              <h3> <%= resource.class.human_attribute_name(:oxygen_saturation) %> </h3>
+              <p> <%= resource.oxygen_saturation %> </p>
+              <h3> <%= resource.class.human_attribute_name(:pain_score) %> </h3>
+              <p> <%= resource.pain_score %> </p>
+
               <h3> <%= resource.class.human_attribute_name(:onset_date) %> </h3>
-              <p> <%= resource.onset_date %>
+              <p> <%= resource.onset_date %> </p>
               <h3> <%= resource.class.human_attribute_name(:chief_complaint) %> </h3>
-              <p> <%= resource.chief_complaint %>
+              <p> <%= resource.chief_complaint %> </p>
               <h3> <%= resource.class.human_attribute_name(:history_of_present_illness) %> </h3>
-              <p> <%= resource.history_of_present_illness %>
+              <p> <%= resource.history_of_present_illness %> </p>
               <h3> <%= resource.class.human_attribute_name(:past_medical_history) %> </h3>
-              <p> <%= resource.past_medical_history %>
+              <p> <%= resource.past_medical_history %> </p>
               <h3> <%= resource.class.human_attribute_name(:allergic_history) %> </h3>
-              <p> <%= resource.allergic_history %>
+              <p> <%= resource.allergic_history %> </p>
               <h3> <%= resource.class.human_attribute_name(:personal_history) %> </h3>
-              <p> <%= resource.personal_history %>
+              <p> <%= resource.personal_history %> </p>
               <h3> <%= resource.class.human_attribute_name(:family_history) %> </h3>
-              <p> <%= resource.family_history %>
+              <p> <%= resource.family_history %> </p>
               <h3> <%= resource.class.human_attribute_name(:vaccination_history) %> </h3>
-              <p> <%= resource.vaccination_history %>
+              <p> <%= resource.vaccination_history %> </p>
               <h3> <%= resource.class.human_attribute_name(:physical_examination) %> </h3>
-              <p> <%= resource.physical_examination %>
+              <p> <%= resource.physical_examination %> </p>
               <h3> <%= resource.class.human_attribute_name(:laboratory_and_supplementary_examinations) %> </h3>
-              <p> <%= resource.laboratory_and_supplementary_examinations %>
+              <p> <%= resource.laboratory_and_supplementary_examinations %> </p>
 
               <h3> <%= resource.class.human_attribute_name(:imaging_examination) %> </h3>
-              <p> <%= resource.imaging_examination %>
+              <p> <%= resource.imaging_examination %> </p>
 
               <h3> <%= resource.class.human_attribute_name(:preliminary_diagnosis) %> </h3>
-              <p> <%= resource.preliminary_diagnosis %>
+              <p> <%= resource.preliminary_diagnosis %> </p>
               <h3> <%= resource.class.human_attribute_name(:treatment_recommendation) %> </h3>
-              <p> <%= resource.treatment_recommendation %>
+              <p> <%= resource.treatment_recommendation %> </p>
               <h3> <%= resource.class.human_attribute_name(:remarks) %> </h3>
-              <p> <%= resource.remarks %>
+              <p> <%= resource.remarks %> </p>
             </div>
           </div>
         </div>

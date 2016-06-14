@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613020535) do
+ActiveRecord::Schema.define(version: 20160614011640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,15 @@ ActiveRecord::Schema.define(version: 20160613020535) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.text     "imaging_examination"
+    t.integer  "height"
+    t.float    "weight"
+    t.float    "bmi"
+    t.float    "temperature"
+    t.integer  "pulse"
+    t.integer  "respiratory_rate"
+    t.integer  "blood_pressure"
+    t.string   "oxygen_saturation"
+    t.integer  "pain_score"
   end
 
   add_index "medical_records", ["person_id"], name: "index_medical_records_on_person_id", using: :btree
