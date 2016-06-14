@@ -140,7 +140,9 @@
 <%- content_for :foot_js do %>
 <script type="text/javascript">
   $(function(){
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({
+      autoclose: true
+    });
 
     console.log("image uploader init")
 

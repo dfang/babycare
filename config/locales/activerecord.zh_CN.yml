@@ -33,6 +33,9 @@ zh-CN:
         job: 工作
         employer: 工作单位
         source: 来源
+        blood_type: 血型
+        qq: qq
+        wechat: 微信
       medical_record:
         <<: *common
         onset_date: 发病日期

@@ -35,7 +35,8 @@
 }
 /* HEADER RESPONSIVE STYLES */
 @media (max-width: 670px) {
-	#topbar {display: none;}
+  #topbar .topbar-left{display: none;}
+
 	.navbar-branding {max-width: 75px; }
 	.navbar-brand { display: none; }
 	.sidebar-rtl .navbar .navbar-right { max-width: 55px; }

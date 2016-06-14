@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614011640) do
+ActiveRecord::Schema.define(version: 20160614061350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 20160614011640) do
     t.string   "nationality"
     t.string   "province_id"
     t.string   "city_id"
-    t.string   "area_id"
+    t.string   "district_id"
     t.string   "address"
     t.string   "source"
     t.string   "wechat"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 20160614011640) do
     t.integer  "depth"
     t.integer  "children_count"
     t.date     "birthdate"
+    t.string   "blood_type"
   end
 
   create_table "provinces", force: :cascade do |t|

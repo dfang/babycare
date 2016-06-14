@@ -9,12 +9,7 @@
           <div class="panel-body">
             <%= f.input :name, wrapper: :fusion_input %>
 
-            <div class="form-group">
-              <label> 性别 </label>
-              <input type="text" class="form-control" maxlength="10"  placeholder="* Optional">
-            </div>
-            
-            <%= f.input :gender, as: :radio_buttons, wrapper: :fusion_input, :item_wrapper_class => 'inline' %>
+            <%= f.input :gender, as: :radio_buttons, collection: [['男', 'male'],['女', 'female']], wrapper: :fusion_input, :item_wrapper_class => 'inline' %>
 
             <!-- f.input :gender, label: 'What is your gender?', collection: [ ['M', 'Male' ], ['F', 'Female'] ], as: :radio_buttons, label_method: :last, value_method: :first, checked: f.object.gender, item_wrapper_class: 'inline' -->
 
@@ -22,6 +17,8 @@
             <%= f.input :birthdate, as: :string, wrapper: :fusion_input, input_html: { class: 'datepicker' } %>
 
             <%= f.input :email, wrapper: :fusion_input %>
+            
+            <%= f.input :blood_type, collection: [['A型', 'A'],['B型', 'B'],['AB型', 'AB'], ['O型', 'O']], selected: 'A', wrapper: :fusion_input %>
 
             <%= f.input :mobile_phone, wrapper: :fusion_input %>
 
@@ -96,7 +93,9 @@
 <%- content_for :foot_js do %>
 <script type="text/javascript">
   $(function(){
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({
+      autoclose: true
+    });
 
     $('#children').on('cocoon:after-insert', function(e, added_child) {
       // $('form').changeFormMethod('PUT');
