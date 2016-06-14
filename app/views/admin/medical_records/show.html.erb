@@ -56,7 +56,11 @@
               <div>
                 <ul class='clearfix'>
                   <%- resource.medical_record_images.each do |image| %>
-                    <li><%= image_tag image.data, size: '80x80' %></li>
+                    <li>
+                      <%= link_to image.data, class: 'fancybox' do %>
+                        <%= image_tag image.data, size: '80x80' %>
+                      <% end %>
+                    </li>
                   <% end %>
                 </ul>
               </div>
@@ -79,7 +83,11 @@
               <div>
                 <ul class='clearfix'>
                   <%- resource.laboratory_examination_images.each do |image| %>
-                    <li><%= image_tag image.data, size: '80x80' %></li>
+                    <li>
+                      <%= link_to image.data, class: 'fancybox' do %>
+                        <%= image_tag image.data, size: '80x80' %>
+                      <% end %>    
+                    </li>
                   <% end %>
                 </ul>
               </div>
@@ -91,7 +99,11 @@
               <div>
                 <ul class='clearfix'>
                   <%- resource.imaging_examination_images.each do |image| %>
-                    <li><%= image_tag image.data, size: '80x80' %></li>
+                    <li>
+                      <%= link_to image.data, class: 'fancybox' do %>
+                        <%= image_tag image.data, size: '80x80' %>
+                      <% end %>    
+                    </li>
                   <% end %>
                 </ul>
               </div>
@@ -110,3 +122,15 @@
     </div>
   </div>
 </div>
+
+
+<%- content_for :foot_js do %>
+<script type="text/javascript">
+  $(function(){
+    $('.fancybox').fancybox({
+      autoResize: true,
+      closeBtn: true
+    });
+  });
+</script>
+<% end %>
