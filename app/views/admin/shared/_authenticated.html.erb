@@ -1,4 +1,4 @@
-<body class="dashboard-page">
+<body class="<%=params[:controller].gsub('/','_')%>_<%=params[:action]%>">
 
 <script> var boxtest = localStorage.getItem('boxed'); if (boxtest === 'true') {document.body.className+=' boxed-layout';} </script>
 

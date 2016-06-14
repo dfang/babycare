@@ -31,3 +31,17 @@
     }
   }
 }
+
+.admin_medical_records_show .content{
+  ul,li{
+    list-style: none;
+  }
+  li{
+    float: left;
+    padding-right: 10px;
+  }
+  ul{
+    display: block;
+    padding-left: 0;
+  }
+}

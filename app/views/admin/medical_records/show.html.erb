@@ -27,7 +27,7 @@
             </div>
             <div class="panel-body">
               <h3> <%= resource.class.human_attribute_name(:height) %> </h3>
-              <p> <%= resource.height %> </p> 
+              <p> <%= resource.height %> </p>
               <h3> <%= resource.class.human_attribute_name(:weight) %> </h3>
               <p> <%= resource.weight %> </p>
               <h3> <%= resource.class.human_attribute_name(:bmi) %> </h3>
@@ -51,6 +51,15 @@
               <p> <%= resource.chief_complaint %> </p>
               <h3> <%= resource.class.human_attribute_name(:history_of_present_illness) %> </h3>
               <p> <%= resource.history_of_present_illness %> </p>
+
+              <h3> <%= resource.class.human_attribute_name(:medical_record_images) %> </h3>
+              <div>
+                <ul class='clearfix'>
+                  <%- resource.medical_record_images.each do |image| %>
+                    <li><%= image_tag image.data, size: '80x80' %></li>
+                  <% end %>
+                </ul>
+              </div>
               <h3> <%= resource.class.human_attribute_name(:past_medical_history) %> </h3>
               <p> <%= resource.past_medical_history %> </p>
               <h3> <%= resource.class.human_attribute_name(:allergic_history) %> </h3>
@@ -66,8 +75,26 @@
               <h3> <%= resource.class.human_attribute_name(:laboratory_and_supplementary_examinations) %> </h3>
               <p> <%= resource.laboratory_and_supplementary_examinations %> </p>
 
+              <h3> <%= resource.class.human_attribute_name(:laboratory_examination_images) %> </h3>
+              <div>
+                <ul class='clearfix'>
+                  <%- resource.laboratory_examination_images.each do |image| %>
+                    <li><%= image_tag image.data, size: '80x80' %></li>
+                  <% end %>
+                </ul>
+              </div>
+
               <h3> <%= resource.class.human_attribute_name(:imaging_examination) %> </h3>
               <p> <%= resource.imaging_examination %> </p>
+
+              <h3> <%= resource.class.human_attribute_name(:imaging_examination_images) %> </h3>
+              <div>
+                <ul class='clearfix'>
+                  <%- resource.imaging_examination_images.each do |image| %>
+                    <li><%= image_tag image.data, size: '80x80' %></li>
+                  <% end %>
+                </ul>
+              </div>
 
               <h3> <%= resource.class.human_attribute_name(:preliminary_diagnosis) %> </h3>
               <p> <%= resource.preliminary_diagnosis %> </p>
