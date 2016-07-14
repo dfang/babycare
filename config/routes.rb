@@ -1,5 +1,31 @@
 Rails.application.routes.draw do
 
+  resources :doctors do
+    collection do
+      get 'apply'
+    end
+    member do
+      get 'reservations'
+      get 'status'
+      put 'online'
+      put 'offline'
+    end
+  end
+
+  
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
+  devise_scope :user do
+    get 'wechat_authorize' => 'users/sessions#wechat_authorize', as: :wechat_authorize
+  end
+
+  resources :reservations do
+    get 'public', on: :collection
+  end
+
   namespace :admin do
     get 'images/create'
   end
@@ -18,9 +44,6 @@ Rails.application.routes.draw do
   
   resources :checkins
   resources :books
-  devise_for :users, controllers: {
-    sessions: 'users/sessions'
-  }
 
   devise_for :admin_users, controllers: {
     sessions: 'admin/users/sessions'

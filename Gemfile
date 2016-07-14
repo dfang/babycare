@@ -31,7 +31,7 @@ gem 'china_region_fu'
 gem 'stringex'
 gem 'public_activity'
 gem 'aasm'
-gem "paranoia"
+gem 'paranoia'
 gem 'acts-as-taggable-on'
 
 gem 'awesome_nested_set'
@@ -51,6 +51,16 @@ gem 'carrierwave'
 gem 'carrierwave-qiniu', '~> 0.2.3'
 gem 'mini_magick'
 
+gem 'smart_sms'
+
+gem 'browser'
+
+
+gem 'pundit'
+gem 'omniauth'
+gem 'omniauth-wechat-oauth2'
+
+
 group :development, :test do
   # gem 'byebug'
 end
@@ -58,7 +68,7 @@ end
 group :development do
   # gem 'web-console', '~> 2.0'
   gem 'pry-rails'
-  gem "nifty-generators", github: 'dfang/nifty-generators'
+  gem 'nifty-generators', github: 'dfang/nifty-generators'
   gem 'annotate'
   gem 'capistrano', '3.5.0'
   gem 'capistrano-bundler'
@@ -73,7 +83,7 @@ group :development do
 
   gem 'capistrano-nginx-unicorn'
   # gem 'capistrano-db-tasks', github: 'dfang/capistrano-db-tasks', branch: 'master', require: false
-  gem "capistrano-db-tasks", require: false
+  gem 'capistrano-db-tasks', require: false
 end
 
 # gem 'mocha', group: :test

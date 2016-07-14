@@ -1,0 +1,30 @@
+!!!
+%html{ lang: 'en' }
+  %head
+    %meta{ charset: 'UTF-8' }
+    %meta{ content: 'IE=edge', :'http-equiv' => 'X-UA-Compatible' }
+    %title BabyCare
+    %meta{ content: '', name: 'keywords' }
+    %meta{ content: '', name: 'description' }
+    %meta{ content: '', name: 'author' }
+    %meta{:content => "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0", :name => "viewport"}
+    %script{ type: "text/javascript", src: "http://api.map.baidu.com/api?v=2.0&ak=A8c4d82ff09eaf30c1026df6f37d96ed" }
+
+
+    = stylesheet_link_tag :mobile, media: :all
+    = csrf_meta_tags
+    = favicon_link_tag 'favicon.png', type: 'image/png'
+
+
+  %body{class: "#{params[:controller]}_#{params[:action]}"}
+    / - if @no_header.blank?
+    /   = render 'header'
+    #container.container
+
+    = yield
+
+    / - if @no_footer.blank?
+    /   = render 'footer'
+
+  = javascript_include_tag :mobile
+  = yield :js

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614061350) do
+ActiveRecord::Schema.define(version: 20160714080333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20160614061350) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "authentications", force: :cascade do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.string   "nickname"
+    t.string   "unionid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "checkins", force: :cascade do |t|
     t.string   "name"
@@ -84,6 +94,31 @@ ActiveRecord::Schema.define(version: 20160614061350) do
   add_index "districts", ["name"], name: "index_districts_on_name", using: :btree
   add_index "districts", ["pinyin"], name: "index_districts_on_pinyin", using: :btree
   add_index "districts", ["pinyin_abbr"], name: "index_districts_on_pinyin_abbr", using: :btree
+
+  create_table "doctors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "gender"
+    t.integer  "age"
+    t.string   "hospital"
+    t.string   "location"
+    t.float    "lat"
+    t.float    "long"
+    t.boolean  "verified"
+    t.date     "date_of_birth"
+    t.string   "mobile_phone"
+    t.text     "remark"
+    t.string   "id_card_num"
+    t.string   "id_card_front"
+    t.string   "id_card_back"
+    t.string   "license_front"
+    t.string   "license_back"
+    t.string   "job_title"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "doctors", ["user_id"], name: "index_doctors_on_user_id", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.string   "data"
@@ -155,6 +190,7 @@ ActiveRecord::Schema.define(version: 20160614061350) do
   create_table "people", force: :cascade do |t|
     t.string   "name"
     t.string   "mobile_phone"
+    t.date     "birthdate"
     t.string   "gender"
     t.string   "email"
     t.string   "job"
@@ -175,7 +211,6 @@ ActiveRecord::Schema.define(version: 20160614061350) do
     t.integer  "rgt"
     t.integer  "depth"
     t.integer  "children_count"
-    t.date     "birthdate"
     t.string   "blood_type"
   end
 
@@ -191,6 +226,16 @@ ActiveRecord::Schema.define(version: 20160614061350) do
   add_index "provinces", ["pinyin"], name: "index_provinces_on_pinyin", using: :btree
   add_index "provinces", ["pinyin_abbr"], name: "index_provinces_on_pinyin_abbr", using: :btree
 
+  create_table "reservations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "mobile_phone"
+    t.string   "remark"
+    t.string   "location"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "aasm_state"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -204,11 +249,15 @@ ActiveRecord::Schema.define(version: 20160614061350) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "name"
+    t.string   "gender"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "doctors", "users"
   add_foreign_key "imaging_examination_images", "medical_records"
   add_foreign_key "laboratory_examination_images", "medical_records"
   add_foreign_key "medical_record_images", "medical_records"
