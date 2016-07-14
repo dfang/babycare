@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    resources :doctors do
+      put :confirm, on: :member
+    end
+  end
+  
   resources :doctors do
     collection do
       get 'apply'

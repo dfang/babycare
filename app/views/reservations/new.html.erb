@@ -15,6 +15,17 @@
     </div>
   </div>
 
+  <div class="weui_cell weui_cell_select weui_select_after">
+    <div class="weui_cell_hd">
+        <label for="" class="weui_label">男孩还是女孩</label>
+    </div>
+    <div class="weui_cell_bd weui_cell_primary">
+        <select class="weui_select" name="select2">
+          <%= options_for_select Reservation::GENDERS, "儿子" %>
+        </select>
+    </div>
+  </div>
+
   <div class="weui_cell">
     <div class="weui_cell_hd">
       <label class="weui_label" for="">您的电话</label>
@@ -35,7 +46,7 @@
 
   <div class="weui_cell">
     <div class="weui_cell_hd">
-      <label class="weui_label" for="">备注</label>
+      <label class="weui_label" for="">症状</label>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
       <textarea class="weui_textarea" name="reservation[remark]" placeholder="请大概描述下你孩子的情况"></textarea>

@@ -1,5 +1,5 @@
 class ReservationsController < InheritedResources::Base
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def public
     @reservations = Reservation.pending

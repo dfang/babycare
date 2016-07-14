@@ -139,9 +139,21 @@
         </div>
     </div>
 
+
+    <div class="weui_cell weui_cell_select weui_select_after">
+        <div class="weui_cell_hd">
+            <label for="" class="weui_label">职称</label>
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <select class="weui_select" name="select2">
+              <%= options_for_select Doctor::JOB_TITLES, "主任医师" %>
+            </select>
+        </div>
+    </div>
+   
     <div class="weui_cell">
       <div class="weui_cell_hd">
-        <label class="weui_label" for="">所在医院</label>
+        <label class="weui_label" for="">医院名称</label>
       </div>
       <div class="weui_cell_hd">
         <!-- <input class="weui_input" name="doctor[hospital]" type="text" value=""> -->
@@ -151,17 +163,7 @@
 
     <div class="weui_cell">
       <div class="weui_cell_hd">
-        <label class="weui_label" for="">职称</label>
-      </div>
-      <div class="weui_cell_hd">
-        <!-- <input class="weui_input" name="doctor[job_title]" type="text" value=""> -->
-        <%= f.input :job_title, collection: Doctor::JOB_TITLES, label: false, class: 'weui_input' %>
-      </div>
-    </div>
-
-    <div class="weui_cell">
-      <div class="weui_cell_hd">
-        <label class="weui_label" for="">医院位置</label>
+        <label class="weui_label" for="">医院地址</label>
       </div>
       <div class="weui_cell_hd">
         <!-- <input class="weui_input" name="doctor[location]" type="text" value=""> -->
