@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :global_images, only: :create
+
   namespace :admin do
     resources :doctors do
       put :confirm, on: :member
@@ -30,6 +32,8 @@ Rails.application.routes.draw do
 
   resources :reservations do
     get 'public', on: :collection
+    get 'claim', on: :member
+    put 'claim', on: :member
   end
 
   namespace :admin do

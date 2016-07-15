@@ -1,5 +1,10 @@
+weixin:
+  app_id: wxa887ef8490361f68
+  app_secret: 259f46cfadecd6e2a171b10362f155bd
+  token: yibutianxia
+
 qiniu:
-  access_key: "FMe0QaLkP9HKaxiAz2yXhodZh1Fmy8Uu2XICQent"
-  secret_key: "5SKtm9hPyBbWyzLpwKad-Y-Ll8tbTA0I2B4ZBIxk"
-  bucket: "eclub"
-  bucket_domain: "7xicnh.com1.z0.glb.clouddn.com"
+  access_key: "4ZphZ7CCpJmmeTl3JltPd0AUSwXFlZR4L5EcX4xi"
+  secret_key: "Z7m2P3-VJJOLGDrdEzSvtqCaI1ihumJbOLg-R2ls"
+  bucket: "babycare"
+  bucket_domain: "7xrod3.com1.z0.glb.clouddn.com"

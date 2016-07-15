@@ -27,4 +27,5 @@ class Reservation < ActiveRecord::Base
     # Simply extract the last four characters and append them to a string of five '*'
     '*'*7 + self.mobile_phone[-4..-1]
   end
+
 end

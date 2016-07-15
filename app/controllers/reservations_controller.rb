@@ -2,12 +2,13 @@ class ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
 
   def public
+    @is_doctor = current_user.doctor.present?
+
     @reservations = Reservation.pending
   end
 
-
-
-
+  def claim
+  end
 
   private
 
