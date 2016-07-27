@@ -8,6 +8,7 @@ class ReservationsController < InheritedResources::Base
   end
 
   def claim
+    @reservation = Reservation.find(params[:id])
   end
 
   private

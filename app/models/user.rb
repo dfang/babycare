@@ -28,6 +28,14 @@ class User < ActiveRecord::Base
     return user
   end
 
+
+  def is_doctor?
+    self.doctor.present?
+  end
+
+  def is_verified_doctor?
+    is_doctor? && self.doctor.verified?
+  end
 end
 
 

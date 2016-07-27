@@ -346,6 +346,7 @@ DEPENDENCIES
   haml-rails
   has_scope
   holder_rails
+  httparty (~> 0.13.7)
   inherited_resources
   jbuilder (~> 2.0)
   jquery-rails

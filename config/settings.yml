@@ -8,3 +8,7 @@ qiniu:
   secret_key: "Z7m2P3-VJJOLGDrdEzSvtqCaI1ihumJbOLg-R2ls"
   bucket: "babycare"
   bucket_domain: "7xrod3.com1.z0.glb.clouddn.com"
+
+im:
+  appkey: "3bb9a04dc51d954e8c95d81dc318e335"
+  appsecret: "1d3b0a062a8f"

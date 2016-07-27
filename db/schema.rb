@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715022509) do
+ActiveRecord::Schema.define(version: 20160715033957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,9 +241,12 @@ ActiveRecord::Schema.define(version: 20160715022509) do
     t.string   "mobile_phone"
     t.string   "remark"
     t.string   "location"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "aasm_state"
+    t.datetime "reservation_time"
+    t.string   "reservation_location"
+    t.string   "reservation_phone"
   end
 
   create_table "users", force: :cascade do |t|

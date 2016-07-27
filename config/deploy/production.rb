@@ -9,7 +9,7 @@
 # role :db,  %w{deploy@example.com}
 
 set :rails_env, 'production'
-server '120.25.83.91', user: 'deployer', roles: %w{web app db}
+server '60.205.110.67', user: 'deployer', roles: %w{web app db}
 
 
 # Extended Server Syntax
