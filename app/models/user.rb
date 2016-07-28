@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   has_many :authentications, :dependent => :destroy
   has_one :doctor
+  
+  has_many :reservations, :foreign_key => 'user_a'
+
+
 
   def self.create_wechat_user(wechat_session)
     Rails.logger.info "wechat_session:::: #{wechat_session}"
@@ -36,6 +40,15 @@ class User < ActiveRecord::Base
   def is_verified_doctor?
     is_doctor? && self.doctor.verified?
   end
+
+  def self_reservations
+    if self.is_doctor?
+      self.doctor.reservations
+    else
+      self.reservations
+    end
+  end
+
 end
 
 

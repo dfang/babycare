@@ -1,4 +1,4 @@
-<%= link_to claim_reservation_path(res) do %>
+<%= link_to reservation_path(res) do %>
   <div class="weui_panel_bd">
       <div class="weui_media_box weui_media_text">
           <h4 class="weui_media_title"> <%= res.name %>的孩子 </h4>
@@ -12,6 +12,10 @@
             <li class="weui_media_info_meta"><%= res.created_at.strftime('%Y.%m.%d %H:%M') %></li>
             <li class="weui_media_info_meta weui_media_info_meta_extra"><%= res.location %></li>
           </ul>
+
+          <%- if current_user && current_user.is_doctor? %>
+            <%= link_to '认领', claim_reservation_path(res), class: 'weui_btn weui_btn_mini weui_btn_primary' %>
+          <% end %>
       </div>
   </div>
 <% end %>

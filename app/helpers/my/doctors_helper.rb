@@ -1,0 +1,2 @@
+module My::DoctorsHelper
+end

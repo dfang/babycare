@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
 
+  namespace :my do
+    get 'patients/reservations'
+  end
+
+  namespace :my do
+    resources :doctors do
+      get 'reservations', on: :collection
+    end
+  end
+
+
   resources :background_jobs, only: [] do
     post :call, on: :collection
   end
@@ -56,6 +67,7 @@ Rails.application.routes.draw do
     resources :checkins
   end
   
+
   resources :checkins
   resources :books
 

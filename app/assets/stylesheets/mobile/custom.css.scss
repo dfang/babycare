@@ -1,5 +1,9 @@
-body{
+body, html {
   height: 100%;
+  -webkit-tap-highlight-color: transparent;
+
+  overflow-x: hidden;
+  background-color: #fbf9fe;
 
   .wrapper{
     height: 100%;
@@ -18,6 +22,14 @@ body{
       .weui_label{
         width: 100%;
       }
+  }
+  .container{
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    .tabbar{
+      height: 100%;
+    }
   }
 }
 

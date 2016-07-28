@@ -1,6 +1,12 @@
 class ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
 
+  def create
+    @reservation = Reservation.new(reservation_params)
+    @reservation.user_a = current_user.id
+    create!
+  end
+
   def public
     @is_doctor = current_user.doctor.present?
 
