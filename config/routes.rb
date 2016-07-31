@@ -1,13 +1,21 @@
 Rails.application.routes.draw do
 
+  get 'posts/index'
+
+  get 'posts/show'
+
   namespace :my do
     get 'patients/reservations'
   end
 
   namespace :my do
     resources :doctors do
-      get 'reservations', on: :collection
-      get 'status', on: :collection
+      collection do
+        get 'reservations'
+        get 'status'
+        get 'index'
+        root 'doctors#index'
+      end
     end
   end
 
@@ -22,8 +30,10 @@ Rails.application.routes.draw do
     resources :doctors do
       put :confirm, on: :member
     end
+
+    resources :posts
   end
-  
+
   resources :doctors do
     collection do
       get 'apply'
@@ -36,7 +46,7 @@ Rails.application.routes.draw do
     end
   end
 
-  
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -54,7 +64,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'images/create'
-  
+
     resources :people do
       resources :medical_records
     end
@@ -65,7 +75,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :checkins
   end
-  
+
 
   resources :checkins
   resources :books

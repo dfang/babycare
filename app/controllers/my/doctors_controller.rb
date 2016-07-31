@@ -4,9 +4,13 @@ class My::DoctorsController < InheritedResources::Base
   # skip_before_action :verify_is_doctor, only: :status
 
   custom_actions :collection => [ :reservations, :status ]
-  
+
   def reservations
     @reservations = current_user.doctor.reservations
+  end
+
+  def index
+
   end
 
   def status

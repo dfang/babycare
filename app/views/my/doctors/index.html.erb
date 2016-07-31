@@ -4,34 +4,27 @@
 
           <div class="panel">
             <div class="bd">
-              <% if @reservations.any? %>
-                <% @reservations.each do |res| %>
-                  <div class="weui_panel">
 
-                  </div>
-                <% end %>
-              <% else %>
-              你暂时没有预约
-              <% end %>
+              医生后台主页
+
             </div>
           </div>
 
       </div>
       <div class="weui_tabbar">
-          <a href="/my/patients/reservations" class="weui_tabbar_item weui_bar_item_on">
+          <a href="/my/doctors/reservations" class="weui_tabbar_item">
               <div class="weui_tabbar_icon">
                   <img src="/icon_nav_button.png" alt="">
               </div>
               <p class="weui_tabbar_label">我的预约</p>
           </a>
-
           <a href="/posts/index" class="weui_tabbar_item">
               <div class="weui_tabbar_icon">
                   <img src="/icon_nav_article.png" alt="">
               </div>
               <p class="weui_tabbar_label">必读文章</p>
           </a>
-          <a href="/my/patients/index" class="weui_tabbar_item">
+          <a href="/my/doctors/" class="weui_tabbar_item weui_bar_item_on">
               <div class="weui_tabbar_icon">
                   <img src="/icon_nav_cell.png" alt="">
               </div>

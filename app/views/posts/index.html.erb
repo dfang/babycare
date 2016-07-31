@@ -1,0 +1,55 @@
+<div class="tabbar">
+  <div class="weui_tab">
+      <div class="weui_tab_bd">
+
+          <div class="panel">
+            <div class="bd">
+              必读文章
+            </div>
+          </div>
+
+      </div>
+      <div class="weui_tabbar">
+
+        <% if current_user.is_doctor? %>
+          <a href="/my/doctors/reservations" class="weui_tabbar_item">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_button.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">我的预约</p>
+          </a>
+          <a href="/posts/index" class="weui_tabbar_item weui_bar_item_on">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_article.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">必读文章</p>
+          </a>
+          <a href="/my/doctors/" class="weui_tabbar_item">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_cell.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">我</p>
+          </a>
+        <% else %>
+          <a href="/my/patients/reservations" class="weui_tabbar_item">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_button.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">我的预约</p>
+          </a>
+          <a href="/posts/index" class="weui_tabbar_item weui_bar_item_on">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_article.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">必读文章</p>
+          </a>
+          <a href="/my/patients/" class="weui_tabbar_item">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_cell.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">我</p>
+          </a>
+        <% end %>
+      </div>
+  </div>
+</div>
