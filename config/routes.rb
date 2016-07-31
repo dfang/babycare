@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
 
   get 'posts/index'
-
   get 'posts/show'
-
-  namespace :my do
-    get 'patients/reservations'
-  end
 
   namespace :my do
     resources :doctors do
@@ -15,6 +10,14 @@ Rails.application.routes.draw do
         get 'status'
         get 'index'
         root 'doctors#index'
+      end
+    end
+
+    resources :patients do
+      collection do
+        get 'reservations'
+        get 'index'
+        root 'patients#index'
       end
     end
   end

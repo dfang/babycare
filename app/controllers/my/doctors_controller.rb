@@ -10,7 +10,6 @@ class My::DoctorsController < InheritedResources::Base
   end
 
   def index
-
   end
 
   def status

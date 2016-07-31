@@ -6,4 +6,8 @@ class My::PatientsController < InheritedResources::Base
   def reservations
     @reservations = current_user.self_reservations
   end
+
+  def index
+  end
+
 end
