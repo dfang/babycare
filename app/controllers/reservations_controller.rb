@@ -1,6 +1,11 @@
 class ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
 
+  # def new
+    # binding.pry
+    # sign_out current_user
+  # end
+
   def create
     @reservation = Reservation.new(reservation_params)
     @reservation.user_a = current_user.id
@@ -19,8 +24,12 @@ class ReservationsController < InheritedResources::Base
 
   private
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def reservation_params
     params.require(:reservation).permit!
   end
+
+  # def authenticate_user!
+  #   binding.pry
+  #   super
+  # end
 end

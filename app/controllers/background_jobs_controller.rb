@@ -4,17 +4,17 @@ class BackgroundJobsController < ApplicationController
 
   def call
     puts params
-    
+
     @reservation = Reservation.find_by_id(params[:reservation_id])
     @reservation.user_b = current_user.doctor.id
     @reservation.save!
 
-    IM.call(params["caller"], params["callee"])  
+    IM::Ronglian.call(params["caller"], params["callee"])
   end
 
 
   def send_sms
-    
+
   end
 
 end

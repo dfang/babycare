@@ -8,7 +8,7 @@ var IM = {
         callee: callee,
         reservation_id: reservation_id
       }, function(data){
-
+         
       })
   },
 

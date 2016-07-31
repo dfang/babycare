@@ -113,7 +113,7 @@ module IM
       subaccountauthtoken = Settings.ronglian.subAccountAuthToken
 
       # timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-      timestamp = Time.now.strftime("%Y%m%d%H%M%S").toString()
+      timestamp = Time.now.strftime("%Y%m%d%H%M%S").to_str()
 
       sigparameter = Digest::MD5.hexdigest("#{subaccountsid}"+"#{subaccountauthtoken}"+"#{timestamp}").upcase
       authorization = Base64.strict_encode64("#{subaccountsid}:#{timestamp}")

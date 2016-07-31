@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :my do
     resources :doctors do
       get 'reservations', on: :collection
+      get 'status', on: :collection
     end
   end
 
@@ -53,9 +54,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'images/create'
-  end
-
-  namespace :admin do
+  
     resources :people do
       resources :medical_records
     end

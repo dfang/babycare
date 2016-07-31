@@ -1,5 +1,4 @@
 //= require mobile/jquery.min
-//= require mobile/webuploader.min
-//= require holder
-//= require mobile/custom
+//= require mobile/router
 //= require mobile/im
+//= require mobile/tab

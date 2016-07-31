@@ -2,15 +2,31 @@ class Users::SessionsController < Devise::SessionsController
   before_action :wechat_authorize
   # before_action :configure_sign_in_params, only: [:create]
 
+  # def new
+  #   binding.pry
+  #   super
+  # end
+
+  # def create
+  #   binding.pry
+  #   super
+  # end
+
   def wechat_authorize
-    # wx_authenticate!
-    sign_in(:user, User.find(1))
+
+    wx_authenticate!
+
+    
+    # 测试的时候注释上面一行,打开这一行
+    # sign_in(:user, User.find(1))
   end
 
   protected
 
 
   def wx_authenticate!
+    # binding.pry
+
     # 微信已登录
     if session[:weixin_openid].present?
       authentication = Authentication.find_by provider: 'wechat', uid: session[:weixin_openid]
