@@ -1,0 +1,11 @@
+<div class="weui_panel_bd">
+  <div class="weui_media_box weui_media_text">
+      <h4 class="weui_media_title"> <%= res.name %>的孩子 </h4>
+      <p class="weui_media_desc"> <%= res.remark %></p>
+      <ul class="weui_media_info">
+        <li class="weui_media_info_meta"><%= res.marked_phone_number %></li>
+        <li class="weui_media_info_meta"><%= res.created_at.strftime('%Y.%m.%d %H:%M') %></li>
+        <li class="weui_media_info_meta weui_media_info_meta_extra"><%= res.location %></li>
+      </ul>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+%section.panel.panel-default.doc-buttons.b-light
+  .need_padding
+    = link_to load_remote_admin_wx_menus_path, class: 'btn btn-default' do
+      %i.fa.fa-plus
+      从公众平台加载菜单
+
+    = link_to new_resource_path, rel: 'tooltip', title: '添加菜单', class: 'btn btn-primary' do
+      %i.fa.fa-plus
+      添加菜单

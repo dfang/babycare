@@ -18,9 +18,7 @@ class My::DoctorsController < InheritedResources::Base
   private
 
   def verify_is_doctor
-    if current_user.is_verified_doctor?
-      return
-    else
+    unless current_user.is_verified_doctor?
       redirect_to status_my_doctors_path and return
     end
   end

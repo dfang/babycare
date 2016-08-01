@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module WxApp
   extend self
 
@@ -5,16 +7,42 @@ module WxApp
   WEIXIN_SECRET = Settings.weixin.app_secret
 
   # http://mp.weixin.qq.com/wiki/13/43de8269be54a0a6f64413e4dfa94f39.html
-  def create_remote_menus
+  def create_remote_menus(menus)
     conn = get_conn
 
     p "#{build_menus}"
-
+    p "syncing menus to remote"
     conn.post do |req|
       req.url "/cgi-bin/menu/create?access_token=#{get_access_token}"
       req.headers['Content-Type'] = 'application/json'
-      req.body = build_menus
+      # req.body =
+      #           {
+      #             "menu" => {
+      #               "button" => [
+      #
+      #                 {
+      #                   "name"=>"用户",
+      #                   "sub_button"=>
+      #                     [ {"type"=>"view", "name"=>"预约医生", "url"=>"http://babycare.tunnel.qydev.com/reservations/new", "sub_button"=>[]},
+      #                       {"type"=>"view", "name"=>"用户后台", "url"=>"http://babycare.tunnel.qydev.com/my/patients", "sub_button"=>[]}
+      #                     ]
+      #                 },
+      #
+      #                 {"type"=>"view", "name"=>"预约列表", "url"=>"http://babycare.tunnel.qydev.com/reservations/public", "sub_button"=>[]},
+      #
+      #                 {
+      #                   "name"=>"医生",
+      #                   "sub_button"=>
+      #                     [ {"type"=>"view", "name"=>"注册医生", "url"=>"http://babycare.tunnel.qydev.com/doctors/new", "sub_button"=>[]},
+      #                       {"type"=>"view", "name"=>"医生后台", "url"=>"http://babycare.tunnel.qydev.com/my/doctors", "sub_button"=>[]}
+      #                     ]
+      #                 }
+      #               ]
+      #             }
+      #           }.to_json
+      req.body = menus
     end
+
   end
 
   def build_menus
@@ -32,6 +60,7 @@ module WxApp
                   json.key  sub_menu.key
                 else
                   json.url WxApp.process_url(sub_menu.url)
+                  # json.url sub_menu.url
                 end
               end
             end
@@ -40,17 +69,18 @@ module WxApp
             if menu.menu_type == 'click'
               json.key  menu.key
             else
+              # json.url menu.url
               json.url WxApp.process_url(menu.url)
             end
           end
         end
       end
+
     end
   end
 
   def self.process_url(url)
     uri = URI.parse(url)
-
     if Rails.env.development?
       url.gsub!("#{uri.scheme + "://" + uri.host}", Settings.rails_server_url.development)
     else
@@ -110,7 +140,6 @@ module WxApp
   def load_remote_menus
     p get_current_menus['menu']
 
-    # binding.pry
     menu_arr = get_current_menus['menu']['button']
 
     WxMenu.destroy_all if menu_arr.present?

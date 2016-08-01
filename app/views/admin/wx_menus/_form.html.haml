@@ -1,0 +1,31 @@
+.row
+  .col-md-8
+    %section.panel.panel-default
+      %header.panel-heading 自定义菜单管理
+
+      .panel-body
+        = simple_nested_form_for [:admin, resource], validate: true, defaults: {input_html: {class: 'form-control'}}, html: {class: 'form-horizontal wechat-form'} do |f|
+          %fieldset
+            %legend 菜单信息
+            = f.input :sequence
+            = f.input :name
+            = f.input :menu_type, collection: WxMenu::MENU_TYPES.invert, input_html: {class: 'form-control wechat_menu_type'}
+            = f.input :key, collection: WxMenu::KEYS.invert
+            = f.input :url
+
+          %fieldset
+            %legend 子菜单
+            = f.simple_fields_for :wx_sub_menus
+
+            .clearfix.mb-s= f.link_to_add '添加子菜单按钮', :wx_sub_menus, class: 'btn btn-default'
+
+          .clearfix
+            = f.button :submit, '提交', class: 'btn btn-success pull-right'
+
+  .col-md-4
+    %section.panel.panel-default
+      %header.panel-heading.font-bold
+        %i.fa.fa-lightbulb-o
+        帮助中心
+      .panel-body
+        %p 这里添加一些帮助性的文字

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731011142) do
+ActiveRecord::Schema.define(version: 20160731032916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,10 +281,34 @@ ActiveRecord::Schema.define(version: 20160731011142) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "wx_menus", force: :cascade do |t|
+    t.string   "menu_type"
+    t.string   "name"
+    t.string   "key"
+    t.string   "url"
+    t.integer  "sequence"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "wx_sub_menus", force: :cascade do |t|
+    t.integer  "wx_menu_id"
+    t.string   "menu_type"
+    t.string   "name"
+    t.string   "key"
+    t.string   "url"
+    t.integer  "sequence"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "wx_sub_menus", ["wx_menu_id"], name: "index_wx_sub_menus_on_wx_menu_id", using: :btree
+
   add_foreign_key "doctors", "users"
   add_foreign_key "global_images", "users"
   add_foreign_key "imaging_examination_images", "medical_records"
   add_foreign_key "laboratory_examination_images", "medical_records"
   add_foreign_key "medical_record_images", "medical_records"
   add_foreign_key "medical_records", "people"
+  add_foreign_key "wx_sub_menus", "wx_menus"
 end

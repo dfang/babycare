@@ -1,0 +1,37 @@
+.row
+  .col-md-9
+    %section.panel.panel-default
+      %header.panel-heading= resource.class.model_name.human
+
+      %table.table
+        %tr
+          %td= resource.class.human_attribute_name(:id)
+          %td= resource.id
+        %tr
+          %td= resource.class.human_attribute_name(:menu_type)
+          %td= resource.menu_type
+        %tr
+          %td= resource.class.human_attribute_name(:name)
+          %td= resource.name
+        %tr
+          %td= resource.class.human_attribute_name(:key)
+          %td= resource.key
+        %tr
+          %td= resource.class.human_attribute_name(:url)
+          %td= resource.url
+        %tr
+          %td= resource.class.human_attribute_name(:sequence)
+          %td= resource.sequence
+        %tr
+          %td= resource.class.human_attribute_name(:created_at)
+          %td= l resource.created_at, format: :short
+        %tr
+          %td= resource.class.human_attribute_name(:updated_at)
+          %td= l resource.updated_at, format: :short
+
+  .col-md-2
+    %section.panel.panel-default.doc-buttons.b-light
+      .need_padding
+        = link_to collection_path, rel: 'tooltip', title: '返回', class: 'btn btn-primary' do
+          %i.fa.fa-plus
+          返回

@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   get 'posts/index'
   get 'posts/show'
 
+  namespace :wx do
+     get '/' => 'service#verify'
+     post '/' => 'service#create', :defaults => { :format => 'xml' }
+     get '/wx_web_auth' => 'service#wx_web_auth'
+  end
+
   namespace :my do
     resources :doctors do
       collection do
@@ -16,6 +22,7 @@ Rails.application.routes.draw do
     resources :patients do
       collection do
         get 'reservations'
+        get 'status'
         get 'index'
         root 'patients#index'
       end
@@ -30,6 +37,13 @@ Rails.application.routes.draw do
   resources :global_images, only: :create
 
   namespace :admin do
+    resources :wx_menus do
+      collection do
+        get 'sync'
+        get 'load_remote'
+      end
+    end
+
     resources :doctors do
       put :confirm, on: :member
     end
