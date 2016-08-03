@@ -1,6 +1,6 @@
-class DoctorsController < ApplicationController
+class DoctorsController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :set_doctor, only: [:show, :edit, :update, :destroy, :online, :offline]  
+  before_action :set_doctor, only: [:show, :edit, :update, :destroy, :online, :offline]
 
   def apply
   end
@@ -52,10 +52,9 @@ class DoctorsController < ApplicationController
 
 
   private
-
     def set_doctor
       if params.key?(:id)
-        @doctor = Doctor.find(params[:id]) 
+        @doctor = Doctor.find(params[:id])
       elsif current_user.doctor.present?
         @doctor = current_user.doctor
       else
