@@ -7,7 +7,7 @@
 
     <% @reservations.each do |res| %>
       <div class="weui_panel">
-        <%- if current_user && current_user.is_doctor? %>
+        <%- if current_user && current_user.is_verified_doctor? %>
           <%= render 'item_for_doctor', res: res %>
         <% else %>
           <%= render 'item_for_patient', res: res %>
