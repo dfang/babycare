@@ -54,7 +54,7 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 
 set :unicorn_user, :deployer
 set :templates_path, "config/deploy/templates"
-set :nginx_server_name, "mijiaxiao.com"
+set :nginx_server_name, "yhuan.cc"
 set :unicorn_workers, 2
 
 namespace :deploy do
@@ -96,7 +96,7 @@ namespace :nginx do
 end
 
 namespace :setup do
-  
+
 end
 
 # logs
@@ -122,4 +122,3 @@ namespace :logs do
     end
   end
 end
-
