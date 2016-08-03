@@ -150,7 +150,7 @@
             </select>
         </div>
     </div>
-   
+
     <div class="weui_cell">
       <div class="weui_cell_hd">
         <label class="weui_label" for="">医院名称</label>
@@ -189,15 +189,4 @@
     <button class="weui_btn weui_btn_primary">确定</button>
   </div>
 
-<% end %>
-
-<%- content_for :js  do %>
-<script type="text/javascript">
-  $(function(){
-    uploader1 = uploader('.weui_uploader1 .weui_uploader_input_wrp', '.weui_uploader1', '/global_images.js')
-    uploader2 = uploader('.weui_uploader2 .weui_uploader_input_wrp', '.weui_uploader2', '/global_images.js')
-    uploader3 = uploader('.weui_uploader3 .weui_uploader_input_wrp', '.weui_uploader3', '/global_images.js')
-    uploader3 = uploader('.weui_uploader4 .weui_uploader_input_wrp', '.weui_uploader4', '/global_images.js')
-  })
-</script>
 <% end %>
