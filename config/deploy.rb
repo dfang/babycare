@@ -39,7 +39,7 @@ set :default_run_options, {:pty => true}
 set :linked_files, %w{config/database.yml config/secrets.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets vendor/assets/bower_components public/spree}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads public/assets vendor/assets/bower_components }
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -54,7 +54,7 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 
 set :unicorn_user, :deployer
 set :templates_path, "config/deploy/templates"
-set :nginx_server_name, "yhuan.cc"
+set :nginx_server_name, "wx.yhuan.cc"
 set :unicorn_workers, 2
 
 namespace :deploy do
