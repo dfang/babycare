@@ -1,6 +1,6 @@
 class My::DoctorsController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :verify_is_doctor, only: :reservations
+  before_action :verify_is_doctor, only: [ :reservations, :index ]
   # skip_before_action :verify_is_doctor, only: :status
 
   custom_actions :collection => [ :reservations, :status ]

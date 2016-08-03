@@ -16,7 +16,7 @@ class Users::SessionsController < Devise::SessionsController
 
     wx_authenticate!
 
-    
+
     # 测试的时候注释上面一行,打开这一行
     # sign_in(:user, User.find(1))
   end
@@ -68,7 +68,8 @@ class Users::SessionsController < Devise::SessionsController
           Rails.logger.info "\nunion_info: #{union_info.inspect}\n"
 
           # 微信公众号绑定到微信公众开发平台上才能获取到unionid, 此处用的是测试号，所以自己随变弄一个算了
-          unionid = union_info['openid']
+          # unionid = union_info['openid']
+          unionid = union_info['unionid']
 
           Rails.logger.info "uinfo_url: #{uinfo_url} \n"
           userinfo = JSON.parse Faraday.get(uinfo_url).body

@@ -77,6 +77,7 @@ Rails.application.routes.draw do
     get 'public', on: :collection
     get 'claim', on: :member
     put 'claim', on: :member
+    get 'status', on: :member
   end
 
   namespace :admin do
