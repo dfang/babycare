@@ -10,23 +10,23 @@ Rails.application.routes.draw do
   end
 
   namespace :my do
-    resources :doctors do
-      collection do
-        get 'reservations'
-        get 'status'
-        get 'index'
-        root 'doctors#index'
-      end
+    namespace :doctors do
+      resources :reservations
+      get 'status'
+      get 'index'
     end
 
-    resources :patients do
-      collection do
-        get 'reservations'
-        get 'status'
-        get 'index'
-        root 'patients#index'
+    namespace :patients do
+      resources :reservations do
+        get 'prepay', on: :member
       end
+      get 'status'
+      get 'index'
     end
+
+    get '/doctors', to: 'doctors#index', as: :doctor_root
+    get '/patients', to: 'patients#index', as: :patient_root
+
   end
 
 
