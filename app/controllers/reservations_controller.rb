@@ -11,12 +11,20 @@ class ReservationsController < InheritedResources::Base
 
   def public
     @is_doctor = current_user.doctor.present?
-
     @reservations = Reservation.pending
   end
 
   def claim
-    @reservation = Reservation.find(params[:id])
+    if request.get?
+      @reservation = Reservation.find(params[:id])
+    else
+      @reservation = Reservation.find(params[:id])
+      @reservation.update(reservation_params)
+      @reservation.user_b = current_user.doctor.id
+      @reservation.reserve!
+
+      redirect_to status_reservation_path and return
+    end
   end
 
   def status

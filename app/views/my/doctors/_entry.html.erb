@@ -4,18 +4,10 @@
           <h4 class="weui_media_title"> <%= res.name %>的孩子 </h4>
           <p class="weui_media_desc"> <%= res.remark %></p>
           <ul class="weui_media_info">
-            <%- if current_user && current_user.is_doctor? %>
-              <li class="weui_media_info_meta"><%= res.mobile_phone %></li>
-            <% else %>
-              <li class="weui_media_info_meta"><%= res.marked_phone_number %></li>
-            <% end %>
+            <li class="weui_media_info_meta"><%= res.mobile_phone %></li>
             <li class="weui_media_info_meta"><%= res.created_at.strftime('%Y.%m.%d %H:%M') %></li>
             <li class="weui_media_info_meta weui_media_info_meta_extra"><%= res.location %></li>
           </ul>
-
-          <%- if current_user && current_user.is_doctor? %>
-            <%= link_to '认领', claim_reservation_path(res), class: 'weui_btn weui_btn_mini weui_btn_primary' %>
-          <% end %>
       </div>
   </div>
 <% end %>

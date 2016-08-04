@@ -10,6 +10,14 @@ class Reservation < ActiveRecord::Base
       transitions :from => :pending, :to => :reserved
     end
 
+    event :prepay do
+      transitions :from => :reserved, :to => :prepaid
+    end
+
+    event :paid do
+      transitions :from => :prepaid, :to => :paid
+    end
+
     event :unreserve do
       transitions :from => :reserved, :to => :pending
     end
