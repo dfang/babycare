@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     get 'claim', on: :member
     put 'claim', on: :member
     get 'status', on: :member
+    get 'wxpay_test', on: :member
   end
 
   namespace :admin do

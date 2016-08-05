@@ -1,5 +1,6 @@
 class ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
+  custom_actions :resource => :wxpay_test
 
   def create
     @reservation = Reservation.new(reservation_params)
@@ -30,8 +31,31 @@ class ReservationsController < InheritedResources::Base
   def status
   end
 
-  def generate_payment_params
-    
+  def wxpay_test
+    params = {
+      body: '测试商品',
+      out_trade_no: 'test003',
+      total_fee: 1,
+      spbill_create_ip: '127.0.0.1',
+      notify_url: 'http://wx.yhuan.cc/wcpay/notify',
+      trade_type: 'JSAPI',
+      openid: 'ox-t3s_BIGA0KgFWzwNrnFE-pE28'
+    }
+    result = WxPay::Service.invoke_unifiedorder params
+
+    @order_params = {
+      appId: Settings.wx_pay.appid,
+      timeStamp: DateTime.now.utc.to_i,
+      nonceStr:  SecureRandom.hex,
+      signType:  "MD5",
+      package:   "prepay_id=#{result[:prepay]}",
+      paySign:   "#{result[:sign]}"
+    }
+
+    # WxPay::Service::generate_js_pay_req
+
+    p '@order_params'
+    p @order_params
   end
 
   private
