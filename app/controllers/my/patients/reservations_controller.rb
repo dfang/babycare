@@ -35,7 +35,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       paySign:   "#{result[:sign]}"
     }
 
-    WxPay::Service::generate_js_pay_req
+    # WxPay::Service::generate_js_pay_req
 
     p '@order_params'
     p @order_params
