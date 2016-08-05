@@ -1,0 +1,53 @@
+
+<div class="msg">
+    <div class="weui_msg">
+        <div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui_msg_title">支付定金</h2>
+            <p class="weui_msg_desc">请支付定金以示你的诚意!</p>
+        </div>
+        <div class="weui_opr_area">
+            <p class="weui_btn_area">
+                <a href="javascript:void(0)" class="weui_btn weui_btn_primary" id="wechatPaymentBtn">支付定金</a>
+            </p>
+        </div>
+        <div class="weui_extra_area">
+            <a href="">查看帮助</a>
+        </div>
+    </div>
+</div>
+
+<%= javascript_tag do %>
+  if (typeof WeixinJSBridge == "undefined"){
+     if( document.addEventListener ){
+         document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+     }else if (document.attachEvent){
+         document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+         document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+     }
+  }else{
+     onBridgeReady();
+  }
+
+  var orderParams = {
+    appId:     "<%= @order_params[:app_id] %>",
+    timeStamp: "<%= @order_params[:timestamp] %>",
+    nonceStr:  "<%= @order_params[:nonce_str] %>",
+    package:   "<%= @order_params[:package] %>",
+    paySign:   "<%= @order_params[:pay_sign] %>",
+    signType:  "<%= @order_params[:sign_type] %>"
+  };
+
+  function onBridgeReady(){
+    alert('device ready, click to pay')
+    $('#wechatPaymentBtn').click(function() {
+      WeixinJSBridge.invoke('getBrandWCPayRequest', orderParams, function(res) {
+        if (res.err_msg == "get_brand_wcpay_request:ok") {
+          alert('pay for success!');
+        } else {
+          alert(res.err_msg);
+        }
+      });
+    });
+  }
+<% end %>
