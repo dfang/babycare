@@ -30,6 +30,10 @@ class ReservationsController < InheritedResources::Base
   def status
   end
 
+  def generate_payment_params
+    
+  end
+
   private
 
   def reservation_params

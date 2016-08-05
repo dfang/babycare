@@ -37,6 +37,7 @@ gem 'acts-as-taggable-on'
 
 gem 'awesome_nested_set'
 
+gem 'wx_pay'
 
 gem 'jquery-validation-rails'
 gem 'haml-rails'
