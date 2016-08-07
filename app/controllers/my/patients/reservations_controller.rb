@@ -15,7 +15,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   end
 
   def show
-    params = {
+    test_params = {
       body: '测试商品',
       out_trade_no: "test#{SecureRandom.random_number(100000)}",
       total_fee: 1,
@@ -24,7 +24,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       trade_type: 'JSAPI',
       openid: 'ox-t3s_BIGA0KgFWzwNrnFE-pE28'
     }
-    result = WxPay::Service.invoke_unifiedorder params
+    result = WxPay::Service.invoke_unifiedorder test_params
 
     @order_params = {
       appId: Settings.wx_pay.app_id,
