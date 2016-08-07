@@ -37,8 +37,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     # WxPay::Service::generate_js_pay_req
 
-    p '@order_params'
-    p @order_params
+    # p '@order_params'
+    # p @order_params
 
   end
 
