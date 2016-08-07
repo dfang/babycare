@@ -17,17 +17,17 @@ class My::Patients::ReservationsController < InheritedResources::Base
   def show
     params = {
       body: '测试商品',
-      out_trade_no: 'test003',
+      out_trade_no: "test#{SecureRandom.random_number(100000)}",
       total_fee: 1,
       spbill_create_ip: '127.0.0.1',
-      notify_url: 'http://wx.yhuan.cc/wcpay/notify',
+      notify_url: 'http://wx.yhuan.cc/reservations/public',
       trade_type: 'JSAPI',
       openid: 'ox-t3s_BIGA0KgFWzwNrnFE-pE28'
     }
     result = WxPay::Service.invoke_unifiedorder params
 
     @order_params = {
-      appId: Settings.wx_pay.appid,
+      appId: Settings.wx_pay.app_id,
       timeStamp: DateTime.now.utc.to_i,
       nonceStr:  SecureRandom.hex,
       signType:  "MD5",

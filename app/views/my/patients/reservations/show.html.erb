@@ -40,7 +40,7 @@
   function onBridgeReady(){
     alert('device ready, click to pay')
     $('#wechatPaymentBtn').click(function() {
-      WeixinJSBridge.invoke('getBrandWCPayRequest', orderParams, function(res) {
+      WeixinJSBridge.invoke('getBrandWCPayRequest', JSON.stringify(orderParams), function(res) {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
           alert('pay for success!');
         } else {
