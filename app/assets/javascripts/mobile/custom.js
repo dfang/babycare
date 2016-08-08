@@ -2,7 +2,8 @@ function uploader(pickerId, uploadTarget, uploadUrl, uploadType ){
   if(uploadType != 'multiple'){
     uploadType = 'single'
   }
-  var uploader = WebUploader.create({
+
+  var webUploader = WebUploader.create({
     // 选完文件后，是否自动上传。
     auto: true,
     // 开起分片上传。
@@ -30,22 +31,22 @@ function uploader(pickerId, uploadTarget, uploadUrl, uploadType ){
   });
 
   // 当有文件被添加进队列的时候
-  // uploader.on('fileQueued', function(file) {
-  //   $list.append('<div id="' + file.id + '" class="item">' + '<h4 class="info">' + file.name + '</h4>' + '<p class="state">等待上传...</p>' + '</div>');
-  // });
+  webUploader.on('fileQueued', function(file) {
+    alert('file queued .....')
+  });
 
 
   // uploader.on('beforeFileQueued', function(file) {
   //   console.log('queueeeeeeeeeeee')
   // })
-  //
-  // uploader.on('startUpload', function(file) {
-  //   console.log('starttttttttttttt')
-  // })
+
+  webUploader.on('startUpload', function(file) {
+    alert('starttttttttttttt upload')
+  })
 
 
   // 文件上传过程中创建进度条实时显示
-  uploader.on('uploadProgress', function(file, percentage) {
+  webUploader.on('uploadProgress', function(file, percentage) {
 
     $(pickerId).find('.webuploader-pick').text('上传中....');
 
@@ -60,27 +61,19 @@ function uploader(pickerId, uploadTarget, uploadUrl, uploadType ){
 
   });
 
-  uploader.on('uploadSuccess', function(file, response) {
+  webUploader.on('uploadSuccess', function(file, response) {
     console.log(response._raw)
     eval(response._raw);
     $(pickerId).find('.webuploader-pick').text('上传成功');
   });
 
-  uploader.on('uploadError', function(file) {
+  webUploader.on('uploadError', function(file) {
     $(pickerId).find('.webuploader-pick').text('上传出错');
   });
 
-  uploader.on('uploadComplete', function(file) {
+  webUploader.on('uploadComplete', function(file) {
     // $('#' + file.id).find('.progress').fadeOut();
   });
 
-  return uploader;
+  return webUploader;
 }
-
-(function() {
-  winHeight = $(window).height();
-  $('#mapContainer').css('height', winHeight);
-
-
-
-})();
