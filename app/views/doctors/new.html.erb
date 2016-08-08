@@ -1,10 +1,10 @@
 <%= render 'form'  %>
 
 <%- content_for :js  do %>
-  <%= javascript_include_tag :upload %>
+  <%= javascript_include_tag :uploader %>
   <script type="text/javascript">
     $(document).on("turbolinks:load", function(){
-      alert('turbolinks loaded ')
+      alert('turbolinks loaded')
 
       uploader1 = uploader('.weui_uploader1 .weui_uploader_input_wrp', '.weui_uploader1', '/global_images.js')
       uploader2 = uploader('.weui_uploader2 .weui_uploader_input_wrp', '.weui_uploader2', '/global_images.js')

@@ -11,7 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile += %w( admin.css admin.js )
-Rails.application.config.assets.precompile += %w( mobile.js mobile.css upload.js)
+Rails.application.config.assets.precompile += %w( mobile.js mobile.css uploader.js)
 
 
 # Adding Webfonts to the Asset Pipeline
