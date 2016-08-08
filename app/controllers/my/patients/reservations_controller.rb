@@ -60,7 +60,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     @order_params = {
       appId: options[:appid],
-      timeStamp: js_request_params[:timeStamp],
+      timeStamp: options[:timestamp],
       nonceStr:  options[:noncestr],
       signType:  "MD5",
       package:   "prepay_id=#{result['prepay_id']}",
