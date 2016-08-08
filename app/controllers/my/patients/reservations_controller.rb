@@ -52,8 +52,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     p 'jsapi_ticket is ........'
 
-    p sign_options = { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }
-                      .sort.map do |key, value|
+    p sign_options = { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |key, value|
                           "#{key}=#{value}" if value != "" && !value.nil?
                       end.compact.join('&')
 
