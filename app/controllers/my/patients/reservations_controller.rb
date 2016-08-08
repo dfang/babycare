@@ -32,23 +32,31 @@ class My::Patients::ReservationsController < InheritedResources::Base
                 mch_id: Settings.wx_pay.mch_id,
                 key: Settings.wx_pay.key,
                 noncestr: SecureRandom.hex,
+                timestamp: DateTime.now.to_i
               }
 
     result = WxPay::Service.invoke_unifiedorder(test_params, options)
 
-    js_request_params = WxPay::Service.generate_js_pay_req(test_params, {
-                appid: options[:appid],
-                noncestr: options[:noncestr],
-                package: "prepay_id=#{result['prepay_id']}",
-                prepayid: result['prepay_id']
-              })
-
+    p 'invoke_unifiedorder result is '
     p result
 
+    # js_request_params = WxPay::Service.generate_js_pay_req(test_params, {
+    #             appid: options[:appid],
+    #             noncestr: options[:noncestr],
+    #             package: "prepay_id=#{result['prepay_id']}",
+    #             prepayid: result['prepay_id']
+    #           }, appid: options[:appid] )
+    #
+    #
+    # p 'generate_js_pay_req is '
+
+    p 'jsapi_ticket is ........'
     p  { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }
 
     sign = Digest::SHA1.hexdigest({ jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.to_query)
 
+    p 'sign is .....'
+    p sign
 
     @order_params = {
       appId: options[:appid],
