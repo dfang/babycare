@@ -5,6 +5,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   before_action :check_is_verified_doctor
   # skip_before_action :check_is_verified_doctor, only: [ :status ]
   custom_actions :collection => [ :reservations, :status ]
+  before_action :check_permisission, only: :show
 
   def reservations
   end
@@ -91,6 +92,13 @@ class My::Patients::ReservationsController < InheritedResources::Base
   def check_is_verified_doctor
     if current_user.is_verified_doctor?
       redirect_to my_patients_status_path and return
+    end
+  end
+
+  def check_permisission
+    unless resource.user_a == current_user.id
+      # todo: redirect_to page with permission denied message
+      redirect_to my_patients_reservations_path and return
     end
   end
 
