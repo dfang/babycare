@@ -33,8 +33,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
       timeStamp: DateTime.now.utc.to_i,
       nonceStr:  SecureRandom.hex,
       signType:  "MD5",
-      package:   "prepay_id=#{result[:prepay]}",
-      paySign:   "#{result[:sign]}"
+      package:   "prepay_id=#{result['prepay_id']}",
+      paySign:   "#{result['sign']}"
     }
 
     # WxPay::Service::generate_js_pay_req
