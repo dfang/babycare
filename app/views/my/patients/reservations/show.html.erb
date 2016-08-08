@@ -19,6 +19,9 @@
 <%= javascript_include_tag "http://res.wx.qq.com/open/js/jweixin-1.0.0.js" %>
 <%= javascript_tag do %>
   $(document).on("turbolinks:load", function(){
+
+    alert('turbolinks loaded ')
+
     if (typeof WeixinJSBridge == "undefined"){
        if( document.addEventListener ){
            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
