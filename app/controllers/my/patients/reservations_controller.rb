@@ -47,6 +47,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
     #           }), appid: Settings.wx_pay.app_id )
     # p 'generate_js_pay_req is '
 
+    # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
+    js_sdk_signature = { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |k,v|
+                        "#{k}=#{v}" if v != "" && !v.nil?
+                      end.compact.join('&')
+
     stringA = {
                   appId: Settings.wx_pay.app_id,
                   nonceStr: options[:noncestr],
@@ -61,9 +66,9 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     p sign_str
 
-    sign = Digest::MD5.hexdigest(sign_str).upcase()
-    p 'sign is .....'
-    p sign
+    pay_sign = Digest::MD5.hexdigest(sign_str).upcase()
+    p 'pay_sign is .....'
+    p pay_sign
 
     # // 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
     @order_params = {
@@ -72,7 +77,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
       nonceStr:  options[:noncestr],
       signType:  "MD5",
       package:   "prepay_id=#{result['prepay_id']}",
-      paySign:   sign
+      sign: js_sdk_signature,
+      paySign:   pay_sign
     }
 
     # WxPay::Service::generate_js_pay_req
