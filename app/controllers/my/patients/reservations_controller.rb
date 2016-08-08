@@ -18,8 +18,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
   def show
     test_params = {
-      body: '测试商品',
-      out_trade_no: "test#{SecureRandom.random_number(100000)}",
+      body: '预约定金',
+      out_trade_no: "prepay#{SecureRandom.random_number(100000)}",
       total_fee: 1,
       spbill_create_ip: '60.205.110.67',
       notify_url: 'http://wx.yhuan.cc/reservations/public',
