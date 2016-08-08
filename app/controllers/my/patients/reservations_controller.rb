@@ -52,11 +52,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     p 'jsapi_ticket is ........'
 
-    p sign_options = { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |key, value|
-                          "#{key}=#{value}" if value != "" && !value.nil?
+    sign_str = { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |k,v|
+                        "#{k}=#{v}" if v != "" && !v.nil?
                       end.compact.join('&')
 
-    sign = Digest::SHA1.hexdigest(sign_options)
+    p sign_str
+    sign = Digest::SHA1.hexdigest(sign_str)
 
     p 'sign is .....'
     p sign
