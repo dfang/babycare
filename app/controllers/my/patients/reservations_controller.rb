@@ -20,11 +20,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
     test_params = {
       body: '测试商品',
       out_trade_no: "test#{SecureRandom.random_number(100000)}",
-      total_fee: 1,
+      total_fee: 0.01,
       spbill_create_ip: '60.205.110.67',
       notify_url: 'http://wx.yhuan.cc/reservations/public',
       trade_type: 'JSAPI',
-      openid: 'ox-t3s_BIGA0KgFWzwNrnFE-pE28'
+      openid: current_wechat_authentication.uid
     }
 
     options = {
@@ -92,5 +92,9 @@ class My::Patients::ReservationsController < InheritedResources::Base
     if current_user.is_verified_doctor?
       redirect_to my_patients_status_path and return
     end
+  end
+
+  def current_wechat_authentication
+    current_user.authentications.where(provider: 'wechat').first
   end
 end

@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
       @is_desktop = false
       request.variant = :phone
     end
-
   end
+
+  
 end
