@@ -45,6 +45,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     p result
 
+    p  { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }
 
     sign = Digest::SHA1.hexdigest({ jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.to_query)
 
