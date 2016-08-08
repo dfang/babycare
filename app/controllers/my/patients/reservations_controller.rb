@@ -37,7 +37,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     result = WxPay::Service.invoke_unifiedorder(test_params, options)
 
-    p 'invoke_unifiedorder result is '
+    p 'invoke_unifiedorder result is .......... '
     p result
 
     # js_request_params = WxPay::Service.generate_js_pay_req(test_params.merge({
@@ -55,7 +55,6 @@ class My::Patients::ReservationsController < InheritedResources::Base
     p 'js_sdk_signature string ..........'
     p js_sdk_signature_str
 
-
     stringA = {
                   appId: Settings.wx_pay.app_id,
                   nonceStr: options[:noncestr],
@@ -67,11 +66,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
                       end.compact.join('&')
 
     pay_sign_str = stringA + "&key=#{Settings.wx_pay.key}"
-     =
-    p 'pay_sign is .....'
-    p paySign
 
-    # // 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
+    p  'pay_sign is .....'
+    p  pay_sign_str
+
+    # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
     @order_params = {
       appId:     result['appid'] || Settings.wx_pay.app_id,
       timeStamp: options[:timestamp],
