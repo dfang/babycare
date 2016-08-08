@@ -63,7 +63,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     p sign
 
     @order_params = {
-      appId: Settings.wx_pay.app_id, // 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_app.app_id都可以
+      appId:     result['appid'], // 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_app.app_id都可以
       timeStamp: options[:timestamp],
       nonceStr:  options[:noncestr],
       signType:  "MD5",
