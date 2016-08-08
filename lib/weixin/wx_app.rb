@@ -168,13 +168,13 @@ module WxApp
   end
 
   def get_access_token options={}
-    # access_token = Rails.cache.fetch("weixin_access_token")
-    # return access_token unless access_token.nil? || options[:force]
+    access_token = Rails.cache.fetch("weixin_access_token")
+    return access_token unless access_token.nil? || options[:force]
 
     url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
     response = Faraday.get url
     access_token = JSON.parse(response.body)["access_token"]
-    # Rails.cache.write("weixin_access_token", access_token, expires_in: 100.minutes)
+    Rails.cache.write("weixin_access_token", access_token, expires_in: 100.minutes)
     return access_token
   end
 
@@ -201,8 +201,7 @@ module WxApp
       faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
     end
   end
-
-
+    
   # def create_group
   #   # url = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token=#{get_access_token}"
   #   conn = get_conn

@@ -45,13 +45,17 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     p result
 
+
+    sign = Digest::SHA1.hexdigest({ jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.to_query)
+
+
     @order_params = {
       appId: options[:appid],
       timeStamp: js_request_params[:timeStamp],
       nonceStr:  options[:noncestr],
       signType:  "MD5",
       package:   "prepay_id=#{result['prepay_id']}",
-      paySign:   js_request_params[:paySign]
+      paySign:   sign
     }
 
     # WxPay::Service::generate_js_pay_req
