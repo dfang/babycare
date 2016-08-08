@@ -26,28 +26,32 @@ class My::Patients::ReservationsController < InheritedResources::Base
       trade_type: 'JSAPI',
       openid: 'ox-t3s_BIGA0KgFWzwNrnFE-pE28'
     }
-    result = WxPay::Service.invoke_unifiedorder(test_params, { appid: Settings.wx_pay.app_id, mch_id: Settings.wx_pay.mch_id, key: Settings.wx_pay.key})
 
-
-
-
-    js_request_params = WxPay::Service.generate_app_pay_req(test_params.merge({
+    options = {
                 appid: Settings.wx_pay.app_id,
+                mch_id: Settings.wx_pay.mch_id,
+                key: Settings.wx_pay.key,
                 noncestr: SecureRandom.hex,
+              }
+
+    result = WxPay::Service.invoke_unifiedorder(test_params, options)
+
+    js_request_params = WxPay::Service.generate_js_pay_req(test_params, {
+                appid: options[:appid],
+                noncestr: options[:noncestr],
                 package: "prepay_id=#{result['prepay_id']}",
                 prepayid: result['prepay_id']
               })
-            )
 
     p result
 
     @order_params = {
-      appId: Settings.wx_pay.app_id,
-      timeStamp: DateTime.now.utc.to_i,
-      nonceStr:  SecureRandom.hex,
+      appId: options[:appid],
+      timeStamp: js_request_params[:timeStamp],
+      nonceStr:  options[:noncestr],
       signType:  "MD5",
       package:   "prepay_id=#{result['prepay_id']}",
-      paySign:   js_request_params[:sign]
+      paySign:   js_request_params[:paySign]
     }
 
     # WxPay::Service::generate_js_pay_req
