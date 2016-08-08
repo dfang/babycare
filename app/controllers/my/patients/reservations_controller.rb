@@ -1,3 +1,5 @@
+require 'rexml/rexml'
+
 class My::Patients::ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
   before_action :check_is_verified_doctor
