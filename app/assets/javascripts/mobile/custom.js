@@ -32,7 +32,7 @@ function uploader(pickerId, uploadTarget, uploadUrl, uploadType ){
 
   // 当有文件被添加进队列的时候
   webUploader.on('fileQueued', function(file) {
-    alert('file queued .....')
+    console.log('file queued .....')
   });
 
 
