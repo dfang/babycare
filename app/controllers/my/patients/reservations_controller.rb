@@ -21,12 +21,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
       body: '测试商品',
       out_trade_no: "test#{SecureRandom.random_number(100000)}",
       total_fee: 1,
-      spbill_create_ip: '127.0.0.1',
+      spbill_create_ip: '60.205.110.67',
       notify_url: 'http://wx.yhuan.cc/reservations/public',
       trade_type: 'JSAPI',
       openid: 'ox-t3s_BIGA0KgFWzwNrnFE-pE28'
     }
-    result = WxPay::Service.invoke_unifiedorder test_params
+    result = WxPay::Service.invoke_unifiedorder(test_params, { appid: Settings.wx_pay.app_id, mch_id: Settings.wx_pay.mch_id, key: Settings.wx_pay.key})
 
     p result
 
