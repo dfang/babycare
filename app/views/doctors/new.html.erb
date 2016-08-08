@@ -3,7 +3,7 @@
 <%- content_for :js  do %>
   <%= javascript_include_tag :upload %>
   <script type="text/javascript">
-    $(function(){
+    $(document).on("turbolinks:load", function(){
       uploader1 = uploader('.weui_uploader1 .weui_uploader_input_wrp', '.weui_uploader1', '/global_images.js')
       uploader2 = uploader('.weui_uploader2 .weui_uploader_input_wrp', '.weui_uploader2', '/global_images.js')
       uploader3 = uploader('.weui_uploader3 .weui_uploader_input_wrp', '.weui_uploader3', '/global_images.js')
