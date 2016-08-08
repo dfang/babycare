@@ -50,7 +50,7 @@
   });
 
   wx.ready(function(){
-    alert('device ready, click to pay')
+    console.log('device ready, click to pay')
 
     $('#wechatPaymentBtn').click(function() {
       WeixinJSBridge.invoke('getBrandWCPayRequest', orderParams, function(res) {

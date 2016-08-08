@@ -28,6 +28,17 @@ class My::Patients::ReservationsController < InheritedResources::Base
     }
     result = WxPay::Service.invoke_unifiedorder(test_params, { appid: Settings.wx_pay.app_id, mch_id: Settings.wx_pay.mch_id, key: Settings.wx_pay.key})
 
+
+
+
+    js_request_params = WxPay::Service.generate_app_pay_req(test_params.merge({
+                appid: Settings.wx_pay.app_id,
+                noncestr: SecureRandom.hex,
+                package: "prepay_id=#{result['prepay_id']}",
+                prepayid: result['prepay_id']
+              })
+            )
+
     p result
 
     @order_params = {
@@ -36,7 +47,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       nonceStr:  SecureRandom.hex,
       signType:  "MD5",
       package:   "prepay_id=#{result['prepay_id']}",
-      paySign:   "#{result['sign']}"
+      paySign:   js_request_params[:sign]
     }
 
     # WxPay::Service::generate_js_pay_req
