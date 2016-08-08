@@ -51,9 +51,9 @@ class My::Patients::ReservationsController < InheritedResources::Base
     # p 'generate_js_pay_req is '
 
     p 'jsapi_ticket is ........'
-    p  { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }
+    p sign_options = { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }
 
-    sign = Digest::SHA1.hexdigest({ jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.to_query)
+    sign = Digest::SHA1.hexdigest(sign_options.to_query)
 
     p 'sign is .....'
     p sign
