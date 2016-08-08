@@ -35,12 +35,12 @@
     package:   "<%= @order_params[:package] %>",
     paySign:   "<%= @order_params[:pay_sign] %>",
     signType:  "<%= @order_params[:sign_type] %>"
-  };
+  }.to_json;
 
   function onBridgeReady(){
     alert('device ready, click to pay')
     $('#wechatPaymentBtn').click(function() {
-      WeixinJSBridge.invoke('getBrandWCPayRequest', JSON.stringify(orderParams), function(res) {
+      WeixinJSBridge.invoke('getBrandWCPayRequest', orderParams, function(res) {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
           alert('pay for success!');
         } else {
