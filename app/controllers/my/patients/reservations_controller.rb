@@ -40,30 +40,30 @@ class My::Patients::ReservationsController < InheritedResources::Base
     p 'invoke_unifiedorder result is '
     p result
 
-    # js_request_params = WxPay::Service.generate_js_pay_req(test_params, {
-    #             appid: options[:appid],
+    # js_request_params = WxPay::Service.generate_js_pay_req(test_params.merge({
     #             noncestr: options[:noncestr],
     #             package: "prepay_id=#{result['prepay_id']}",
     #             prepayid: result['prepay_id']
-    #           }, appid: options[:appid] )
-    #
-    #
+    #           }), appid: Settings.wx_pay.app_id )
     # p 'generate_js_pay_req is '
 
-    p 'jsapi_ticket is ........'
-
-    sign_str = { appId: Settings.wx_pay.app_id, nonceStr: options[:noncestr], timeStamp: options[:timestamp], package: "prepay_id=#{result['prepay_id']}", signType: 'MD5'}.sort.map do |k,v|
+    stringA = {
+                  appId: Settings.wx_pay.app_id,
+                  nonceStr: options[:noncestr],
+                  timeStamp: options[:timestamp],
+                  package: "prepay_id=#{result['prepay_id']}",
+                  signType: 'MD5'
+              }.sort.map do |k,v|
                         "#{k}=#{v}" if v != "" && !v.nil?
                       end.compact.join('&')
 
-    p sign_str
-    sign = Digest::MD5.hexdigest(sign_str)
+    sign_str = stringA + "&key=#{Settings.wx_pay.key}"
 
+    p sign_str
+
+    sign = Digest::MD5.hexdigest(sign_str).upcase()
     p 'sign is .....'
     p sign
-
-    p result['appid']
-    p Settings.wx_pay.app_id
 
     # // 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
     @order_params = {
