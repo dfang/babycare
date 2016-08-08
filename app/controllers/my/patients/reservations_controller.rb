@@ -1,4 +1,4 @@
-require 'rexml/rexml'
+require "rexml/document"
 
 class My::Patients::ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
