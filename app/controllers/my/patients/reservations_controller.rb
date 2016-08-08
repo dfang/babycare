@@ -28,6 +28,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
     }
     result = WxPay::Service.invoke_unifiedorder test_params
 
+    p result
+
     @order_params = {
       appId: Settings.wx_pay.app_id,
       timeStamp: DateTime.now.utc.to_i,
