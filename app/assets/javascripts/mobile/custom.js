@@ -12,18 +12,13 @@ this.uploader = (function() {
       max_file_size   : '10mb',
       url             : uploadUrl,
       flash_swf_url   : '/uploader.swf',
-      filters         : [
-        { title : "图片文件", extensions : "jpg,jpeg,gif,png,bmp" }
-      ],
+      filters         : [ { title : "图片文件", extensions : "jpg,jpeg,gif,png,bmp" } ],
       file_data_name  : 'file',
       multipart       : true,
-      multi_selection: false,
-      max_files: 1,
-      dragdrop: false,
-      max_retries: 3,
-      multipart_params:{
-        authenticity_token: $('meta[name="csrf-token"]').attr('content')
-      }
+      multi_selection : false,
+      dragdrop        : false,
+      max_retries     : 3,
+      multipart_params: { authenticity_token: $('meta[name="csrf-token"]').attr('content') }
     })
 
     webUploader.init()
