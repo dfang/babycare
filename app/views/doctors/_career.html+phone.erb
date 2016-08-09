@@ -27,13 +27,13 @@
             <div class="weui_uploader weui_uploader1">
                 <div class="weui_uploader_hd weui_cell">
                     <div class="weui_cell_bd weui_cell_primary">身份证正面照片</div>
-                    <div class="weui_cell_ft">
+                    <!-- <div class="weui_cell_ft">
                       <% if @doctor.id_card_front.present? %>
                         1/1
                       <% else %>
                         0/1
                       <% end %>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="weui_uploader_bd">
                     <ul class="weui_uploader_files">
@@ -47,8 +47,7 @@
                         <%= f.hidden_field :id_card_front, class: 'file_field' %>
                       </li>
                     </ul>
-                    <div class="weui_uploader_input_wrp">
-                      <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <div class="weui_uploader_input_wrp" id='picker1'>
                     </div>
                 </div>
             </div>
@@ -60,13 +59,13 @@
             <div class="weui_uploader weui_uploader2">
                 <div class="weui_uploader_hd weui_cell">
                     <div class="weui_cell_bd weui_cell_primary">身份证反面照片</div>
-                    <div class="weui_cell_ft">
+                    <!-- <div class="weui_cell_ft">
                       <% if @doctor.id_card_back.present? %>
                         1/1
                       <% else %>
                         0/1
                       <% end %>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="weui_uploader_bd">
                     <ul class="weui_uploader_files">
@@ -75,7 +74,7 @@
                         <%= f.hidden_field :id_card_back, class: 'file_field' %>
                       </li>
                     </ul>
-                    <div class="weui_uploader_input_wrp">
+                    <div class="weui_uploader_input_wrp" id='picker2'>
                         <!-- <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""> -->
                     </div>
                 </div>
@@ -88,13 +87,13 @@
             <div class="weui_uploader weui_uploader3">
                 <div class="weui_uploader_hd weui_cell">
                     <div class="weui_cell_bd weui_cell_primary">医生执照正页</div>
-                    <div class="weui_cell_ft">
+                    <!-- <div class="weui_cell_ft">
                       <% if @doctor.license_front.present? %>
                         1/1
                       <% else %>
                         0/1
                       <% end %>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="weui_uploader_bd">
                     <ul class="weui_uploader_files">
@@ -103,7 +102,7 @@
                         <%= f.hidden_field :license_front, class: 'file_field' %>
                       </li>
                     </ul>
-                    <div class="weui_uploader_input_wrp">
+                    <div class="weui_uploader_input_wrp" id='picker3'>
                         <!-- <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""> -->
                     </div>
                 </div>
@@ -116,13 +115,13 @@
             <div class="weui_uploader weui_uploader4">
                 <div class="weui_uploader_hd weui_cell">
                     <div class="weui_cell_bd weui_cell_primary">医生执照副页</div>
-                    <div class="weui_cell_ft">
+                    <!-- <div class="weui_cell_ft">
                       <% if @doctor.license_back.present? %>
                         1/1
                       <% else %>
                         0/1
                       <% end %>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="weui_uploader_bd">
                     <ul class="weui_uploader_files">
@@ -131,7 +130,7 @@
                         <%= f.hidden_field :license_back, class: 'file_field' %>
                       </li>
                     </ul>
-                    <div class="weui_uploader_input_wrp">
+                    <div class="weui_uploader_input_wrp" id='picker4'>
                         <!-- <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""> -->
                     </div>
                 </div>

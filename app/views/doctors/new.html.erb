@@ -4,11 +4,18 @@
   <%= javascript_include_tag :uploader %>
   <script type="text/javascript">
     $(document).on("ready", function(){
+      // Check if window.fileReader exists to make sure the browser supports file uploads
+      // if (typeof(window.FileReader) == 'undefined')
+      // {
+      //   alert'Browser does not support HTML5 file uploads!');
+      // }
 
-      uploader1 = uploader('.weui_uploader1 .weui_uploader_input_wrp', '.weui_uploader1', '/global_images.js')
-      uploader2 = uploader('.weui_uploader2 .weui_uploader_input_wrp', '.weui_uploader2', '/global_images.js')
-      uploader3 = uploader('.weui_uploader3 .weui_uploader_input_wrp', '.weui_uploader3', '/global_images.js')
-      uploader3 = uploader('.weui_uploader4 .weui_uploader_input_wrp', '.weui_uploader4', '/global_images.js')
+
+      uploader1 = new uploader( 'picker1', '.weui_uploader1', '/global_images.js')
+      uploader2 = new uploader( 'picker2', '.weui_uploader2', '/global_images.js')
+      uploader3 = new uploader( 'picker3', '.weui_uploader3', '/global_images.js')
+      uploader4 = new uploader( 'picker4', '.weui_uploader4', '/global_images.js')
+
     })
   </script>
 <% end %>
