@@ -17,6 +17,8 @@ this.uploader = (function() {
       multipart       : true,
       multi_selection : false,
       dragdrop        : false,
+      chunk_size: '100kb',
+      max_retries: 3,
       max_retries     : 3,
       multipart_params: { authenticity_token: $('meta[name="csrf-token"]').attr('content') }
     })
