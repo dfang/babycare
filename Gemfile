@@ -65,6 +65,8 @@ gem 'omniauth-wechat-oauth2'
 
 group :development, :test do
   # gem 'byebug'
+  gem 'ffaker'
+  gem 'factory_girl_rails'
 end
 
 group :development do

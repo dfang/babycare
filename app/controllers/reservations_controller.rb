@@ -1,6 +1,8 @@
 class ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
   custom_actions :resource => :wxpay_test
+  before_action :deny_doctors
+  skip_before_action :deny_doctors, only: :public
 
   def create
     @reservation = Reservation.new(reservation_params)
@@ -64,4 +66,10 @@ class ReservationsController < InheritedResources::Base
     params.require(:reservation).permit!
   end
 
+  def deny_doctors
+    if current_user.doctor.present?
+      flash[:error] = "你是医生不能访问该页面"
+      redirect_to global_denied_path and return
+    end
+  end
 end

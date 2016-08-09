@@ -5,7 +5,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   before_action :check_is_verified_doctor
   # skip_before_action :check_is_verified_doctor, only: [ :status ]
   custom_actions :collection => [ :reservations, :status ]
-  before_action :check_permisission, only: :show
+  before_action :deny_doctors, only: :show
 
   def reservations
   end
@@ -95,10 +95,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
     end
   end
 
-  def check_permisission
+  def deny_doctors
     unless resource.user_a == current_user.id
       # todo: redirect_to page with permission denied message
-      redirect_to my_patients_reservations_path and return
+      flash[:error] = "你是医生不能访问用户区域"
+      redirect_to global_denied_path and return
     end
   end
 

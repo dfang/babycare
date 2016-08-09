@@ -9,3 +9,9 @@
 
 # rake region:download
 # rake region:import
+require 'factory_girl_rails'
+
+
+25.times do
+  FactoryGirl.create(:reservation)
+end
