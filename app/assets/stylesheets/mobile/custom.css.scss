@@ -30,6 +30,11 @@ body, html {
     .tabbar{
       height: 100%;
     }
+    .weui_tab_bd{
+      .bd{
+        position:inherit;
+      }
+    }
   }
 }
 
