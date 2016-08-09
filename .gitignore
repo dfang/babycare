@@ -61,3 +61,6 @@ public/uploads
 
 lib/generators
 .DS_Store
+
+db/*.sql
+db/*.sql.bz2
