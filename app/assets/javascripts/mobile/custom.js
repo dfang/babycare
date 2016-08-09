@@ -18,7 +18,7 @@ this.uploader = (function() {
       file_data_name  : 'file',
       multipart       : true,
       multi_selection: false,
-      dragdrop: false,  
+      dragdrop: false,
       multipart_params:{
         authenticity_token: $('meta[name="csrf-token"]').attr('content')
       }
@@ -31,11 +31,11 @@ this.uploader = (function() {
     })
 
     webUploader.bind('browse', function(up, files){
-      alert('Browse')
+      console.log('Browse')
     })
 
     webUploader.bind('FilesAdded', function(up, files){
-      alert('FilesAdded')
+      console.log('FilesAdded')
       webUploader.start()
     })
 

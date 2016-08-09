@@ -8,7 +8,6 @@
       $(element).find('input').attr('name', "reservation[photos_attributes][" + index + "][data]")
     })
   <% else %>
-    alert('single')
     console.log('single image')
     $hidden_file_field = $('<%= params[:uploadTarget] %>').find('.weui_uploader_files').find('input:hidden')
     $files = $('<%= params[:uploadTarget] %>').find('.weui_uploader_files')
