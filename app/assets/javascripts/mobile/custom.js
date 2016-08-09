@@ -17,8 +17,6 @@ this.uploader = (function() {
       multipart       : true,
       multi_selection : false,
       dragdrop        : false,
-      chunk_size: '100kb',
-      max_retries: 3,
       max_retries     : 3,
       multipart_params: { authenticity_token: $('meta[name="csrf-token"]').attr('content') }
     })
@@ -39,7 +37,7 @@ this.uploader = (function() {
     })
 
     webUploader.bind("BeforeUpload", function(up, file){
-      console.log('BeforeUpload')
+      alert('BeforeUpload')
       $button = $(up.settings.browse_button[0])
 
       holder = $button.parent('.fields').attr('id', Math.floor(Math.random()*100000+1))
@@ -52,15 +50,18 @@ this.uploader = (function() {
       }
     })
 
-    webUploader.bind('Error', function(up, err){
-      up.refresh()
+
+    webUploader.bind('UploadFile', function(up, file){
+      console.log('UploadFile')
     })
 
     webUploader.bind('UploadProgress', function(up, file){
+      console.log('UploadProgress')
       text = file.percent + '%'
     })
 
     webUploader.bind('FileUploaded', function(up, file, data){
+      console.log('FileUploaded')
       eval(data.response)
       console.log(up)
       console.log(file)
@@ -69,6 +70,15 @@ this.uploader = (function() {
 
     webUploader.bind('UploadComplete', function(up, files){
       console.log('UploadComplete')
+    })
+
+    webUploader.bind('Error', function(up, err){
+      alert('Error')
+      up.refresh()
+    })
+
+    webUploader.bind('Destroy', function(up, file){
+      console.log('Destroy');
     })
   }
   return uploader;

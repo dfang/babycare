@@ -3,6 +3,8 @@ class GlobalImagesController < ApplicationController
   respond_to :html, :json, :js
 
   def create
+    p request
+    
     # binding.pry
     @image = GlobalImage.new
     @image.data = params[:file]
