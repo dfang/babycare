@@ -65,9 +65,11 @@ gem 'omniauth-wechat-oauth2'
 
 group :development, :test do
   # gem 'byebug'
-  gem 'ffaker'
-  gem 'factory_girl_rails'
 end
+
+# create test data on server, tempary moved out of development group
+gem 'ffaker'
+gem 'factory_girl_rails'
 
 group :development do
   # gem 'web-console', '~> 2.0'
