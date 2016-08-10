@@ -49,13 +49,17 @@
             signType:  "<%= @order_params[:signType] %>", // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
             paySign:   "<%= @order_params[:paySign] %>", // 支付签名
             success: function (res) {
-							alert(res)
+							alert(JSON.stringify(res));
               // 支付成功后的回调函数
 							if(res["errMsg"] == "chooseWXPay:ok"){
 								// check payments and change aasm_state
 								location.href = "/my/patients/reservations"
 							}
-            }
+            },
+						fail: function(res){
+							alert(JSON.stringify(res));
+							alert('支付请求失败, 请联系我们');
+						}
         });
       });
 

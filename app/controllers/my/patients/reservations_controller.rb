@@ -23,7 +23,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       out_trade_no: "prepay#{SecureRandom.random_number(100000)}",
       total_fee: 1,
       spbill_create_ip: '60.205.110.67',
-      notify_url: 'http://wx.yhuan.cc/reservations/public',
+      notify_url: 'http://wx.yhuan.cc/my/patients/reservations',
       trade_type: 'JSAPI',
       openid: current_wechat_authentication.uid
     }
