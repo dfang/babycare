@@ -17,8 +17,6 @@
 </div>
 
 <%= javascript_tag do %>
-  $(document).on("turbolinks:load", function(){
-
     var orderParams = {
       appId:     "<%= @order_params[:appId] %>",
       timeStamp: "<%= @order_params[:timeStamp] %>",
@@ -61,6 +59,4 @@
       console.log(res);
     })
 
-
-  })
 <% end %>
