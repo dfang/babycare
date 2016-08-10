@@ -114,6 +114,8 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    enumerize (1.1.1)
+      activesupport (>= 3.2)
     erubis (2.7.0)
     exception_notification (4.1.4)
       actionmailer (~> 4.0)
@@ -351,6 +353,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.1.0)
   devise
+  enumerize
   exception_notification
   factory_girl_rails
   ffaker

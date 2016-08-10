@@ -1,5 +1,7 @@
 class Reservation < ActiveRecord::Base
   include AASM
+	extend Enumerize
+	extend ActiveModel::Naming
 
   aasm do
 
@@ -27,6 +29,7 @@ class Reservation < ActiveRecord::Base
     end
   end
 
+	enumerize :aasm_state, in: [:pending, :reserved, :archived], default: :pending, predicates: true
 
 
   GENDERS = ["儿子", "女儿"]

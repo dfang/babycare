@@ -31,7 +31,10 @@ gem 'exception_notification'
 gem 'china_region_fu'
 gem 'stringex'
 gem 'public_activity'
+
 gem 'aasm'
+gem 'enumerize'
+
 gem 'paranoia'
 gem 'acts-as-taggable-on'
 

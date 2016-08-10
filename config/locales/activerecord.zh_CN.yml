@@ -4,12 +4,29 @@ zh-CN:
       create: "创建%{model}"
       update: "保存%{model}"
 
+  enumerize:
+    defaults:
+      sex:
+        male: "Male"
+        female: "Female"
+      aasm_state:
+        pending: 待接单
+        reserved: 已接单
+        archived: 已存档
+        prepaid: 已支付定金
+    reservations:
+      aasm_state:
+        pending: 待接单
+        reserved: 已接单
+        archived: 已存档
+        prepaid: 已支付定金
   activerecord:
     symbolizes:
       user:
         gender:
           male: 男
           female: 女
+
     models:
       person: 登记
       user: 用户
