@@ -1,6 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   before_action :wechat_authorize
   # before_action :configure_sign_in_params, only: [:create]
+  prepend_before_action :authenticate_user!, :wechat_authorize
 
   def wechat_authorize
     wx_authenticate!
