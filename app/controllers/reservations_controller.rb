@@ -34,10 +34,6 @@ class ReservationsController < InheritedResources::Base
   def status
   end
 
-	def check_payment_status
-
-	end
-
   def wxpay_test
     params = {
       body: '测试商品',
