@@ -96,6 +96,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   def payment_notify
     # 改变订单状态
     p request
+    p params
   end
 
   private
