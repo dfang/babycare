@@ -1,4 +1,4 @@
-<%= link_to my_patients_reservation_path(res) do %>
+<%= link_to my_patients_reservation_path(res), data: { turbolinks: false} do %>
   <div class="weui_panel_bd">
       <div class="weui_media_box weui_media_text">
           <h4 class="weui_media_title"> <%= res.name %>的孩子 </h4>
