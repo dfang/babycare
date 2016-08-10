@@ -18,16 +18,6 @@
 
 <%= javascript_tag do %>
   $(document).on("turbolinks:load", function(){
-    if (typeof WeixinJSBridge == "undefined"){
-       if( document.addEventListener ){
-           document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-       }else if (document.attachEvent){
-           document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-           document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-       }
-    }else{
-       onBridgeReady();
-    }
 
     var orderParams = {
       appId:     "<%= @order_params[:appId] %>",
@@ -52,7 +42,7 @@
     wx.ready(function(){
       console.log('wx ready, click to pay')
 
-      $('#wechatPaymentBtn').click(function() {
+      $('#wechatPaymentBtn').on('click', function() {
 
         wx.chooseWXPay({
             timestamp: "<%= @order_params[:timeStamp] %>", // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
@@ -71,8 +61,6 @@
       console.log(res);
     })
 
-    function onBridgeReady(){
-    }
 
   })
 <% end %>

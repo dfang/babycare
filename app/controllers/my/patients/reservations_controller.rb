@@ -89,6 +89,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
   private
 
+  # todo: fix_this
   def check_is_verified_doctor
     if current_user.is_verified_doctor?
       redirect_to my_patients_status_path and return
