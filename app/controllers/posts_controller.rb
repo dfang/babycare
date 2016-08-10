@@ -1,5 +1,6 @@
 class PostsController < InheritedResources::Base
-  before_action :authenticate_user!
+  before_filter ->{ authenticate_user!( force: true ) } 
+
 
   def index
   end

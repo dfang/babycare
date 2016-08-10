@@ -1,5 +1,6 @@
 class ReservationsController < InheritedResources::Base
-  before_action :authenticate_user!
+  before_filter ->{ authenticate_user!( force: true ) }
+
   custom_actions :resource => :wxpay_test
   before_action :deny_doctors
   skip_before_action :deny_doctors, only: [ :public, :show, :claim, :status ]

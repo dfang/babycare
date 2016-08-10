@@ -1,5 +1,6 @@
 class DoctorsController < InheritedResources::Base
-  before_action :authenticate_user!
+  before_filter ->{ authenticate_user!( force: true ) } 
+
   before_action :set_doctor, only: [:show, :edit, :update, :destroy, :online, :offline]
 
   def apply
