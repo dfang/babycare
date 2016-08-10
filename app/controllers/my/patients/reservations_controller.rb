@@ -4,7 +4,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   before_filter ->{ authenticate_user!( force: true ) }
 
   skip_before_action :verify_authenticity_token, only: :payment_notify
-  skip_before_action :authenticate_user, only: :payment_notify
+  skip_before_action :authenticate_user!, only: :payment_notify
 
   before_action :check_is_verified_doctor
   custom_actions :collection => [ :reservations, :status, :payment_notify, :payment_test ]
@@ -94,6 +94,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   end
 
   def payment_notify
+    # 改变订单状态
     p request
   end
 
