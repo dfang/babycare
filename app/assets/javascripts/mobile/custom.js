@@ -37,7 +37,7 @@ this.uploader = (function() {
     })
 
     webUploader.bind("BeforeUpload", function(up, file){
-      alert('BeforeUpload')
+      console.log('BeforeUpload')
       $button = $(up.settings.browse_button[0])
 
       holder = $button.parent('.fields').attr('id', Math.floor(Math.random()*100000+1))

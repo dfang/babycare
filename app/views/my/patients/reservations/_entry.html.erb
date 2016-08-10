@@ -9,5 +9,10 @@
             <li class="weui_media_info_meta weui_media_info_meta_extra"><%= res.location %></li>
           </ul>
       </div>
+			<div class="weui_media_status">
+				<span>
+					<%= res.aasm_state_text %>
+				</span>
+			</div>
   </div>
 <% end %>

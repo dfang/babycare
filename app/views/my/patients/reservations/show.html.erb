@@ -18,9 +18,6 @@
 
 <%= javascript_tag do %>
   $(document).on("turbolinks:load", function(){
-
-    alert('turbolinks loaded ')
-
     if (typeof WeixinJSBridge == "undefined"){
        if( document.addEventListener ){
            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
@@ -53,7 +50,7 @@
     });
 
     wx.ready(function(){
-      alert('wx ready, click to pay')
+      console.log('wx ready, click to pay')
 
       $('#wechatPaymentBtn').click(function() {
 

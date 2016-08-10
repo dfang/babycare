@@ -3,7 +3,6 @@ require "rexml/document"
 class My::Patients::ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
   before_action :check_is_verified_doctor
-  # skip_before_action :check_is_verified_doctor, only: [ :status ]
   custom_actions :collection => [ :reservations, :status ]
   before_action :deny_doctors, only: :show
 

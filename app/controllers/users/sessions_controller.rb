@@ -11,6 +11,8 @@ class Users::SessionsController < Devise::SessionsController
 
   def wx_authenticate!
 
+    p "authenticating user, session[:weixin_openid] is #{session[:weixin_openid]}"
+
     if session[:weixin_openid].present?
       authentication = Authentication.find_by provider: 'wechat', uid: session[:weixin_openid]
       if authentication.present?
