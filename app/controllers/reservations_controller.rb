@@ -2,7 +2,7 @@ class ReservationsController < InheritedResources::Base
   before_action :authenticate_user!
   custom_actions :resource => :wxpay_test
   before_action :deny_doctors
-  skip_before_action :deny_doctors, only: [ :public, :show ]
+  skip_before_action :deny_doctors, only: [ :public, :show, :claim ]
 
   def create
     @reservation = Reservation.new(reservation_params)

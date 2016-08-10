@@ -4,10 +4,10 @@ class GlobalImagesController < ApplicationController
 
   def create
     p request
-    
-    # binding.pry
+
     @image = GlobalImage.new
     @image.data = params[:file]
+		p "image size is #{@image.data.size/1024} KB"
 
     @image.save!
     # p @image
