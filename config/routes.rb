@@ -21,7 +21,8 @@ Rails.application.routes.draw do
 
     namespace :patients do
       resources :reservations do
-        get 'prepay', on: :member
+        get 'payment_test', on: :collection
+        post 'payment_notify', on: :collection
       end
       get 'status'
       get 'index'

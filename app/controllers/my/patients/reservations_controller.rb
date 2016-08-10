@@ -4,7 +4,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   before_filter ->{ authenticate_user!( force: true ) }
 
   before_action :check_is_verified_doctor
-  custom_actions :collection => [ :reservations, :status ]
+  custom_actions :collection => [ :reservations, :status, :payment_notify ]
   before_action :deny_doctors, only: :show
 
   def reservations
@@ -23,7 +23,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       out_trade_no: "prepay#{SecureRandom.random_number(100000)}",
       total_fee: 1,
       spbill_create_ip: '60.205.110.67',
-      notify_url: 'http://wx.yhuan.cc/my/patients/reservations',
+      notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
       trade_type: 'JSAPI',
       openid: current_wechat_authentication.uid
     }
@@ -85,6 +85,15 @@ class My::Patients::ReservationsController < InheritedResources::Base
     p '@order_params is .........'
     p @order_params
 
+  end
+
+  def payment_test
+
+  end
+
+  def payment_notify
+    p request
+    
   end
 
   private
