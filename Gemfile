@@ -73,10 +73,10 @@ end
 # create test data on server, tempary moved out of development group
 gem 'ffaker'
 gem 'factory_girl_rails'
+gem 'pry-rails'
 
 group :development do
   # gem 'web-console', '~> 2.0'
-  gem 'pry-rails'
   gem 'nifty-generators', github: 'dfang/nifty-generators'
   gem 'annotate'
   gem 'capistrano', '3.5.0'
