@@ -113,7 +113,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
                               mch_id: Settings.wx_pay.mch_id,
                               transaction_id: response_obj["xml"]["transaction_id"],
                               nonce_str: SecureRandom.hex
-                            }.merge(sign: Digest::MD5.hexdigest(options_to_sign)
+                            }.merge(sign: Digest::MD5.hexdigest(options_to_sign))
                           )
 
     p 'order query result .......'
