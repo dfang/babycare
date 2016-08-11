@@ -110,7 +110,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
                         end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
 
 
-    order_query_result =  WxPay::Service.order_query(options_to_sign.merge(sign: Digest::MD5.hexdigest(options_to_sign)))
+    order_query_result =  WxPay::Service.order_query(options_to_sign.merge(sign: Digest::MD5.hexdigest(strings_to_sign)))
 
     p 'order query result .......'
     p order_query_result
