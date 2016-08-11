@@ -59,7 +59,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     p 'js_sdk_signature string ..........'
     p js_sdk_signature_str
 
-    stringA = {
+    pay_sign_str = {
                   appId: Settings.wx_pay.app_id,
                   nonceStr: options[:noncestr],
                   timeStamp: options[:timestamp],
@@ -67,9 +67,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
                   signType: 'MD5'
               }.sort.map do |k,v|
                         "#{k}=#{v}" if v != "" && !v.nil?
-                      end.compact.join('&')
-
-    pay_sign_str = stringA + "&key=#{Settings.wx_pay.key}"
+                      end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
 
     p  'pay_sign is .....'
     p  pay_sign_str
@@ -95,11 +93,36 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
   def payment_notify
     # 改变订单状态
-    p request
-    p params
-    binding.remote_pry
-    # // 示例报文
+    # binding.remote_pry
     # // String xml = "<xml><appid><![CDATA[wxb4dc385f953b356e]]></appid><bank_type><![CDATA[CCB_CREDIT]]></bank_type><cash_fee><![CDATA[1]]></cash_fee><fee_type><![CDATA[CNY]]></fee_type><is_subscribe><![CDATA[Y]]></is_subscribe><mch_id><![CDATA[1228442802]]></mch_id><nonce_str><![CDATA[1002477130]]></nonce_str><openid><![CDATA[o-HREuJzRr3moMvv990VdfnQ8x4k]]></openid><out_trade_no><![CDATA[1000000000051249]]></out_trade_no><result_code><![CDATA[SUCCESS]]></result_code><return_code><![CDATA[SUCCESS]]></return_code><sign><![CDATA[1269E03E43F2B8C388A414EDAE185CEE]]></sign><time_end><![CDATA[20150324100405]]></time_end><total_fee>1</total_fee><trade_type><![CDATA[JSAPI]]></trade_type><transaction_id><![CDATA[1009530574201503240036299496]]></transaction_id></xml>";
+    response_obj = Hash.from_xml(request.body.read)
+    p 'payment notify result'
+    p response_obj
+    options_to_sign  = {
+                        appid: Settings.wx_pay.app_id,
+                        mch_id: Settings.wx_pay.mch_id,
+                        transaction_id: response_obj["xml"]["transaction_id"],
+                        nonce_str: SecureRandom.hex
+                      }.sort.map do |k,v|
+                          "#{k}=#{v}" if v != "" && !v.nil?
+                        end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
+
+
+    order_query_result =  WxPay.order_query({
+                              appid: Settings.wx_pay.app_id,
+                              mch_id: Settings.wx_pay.mch_id,
+                              transaction_id: response_obj["xml"]["transaction_id"],
+                              nonce_str: SecureRandom.hex
+                            }.merge(sign: Digest::MD5.hexdigest(options_to_sign)
+                          )
+
+    p 'order query result .......'
+    p order_query_result
+    binding.remote_pry
+    if(order_query_result["return_code"] == "SUCCESS"){
+      # order_query_result[""]
+    }
+    # // 示例报文
   end
 
   private
