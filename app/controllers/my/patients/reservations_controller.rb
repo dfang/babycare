@@ -109,7 +109,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
                         end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
 
 
-    order_query_result =  WxPay.order_query({
+    order_query_result =  WxPay::Service.order_query({
                               appid: Settings.wx_pay.app_id,
                               mch_id: Settings.wx_pay.mch_id,
                               transaction_id: response_obj["xml"]["transaction_id"],
