@@ -104,18 +104,13 @@ class My::Patients::ReservationsController < InheritedResources::Base
                         mch_id: Settings.wx_pay.mch_id,
                         transaction_id: response_obj["xml"]["transaction_id"],
                         nonce_str: SecureRandom.hex
-                      }.sort.map do |k,v|
+                      }
+    strings_to_sign = options_to_sign.sort.map do |k,v|
                           "#{k}=#{v}" if v != "" && !v.nil?
                         end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
 
 
-    order_query_result =  WxPay::Service.order_query({
-                              appid: Settings.wx_pay.app_id,
-                              mch_id: Settings.wx_pay.mch_id,
-                              transaction_id: response_obj["xml"]["transaction_id"],
-                              nonce_str: SecureRandom.hex
-                            }.merge(sign: Digest::MD5.hexdigest(options_to_sign))
-                          )
+    order_query_result =  WxPay::Service.order_query(options_to_sign.merge(sign: Digest::MD5.hexdigest(options_to_sign)))
 
     p 'order query result .......'
     p order_query_result
