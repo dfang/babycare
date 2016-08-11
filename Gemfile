@@ -74,6 +74,7 @@ end
 gem 'ffaker'
 gem 'factory_girl_rails'
 gem 'pry-rails'
+gem 'pry-remote'
 
 group :development do
   # gem 'web-console', '~> 2.0'

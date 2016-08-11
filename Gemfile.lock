@@ -224,6 +224,9 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
     public_activity (1.5.0)
       actionpack (>= 3.0.0)
       activerecord (>= 3.0)
@@ -375,6 +378,7 @@ DEPENDENCIES
   paranoia
   pg (~> 0.15)
   pry-rails
+  pry-remote
   public_activity
   pundit
   qiniu
