@@ -21,8 +21,10 @@ class My::Patients::ReservationsController < InheritedResources::Base
   end
 
   def show
-    resource.out_trade_no = "prepay_#{SecureRandom.random_number(100000)}"
-    resource.save
+    if resource.out_trade_no.blank?
+      resource.out_trade_no = "prepay_#{SecureRandom.random_number(100000)}"
+      resource.save
+    end
 
     test_params = {
       body: '预约定金',
@@ -143,7 +145,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
       #   "cash_fee"=>"1"
       #  }
       reservation = Reservation.find_by(out_trade_no: order_query_result["out_trade_no"])
-      binding.remote_pry
+      p reservation
+      p 'trigger prepay event'
       reservation.prepay!
     end
   end
