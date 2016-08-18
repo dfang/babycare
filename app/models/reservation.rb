@@ -8,27 +8,27 @@ class Reservation < ActiveRecord::Base
     state :reserved, :prepaid, :paid, :archived
 
     event :reserve do
-       transitions from: :pending, to: :reserved
+      transitions from: :pending, to: :reserved
     end
 
     event :prepay do
-       transitions from: :reserved, to: :prepaid
+      transitions from: :reserved, to: :prepaid
     end
 
     event :paid do
-       transitions from: :prepaid, to: :paid
+      transitions from: :prepaid, to: :paid
     end
 
     event :unreserve do
-        transitions from: :reserved, to: :pending
+      transitions from: :reserved, to: :pending
     end
 
     event :archive do
-       transitions from: [:pending, :reserved], to: :archived
+      transitions from: [:pending, :reserved], to: :archived
     end
   end
 
-  enumerize :aasm_state, in: [:pending, :reserved, :archived], default: :pending, predicates: true
+  enumerize :aasm_state, in: [:pending, :reserved, :prepaid, :paid, :archived], default: :pending, predicates: true
 
   GENDERS = %w(儿子 女儿).freeze
   def marked_phone_number
