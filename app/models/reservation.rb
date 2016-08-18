@@ -1,42 +1,39 @@
 class Reservation < ActiveRecord::Base
   include AASM
-	extend Enumerize
-	extend ActiveModel::Naming
+  extend Enumerize
+  extend ActiveModel::Naming
 
   aasm do
-
-    state :pending, :initial => true
+    state :pending, initial: true
     state :reserved, :archived
 
     event :reserve do
-      transitions :from => :pending, :to => :reserved
+       transitions from: :pending, to: :reserved
     end
 
     event :prepay do
-      transitions :from => :reserved, :to => :prepaid
+       transitions from: :reserved, to: :prepaid
     end
 
     event :paid do
-      transitions :from => :prepaid, :to => :paid
+       transitions from: :prepaid, to: :paid
     end
 
     event :unreserve do
-      transitions :from => :reserved, :to => :pending
+        transitions from: :reserved, to: :pending
     end
 
     event :archive do
-      transitions :from => [:pending, :reserved], :to => :archived
+       transitions from: [:pending, :reserved], to: :archived
     end
   end
 
-	enumerize :aasm_state, in: [:pending, :reserved, :archived], default: :pending, predicates: true
+  enumerize :aasm_state, in: [:pending, :reserved, :archived], default: :pending, predicates: true
 
-
-  GENDERS = ["儿子", "女儿"]
+  GENDERS = %w(儿子 女儿).freeze
   def marked_phone_number
     # http://stackoverflow.com/questions/26103394/regular-expression-to-mask-all-but-the-last-4-digits-of-a-social-security-number
     # Simply extract the last four characters and append them to a string of five '*'
-    '*'*7 + self.mobile_phone[-4..-1]
+    '*' * 7 + mobile_phone[-4..-1]
   end
-
 end

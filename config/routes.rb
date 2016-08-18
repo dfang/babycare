@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
     namespace :patients do
       resources :reservations do
-        get 'payment_test', on: :collection
+        get 'payment_te', on: :collection
         post 'payment_notify', on: :collection
       end
       get 'status'

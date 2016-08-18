@@ -21,9 +21,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
   end
 
   def show
+    resource.out_trade_no = "prepay#{SecureRandom.random_number(100000)}"
+    resource.save
+
     test_params = {
       body: '预约定金',
-      out_trade_no: "prepay#{SecureRandom.random_number(100000)}",
+      out_trade_no: resource.out_trade_no,
       total_fee: 1,
       spbill_create_ip: '60.205.110.67',
       notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
@@ -117,6 +120,27 @@ class My::Patients::ReservationsController < InheritedResources::Base
     binding.remote_pry
     if order_query_result["return_code"] == "SUCCESS"
       # order_query_result[""]
+      # {
+      #   "return_code"=>"SUCCESS",
+      #   "return_msg"=>"OK",
+      #   "appid"=>"wxa887ef8490361f68",
+      #   "mch_id"=>"1368072702",
+      #   "nonce_str"=>"PbbsrwpIR9P6ViZp",
+      #   "sign"=>"C81ECDA67B84AC9D1A222F5CAD2C050A",
+      #   "result_code"=>"SUCCESS",
+      #   "openid"=>"ox-t3s08e-Av2rUlE2a2i2ITR0XY",
+      #   "is_subscribe"=>"Y",
+      #   "trade_type"=>"JSAPI",
+      #   "bank_type"=>"CFT",
+      #   "total_fee"=>"1",
+      #   "fee_type"=>"CNY",
+      #   "transaction_id"=>"4007612001201608111132486401",
+      #   "out_trade_no"=>"prepay56471",
+      #   "attach"=>"",
+      #   "time_end"=>"20160811225354",
+      #   "trade_state"=>"SUCCESS",
+      #   "cash_fee"=>"1"
+      #  }
     end
   end
 
