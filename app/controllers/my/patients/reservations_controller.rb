@@ -118,10 +118,9 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     p 'order query result .......'
     p order_query_result
-    binding.remote_pry
     p order_query_result["out_trade_no"]
     if order_query_result["return_code"] == "SUCCESS"
-      # order_query_result[""]
+      # order_query_result
       # {
       #   "return_code"=>"SUCCESS",
       #   "return_msg"=>"OK",
@@ -144,6 +143,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       #   "cash_fee"=>"1"
       #  }
       reservation = Reservation.find_by(out_trade_no: order_query_result["out_trade_no"])
+      binding.remote_pry
       reservation.prepay!
     end
   end
