@@ -106,7 +106,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
                         appid: Settings.wx_pay.app_id,
                         mch_id: Settings.wx_pay.mch_id,
                         transaction_id: response_obj["xml"]["transaction_id"],
-                        nonce_str: SecureRandom.hex
+                        nonce_str: SecureRandom.hex,
+                        out_trade_no: response_obj["xml"]["out_trade_no"]
                       }
     strings_to_sign = options_to_sign.sort.map do |k,v|
                           "#{k}=#{v}" if v != "" && !v.nil?
@@ -118,6 +119,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     p 'order query result .......'
     p order_query_result
     # binding.remote_pry
+    p order_query_result["out_trade_no"]
     if order_query_result["return_code"] == "SUCCESS"
       # order_query_result[""]
       # {
