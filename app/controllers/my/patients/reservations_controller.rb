@@ -1,7 +1,7 @@
 require "rexml/document"
 
 class My::Patients::ReservationsController < InheritedResources::Base
-  before_action ->{ authenticate_user!( force: true ) }
+  before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
   before_action :check_is_verified_doctor
   custom_actions :collection => [ :reservations, :status, :payment_notify, :payment_test ]
   before_action :deny_doctors, only: :show
