@@ -141,7 +141,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       #   "trade_state"=>"SUCCESS",
       #   "cash_fee"=>"1"
       #  }
-      reservation = Reservation.find_by(out_trade_no: order_query_result["out_trade_no"]
+      reservation = Reservation.find_by(out_trade_no: order_query_result["out_trade_no"])
       reservation.prepay!
     end
   end
