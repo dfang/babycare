@@ -1,13 +1,13 @@
 require "rexml/document"
 
 class My::Patients::ReservationsController < InheritedResources::Base
-  before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
+  before_action ->{ authenticate_user!( force: true ) }
   before_action :check_is_verified_doctor
   custom_actions :collection => [ :reservations, :status, :payment_notify, :payment_test ]
   before_action :deny_doctors, only: :show
 
   skip_before_action :verify_authenticity_token, only: :payment_notify
-  # skip_before_action :authenticate_user!, only: :payment_notify
+  skip_before_action :authenticate_user!, only: :payment_notify
   skip_before_action :check_is_verified_doctor, only: :payment_notify
 
   def reservations
@@ -21,7 +21,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   end
 
   def show
-    resource.out_trade_no = "prepay#{SecureRandom.random_number(100000)}"
+    resource.out_trade_no = "prepay_#{SecureRandom.random_number(100000)}"
     resource.save
 
     test_params = {
@@ -102,7 +102,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     response_obj = Hash.from_xml(request.body.read)
     p 'payment notify result'
     p response_obj
-    options_to_sign  = {
+    options_to_sign = {
                         appid: Settings.wx_pay.app_id,
                         mch_id: Settings.wx_pay.mch_id,
                         transaction_id: response_obj["xml"]["transaction_id"],
