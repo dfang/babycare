@@ -7,6 +7,8 @@ class GlobalImagesController < ApplicationController
   def create
     p request
 
+		p 'before saving picture'
+		p Time.now
 		Benchmark.realtime do
 	    @image = GlobalImage.new
 	    @image.data = params[:file]
@@ -16,7 +18,8 @@ class GlobalImagesController < ApplicationController
 	    # p @image
     	# @image
 		end
-
+		p 'saved ........'
+		p Time.now
 
     respond_to do |format|
       format.js { }
