@@ -1,7 +1,7 @@
 <%= link_to reservation_path(res) do %>
   <div class="weui_panel_bd">
       <div class="weui_media_box weui_media_text">
-          <h4 class="weui_media_title"> <%= res.name %>的孩子 </h4>
+					<h4 class="weui_media_title"> <%= res.name %>的<%= res.child_gender %> </h4>
           <p class="weui_media_desc"> <%= res.remark %></p>
           <ul class="weui_media_info">
             <li class="weui_media_info_meta"><%= res.mobile_phone %></li>

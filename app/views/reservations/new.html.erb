@@ -20,7 +20,7 @@
           <label for="" class="weui_label">男孩还是女孩</label>
       </div>
       <div class="weui_cell_bd weui_cell_primary">
-          <select class="weui_select" name="select2">
+          <select class="weui_select" name="reservation[child_gender]">
             <%= options_for_select Reservation::GENDERS, "儿子" %>
           </select>
       </div>
@@ -87,7 +87,7 @@
   function onError(e){
     console.log('on geoLocation failed')
   }
-    
+
   })
 </script>
 <% end %>
