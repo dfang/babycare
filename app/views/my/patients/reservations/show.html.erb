@@ -1,5 +1,7 @@
 <%- if resource.prepaid? %>
 	<%= render 'prepaid' %>
-<% else %>
+<% elsif resource.pending? %>
 	<%= render 'pending' %>
+<% elsif resource.reserved? %>
+	<%= render 'reserved' %>
 <% end %>

@@ -2,12 +2,12 @@
     <div class="weui_msg">
         <div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div>
         <div class="weui_text_area">
-            <h2 class="weui_msg_title">支付定金</h2>
-            <p class="weui_msg_desc">请支付定金以示你的诚意!</p>
+            <h2 class="weui_msg_title">请耐心等待</h2>
+            <p class="weui_msg_desc">请耐心等待医生联系你，如果等待时间过长，你可以直接打我们的客服电话，我们会帮你协调医生</p>
         </div>
         <div class="weui_opr_area">
             <p class="weui_btn_area">
-                <a href="javascript:void(0)" class="weui_btn weui_btn_primary" id="wechatPaymentBtn">支付定金</a>
+                <a href="javascript:void(0)" class="weui_btn weui_btn_primary">拨打客服电话</a>
             </p>
         </div>
         <div class="weui_extra_area">
@@ -15,55 +15,3 @@
         </div>
     </div>
 </div>
-
-<%= javascript_tag do %>
-    var orderParams = {
-      appId:     "<%= @order_params[:appId] %>",
-      timeStamp: "<%= @order_params[:timeStamp] %>",
-      nonceStr:  "<%= @order_params[:nonceStr] %>",
-      package:   "<%= @order_params[:package] %>",
-      paySign:   "<%= @order_params[:paySign] %>",
-      signType:  "<%= @order_params[:signType] %>"
-    }.to_json;
-
-		wx.config({
-      <!-- debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。 -->
-			appId: "<%= @order_params[:appId] %>", // 必填，公众号的唯一标识
-      timestamp: "<%= @order_params[:timeStamp] %>", // 必填，生成签名的时间戳
-      nonceStr: "<%= @order_params[:nonceStr] %>", // 必填，生成签名的随机串
-      signature: "<%= @order_params[:sign] %>", // 必填，签名，见附录1
-      jsApiList: ['checkJsApi', 'chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-    });
-
-    wx.ready(function(){
-      console.log('wx ready, click to pay')
-
-      $('#wechatPaymentBtn').on('click', function() {
-
-        wx.chooseWXPay({
-            timestamp: "<%= @order_params[:timeStamp] %>", // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-            nonceStr:  "<%= @order_params[:nonceStr] %>", // 支付签名随机串，不长于 32 位
-            package:   "<%= @order_params[:package]  %>", // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-            signType:  "<%= @order_params[:signType] %>", // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-            paySign:   "<%= @order_params[:paySign] %>", // 支付签名
-            success: function (res) {
-							alert(JSON.stringify(res));
-              // 支付成功后的回调函数
-							if(res["errMsg"] == "chooseWXPay:ok"){
-								// check payments and change aasm_state
-								location.href = "/my/patients/reservations"
-							}
-            },
-						fail: function(res){
-							alert(JSON.stringify(res));
-							alert('支付请求失败, 请联系我们');
-						}
-        });
-      });
-
-    })
-    wx.error(function(res){
-      console.log(res);
-    })
-
-<% end %>
