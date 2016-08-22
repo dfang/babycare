@@ -14,7 +14,7 @@ this.uploader = (function() {
       flash_swf_url   : '/uploader.swf',
       filters         : [ { title : "图片文件", extensions : "jpg,jpeg,gif,png,bmp" } ],
       file_data_name  : 'file',
-      multipart       : true,
+      multipart       : false,
       multi_selection : false,
       dragdrop        : false,
       max_retries     : 3,
@@ -82,6 +82,11 @@ this.uploader = (function() {
     })
   }
   return uploader;
+
+
+  $(document).on('click', '.weui_uploader_input_wrp', function(e){
+    $(e.target).parent('.weui_uploader_bd').find('.moxie-shim input[type=file]').trigger('click')
+  })
 })();
 
 
