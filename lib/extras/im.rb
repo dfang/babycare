@@ -118,10 +118,12 @@ module IM
       sigparameter = Digest::MD5.hexdigest("#{subaccountsid}"+"#{subaccountauthtoken}"+"#{timestamp}").upcase
       authorization = Base64.strict_encode64("#{subaccountsid}:#{timestamp}")
 
-      p authorization
-
       url = "https://app.cloopen.com:8883/#{softversion}/SubAccounts/#{subaccountsid}/Calls/Callback?sig=#{sigparameter}"
 
+      # http://stackoverflow.com/questions/24691483/passing-headers-and-query-params-in-httparty
+      # {
+      #   use Authorization => authorization instead of Authorization: authorization 
+      # }
       HTTParty.post(url,
         body:
           {
@@ -129,9 +131,9 @@ module IM
             to:  "17762575774"
           }.to_json,
         headers: {
-          'Authorization': authorization,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Authorization' => authorization,
+          'Content-Type' => 'application/json',
+          'Accept' => 'application/json'
         }
       )
     end
