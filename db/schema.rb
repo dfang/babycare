@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818081034) do
+ActiveRecord::Schema.define(version: 20160822042326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,6 +224,19 @@ ActiveRecord::Schema.define(version: 20160818081034) do
     t.string   "blood_type"
   end
 
+  create_table "phone_call_histories", force: :cascade do |t|
+    t.integer  "caller_user_id"
+    t.string   "caller_phone"
+    t.integer  "callee_user_id"
+    t.string   "callee_phone"
+    t.integer  "reservation_id"
+    t.string   "reservation_state_when_call"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "phone_call_histories", ["reservation_id"], name: "index_phone_call_histories_on_reservation_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -261,6 +274,19 @@ ActiveRecord::Schema.define(version: 20160818081034) do
     t.string   "child_gender"
     t.string   "out_trade_no"
   end
+
+  create_table "sms_histories", force: :cascade do |t|
+    t.integer  "sender_user_id"
+    t.string   "sender_phone"
+    t.integer  "sendee_user_id"
+    t.string   "sendee_phone"
+    t.integer  "reservation_id"
+    t.string   "reservation_state_when_sms"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "sms_histories", ["reservation_id"], name: "index_sms_histories_on_reservation_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -312,5 +338,7 @@ ActiveRecord::Schema.define(version: 20160818081034) do
   add_foreign_key "laboratory_examination_images", "medical_records"
   add_foreign_key "medical_record_images", "medical_records"
   add_foreign_key "medical_records", "people"
+  add_foreign_key "phone_call_histories", "reservations"
+  add_foreign_key "sms_histories", "reservations"
   add_foreign_key "wx_sub_menus", "wx_menus"
 end

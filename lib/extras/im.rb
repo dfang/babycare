@@ -105,7 +105,15 @@ module IM
   class Ronglian
     include HTTParty
 
-    def self.call(caller, callee)
+    def self.call(caller_id, callee_id, reservation_id)
+      caller = User.find_by(id: caller_id)
+      callee = User.find_by(id: callee_id)
+      reservation = Reservation.find_by(id: reservation_id)
+
+      if caller.blank? || callee.blank? || reservation.blank?
+        raise ActiveRecord::RecordNotFound
+      end
+
       softversion = Settings.ronglian.SoftVersion
       accountsid = Settings.ronglian.AccountSid
       accountauthtoken = Settings.ronglian.AccountAuthToken

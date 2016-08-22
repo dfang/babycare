@@ -9,7 +9,7 @@ class BackgroundJobsController < ApplicationController
     @reservation.user_b = current_user.doctor.id
     @reservation.save!
 
-    IM::Ronglian.call(params["caller"], params["callee"])
+    IM::Ronglian.call(params["caller"], params["callee"], params["reservation_id"])
   end
 
 
