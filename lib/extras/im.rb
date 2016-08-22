@@ -105,7 +105,8 @@ module IM
   class Ronglian
     include HTTParty
 
-    def self.call(caller_id, callee_id, reservation_id)
+    # 预约的时候可以填别的号码
+    def self.call(caller_id, callee_id, reservation_id, reservation_phone)
       caller = User.find_by(id: caller_id)
       callee = User.find_by(id: callee_id)
       reservation = Reservation.find_by(id: reservation_id)
@@ -135,8 +136,8 @@ module IM
       HTTParty.post(url,
         body:
           {
-            from: caller,
-            to:  callee
+            from: caller.doctor.try(:mobile_phone),
+            to:  reservation_phone
           }.to_json,
         headers: {
           'Authorization' => authorization,

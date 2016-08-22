@@ -11,7 +11,7 @@
       <label class="weui_label" for="">时间</label>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" name="reservation[reservation_time]" placeholder="你们商量好的时间" type="text" value="">
+      <input class="weui_input" name="reservation[reservation_time]" placeholder="你们商量好的时间" type="text" value="<%= @reservation.reservation_time %>">
     </div>
   </div>
 
@@ -20,7 +20,7 @@
         <label for="" class="weui_label">地点</label>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" name="reservation[reservation_location]" placeholder="你们商量好的位置" type="text" value="">
+      <input class="weui_input" name="reservation[reservation_location]" placeholder="你们商量好的位置" type="text" value="<%= current_user.doctor.location %>">
     </div>
   </div>
 
@@ -29,7 +29,7 @@
       <label class="weui_label" for="">您的电话</label>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" name="reservation[reservation_phone]" placeholder="你的电话" type="text" value="">
+      <input class="weui_input" name="reservation[reservation_phone]" placeholder="你的电话" type="text" value="<%= current_user.doctor.mobile_phone %>">
     </div>
   </div>
 

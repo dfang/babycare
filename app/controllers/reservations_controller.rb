@@ -23,9 +23,13 @@ class ReservationsController < InheritedResources::Base
       @reservation = Reservation.find(params[:id])
     else
       @reservation = Reservation.find(params[:id])
-      @reservation.update(reservation_params)
+
+			@reservation.update(reservation_params)
       @reservation.user_b = current_user.doctor.id
       @reservation.reserve!
+
+			# 发送短信， 记录短信
+			# IM::Ronglian.send_templated_sms
 
       redirect_to status_reservation_path and return
     end
