@@ -14,7 +14,7 @@ this.uploader = (function() {
       flash_swf_url   : '/uploader.swf',
       filters         : [ { title : "图片文件", extensions : "jpg,jpeg,gif,png,bmp" } ],
       file_data_name  : 'file',
-      multipart       : false,
+      multipart       : true,
       multi_selection : false,
       dragdrop        : false,
       max_retries     : 3,
