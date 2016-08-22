@@ -122,13 +122,13 @@ module IM
 
       # http://stackoverflow.com/questions/24691483/passing-headers-and-query-params-in-httparty
       # {
-      #   use Authorization => authorization instead of Authorization: authorization 
+      #   use Authorization => authorization instead of Authorization: authorization
       # }
       HTTParty.post(url,
         body:
           {
-            from: "15618903080",
-            to:  "17762575774"
+            from: caller,
+            to:  callee
           }.to_json,
         headers: {
           'Authorization' => authorization,
