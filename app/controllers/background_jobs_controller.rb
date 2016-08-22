@@ -5,12 +5,21 @@ class BackgroundJobsController < ApplicationController
 
   def call
     @reservation = Reservation.find_by_id(params[:reservation_id])
-    @reservation.user_b = current_user.doctor.id
+		if current_user.doctor.present?
+			# 医生给用户打电话
+			@reservation.user_b = current_user.doctor.id
+		else
+			# 用户给医生打电话
+			@reservation.user_b = params["callee"]
+		end
     @reservation.save!
 
-    IM::Ronglian.call(params["caller"], params["callee"], params["reservation_id"], params['reservation_phone'])
+    IM::Ronglian.call(params["caller"], params["callee"], params["reservation_id"], params['callee_phone'])
   end
 
+	def call_support
+		IM::Ronglian.call(params["caller"], params["callee"], params["reservation_id"], params['callee_phone'])
+	end
 
   def send_sms
 

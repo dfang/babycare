@@ -106,12 +106,14 @@ module IM
     include HTTParty
 
     # 预约的时候可以填别的号码
-    def self.call(caller_id, callee_id, reservation_id, reservation_phone)
+    def self.call(caller_id, callee_id, reservation_id, callee_phone)
       caller = User.find_by(id: caller_id)
       callee = User.find_by(id: callee_id)
       reservation = Reservation.find_by(id: reservation_id)
+      caller_phone = caller.try(:mobile_phone) || caller.doctor.try(:mobile_phone)
 
-      if caller.blank? || callee.blank? || reservation.blank?
+      # callee can nil when call support
+      if caller.blank? || reservation.blank?
         raise ActiveRecord::RecordNotFound
       end
 
@@ -136,8 +138,8 @@ module IM
       HTTParty.post(url,
         body:
           {
-            from: caller.doctor.try(:mobile_phone),
-            to:  reservation_phone
+            from: caller_phone,
+            to:  callee_phone
           }.to_json,
         headers: {
           'Authorization' => authorization,

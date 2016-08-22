@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   resources :background_jobs, only: [] do
     post :call, on: :collection
+    post :call_support, on: :collection
   end
 
   resources :global_images, only: :create
