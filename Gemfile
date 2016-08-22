@@ -18,6 +18,8 @@ gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'ruby-prof'
+
 gem 'httparty', '~> 0.13.7'
 
 gem 'devise'
