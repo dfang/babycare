@@ -68,7 +68,7 @@ class ReservationsController < InheritedResources::Base
   end
 
   def deny_doctors
-    if current_user.doctor.present?
+    if current_user.doctor.present? && current_user.doctor.verified?
       flash[:error] = "你是医生不能访问该页面"
       redirect_to global_denied_path and return
     end
