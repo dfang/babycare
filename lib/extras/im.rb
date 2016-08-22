@@ -1,13 +1,13 @@
 #encoding: utf-8
 
 require "base64"
-require 'digest/sha1' 
+require 'digest/sha1'
 require 'httparty'
 
 module IM
   class Netease
     include HTTParty
-    
+
     # def initialize()
     #   @appkey = Settings.im.appkey
     #   @appsecret = Settings.im.appsecret
@@ -23,20 +23,20 @@ module IM
       timestamp = Time.now.getutc.to_i
       checksum = Digest::SHA1.hexdigest("#{@appsecret}"+"#{nonce}"+"#{timestamp}")
 
-      HTTParty.post(url, 
+      HTTParty.post(url,
         body:
-          { 
+          {
             callerAcc: "xyzzyx",
             caller:  caller,
             callee:  callee,
-            maxDur:  3600 
+            maxDur:  3600
           },
-        headers: { 
+        headers: {
           'AppKey': @appkey.to_s,
           'Nonce': nonce.to_s,
           'CurTime': timestamp.to_s,
           'CheckSum': checksum.to_s,
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
           'Accept': 'application/json'
         }
       )
@@ -54,17 +54,17 @@ module IM
       timestamp = Time.now.getutc.to_i
       checksum = Digest::SHA1.hexdigest("#{@appsecret}"+"#{nonce}"+"#{timestamp}")
 
-      HTTParty.post(url, 
+      HTTParty.post(url,
         body:
-          { 
+          {
             mobile: mobile
           },
-        headers: { 
+        headers: {
           'AppKey': @appkey.to_s,
           'Nonce': nonce.to_s,
           'CurTime': timestamp.to_s,
           'CheckSum': checksum.to_s,
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
           'Accept': 'application/json'
         }
       )
@@ -72,7 +72,7 @@ module IM
 
     def send_templated_sms(template_id, mobiles, parameters)
       url = 'https://api.netease.im/sms/sendtemplate.action'
-      
+
       @appkey = Settings.im.appkey
       @appsecret = Settings.im.appsecret
 
@@ -80,19 +80,19 @@ module IM
       timestamp = Time.now.getutc.to_i
       checksum = Digest::SHA1.hexdigest("#{@appsecret}"+"#{nonce}"+"#{timestamp}")
 
-      HTTParty.post(url, 
+      HTTParty.post(url,
         body:
-          { 
+          {
             template_id: template_id,
             mobiles: [''],
             params: ['', '']
           },
-        headers: { 
+        headers: {
           'AppKey': @appkey.to_s,
           'Nonce': nonce.to_s,
           'CurTime': timestamp.to_s,
           'CheckSum': checksum.to_s,
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
           'Accept': 'application/json'
         }
       )
@@ -104,7 +104,7 @@ end
 module IM
   class Ronglian
     include HTTParty
-    
+
     def self.call(caller, callee)
       softversion = Settings.ronglian.SoftVersion
       accountsid = Settings.ronglian.AccountSid
@@ -118,25 +118,26 @@ module IM
       sigparameter = Digest::MD5.hexdigest("#{subaccountsid}"+"#{subaccountauthtoken}"+"#{timestamp}").upcase
       authorization = Base64.strict_encode64("#{subaccountsid}:#{timestamp}")
 
+      p authorization
 
       url = "https://app.cloopen.com:8883/#{softversion}/SubAccounts/#{subaccountsid}/Calls/Callback?sig=#{sigparameter}"
 
-      HTTParty.post(url, 
+      HTTParty.post(url,
         body:
-          { 
+          {
             from: "15618903080",
             to:  "17762575774"
           }.to_json,
-        headers: { 
+        headers: {
           'Authorization': authorization,
-          'Content-Type': 'application/json', 
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
       )
     end
 
     def send_templated_sms(template_id, mobiles, parameters)
-      
+
       softversion = Settings.ronglian.SoftVersion
       accountsid = Settings.ronglian.AccountSid
       accountauthtoken = Settings.ronglian.AccountAuthToken
@@ -150,17 +151,17 @@ module IM
 
       url = "https://app.cloopen.com:8883/#{softversion}/Accounts/#{accountsid}/SMS/TemplateSMS?sig=#{sigparameter}"
 
-      HTTParty.post(url, 
+      HTTParty.post(url,
         body:
-          { 
+          {
             to:  "17762575774",
             appid: appid,
             templateId: 1,
             datas: [{data: '1111'}, {data: '2222'}]
           }.to_json,
-        headers: { 
+        headers: {
           'Authorization': authorization,
-          'Content-Type': 'application/json;charset=utf-8', 
+          'Content-Type': 'application/json;charset=utf-8',
           'Accept': 'application/json'
         }
       )
