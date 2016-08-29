@@ -19,12 +19,12 @@ class Admin::WxMenusController < Admin::BaseController
   end
 
   def load_remote
-    WxApp.load_remote_menus
+    WxApp::WxMenu.load_remote_menus
     redirect_to admin_wx_menus_path(@instance)
   end
 
   def sync
-    response = WxApp.create_remote_menus(WxApp.build_menus)
+    response = WxApp.create_remote_menus(WxApp::WxMenu.build_menus)
     body = JSON.parse response.body
 
     if body['errcode'] == 0
