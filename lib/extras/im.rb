@@ -112,6 +112,9 @@ module IM
       reservation = Reservation.find_by(id: reservation_id)
       caller_phone = caller.try(:mobile_phone) || caller.doctor.try(:mobile_phone)
 
+      p "caller phone is #{caller_phone}"
+      p "callee_phone is #{callee_phone}"
+
       # callee can nil when call support
       if caller.blank? || reservation.blank?
         raise ActiveRecord::RecordNotFound
