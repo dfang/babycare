@@ -10,8 +10,16 @@
 
             <%= f.input :title, wrapper: :fusion_input %>
             <%= f.input :description, wrapper: :fusion_input %>
-            <%= f.input :content, wrapper: :fusion_input %>
-            <%= f.input :category, collection: [['医生', '1'],['病人', '2'],['医生和病人', '3']], selected: '3', wrapper: :fusion_input %>
+            <!-- <%= f.input_field :body, wrapper: :fusion_input, input_html: { id: 'editor' } %> -->
+
+            <div class="panel">
+              <div class="panel-body pn">
+                <div class="summernote" style="height: 400px;"></div>
+              </div>
+            </div>
+
+
+            <%= f.input :tag_list, collection: Post::TAGS, selected: '', wrapper: :fusion_input, input_html: { class: 'chosen-select', multiple: true } %>
 
           </div>
         </div>
@@ -43,9 +51,22 @@
       autoclose: true
     });
 
-    $('#children').on('cocoon:after-insert', function(e, added_child) {
-      // $('form').changeFormMethod('PUT');
+    $('.chosen-select').chosen({
+      placeholder_text_multiple: "打标签",
+      allow_single_deselect: true
     })
+
+    $('.summernote').summernote({
+      height: 255,   //set editable area's height
+      focus: false,   //set focus editable area after Initialize summernote
+      placeholder: "edit here"
+    });
+
+
+
+
+
+
   });
 </script>
 <% end %>

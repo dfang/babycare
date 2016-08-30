@@ -1,4 +1,4 @@
-//= require ./common/jQuery
+// require ./common/jQuery
 //= require ./common/bootstrap
 //= require ./common/underscore
 

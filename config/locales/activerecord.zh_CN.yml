@@ -81,6 +81,12 @@ zh-CN:
         medical_record_images: 病历图片
         imaging_examination_images: 影像学意见图片
         laboratory_examination_images: 实验室检查图片
+      post:
+        <<: *common
+        title: 标题
+        description: 简介
+        body: 正文
+        tag_list: 标签
     errors:
       models:
   date:
