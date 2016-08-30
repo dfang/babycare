@@ -45,7 +45,7 @@
                     <td><span class="xedit"><%= p.verified?? '是' : '否' %></span></td>
                     <td class="hidden-xs text-center">
                       <div class="btn-group">
-                        
+
                         <!-- link_to admin_doctor_path(p), class: 'btn bg-grey2 btn-gradient btn-sm' do %>
                            <span class="glyphicons glyphicons-user"></span>
                         -->
@@ -60,12 +60,14 @@
                             <% end %>
                           </li>
 
-                          <li>
-                            <%= link_to confirm_admin_doctor_path(p), method: :put do %>
-                              <i class="fa fa-user"></i>
-                              审核通过
-                            <% end %>
-                          </li>
+													<% unless p.verified? %>
+	                          <li>
+	                            <%= link_to confirm_admin_doctor_path(p), method: :put do %>
+	                              <i class="fa fa-user"></i>
+	                              审核通过
+	                            <% end %>
+	                          </li>
+													<% end %>
                           <!-- <li>
                             <%= link_to edit_admin_doctor_path(p) do %>
                               <i class="fa fa-envelope-o"></i>

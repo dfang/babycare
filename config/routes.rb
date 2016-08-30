@@ -52,7 +52,9 @@ Rails.application.routes.draw do
       put :confirm, on: :member
     end
 
-    resources :posts
+    resources :posts do
+      put :publish, on: :member
+    end
   end
 
   resources :doctors do

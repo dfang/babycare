@@ -1,7 +1,6 @@
 class Post < ActiveRecord::Base
   acts_as_taggable
 
-
   TAGS = %w(
       3个月以下
       3个月到一岁
@@ -12,5 +11,9 @@ class Post < ActiveRecord::Base
       给患者看的文章
   )
 
+	def publish!
+    self.published = true
+    self.save!
+  end
 
 end

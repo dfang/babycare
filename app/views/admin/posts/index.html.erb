@@ -40,7 +40,7 @@
                   <td><span class="xedit"><%= link_to admin_post_path(p) do %> <%= p.title %> <% end %></span></td>
                   <td><span class="xedit"><%= p.description %></span></td>
                   <td><span class="xedit"><%= p.published %></span></td>
-                  <td><span class="xedit"><%= p.tags %></span></td>
+                  <td><span class="xedit"><%= p.tag_list %></span></td>
                   <td class="hidden-xs text-center">
                     <div class="btn-group">
                       <%= link_to admin_person_path(p), class: 'btn bg-grey2 btn-gradient btn-sm' do %>
@@ -61,6 +61,14 @@
                             编辑
                           <% end %>
                         </li>
+												<% unless p.published? %>
+													<li>
+														<%= link_to publish_admin_post_path(p), method: :put do %>
+															<i class="fa fa-user"></i>
+															发布
+														<% end %>
+													</li>
+												<% end %>
                         <!-- <li><a><i class="fa fa-envelope-o"></i> Message </a></li> -->
                       </ul>
                     </div>

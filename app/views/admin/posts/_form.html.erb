@@ -7,20 +7,13 @@
             <span class="panel-title"> <span class="glyphicon glyphicon-pencil"></span> 基本信息 </span>
           </div>
           <div class="panel-body">
-
             <%= f.input :title, wrapper: :fusion_input %>
             <%= f.input :description, wrapper: :fusion_input %>
-            <!-- <%= f.input_field :body, wrapper: :fusion_input, input_html: { id: 'editor' } %> -->
+            <%= f.hidden_field :body, id: 'editor'  %>
 
-            <div class="panel">
-              <div class="panel-body pn">
-                <div class="summernote" style="height: 400px;"></div>
-              </div>
-            </div>
+						<div id="summernote" style="height: 400px;overflow: scroll"></div>
 
-
-            <%= f.input :tag_list, collection: Post::TAGS, selected: '', wrapper: :fusion_input, input_html: { class: 'chosen-select', multiple: true } %>
-
+            <%= f.input :tag_list, collection: Post::TAGS, selected: resource.tags, wrapper: :fusion_input, input_html: { class: 'chosen-select', multiple: true } %>
           </div>
         </div>
       </div>
@@ -56,16 +49,21 @@
       allow_single_deselect: true
     })
 
-    $('.summernote').summernote({
+    $('#summernote').summernote({
       height: 255,   //set editable area's height
       focus: false,   //set focus editable area after Initialize summernote
       placeholder: "edit here"
     });
 
+		$('#summernote').summernote('code', $('#editor').val());
 
-
-
-
+		$( "form.new_post, form.edit_post").submit(function( event ) {
+			// event.preventDefault();
+		  console.log( "Handler for .submit() called." );
+			var html = $('#summernote').summernote('code');
+			console.log(html);
+			$('#editor').val(html)
+		});
 
   });
 </script>
