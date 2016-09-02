@@ -2,6 +2,8 @@
 
 module WxApp
   module WxCommon
+    extend self
+
     WEIXIN_ID = Settings.weixin.app_id
     WEIXIN_SECRET = Settings.weixin.app_secret
 

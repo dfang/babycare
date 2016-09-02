@@ -1,27 +1,33 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="weui_cells_title">个人资料</div>
+<div class="weui_cells weui_cells_form">
+	<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+		<div class="weui_cell">
+			<div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<%= f.input_field :name, class: 'weui_input' %>
+			</div>
+		</div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">手机号码</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+					<%= f.input_field :mobile_phone, class: 'weui_input' %>
+        </div>
+    </div>
+    <div class="weui_cell">
+      <div class="weui_cell_hd"><label class="weui_label">居住地址</label></div>
+      <div class="weui_cell_bd weui_cell_primary">
+        <div class="weui_cell_hd">
+					<%= f.input_field :location, class: 'weui_input' %>
+				</div>
+	    </div>
+    </div>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-    <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+		<div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary">
+        <div class="weui_cell_hd">
+					<%= f.button :submit, "确定", class: 'weui_btn weui_btn_primary' %>
+				</div>
+	    </div>
+    </div>
+	<% end %>
+</div>
