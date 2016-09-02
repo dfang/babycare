@@ -53,7 +53,7 @@ class Users::SessionsController < Devise::SessionsController
           union_info = JSON.parse Faraday.get(uinfo_url).body
 
           # 微信API调整了 get union id http://mp.weixin.qq.com/wiki/1/8a5ce6257f1d3b2afb20f83e72b72ce9.html
-          # union_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=#{WxApp.get_access_token}&openid=#{openid}&lang=zh_CN"
+          # union_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=#{WxApp::WxCommon.get_access_token}&openid=#{openid}&lang=zh_CN"
           # union_info = JSON.parse Faraday.get(union_url).body
 
           Rails.logger.info "\nunion_info: #{union_info.inspect}\n"

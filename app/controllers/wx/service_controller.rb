@@ -115,7 +115,7 @@ private
     if authentication.present?
       @user = authentication.user
     else
-      user_info = WxApp.get_user_info @openid
+      user_info = WxApp::WxCommon.get_user_info @openid
       Rails.logger.info "user_info:::::::::::#{user_info}"
       name = user_info['nickname'].gsub(User::EMOJI_REGEX, '')
       @user = User.new name: (name.strip.size > 0 ? name : User.gen_name),

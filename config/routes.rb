@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
+  devise_scope :user do
+    get 'wechat_authorize' => 'users/sessions#wechat_authorize', as: :wechat_authorize
+    get 'profile' => 'users/registrations#show', as: :profile
+  end
+
 
   get 'global/status'
   get 'global/denied'
@@ -70,14 +81,9 @@ Rails.application.routes.draw do
   end
 
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations'
-  }
+  
 
-  devise_scope :user do
-    get 'wechat_authorize' => 'users/sessions#wechat_authorize', as: :wechat_authorize
-  end
+  
 
   resources :reservations do
     get 'public', on: :collection

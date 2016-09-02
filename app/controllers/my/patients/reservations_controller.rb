@@ -57,7 +57,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     # p 'generate_js_pay_req is '
 
     # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-    js_sdk_signature_str = { jsapi_ticket: WxApp.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |k,v|
+    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |k,v|
                         "#{k}=#{v}" if v != "" && !v.nil?
                       end.compact.join('&')
 

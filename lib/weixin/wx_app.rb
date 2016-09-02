@@ -1,5 +1,4 @@
 # encoding: utf-8
-# encoding: utf-8
 
 module WxApp
   module WxCommon
@@ -100,7 +99,7 @@ module WxApp
                   if sub_menu.menu_type == 'click'
                     json.key  sub_menu.key
                   else
-                    json.url WxApp.process_url(sub_menu.url)
+                    json.url WxApp::WxMenu.process_url(sub_menu.url)
                     # json.url sub_menu.url
                   end
                 end
@@ -111,7 +110,7 @@ module WxApp
                 json.key  menu.key
               else
                 # json.url menu.url
-                json.url WxApp.process_url(menu.url)
+                json.url WxApp::WxMenu.process_url(menu.url)
               end
             end
           end
@@ -120,7 +119,7 @@ module WxApp
       end
     end
 
-    def self.process_url(url)
+    def process_url(url)
       uri = URI.parse(url)
       if Rails.env.development?
         url.gsub!("#{uri.scheme + "://" + uri.host}", Settings.rails_server_url.development)

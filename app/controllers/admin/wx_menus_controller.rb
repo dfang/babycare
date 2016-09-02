@@ -24,7 +24,7 @@ class Admin::WxMenusController < Admin::BaseController
   end
 
   def sync
-    response = WxApp.create_remote_menus(WxApp::WxMenu.build_menus)
+    response = WxApp::WxMenu.create_remote_menus(WxApp::WxMenu.build_menus)
     body = JSON.parse response.body
 
     if body['errcode'] == 0
