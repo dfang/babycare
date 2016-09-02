@@ -32,15 +32,15 @@ class Users::SessionsController < Devise::SessionsController
       if code.nil?
         url = URI.encode(request.url, /\W/)
         Rails.logger.info "redirect_uri is #{url}"
-        redirect_to "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{WxApp::WEIXIN_ID}&redirect_uri=#{url}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
+        redirect_to "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{WxApp::WxCommon::WEIXIN_ID}&redirect_uri=#{url}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
         return
       end
 
       #如果code参数不为空，则认证到第二步，通过code获取openid，并保存到session中
       begin
-        token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{WxApp::WEIXIN_ID}&secret=#{WxApp::WEIXIN_SECRET}&code=#{code}&grant_type=authorization_code"
+        token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{WxApp::WxCommon::WEIXIN_ID}&secret=#{WxApp::WxCommon::WEIXIN_SECRET}&code=#{code}&grant_type=authorization_code"
 
-        # token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{WxApp::WEIXIN_ID}&secret=#{WxApp::WEIXIN_SECRET}"
+        # token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{WxApp::WxCommon::WEIXIN_ID}&secret=#{WxApp::WxCommon::WEIXIN_SECRET}"
         token_info = JSON.parse Faraday.get(token_url).body
 
 
