@@ -1,0 +1,11 @@
+<div class="weui_panel_bd">
+	<%= link_to post_path(post) do %>
+		<div class="weui_media_box weui_media_text">
+				<h4 class="weui_media_title"><%= post.title %></h4>
+				<p class="weui_media_desc"><%= post.description %></p>
+				<ul class="weui_media_info">
+					<li class="weui_media_info_meta">发布于<%= post.published_at.strftime("%Y.%m.%d %H:%M:%S") %></li>
+				</ul>
+		</div>
+	<% end %>
+</div>

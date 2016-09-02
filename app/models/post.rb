@@ -11,6 +11,9 @@ class Post < ActiveRecord::Base
       给患者看的文章
   )
 
+	scope :published, -> { where(published: true) }
+
+
 	def publish!
     self.published = true
     self.save!

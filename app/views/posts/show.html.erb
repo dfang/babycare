@@ -5,35 +5,16 @@
 			<div class="panel">
 				<div class="bd">
 
-          <%- if @posts.any? %>
-            <%= render partial: 'post', collection: @posts %>
-          <% end %>
-
-
-          <div class="weui_panel_bd">
-            <a href="/posts">
-              <div class="weui_media_box weui_media_text">
-                  <h4 class="weui_media_title">标题一</h4>
-                  <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-                  <ul class="weui_media_info">
-                    <li class="weui_media_info_meta">发布于2016.9.2</li>
-                  </ul>
-              </div>
-            </a>
-          </div>
-
-          <div class="weui_panel_bd">
-            <a href="">
-              <div class="weui_media_box weui_media_text">
-                  <h4 class="weui_media_title">标题一</h4>
-                  <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-                  <ul class="weui_media_info">
-                    <li class="weui_media_info_meta">发布于2016.9.2</li>
-                  </ul>
-              </div>
-            </a>
-          </div>
-
+					<div class="article">
+						<div class="hd">
+						    <h1 class="page_title"><%= resource.title %></h1>
+						</div>
+						<div class="bd">
+						    <article class="weui_article">
+						      <%= raw resource.body %>
+						    </article>
+						</div>
+					</div>
 				</div>
 			</div>
 

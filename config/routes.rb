@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   get 'global/status'
   get 'global/denied'
 
-  get 'posts/index'
-  get 'posts/show'
+  # get 'posts/index'
+  # get 'posts/show'
+
+  resources :posts, only: [:index, :show]
 
   namespace :wx do
      get '/' => 'service#verify'
@@ -81,9 +83,9 @@ Rails.application.routes.draw do
   end
 
 
-  
 
-  
+
+
 
   resources :reservations do
     get 'public', on: :collection
