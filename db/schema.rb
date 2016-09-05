@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902084226) do
+ActiveRecord::Schema.define(version: 20160905061102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,7 +276,8 @@ ActiveRecord::Schema.define(version: 20160902084226) do
     t.integer  "user_a"
     t.integer  "user_b"
     t.string   "child_gender"
-    t.string   "out_trade_no"
+    t.string   "out_trade_pay_no"
+    t.string   "out_trade_prepay_no"
   end
 
   create_table "sms_histories", force: :cascade do |t|
