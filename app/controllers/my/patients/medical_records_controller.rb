@@ -14,7 +14,7 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   private
 
   def begin_of_association_chain
-    @current_user
+    current_user
   end
 
   def current_wechat_authentication
