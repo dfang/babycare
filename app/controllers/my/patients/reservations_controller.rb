@@ -165,7 +165,10 @@ class My::Patients::ReservationsController < InheritedResources::Base
       #   "trade_state"=>"SUCCESS",
       #   "cash_fee"=>"1"
       #  }
-      reservation = Reservation.find_by(out_trade_no: order_query_result["out_trade_no"])
+
+      p 'find reservation'
+      reservation = Reservation.where("out_trade_pay_no = ? OR out_trade_prepay_no = ?", order_query_result["out_trade_no"], order_query_result["out_trade_no"]).first
+
       p reservation
       p 'trigger prepay or pay event'
 
