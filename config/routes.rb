@@ -27,11 +27,12 @@ Rails.application.routes.draw do
 
   namespace :my do
     namespace :doctors do
-      resources :reservations
+      resources :reservations do
+        get 'claim', on: :member
+        put 'claim', on: :member
+      end
       get 'status'
       get 'index'
-      get 'claim', on: :member
-      put 'claim', on: :member
     end
 
     namespace :patients do
