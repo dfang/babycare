@@ -7,7 +7,6 @@
         </div>
         <div class="weui_opr_area">
             <p class="weui_btn_area">
-							<a href="<%= claim_reservation_path(@reservation) %>" class="weui_btn weui_btn_primary">发送短信</a>
 							<a href="javascript: IM.call_support(<%= current_user.id %>, '', <%= @reservation.id %>, '4000719136');" class="weui_btn weui_btn_primary">拨打客服电话</a>
             </p>
         </div>
