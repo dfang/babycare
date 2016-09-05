@@ -1,0 +1,11 @@
+<%- if resource.pending? %>
+  <%= render 'pending' %>
+<% elsif resource.reserved? %>
+  <%= render 'reserved' %>
+<% elsif resource.prepaid? %>
+  <%= render 'prepaid' %>
+<% elsif resource.diagnosed? %>
+  <%= render 'diagnosed' %>
+<% elsif resource.paid? %>
+  <%= render 'paid' %>
+<% end %>
