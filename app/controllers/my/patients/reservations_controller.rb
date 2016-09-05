@@ -21,13 +21,26 @@ class My::Patients::ReservationsController < InheritedResources::Base
   end
 
   def show
+
+    if resource.reserved?
+      body_text = '预约定金'
+    elsif resource.diagnosed?
+      body_text = '支付余款'
+    end
+
+
     if resource.out_trade_no.blank?
-      resource.out_trade_no = "prepay_#{SecureRandom.random_number(100000)}"
-      resource.save
+      if resource.reserved?
+        resource.out_trade_no = "prepay_#{SecureRandom.random_number(100000)}"
+        resource.save
+      else
+        resource.out_trade_no = "pay_#{SecureRandom.random_number(100000)}"
+        resource.save
+      end
     end
 
     test_params = {
-      body: '预约定金',
+      body: body_text,
       out_trade_no: resource.out_trade_no,
       total_fee: 1,
       spbill_create_ip: '60.205.110.67',
@@ -146,8 +159,13 @@ class My::Patients::ReservationsController < InheritedResources::Base
       #  }
       reservation = Reservation.find_by(out_trade_no: order_query_result["out_trade_no"])
       p reservation
-      p 'trigger prepay event'
-      reservation.prepay!
+      p 'trigger prepay or pay event'
+
+      if reservation.reserved?
+        reservation.prepay!
+      elsif reservation.diagnosed?
+        reservation.pay!
+      end
     end
   end
 
