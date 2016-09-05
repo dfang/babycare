@@ -5,7 +5,7 @@ class Reservation < ActiveRecord::Base
 
   aasm do
     state :pending, initial: true
-    state :reserved, :prepaid, :paid, :archived, :diagnosed
+    state :reserved, :prepaid, :diagnosed, :paid, :archived
 
     event :reserve do
       transitions from: :pending, to: :reserved
@@ -32,7 +32,7 @@ class Reservation < ActiveRecord::Base
     end
   end
 
-  enumerize :aasm_state, in: [:pending, :reserved, :prepaid, :paid, :archived], default: :pending, predicates: true
+  enumerize :aasm_state, in: [:pending, :reserved, :prepaid, :diagnosed, :paid, :archived], default: :pending, predicates: true
 
   GENDERS = %w(儿子 女儿).freeze
   def marked_phone_number
