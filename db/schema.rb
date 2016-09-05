@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902073504) do
+ActiveRecord::Schema.define(version: 20160902084226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,7 +172,6 @@ ActiveRecord::Schema.define(version: 20160902073504) do
   add_index "medical_record_images", ["medical_record_id"], name: "index_medical_record_images_on_medical_record_id", using: :btree
 
   create_table "medical_records", force: :cascade do |t|
-    t.integer  "person_id"
     t.date     "onset_date"
     t.text     "chief_complaint"
     t.text     "history_of_present_illness"
@@ -198,9 +197,8 @@ ActiveRecord::Schema.define(version: 20160902073504) do
     t.integer  "blood_pressure"
     t.string   "oxygen_saturation"
     t.integer  "pain_score"
+    t.integer  "user_id"
   end
-
-  add_index "medical_records", ["person_id"], name: "index_medical_records_on_person_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name"
@@ -365,7 +363,6 @@ ActiveRecord::Schema.define(version: 20160902073504) do
   add_foreign_key "imaging_examination_images", "medical_records"
   add_foreign_key "laboratory_examination_images", "medical_records"
   add_foreign_key "medical_record_images", "medical_records"
-  add_foreign_key "medical_records", "people"
   add_foreign_key "phone_call_histories", "reservations"
   add_foreign_key "sms_histories", "reservations"
   add_foreign_key "wx_sub_menus", "wx_menus"

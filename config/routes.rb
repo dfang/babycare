@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       end
       get 'status'
       get 'index'
+
+      resources :medical_records
     end
 
     get '/doctors', to: 'doctors#index', as: :doctor_root

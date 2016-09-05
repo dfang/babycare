@@ -88,6 +88,51 @@ SimpleForm.setup do |config|
 
   end
 
+  config.wrappers :weui_input, class: :'weui_cell',
+    hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+
+    # Determines whether to use HTML5 (:email, :url, ...)
+    # and required attributes
+    b.use :html5
+
+    # Calculates placeholders automatically from I18n
+    # You can also pass a string as f.input placeholder: "Placeholder"
+    b.use :placeholder
+
+    ## Optional extensions
+    # They are disabled unless you pass `f.input EXTENSION_NAME => true`
+    # to the input. If so, they will retrieve the values from the model
+    # if any exists. If you want to enable any of those
+    # extensions by default, you can change `b.optional` to `b.use`.
+
+    # Calculates maxlength from length validations for string inputs
+    b.optional :maxlength
+
+    # Calculates pattern from format validations for string inputs
+    b.optional :pattern
+
+    # Calculates min and max from length validations for numeric inputs
+    b.optional :min_max
+
+    # Calculates readonly automatically from readonly attributes
+    b.optional :readonly
+
+    b.wrapper :tag => 'div', :class => 'weui_cell_hd' do |ba|
+      ba.use :label, class: 'weui_label'
+    end
+
+    b.wrapper :tag => 'div', :class => 'weui_cell_bd weui_cell_primary' do |ba|
+      ba.use :input, class: 'weui_input'
+    end
+
+    ## Inputs
+    # b.use :label_input, class: 'string optional form-input'
+    b.use :hint,  wrap_with: { tag: :span, class: :hint }
+    b.use :error, wrap_with: { tag: :span, class: :error }
+
+
+  end
+
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
 

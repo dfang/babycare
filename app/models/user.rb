@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
 
   has_many :authentications, :dependent => :destroy
   has_one :doctor
-  
-  has_many :reservations, :foreign_key => 'user_a'
 
+  has_many :reservations, :foreign_key => 'user_a'
+  has_many :medical_records
 
 
   def self.create_wechat_user(wechat_session)
@@ -50,7 +50,3 @@ class User < ActiveRecord::Base
   end
 
 end
-
-
-
-
