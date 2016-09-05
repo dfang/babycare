@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       resources :reservations
       get 'status'
       get 'index'
+      get 'claim', on: :member
+      put 'claim', on: :member
     end
 
     namespace :patients do
@@ -91,8 +93,6 @@ Rails.application.routes.draw do
 
   resources :reservations do
     get 'public', on: :collection
-    get 'claim', on: :member
-    put 'claim', on: :member
     get 'status', on: :member
     get 'wxpay_test', on: :member
   end

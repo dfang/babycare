@@ -3,7 +3,7 @@ class ReservationsController < InheritedResources::Base
 
   custom_actions :resource => :wxpay_test
   before_action :deny_doctors
-  skip_before_action :deny_doctors, only: [ :public, :show, :claim, :status ]
+  skip_before_action :deny_doctors, only: [ :public, :show, :status ]
 
   def create
     @reservation = Reservation.new(reservation_params)
@@ -16,23 +16,6 @@ class ReservationsController < InheritedResources::Base
   def public
     @is_doctor = current_user.doctor.present?
     @reservations = Reservation.pending
-  end
-
-  def claim
-    if request.get?
-      @reservation = Reservation.find(params[:id])
-    else
-      @reservation = Reservation.find(params[:id])
-
-			@reservation.update(reservation_params)
-      @reservation.user_b = current_user.doctor.id
-      @reservation.reserve!
-
-			# 发送短信， 记录短信
-			# IM::Ronglian.send_templated_sms
-
-      redirect_to status_reservation_path and return
-    end
   end
 
   def status
