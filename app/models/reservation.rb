@@ -5,7 +5,7 @@ class Reservation < ActiveRecord::Base
 
   aasm do
     state :pending, initial: true
-    state :reserved, :prepaid, :paid, :archived
+    state :reserved, :prepaid, :paid, :archived, :diagnosed
 
     event :reserve do
       transitions from: :pending, to: :reserved
