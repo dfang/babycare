@@ -44,6 +44,7 @@ this.uploader = (function() {
       webUploader.settings.multipart_params = {
         file_id: file.id,
         uploadTarget: uploadTarget,
+        uploadType: uploadType,
         page: $button.parents('.upload').data('target'),
         authenticity_token: $('meta[name="csrf-token"]').attr('content'),
         holderId: $button.parent('.fields').attr('id')
