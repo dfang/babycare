@@ -4,4 +4,6 @@
 	<%= render 'pending' %>
 <% elsif resource.reserved? %>
 	<%= render 'reserved' %>
+<% elsif resource.diagnosed? %>
+		<%= render 'diagnosed' %>
 <% end %>

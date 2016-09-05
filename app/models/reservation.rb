@@ -16,7 +16,7 @@ class Reservation < ActiveRecord::Base
     end
 
 		event :diagnose do
-			transitions from: :prepaid, to: :diagnose
+			transitions from: :prepaid, to: :diagnosed
 		end
 
     event :pay do
