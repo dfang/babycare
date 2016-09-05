@@ -39,70 +39,73 @@ class My::Patients::ReservationsController < InheritedResources::Base
       end
     end
 
-    test_params = {
-      body: body_text,
-      out_trade_no: resource.out_trade_no,
-      total_fee: 1,
-      spbill_create_ip: '60.205.110.67',
-      notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
-      trade_type: 'JSAPI',
-      openid: current_wechat_authentication.uid
-    }
+    if resource.reserved? || resource.diagnosed?
 
-    options = {
-                appid: Settings.wx_pay.app_id,
-                mch_id: Settings.wx_pay.mch_id,
-                key: Settings.wx_pay.key,
-                noncestr: SecureRandom.hex,
-                timestamp: DateTime.now.to_i
-              }
+        test_params = {
+          body: body_text,
+          out_trade_no: resource.out_trade_no,
+          total_fee: 1,
+          spbill_create_ip: '60.205.110.67',
+          notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
+          trade_type: 'JSAPI',
+          openid: current_wechat_authentication.uid
+        }
 
-    result = WxPay::Service.invoke_unifiedorder(test_params, options)
+        options = {
+                    appid: Settings.wx_pay.app_id,
+                    mch_id: Settings.wx_pay.mch_id,
+                    key: Settings.wx_pay.key,
+                    noncestr: SecureRandom.hex,
+                    timestamp: DateTime.now.to_i
+                  }
 
-    p 'invoke_unifiedorder result is .......... '
-    p result
+        result = WxPay::Service.invoke_unifiedorder(test_params, options)
 
-    # js_request_params = WxPay::Service.generate_js_pay_req(test_params.merge({
-    #             noncestr: options[:noncestr],
-    #             package: "prepay_id=#{result['prepay_id']}",
-    #             prepayid: result['prepay_id']
-    #           }), appid: Settings.wx_pay.app_id )
-    # p 'generate_js_pay_req is '
+        p 'invoke_unifiedorder result is .......... '
+        p result
 
-    # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |k,v|
-                        "#{k}=#{v}" if v != "" && !v.nil?
-                      end.compact.join('&')
+        # js_request_params = WxPay::Service.generate_js_pay_req(test_params.merge({
+        #             noncestr: options[:noncestr],
+        #             package: "prepay_id=#{result['prepay_id']}",
+        #             prepayid: result['prepay_id']
+        #           }), appid: Settings.wx_pay.app_id )
+        # p 'generate_js_pay_req is '
 
-    p 'js_sdk_signature string ..........'
-    p js_sdk_signature_str
+        # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
+        js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |k,v|
+                            "#{k}=#{v}" if v != "" && !v.nil?
+                          end.compact.join('&')
 
-    pay_sign_str = {
-                  appId: Settings.wx_pay.app_id,
-                  nonceStr: options[:noncestr],
-                  timeStamp: options[:timestamp],
-                  package: "prepay_id=#{result['prepay_id']}",
-                  signType: 'MD5'
-              }.sort.map do |k,v|
-                        "#{k}=#{v}" if v != "" && !v.nil?
-                      end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
+        p 'js_sdk_signature string ..........'
+        p js_sdk_signature_str
 
-    p  'pay_sign is .....'
-    p  pay_sign_str
+        pay_sign_str = {
+                      appId: Settings.wx_pay.app_id,
+                      nonceStr: options[:noncestr],
+                      timeStamp: options[:timestamp],
+                      package: "prepay_id=#{result['prepay_id']}",
+                      signType: 'MD5'
+                  }.sort.map do |k,v|
+                            "#{k}=#{v}" if v != "" && !v.nil?
+                          end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
 
-    # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
-    @order_params = {
-      appId:     result['appid'] || Settings.wx_pay.app_id,
-      timeStamp: options[:timestamp],
-      nonceStr:  options[:noncestr],
-      signType:  "MD5",
-      package:   "prepay_id=#{result['prepay_id']}",
-      sign:      Digest::SHA1.hexdigest(js_sdk_signature_str),
-      paySign:   Digest::MD5.hexdigest(pay_sign_str).upcase()
-    }
+        p  'pay_sign is .....'
+        p  pay_sign_str
 
-    p '@order_params is .........'
-    p @order_params
+        # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
+        @order_params = {
+          appId:     result['appid'] || Settings.wx_pay.app_id,
+          timeStamp: options[:timestamp],
+          nonceStr:  options[:noncestr],
+          signType:  "MD5",
+          package:   "prepay_id=#{result['prepay_id']}",
+          sign:      Digest::SHA1.hexdigest(js_sdk_signature_str),
+          paySign:   Digest::MD5.hexdigest(pay_sign_str).upcase()
+        }
+
+        p '@order_params is .........'
+        p @order_params
+    end
 
   end
 
