@@ -1,5 +1,5 @@
 this.uploader = (function() {
-  function uploader(pickerId, uploadTarget, uploadUrl, uploadType){
+  function uploader(pickerId, uploadTarget, uploadUrl, uploadType, uploadPhotosField){
 
     var webUploader;
     if(uploadType != 'multiple'){
@@ -45,6 +45,7 @@ this.uploader = (function() {
         file_id: file.id,
         uploadTarget: uploadTarget,
         uploadType: uploadType,
+        uploadPhotosField: uploadPhotosField, // 上传多张图片的时候用这个，特别是适合于一个模型有多个多张图片比如MedicalRecord 有 has_many laboratory_examination_images， imaging_examination_images
         page: $button.parents('.upload').data('target'),
         authenticity_token: $('meta[name="csrf-token"]').attr('content'),
         holderId: $button.parent('.fields').attr('id')

@@ -5,8 +5,8 @@
 		$files.find('.weui_uploader_file.holder').remove()
     $files.append('<li class="weui_uploader_file" style="background-image:url(<%= @image.data_url %>)"><input type="hidden" name="reservation[photos][]" value="<%= @image.data_url%>"> </li>')
 
-    $('ul.weui_uploader_files').find('li').each(function(index, element){
-      $(element).find('input').attr('name', "reservation[photos_attributes][" + index + "][data]")
+    $files.find('li').each(function(index, element){
+      $(element).find('input').attr('name', "medical_record[<%= params[:uploadPhotosField] %>_attributes][" + index + "][data]")
     })
   <% else %>
     console.log('single image')
