@@ -28,22 +28,23 @@ class My::Patients::ReservationsController < InheritedResources::Base
       body_text = '支付余款'
     end
 
-
-    if resource.out_trade_no.blank?
-      if resource.reserved?
-        resource.out_trade_no = "prepay_#{SecureRandom.random_number(100000)}"
-        resource.save
-      else
-        resource.out_trade_no = "pay_#{SecureRandom.random_number(100000)}"
-        resource.save
-      end
+    if resource.out_trade_prepay_no.blank? && resource.reserved?
+      resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
+      resource.save
     end
+
+    if resource.out_trade_pay_no.blank? && resource.diagnosed?
+      resource.out_trade_pay_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
+      resource.save
+    end
+
+    out_trade_no = resource.out_trade_pay_no || resource.out_trade_prepay_no
 
     if resource.reserved? || resource.diagnosed?
 
         test_params = {
           body: body_text,
-          out_trade_no: resource.out_trade_no,
+          out_trade_no: out_trade_no,
           total_fee: 1,
           spbill_create_ip: '60.205.110.67',
           notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
@@ -64,8 +65,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
         p 'invoke_unifiedorder result is .......... '
         p result
 
-        binding.remote_pry
-        
+        # binding.remote_pry
+
         # js_request_params = WxPay::Service.generate_js_pay_req(test_params.merge({
         #             noncestr: options[:noncestr],
         #             package: "prepay_id=#{result['prepay_id']}",
