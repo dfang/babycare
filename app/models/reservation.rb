@@ -15,8 +15,12 @@ class Reservation < ActiveRecord::Base
       transitions from: :reserved, to: :prepaid
     end
 
-    event :paid do
-      transitions from: :prepaid, to: :paid
+		event :diagnose do
+			transitions from: :prepaid, to: :diagnose
+		end
+
+    event :pay do
+      transitions from: :diagnosed, to: :paid
     end
 
     event :unreserve do
