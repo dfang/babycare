@@ -1,0 +1,66 @@
+<div class="tabbar">
+  <div class="weui_tab">
+      <div class="weui_tab_bd">
+
+          <div class="panel">
+            <div class="bd">
+                <div class="weui_cells_title">带说明的列表项</div>
+                <div class="weui_cells">
+
+                  <%= show_medical_record_cell(resource, :height) %>
+                  <%= show_medical_record_cell(resource, :weight) %>
+                  <%= show_medical_record_cell(resource, :bmi) %>
+                  <%= show_medical_record_cell(resource, :temperature) %>
+                  <%= show_medical_record_cell(resource, :pulse) %>
+                  <%= show_medical_record_cell(resource, :respiratory_rate) %>
+                  <%= show_medical_record_cell(resource, :blood_pressure) %>
+                  <%= show_medical_record_cell(resource, :oxygen_saturation) %>
+                  <%= show_medical_record_cell(resource, :pain_score) %>
+
+                  <%= show_medical_record_cell(resource, :onset_date) %>
+
+                  <%= show_medical_record_cell(resource, :chief_complaint) %>
+                  <%= show_medical_record_cell(resource, :history_of_present_illness) %>
+
+
+                  <%= show_medical_record_cell(resource, :past_medical_history) %>
+                  <%= show_medical_record_cell(resource, :allergic_history) %>
+                  <%= show_medical_record_cell(resource, :personal_history) %>
+                  <%= show_medical_record_cell(resource, :family_history) %>
+                  <%= show_medical_record_cell(resource, :vaccination_history) %>
+                  <%= show_medical_record_cell(resource, :physical_examination) %>
+                  
+                  <%= show_medical_record_cell(resource, :imaging_examination) %>
+                  <%= show_medical_record_cell(resource, :preliminary_diagnosis) %>
+                  <%= show_medical_record_cell(resource, :treatment_recommendation) %>
+                  <%= show_medical_record_cell(resource, :remarks) %>
+
+              </div>
+
+            </div>
+          </div>
+
+      </div>
+      <div class="weui_tabbar">
+          <a href="/my/patients/reservations" class="weui_tabbar_item">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_button.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">当前预约</p>
+          </a>
+
+          <a href="/posts" class="weui_tabbar_item">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_article.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">必读文章</p>
+          </a>
+          <a href="/my/patients/index" class="weui_tabbar_item weui_bar_item_on">
+              <div class="weui_tabbar_icon">
+                  <img src="/icon_nav_cell.png" alt="">
+              </div>
+              <p class="weui_tabbar_label">我</p>
+          </a>
+      </div>
+  </div>
+</div>
