@@ -73,13 +73,13 @@ zh-CN:
         treatment_recommendation: 治疗意见
         imaging_examination: 影像学意见
         remarks: 备注
-        height: 身高
-        weight: 体重
-        bmi: BMI 指数
+        height: 身高(cm)
+        weight: 体重(kg)
+        bmi: BMI指数
         temperature: 体温(℃)
         pulse: 脉搏(次/分钟)
         respiratory_rate: 呼吸次数(次/分钟)
-        blood_pressure: 血压
+        blood_pressure: 血压(mmhg)
         oxygen_saturation: 氧饱和度(%)
         pain_score: 痛疼指数
         medical_record_images: 病历图片

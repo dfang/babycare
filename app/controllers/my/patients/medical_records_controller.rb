@@ -2,7 +2,7 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
 
   def index
-    @medical_records = current_user.medical_records
+    @medical_records = current_user.medical_records.order('created_at DESC')
   end
 
   def status
