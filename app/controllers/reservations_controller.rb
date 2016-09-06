@@ -15,7 +15,7 @@ class ReservationsController < InheritedResources::Base
 
   def public
     @is_doctor = current_user.doctor.present?
-    @reservations = Reservation.pending
+    @reservations = Reservation.pending.order("created_by DESC")
   end
 
   def status

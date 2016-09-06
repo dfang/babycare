@@ -3,7 +3,9 @@ zh-CN:
     submit:
       create: "创建%{model}"
       update: "保存%{model}"
-
+      rating:
+        create: "评价对方"
+        update: "评价对方"
   enumerize:
     defaults:
       sex:

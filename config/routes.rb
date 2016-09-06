@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'ratings/create'
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -34,6 +36,8 @@ Rails.application.routes.draw do
       end
       get 'status'
       get 'index'
+
+      resources :medical_records
     end
 
     namespace :patients do
@@ -97,6 +101,7 @@ Rails.application.routes.draw do
     get 'public', on: :collection
     get 'status', on: :member
     get 'wxpay_test', on: :member
+    resources :ratings
   end
 
   namespace :admin do

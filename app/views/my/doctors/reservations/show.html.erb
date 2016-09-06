@@ -1,4 +1,6 @@
-<%- if resource.pending? %>
+<%- if resource.doctor_has_rated? %>
+  <%= render 'rated' %>
+<%- elsif resource.pending? %>
   <%= render 'pending' %>
 <% elsif resource.reserved? %>
   <%= render 'reserved' %>

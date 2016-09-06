@@ -2,4 +2,5 @@
 *= require ./weui
 *= require ./webuploader
 *= require ./custom
+*= require ./star-rating.min
 */

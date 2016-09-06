@@ -1,4 +1,6 @@
-<%- if resource.prepaid? %>
+<%- if resource.patient_has_rated? %>
+	<%= render 'rated' %>
+<%- elsif resource.prepaid? %>
 	<%= render 'prepaid' %>
 <% elsif resource.pending? %>
 	<%= render 'pending' %>
@@ -6,4 +8,6 @@
 	<%= render 'reserved' %>
 <% elsif resource.diagnosed? %>
 		<%= render 'diagnosed' %>
+<% elsif resource.paid? %>
+	<%= render 'paid' %>
 <% end %>

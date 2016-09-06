@@ -3,6 +3,9 @@ class Reservation < ActiveRecord::Base
   extend Enumerize
   extend ActiveModel::Naming
 
+	has_many :ratings
+  has_one :medical_record
+
   aasm do
     state :pending, initial: true
     state :reserved, :prepaid, :diagnosed, :paid, :archived
@@ -42,4 +45,25 @@ class Reservation < ActiveRecord::Base
 	    '*' * 7 + mobile_phone[-4..-1]
 		end
   end
+
+  def rating_by_doctor
+    self.ratings.where(rated_by: self.user_b).first
+  end
+
+  def rating_by_patient
+    self.ratings.where(rated_by: self.user_a).first
+  end
+
+	def doctor_has_rated?
+		rating_by_doctor.present?
+	end
+
+	def patient_has_rated?
+    rating_by_patient.present?
+	end
+
+	def rated?
+		doctor_has_rated? && patient_has_rated?
+	end
+
 end

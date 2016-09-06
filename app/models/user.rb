@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :reservations, :foreign_key => 'user_a'
   has_many :medical_records
+  has_many :ratings, :dependent => :destroy
 
 
   def self.create_wechat_user(wechat_session)
@@ -21,7 +22,6 @@ class User < ActiveRecord::Base
     user = User.new
     user.name = "#{nickname}#{users_count.zero? ? '' : users_count}"
     user.email = "wx_user_#{SecureRandom.hex}@wx_email.com"
-    p 'xxxxxxxxxxxxxxxxxxxxxxx'
     p user.name
 
     user.gender = wechat_session.sex

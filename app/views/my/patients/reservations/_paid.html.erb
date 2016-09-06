@@ -2,24 +2,22 @@
     <div class="weui_msg">
         <div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div>
         <div class="weui_text_area">
-            <h2 class="weui_msg_title">用户已经支付完成</h2>
+            <h2 class="weui_msg_title">你已经支付完成</h2>
             <p class="weui_msg_desc">说明文字</p>
         </div>
         <div class="weui_opr_area">
           <p class="weui_btn_area">
-
-						<%= simple_form_for Rating.new, url: reservation_ratings_path(resource) do |f| %>
+            <%= simple_form_for Rating.new, url: reservation_ratings_path(resource) do |f| %>
               <input id="rating-doctor" type="text" class="" value="5" name="rating[stars]" data-size="md" title="">
               <%= f.input :body, label: false %>
               <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
-              <%= f.input :user_id, as: :hidden, input_html: { value: resource.user_a } %>
+              <%= f.input :user_id, as: :hidden, input_html: { value: resource.user_b } %>
               <%= f.button :submit, class: "weui_btn weui_btn_primary" %>
             <% end %>
-
           </p>
         </div>
         <div class="weui_extra_area">
-            <a href="">查看帮助</a>
+          <a href="">查看帮助</a>
         </div>
     </div>
 </div>

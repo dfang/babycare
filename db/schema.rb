@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905061102) do
+ActiveRecord::Schema.define(version: 20160906062149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,7 +198,10 @@ ActiveRecord::Schema.define(version: 20160905061102) do
     t.string   "oxygen_saturation"
     t.integer  "pain_score"
     t.integer  "user_id"
+    t.integer  "reservation_id"
   end
+
+  add_index "medical_records", ["reservation_id"], name: "index_medical_records_on_reservation_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name"
@@ -261,6 +264,19 @@ ActiveRecord::Schema.define(version: 20160905061102) do
   add_index "provinces", ["name"], name: "index_provinces_on_name", using: :btree
   add_index "provinces", ["pinyin"], name: "index_provinces_on_pinyin", using: :btree
   add_index "provinces", ["pinyin_abbr"], name: "index_provinces_on_pinyin_abbr", using: :btree
+
+  create_table "ratings", force: :cascade do |t|
+    t.float    "stars"
+    t.text     "body"
+    t.integer  "reservation_id"
+    t.integer  "user_id"
+    t.integer  "rated_by"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "ratings", ["reservation_id"], name: "index_ratings_on_reservation_id", using: :btree
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
   create_table "reservations", force: :cascade do |t|
     t.string   "name"
@@ -364,7 +380,10 @@ ActiveRecord::Schema.define(version: 20160905061102) do
   add_foreign_key "imaging_examination_images", "medical_records"
   add_foreign_key "laboratory_examination_images", "medical_records"
   add_foreign_key "medical_record_images", "medical_records"
+  add_foreign_key "medical_records", "reservations"
   add_foreign_key "phone_call_histories", "reservations"
+  add_foreign_key "ratings", "reservations"
+  add_foreign_key "ratings", "users"
   add_foreign_key "sms_histories", "reservations"
   add_foreign_key "wx_sub_menus", "wx_menus"
 end
