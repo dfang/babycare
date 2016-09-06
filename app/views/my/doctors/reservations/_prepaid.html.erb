@@ -10,7 +10,7 @@
 						<%= link_to "确认服务完成", complete_my_doctors_reservation_path(resource), method: 'PUT', class: "weui_btn weui_btn_primary" %>
 						<a href="<%= claim_my_doctors_reservation_path(resource) %>" class="weui_btn weui_btn_default">发送短信</a>
             <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= resource.mobile_phone %>);" class="weui_btn weui_btn_default">拨打电话</a>
-						<%= link_to "添加病例", new_my_doctors_medical_record_path(reservation: resource, user_id: reservation.user_a) %>
+						<%= link_to "添加病例", new_my_doctors_medical_record_path(reservation: resource, user_id: resource.user_a) %>
           </p>
         </div>
         <div class="weui_extra_area">

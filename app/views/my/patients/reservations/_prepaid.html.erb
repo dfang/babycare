@@ -8,7 +8,7 @@
         <div class="weui_opr_area">
             <p class="weui_btn_area">
               <a href="javascript: IM.call(<%= current_user.id %>, <%= @reservation.user_b %>, <%= @reservation.id %>, <%= @reservation.mobile_phone %>);" class="weui_btn weui_btn_primary">拨打医生电话</a>
-              <%= link_to "添加病例", new_my_patients_medical_record_path(reservation: resource, user_id: reservation.user_a) %>
+              <%= link_to "添加病例", new_my_patients_medical_record_path(reservation: resource, user_id: resource.user_a) %>
             </p>
         </div>
         <div class="weui_extra_area">
