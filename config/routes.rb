@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       resources :reservations do
         get 'claim', on: :member
         put 'claim', on: :member
+        put 'complete', on: :member
       end
       get 'status'
       get 'index'
