@@ -33,6 +33,10 @@ class My::Doctors::ReservationsController < InheritedResources::Base
 
   private
 
+	def reservation_params
+    params.require(:reservation).permit!
+  end
+
   def check_is_verified_doctor
     unless current_user.is_verified_doctor?
       redirect_to my_doctors_status_path and return
