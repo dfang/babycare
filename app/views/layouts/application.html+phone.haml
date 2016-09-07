@@ -22,6 +22,7 @@
     #container.container
 
       = yield
+      = render 'loading_toast'
 
     / - if @no_footer.blank?
     /   = render 'footer'

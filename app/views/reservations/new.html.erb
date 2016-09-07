@@ -59,7 +59,7 @@
 
   <div class="weui_btn_area">
     <!-- <a class="weui_btn weui_btn_primary" href="javascript:">确定</a> -->
-    <button class="weui_btn weui_btn_primary">确定</button>
+		<%= f.button :submit, "确定", class: "weui_btn weui_btn_primary", data: { disable_with: '正在提交...' } %>
   </div>
 
 <% end %>

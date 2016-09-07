@@ -13,7 +13,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( admin.css admin.js )
 Rails.application.config.assets.precompile += %w( mobile.js mobile.css uploader.js)
 
-Rails.application.config.assets.precompile += %w( bootstrap_fontawesome.min )
+Rails.application.config.assets.precompile += %w( bootstrap_fontawesome )
 
 
 # Adding Webfonts to the Asset Pipeline
