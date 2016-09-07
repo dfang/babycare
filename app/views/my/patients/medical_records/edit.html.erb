@@ -6,11 +6,11 @@
             <div class="bd">
               <div class="weui_cells_title">表单</div>
               <div class="weui_cells weui_cells_form">
-                <%= simple_nested_form_for resource, url: my_patients_medical_records_path, method: 'POST' do |f| %>
+                <%= simple_nested_form_for resource, url: my_patients_medical_record_path(resource), method: 'PUT' do |f| %>
 
                 <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
 								<%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
-								
+
                 <%= f.input :height, wrapper: :weui_input %>
                 <%= f.input :weight, wrapper: :weui_input %>
                 <%= f.input :bmi, wrapper: :weui_input %>
