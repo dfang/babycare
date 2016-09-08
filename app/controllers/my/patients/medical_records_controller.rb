@@ -1,6 +1,7 @@
 class My::Patients::MedicalRecordsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
   before_action :find_reservation, only: [:create, :update]
+  skip_before_action :find_reservation, except: [:create, :update]
 
   def index
     @medical_records = current_user.medical_records.order('created_at DESC')

@@ -134,6 +134,12 @@ html {
 .rating_body{
 	margin-bottom: 30px;
 	textarea{
-		height: 100px;
+		height: 100px !important;
+	}
+}
+
+.new_rating{
+	.btn.weui_btn.weui_btn_primary{
+		font-size: 18px;
 	}
 }
