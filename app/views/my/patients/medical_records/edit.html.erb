@@ -6,75 +6,8 @@
             <div class="bd">
               <div class="weui_cells_title">表单</div>
               <div class="weui_cells weui_cells_form">
-                <%= simple_nested_form_for resource, url: my_patients_medical_record_path(resource), method: 'PUT' do |f| %>
-
-                <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-								<%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
-
-                <%= f.input :height, wrapper: :weui_input %>
-                <%= f.input :weight, wrapper: :weui_input %>
-                <%= f.input :bmi, wrapper: :weui_input %>
-                <%= f.input :temperature, wrapper: :weui_input %>
-                <%= f.input :pulse, wrapper: :weui_input %>
-                <%= f.input :respiratory_rate, wrapper: :weui_input %>
-                <%= f.input :blood_pressure, wrapper: :weui_input %>
-                <%= f.input :oxygen_saturation, wrapper: :weui_input %>
-                <%= f.input :pain_score, wrapper: :weui_input %>
-                <%= f.input :onset_date, as: :string, wrapper: :weui_input, input_html: { class: 'datepicker' } %>
-                <%= f.input :chief_complaint, as: :text, wrapper: :weui_input %>
-                <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
-
-                <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
-                <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
-                <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
-                <%= f.input :family_history, as: :text, wrapper: :weui_input %>
-                <%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
-                <%= f.input :physical_examination, as: :text, wrapper: :weui_input %>
-								<%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
-								<div class="weui_cell">
-										<div class="weui_cell_bd weui_cell_primary">
-												<div class="weui_uploader weui_uploader1">
-														<div class="weui_uploader_hd weui_cell">
-																<div class="weui_cell_bd weui_cell_primary">实验室检查图片</div>
-														</div>
-														<div class="weui_uploader_bd">
-																<ul class="weui_uploader_files">
-																	<li class="weui_uploader_file holder">
-																	</li>
-																</ul>
-																<div class="weui_uploader_input_wrp" id='picker1'>
-																</div>
-														</div>
-												</div>
-										</div>
-								</div>
-
-		            <%= f.input :imaging_examination, as: :text, wrapper: :weui_input %>
-								<div class="weui_cell">
-										<div class="weui_cell_bd weui_cell_primary">
-												<div class="weui_uploader weui_uploader2">
-														<div class="weui_uploader_hd weui_cell">
-																<div class="weui_cell_bd weui_cell_primary">影像学意见图片</div>
-														</div>
-														<div class="weui_uploader_bd">
-																<ul class="weui_uploader_files">
-																	<li class="weui_uploader_file holder">
-																	</li>
-																</ul>
-																<div class="weui_uploader_input_wrp" id='picker2'>
-																</div>
-														</div>
-												</div>
-										</div>
-								</div>
-								<%= f.input :preliminary_diagnosis, as: :text, wrapper: :weui_input %>
-		            <%= f.input :treatment_recommendation, as: :text, wrapper: :weui_input %>
-		            <%= f.input :remarks, as: :text, wrapper: :weui_input %>
-								<div class="weui_btn_area">
-				          <!-- <a class="weui_btn weui_btn_primary" href="javascript:">确定</a> -->
-				          <button class="weui_btn weui_btn_primary">确定</button>
-				        </div>
-                <% end %>
+                <%= render 'form', url: my_patients_medical_record_path(resource), method: 'PUT' %>
+              </div>
             </div>
 
             </div>
