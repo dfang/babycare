@@ -1,6 +1,7 @@
 /*
 *= require ./weui
 *= require ./webuploader
+*= require ./bootstrap-tags
 *= require ./custom
 *= require ./star-rating.min
 */

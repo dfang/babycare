@@ -8,6 +8,7 @@
       <div class="weui_opr_area">
         <p class="weui_btn_area">
 					<input id="rating-doctor" type="text" class="" value="<%= resource.rating_by_patient.try(:stars) %>" name="rating[stars]" data-size="md" title="">
+					<div id="tags-input"></div>
         </p>
       </div>
       <div class="weui_extra_area">
@@ -29,6 +30,17 @@
 				readonly: true
       });
 
+			tag_list = "<%= resource.rating_by_patient.tag_list %>".split(',')
+
+			$('#tags-input').tags({
+        values: tag_list,
+        templates: {
+          pill: '<span class="badge badge-info tag-badge active" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>'
+        },
+        input_name: "tag_list[]",
+        can_remove: false,
+        can_add: false
+      });
     })
   <% end %>
 <% end %>

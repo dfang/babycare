@@ -10,7 +10,7 @@
 
 						<%= simple_form_for Rating.new, url: reservation_ratings_path(resource) do |f| %>
               <input id="rating-doctor" type="text" class="" value="5" name="rating[stars]" data-size="md" title="">
-              <%= f.input :body, label: false %>
+              <%= f.input :body, as: :input, label: false, input_html: { id: 'tags-input' } %>
               <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
               <%= f.input :user_id, as: :hidden, input_html: { value: resource.user_a } %>
               <%= f.button :submit, class: "weui_btn weui_btn_primary" %>
@@ -35,6 +35,9 @@
         showClear: false,
         showCaption: false
       });
+
+			$('#rating_body').tags({});
+      
 
     })
   <% end %>
