@@ -7,8 +7,8 @@
       </div>
       <div class="weui_opr_area">
         <p class="weui_btn_area">
-					<input id="rating-doctor" type="text" class="" value="<%= resource.rating_by_patient.try(:stars) %>" name="rating[stars]" data-size="md" title="">
-					<div id="tags-input"></div>
+          <input id="rating-doctor" type="text" class="" value="<%= resource.rating_by_patient.try(:stars) %>" name="rating[stars]" data-size="md" title="">
+          <div id="tags-input"></div>
         </p>
       </div>
       <div class="weui_extra_area">
@@ -18,7 +18,7 @@
 </div>
 
 <%= content_for :css do %>
-	<%= stylesheet_link_tag :bootstrap_fontawesome %>
+  <%= stylesheet_link_tag :bootstrap_fontawesome %>
 <% end %>
 
 <%= content_for :js do %>
@@ -27,12 +27,12 @@
       $("#rating-doctor").rating({
         showClear: false,
         showCaption: false,
-				readonly: true
+        readonly: true
       });
 
-			tag_list = "<%= resource.rating_by_patient.tag_list %>".split(',')
+      tag_list = "<%= resource.rating_by_patient.tag_list %>".split(',')
 
-			$('#tags-input').tags({
+      $('#tags-input').tags({
         values: tag_list,
         templates: {
           pill: '<span class="badge badge-info tag-badge active" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>'
