@@ -36,7 +36,7 @@
       });
 
       $('#tags-input').tags({
-        values: ['非常有亲和力', '有强烈用户思维', '颜值爆表', '神准时', '聊得很开心', '解释超有耐心'],
+        values: ['非常有亲和力', '有强烈用户思维', '颜值爆表', '神准时', '聊得很开心', '解释超有耐心', '童心未泯', '认真负责', '专业学霸'],
         templates: {
           pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
           number: '<sup><small>{0}</small></sup>'
@@ -57,18 +57,12 @@
 
       $('.pills-list').on('click', '.badge', function(e){
         $(e.target).toggleClass('active')
-        if($(e.target).hasClass('active')){
-
-        }
         arr = []
         $('.pills-list .badge.active').map(function(i,e){
           arr.push( $(e).find('input').val() )
         })
-        console.log(arr)
         $('#rating_body').val(arr)
       })
-
-
     })
   <% end %>
 <% end %>

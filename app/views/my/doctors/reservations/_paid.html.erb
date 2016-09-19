@@ -1,31 +1,30 @@
 <div class="msg">
-    <div class="weui_msg">
-        <div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div>
-        <div class="weui_text_area">
-            <h2 class="weui_msg_title">用户已经支付完成</h2>
-            <p class="weui_msg_desc">请对用户进行评价</p>
-        </div>
-        <div class="weui_opr_area">
-          <p class="weui_btn_area">
-
-						<%= simple_form_for Rating.new, url: reservation_ratings_path(resource) do |f| %>
-              <input id="rating-doctor" type="text" class="" value="5" name="rating[stars]" data-size="md" title="">
-              <%= f.input :body, as: :input, label: false, input_html: { id: 'tags-input' } %>
-              <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
-              <%= f.input :user_id, as: :hidden, input_html: { value: resource.user_a } %>
-              <%= f.button :submit, class: "weui_btn weui_btn_primary" %>
-            <% end %>
-
-          </p>
-        </div>
-        <div class="weui_extra_area">
-            <a href="">帮助</a>
-        </div>
-    </div>
+  <div class="weui_msg">
+      <div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div>
+      <div class="weui_text_area">
+          <h2 class="weui_msg_title">用户已经支付完成, 请对用户进行评价</h2>
+          <!-- <p class="weui_msg_desc">请对用户进行评价</p> -->
+      </div>
+      <div class="weui_opr_area">
+        <p class="weui_btn_area">
+          <%= simple_form_for Rating.new, url: reservation_ratings_path(resource) do |f| %>
+            <input id="rating-doctor" type="text" class="" value="5" name="rating[stars]" data-size="md" title="">
+            <div id="tags-input"></div>
+            <%= f.input :body, label: false, input_html: { height: '100px', readonly: true } %>
+            <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: resource.user_a } %>
+            <%= f.button :submit, class: "weui_btn weui_btn_primary" %>
+          <% end %>
+        </p>
+      </div>
+      <div class="weui_extra_area">
+          <a href="">帮助</a>
+      </div>
+  </div>
 </div>
 
 <%= content_for :css do %>
-	<%= stylesheet_link_tag :bootstrap_fontawesome %>
+  <%= stylesheet_link_tag :bootstrap_fontawesome %>
 <% end %>
 
 <%= content_for :js do %>
@@ -36,9 +35,35 @@
         showCaption: false
       });
 
-			$('#rating_body').tags({});
-      
+      $('#tags-input').tags({
+        values: ["超级奶爸", "暖神爹地", "萝莉妈咪", "时尚辣妈", "爱心泛滥", "高冷大咖", "神准时", "聊的很开心", "通情达理", "支付神速" ],
+        templates: {
+          pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
+          number: '<sup><small>{0}</small></sup>'
+        },
+        input_name: "tag_list[]",
+        can_remove: false,
+        can_add: false,
+        onRemove(pill){
+          pill.removeClass('active')
+        },
+        onBeforeAdd(pill, item){
+          console.log(item)
+          console.log(pill)
+          // pill.addClass('active')
+          return pill
+        }
+      });
 
+      $('.pills-list').on('click', '.badge', function(e){
+        $(e.target).toggleClass('active')
+        arr = []
+        $('.pills-list .badge.active').map(function(i,e){
+          arr.push( $(e).find('input').val() )
+        })
+        console.log(arr)
+        $('#rating_body').val(arr)
+      })
     })
   <% end %>
 <% end %>
