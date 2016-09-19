@@ -1,7 +1,7 @@
 class MedicalRecord < ActiveRecord::Base
   belongs_to :user
 	belongs_to :reservation
-	
+
   has_many :medical_record_images, class_name: 'MedicalRecordImage', dependent: :destroy
   has_many :laboratory_examination_images, class_name: 'LaboratoryExaminationImage', dependent: :destroy
   has_many :imaging_examination_images, class_name: 'ImagingExaminationImage', dependent: :destroy
@@ -11,5 +11,5 @@ class MedicalRecord < ActiveRecord::Base
   accepts_nested_attributes_for :imaging_examination_images, allow_destroy: true
 
   has_one :cover, class_name: 'MedicalRecordImage'
-
+	GENDERS = %w(男 女).freeze
 end
