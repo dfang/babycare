@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909053548) do
+ActiveRecord::Schema.define(version: 20160919012029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,8 @@ ActiveRecord::Schema.define(version: 20160909053548) do
     t.integer  "pain_score"
     t.integer  "user_id"
     t.integer  "reservation_id"
+    t.boolean  "gender"
+    t.date     "birthdate"
   end
 
   add_index "medical_records", ["reservation_id"], name: "index_medical_records_on_reservation_id", using: :btree
@@ -294,8 +296,6 @@ ActiveRecord::Schema.define(version: 20160909053548) do
     t.string   "child_gender"
     t.string   "out_trade_pay_no"
     t.string   "out_trade_prepay_no"
-    t.boolean  "gender"
-    t.date     "birthdate"
   end
 
   create_table "sms_histories", force: :cascade do |t|

@@ -43,16 +43,7 @@
         },
         input_name: "tag_list[]",
         can_remove: false,
-        can_add: false,
-        onRemove(pill){
-          pill.removeClass('active')
-        },
-        onBeforeAdd(pill, item){
-          console.log(item)
-          console.log(pill)
-          // pill.addClass('active')
-          return pill
-        }
+        can_add: false
       });
 
       $('.pills-list').on('click', '.badge', function(e){
