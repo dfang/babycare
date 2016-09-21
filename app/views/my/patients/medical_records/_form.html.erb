@@ -1,4 +1,4 @@
-<%= simple_nested_form_for resource, url: url, method: 'PUT' do |f| %>
+<%= simple_nested_form_for resource, url: url, method: method do |f| %>
 
 	<%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
 	<%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
