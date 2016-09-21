@@ -2,8 +2,8 @@ class RatingsController < InheritedResources::Base
 	belongs_to :reservation
 
 	def create
-		rating = Rating.find_by(reservation_id: params[:reservation_id], rated_by: params[:rated_by])
-		rating.destroy! if rating.present?
+		ratings = Rating.where(reservation_id: params[:reservation_id], rated_by: params[:rated_by])
+		ratings.destroy_all if ratings.present?
 		create! {
 			resource.tag_list = rating_params[:body]
 			resource.save!
