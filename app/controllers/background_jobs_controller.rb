@@ -25,6 +25,14 @@ class BackgroundJobsController < ApplicationController
 
   end
 
+	def cancel_reservation
+		reservation = Reservation.find_by(id: params[:reservation_id])
+		reservation.destroy!
+		render json: {
+			status: 'ok'
+		}
+	end
+
 	private
 
 	def record_phone_call
