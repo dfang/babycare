@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   has_one :doctor
 
-  has_many :reservations, :foreign_key => 'user_a'
+  # has_many :reservations, :foreign_key => 'user_a'
   has_many :medical_records
   has_many :ratings, :dependent => :destroy
 
@@ -32,6 +32,13 @@ class User < ActiveRecord::Base
     return user
   end
 
+  def reservations
+    if user.is_verified_doctor?
+      Reservation.where(user_b: self.id)
+    else
+      Reservation.where(user_a: self.id)
+    end
+  end
 
   def is_doctor?
     self.doctor.present?
@@ -42,11 +49,11 @@ class User < ActiveRecord::Base
   end
 
   def self_reservations
-    if self.is_doctor?
-      self.doctor.reservations
-    else
-      self.reservations
-    end
+    # if self.is_doctor?
+    #   self.doctor.reservations
+    # else
+    #   self.reservations
+    # end
   end
 
 end

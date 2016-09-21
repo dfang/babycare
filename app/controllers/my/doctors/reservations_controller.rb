@@ -8,7 +8,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   end
 
   def index
-    @reservations = current_user.self_reservations
+    @reservations = current_user.reservations
   end
 
   def status
@@ -18,7 +18,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
 	def claim
     if request.put?
 			resource.update(reservation_params)
-      resource.user_b = current_user.doctor.id
+      resource.user_b = current_user.id
       resource.reserve!
 
 			# 发送短信， 记录短信

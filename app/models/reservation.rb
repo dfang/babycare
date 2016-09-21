@@ -42,6 +42,14 @@ class Reservation < ActiveRecord::Base
   enumerize :aasm_state, in: [:pending, :reserved, :prepaid, :diagnosed, :paid, :archived, :rated], default: :pending, predicates: true
 
   GENDERS = %w(儿子 女儿).freeze
+
+  # use claimed_by instead of res.reserve to debug in rails console
+  def claimed_by(user_b)
+    self.user_b = user_b
+    self.reserve
+    self.save!
+  end
+
   def marked_phone_number
     # http://stackoverflow.com/questions/26103394/regular-expression-to-mask-all-but-the-last-4-digits-of-a-social-security-number
     # Simply extract the last four characters and append them to a string of five '*'
