@@ -9,14 +9,15 @@ $.ajaxSetup({
 
 var IM = {
 
-  call: function(caller,  callee, reservation_id, callee_phone) {
+  call: function(caller,  callee, reservation_id, caller_phone, callee_phone) {
 
       console.log("caller is " + caller, "callee is " + callee);
       $.post('/background_jobs/call.json', {
         caller: caller,
         callee: callee,
         reservation_id: reservation_id,
-        callee_phone: callee_phone,
+        caller_phone: caller_phone,
+        callee_phone: callee_phone
       })
   },
 

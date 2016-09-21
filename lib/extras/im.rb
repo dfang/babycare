@@ -106,11 +106,11 @@ module IM
     include HTTParty
 
     # 预约的时候可以填别的号码
-    def self.call(caller_id, callee_id, reservation_id, callee_phone)
+    def self.call(caller_id, callee_id, reservation_id, caller_phone, callee_phone)
       caller = User.find_by(id: caller_id)
       callee = User.find_by(id: callee_id)
       reservation = Reservation.find_by(id: reservation_id)
-      caller_phone = caller.try(:mobile_phone) || caller.doctor.try(:mobile_phone)
+      caller_phone = caller_phone || caller.try(:mobile_phone) || caller.doctor.try(:mobile_phone)
 
       p "caller phone is #{caller_phone}"
       p "callee_phone is #{callee_phone}"
