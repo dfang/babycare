@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end
 
   def reservations
-    if user.is_verified_doctor?
+    if self.is_verified_doctor?
       Reservation.where(user_b: self.id)
     else
       Reservation.where(user_a: self.id)
