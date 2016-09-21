@@ -78,4 +78,11 @@ class Reservation < ActiveRecord::Base
     doctor_has_rated? && patient_has_rated?
   end
 
+  def patient_user
+    patient_user ||= User.find_by(id: self.user_a)
+  end
+
+  def doctor_user
+    doctor_user ||= User.find_by(id: self.user_b)
+  end
 end
