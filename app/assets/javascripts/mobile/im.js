@@ -1,12 +1,14 @@
+$.ajaxSetup({
+  beforeSend: function(jqXHR){
+    $('#loadingToast').show();
+  },
+  complete: function(jqXHR){
+    $('#loadingToast').hide();
+  }
+});
+
 var IM = {
-  $.ajaxSetup({
-    beforeSend: function(jqXHR){
-      $('#loadingToast').show();
-    },
-    complete: function(jqXHR){
-      $('#loadingToast').hide();
-    }
-  })
+
   call: function(caller,  callee, reservation_id, callee_phone) {
 
       console.log("caller is " + caller, "callee is " + callee);
