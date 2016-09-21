@@ -3,8 +3,11 @@ class Reservation < ActiveRecord::Base
   extend Enumerize
   extend ActiveModel::Naming
 
-  has_many :ratings
-  has_one :medical_record
+  has_many :ratings, :dependent => :destroy
+  has_one :medical_record, :dependent => :destroy
+  has_many :phone_call_histories, :dependent => :destroy
+  has_many :sms_histories, :dependent => :destroy
+
 
   aasm do
     state :pending, initial: true
