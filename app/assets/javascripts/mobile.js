@@ -1,4 +1,5 @@
 //= require mobile/jquery.min
+//= require mobile/parsley
 //= require jquery_ujs
 
 //= require mobile/bootstrap

@@ -11,7 +11,7 @@
         <label class="weui_label" for="">怎么称呼您</label>
       </div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" name="reservation[name]" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
+        <input class="weui_input" name="reservation[name]" data-parsley-required="true" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
       </div>
     </div>
 
@@ -20,7 +20,7 @@
           <label for="" class="weui_label">男孩还是女孩</label>
       </div>
       <div class="weui_cell_bd weui_cell_primary">
-          <select class="weui_select" name="reservation[child_gender]">
+          <select class="weui_select" name="reservation[child_gender]" data-parsley-required="true">
             <%= options_for_select Reservation::GENDERS, "儿子" %>
           </select>
       </div>
@@ -31,7 +31,8 @@
         <label class="weui_label" for="">您的电话</label>
       </div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" name="reservation[mobile_phone]" placeholder="医生可以看到您的电话并联系你" type="text" value="">
+        <input class="weui_input" name="reservation[mobile_phone]" placeholder="医生可以看到您的电话并联系你" type="number"
+          data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]"   value="">
       </div>
     </div>
 
@@ -40,7 +41,7 @@
         <label class="weui_label" for="">您的位置</label>
       </div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" name="reservation[location]" type="text" placeholder="方便为你就近预约" value="">
+        <input class="weui_input" name="reservation[location]" data-parsley-required="true" type="text" placeholder="方便为你就近预约" value="">
       </div>
     </div>
 
@@ -49,7 +50,7 @@
         <label class="weui_label" for="">症状</label>
       </div>
       <div class="weui_cell_bd weui_cell_primary">
-        <textarea class="weui_textarea" name="reservation[remark]" placeholder="请大概描述下你孩子的情况"></textarea>
+        <textarea class="weui_textarea" name="reservation[remark]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
       </div>
     </div>
 
@@ -59,7 +60,7 @@
 
   <div class="weui_btn_area">
     <!-- <a class="weui_btn weui_btn_primary" href="javascript:">确定</a> -->
-		<%= f.button :submit, "确定", class: "weui_btn weui_btn_primary", data: { disable_with: '正在提交...' } %>
+    <%= f.button :submit, "确定", class: "weui_btn weui_btn_primary", data: { disable_with: '正在提交...' } %>
   </div>
 
 <% end %>
@@ -69,25 +70,35 @@
 <script type="text/javascript">
   $(function(){
     if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(onSuccess,onError);
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
+      navigator.geolocation.getCurrentPosition(onSuccess,onError);
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
 
-  function onSuccess(e){
-    console.log('on geoLocation success, center and zoom current position')
-    // var mk = new BMap.Marker(e.coords.longitude, e.coords.latitude);    //基于定位的这个点的点位创建marker
-    // map.addOverlay(mk);    //将marker作为覆盖物添加到map地图上
-    // map.panTo(e.coords);   //将地图中心点移动到定位的这个点位置。注意是r.point而不是r对象。
-    // map.centerAndZoom(new BMap.Point(e.coords.longitude, e.coords.latitude), 12);
-    console.log(e.coords.longitude, e.coords.latitude);
+    function onSuccess(e){
+      console.log('on geoLocation success, center and zoom current position')
+      // var mk = new BMap.Marker(e.coords.longitude, e.coords.latitude);    //基于定位的这个点的点位创建marker
+      // map.addOverlay(mk);    //将marker作为覆盖物添加到map地图上
+      // map.panTo(e.coords);   //将地图中心点移动到定位的这个点位置。注意是r.point而不是r对象。
+      // map.centerAndZoom(new BMap.Point(e.coords.longitude, e.coords.latitude), 12);
+      console.log(e.coords.longitude, e.coords.latitude);
 
-  }
+    }
 
-  function onError(e){
-    console.log('on geoLocation failed')
-  }
+    function onError(e){
+      console.log('on geoLocation failed')
+    }
 
+    $('.simple_form.new_reservation').parsley({
+      uiEnabled: true,
+      errorsWrapper: ''
+    })
+    .on('field:error', function() {
+      $(this.$element).parents('.weui_cell').addClass('validation_error')
+    })
+    .on('field:success', function() {
+      $(this.$element).parents('.weui_cell').removeClass('validation_error')
+    })
   })
 </script>
 <% end %>

@@ -4,6 +4,10 @@ html {
 	-webkit-tap-highlight-color: transparent;
 	overflow-x: hidden;
 	background-color: #fbf9fe;
+	.weui_cell.validation_error{
+		border-bottom: 1px solid red;
+		color: red;
+	}
 	.wrapper {
 		height: 100%;
 		margin: 0;
