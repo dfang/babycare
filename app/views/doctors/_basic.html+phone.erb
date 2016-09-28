@@ -20,7 +20,7 @@
       </div>
       <div class="weui_cell_bd weui_cell_primary">
         <!-- <input class="weui_input" name="doctor[name]" placeholder="请输入姓名" type="text" value=""> -->
-        <%= f.text_field :name, class: 'weui_input' %>
+        <%= f.text_field :name, class: 'weui_input', data: { "parsley-required": "true" } %>
       </div>
     </div>
 
@@ -51,8 +51,8 @@
         <label class="weui_label" for="">手机号码</label>
       </div>
       <div class="weui_cell_bd weui_cell_primary">
-        <!-- <input class="weui_input" name="doctor[mobile_phone]" type="text" value=""> -->
-        <%= f.text_field :mobile_phone, class: 'weui_input' %>
+        <input class="weui_input" name="doctor[mobile_phone]" type="text" data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]" value="">
+        <!-- f.text_field :mobile_phone, class: 'weui_input'  -->
       </div>
     </div>
 

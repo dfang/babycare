@@ -1,5 +1,6 @@
 <%= simple_form_for resource, url: reservations_path, method: 'POST' do |f| %>
 
+
   <div class="weui_cells_title">预约</div>
 
   <!-- <p class="weui_cells_tips">准备预约医生提交预约医生完善姓名、小孩性别、您的联系方式、您的位置、不适症状描述</p> -->
@@ -32,7 +33,7 @@
       </div>
       <div class="weui_cell_bd weui_cell_primary">
         <input class="weui_input" name="reservation[mobile_phone]" placeholder="医生可以看到您的电话并联系你" type="number"
-          data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]"   value="">
+          data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]" value="">
       </div>
     </div>
 
@@ -92,11 +93,9 @@
     $('.simple_form.new_reservation').parsley({
       uiEnabled: true,
       errorsWrapper: ''
-    })
-    .on('field:error', function() {
+    }).on('field:error', function() {
       $(this.$element).parents('.weui_cell').addClass('validation_error')
-    })
-    .on('field:success', function() {
+    }).on('field:success', function() {
       $(this.$element).parents('.weui_cell').removeClass('validation_error')
     })
   })

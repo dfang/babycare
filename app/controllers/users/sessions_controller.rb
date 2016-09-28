@@ -14,8 +14,8 @@ class Users::SessionsController < Devise::SessionsController
 
     p "authenticating user, session[:weixin_openid] is #{session[:weixin_openid]}"
 
-    if session[:weixin_openid].present? || cookie[:weixin_openid].present?
-      authentication = Authentication.find_by provider: 'wechat', uid: session[:weixin_openid] || cookie[:weixin_openid]
+    if session[:weixin_openid].present? || cookies[:weixin_openid].present?
+      authentication = Authentication.find_by provider: 'wechat', uid: session[:weixin_openid] || cookies[:weixin_openid]
       if authentication.present?
         Rails.logger.info "authentication id is ::::::: #{authentication.id}"
         authentication = nil if authentication.unionid.blank?
@@ -98,7 +98,7 @@ class Users::SessionsController < Devise::SessionsController
           end
 
           session[:weixin_openid] = openid
-					cookie[:weixin_openid] = openid
+					cookies[:weixin_openid] = openid
           sign_in(:user, authentication.user)
           # respond_with authentication.user, location: after_sign_in_path_for(authentication.user)
           redirect_after_sign_in

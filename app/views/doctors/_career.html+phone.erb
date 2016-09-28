@@ -18,7 +18,7 @@
       </div>
       <div class="weui_cell_bd weui_cell_primary">
         <!-- <input class="weui_input" name="doctor[id_card_num]" type="text" value=""> -->
-        <%= f.text_field :id_card_num, class: 'weui_input' %>
+        <%= f.text_field :id_card_num, class: 'weui_input', data: { "parsley-required": "true", "parsley-pattern": /[d{18}|d{17}x]/ } %>
       </div>
     </div>
 
@@ -156,7 +156,7 @@
       </div>
       <div class="weui_cell_hd">
         <!-- <input class="weui_input" name="doctor[hospital]" type="text" value=""> -->
-        <%= f.text_field :hospital, class: 'weui_input' %>
+        <%= f.text_field :hospital, class: 'weui_input', data: { "parsley-required": "true" } %>
       </div>
     </div>
 
@@ -166,7 +166,7 @@
       </div>
       <div class="weui_cell_hd">
         <!-- <input class="weui_input" name="doctor[location]" type="text" value=""> -->
-        <%= f.text_field :location, class: 'weui_input' %>
+        <%= f.text_field :location, class: 'weui_input', data: { "parsley-required": "true" } %>
       </div>
     </div>
 
