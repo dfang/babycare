@@ -164,11 +164,10 @@ module IM
       sigparameter = Digest::MD5.hexdigest("#{accountsid}"+"#{accountauthtoken}"+"#{timestamp}").upcase
       authorization = Base64.strict_encode64("#{accountsid}:#{timestamp}")
 
-      p "accountsid is #{accountsid} \n"
-      p "timestamp is #{timestamp} \n"
-      p "sigparameter is #{sigparameter} \n"
-
-      p "authorization is #{authorization} \n"
+      Rails.logger.info "accountsid is #{accountsid} \n"
+      Rails.logger.info "timestamp is #{timestamp} \n"
+      Rails.logger.info "sigparameter is #{sigparameter} \n"
+      Rails.logger.info "authorization is #{authorization} \n"
 
       url = "https://app.cloopen.com:8883/#{softversion}/Accounts/#{accountsid}/SMS/TemplateSMS?sig=#{sigparameter}"
 
@@ -179,7 +178,7 @@ module IM
         datas: params.flatten
       }.to_json
 
-      p "sms body is #{body}\n"
+      Rails.logger.info "sms body is #{body}\n"
 
       HTTParty.post(url,
         body: body,
