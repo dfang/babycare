@@ -32,12 +32,12 @@ module IM
             maxDur:  3600
           },
         headers: {
-          'AppKey': @appkey.to_s,
-          'Nonce': nonce.to_s,
-          'CurTime': timestamp.to_s,
-          'CheckSum': checksum.to_s,
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-          'Accept': 'application/json'
+          'AppKey' => @appkey.to_s,
+          'Nonce' => nonce.to_s,
+          'CurTime' => timestamp.to_s,
+          'CheckSum' => checksum.to_s,
+          'Content-Type' => 'application/x-www-form-urlencoded;charset=utf-8',
+          'Accept' => 'application/json'
         }
       )
     end
@@ -178,10 +178,13 @@ module IM
         datas: params.flatten
       }.to_json
 
+      # Use Strings for your hash keys instead of Symbols.
+      # otherwise NoMethodError (undefined method `split' for :authorization:Symbol):
+      # use => instead of :
       headers = {
-        'Authorization': authorization,
-        'Content-Type': 'application/json;charset=utf-8',
-        'Accept': 'application/json'
+        'Authorization' => authorization,
+        'Content-Type' => 'application/json;charset=utf-8',
+        'Accept' => 'application/json'
       }
 
       Rails.logger.info  "sms body is #{body} \n"
