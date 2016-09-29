@@ -178,13 +178,13 @@ module IM
         datas: params.flatten
       }.to_json
 
-      headers = headers: {
+      headers = {
         'Authorization': authorization,
         'Content-Type': 'application/json;charset=utf-8',
         'Accept': 'application/json'
       }.to_json
 
-      Rails.logger.info "sms body is #{body} \n"
+      Rails.logger.info  "sms body is #{body} \n"
       Rails.logger.info  "headers is #{headers} \n"
 
       HTTParty.post(url,
