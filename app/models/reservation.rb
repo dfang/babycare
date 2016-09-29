@@ -92,4 +92,29 @@ class Reservation < ActiveRecord::Base
   def doctor_user
     doctor_user ||= User.find_by(id: self.user_b)
   end
+
+  def patient_user_phone
+    patient_user_phone ||= mobile_phone || patient_user.mobile_phone
+  end
+
+  def patient_user_name
+    patient_user_name ||= name || patient_user.try(:name)
+  end
+
+  def doctor_user_name
+    doctor_user_name ||=  doctor_user.try(:name)
+  end
+
+  def doctor_user_phone
+    doctor_user_phone ||= doctor_user.try(:mobile_phone)
+  end
+
+  def reserved_location
+    reservation_location || doctor_user.hospital
+  end
+
+  def reserved_time
+    reservation_time
+  end
+
 end
