@@ -27,7 +27,6 @@ class My::Doctors::ReservationsController < InheritedResources::Base
 
       # 发送短信， 记录短信
       # IM::Ronglian.send_templated_sms
-
       redirect_to my_doctors_reservation_path(resource) and return
     end
   end
@@ -36,7 +35,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   def complete
     resource.diagnose! do
       # doctor diagnosed and send sms to notify user to pay
-      IM::Ronglian.send_templated_sms(resource.patient_user.try(:mobile_phone), Settings.sms_templates.when_diagnosed_notify_user, resource.patient_user.try(:name))
+      IM::Ronglian.send_templated_sms(resource.patient_user_phone, Settings.sms_templates.when_diagnosed_notify_user, resource.patient_user_name)
     end
     redirect_to my_doctors_reservation_path(resource) and return
   end

@@ -94,7 +94,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def patient_user_phone
-    patient_user_phone ||= mobile_phone || patient_user.mobile_phone
+    patient_user_phone ||= reservation_phone || patient_user.mobile_phone
   end
 
   def patient_user_name
