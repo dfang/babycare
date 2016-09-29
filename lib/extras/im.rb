@@ -152,8 +152,7 @@ module IM
       )
     end
 
-    def send_templated_sms(template_id, mobiles, parameters)
-
+    def self.send_templated_sms(to, templateId, *params)
       softversion = Settings.ronglian.SoftVersion
       accountsid = Settings.ronglian.AccountSid
       accountauthtoken = Settings.ronglian.AccountAuthToken
@@ -167,14 +166,17 @@ module IM
 
       url = "https://app.cloopen.com:8883/#{softversion}/Accounts/#{accountsid}/SMS/TemplateSMS?sig=#{sigparameter}"
 
+      body = {
+        to:  to,
+        appId: appid,
+        templateId: templateId,
+        datas: params.flatten
+      }.to_json
+
+      p "sms body is #{body}\n"
+
       HTTParty.post(url,
-        body:
-          {
-            to:  "17762575774",
-            appid: appid,
-            templateId: 1,
-            datas: [{data: '1111'}, {data: '2222'}]
-          }.to_json,
+        body: body,
         headers: {
           'Authorization': authorization,
           'Content-Type': 'application/json;charset=utf-8',
@@ -182,6 +184,7 @@ module IM
         }
       )
     end
+
   end
 end
 

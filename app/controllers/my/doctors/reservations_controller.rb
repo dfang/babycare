@@ -14,29 +14,36 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   def status
   end
 
-	# 医生认领用户的预约
-	def claim
+  # 医生认领用户的预约
+  def claim
     if request.put?
-			resource.update(reservation_params)
+      resource.update(reservation_params)
       resource.user_b = current_user.id
-      resource.reserve!
 
-			# 发送短信， 记录短信
-			# IM::Ronglian.send_templated_sms
+      resource.reserve! do
+        # reserve and send sms to notify patients to prepay
+        IM::Ronglian.send_templated_sms(resource.patient_user.try(:mobile_phone), Settings.sms_templates.when_reserved_notify_user, resource.doctor_user.try(:hospital), resource.doctor_user.try(:name))
+      end
+
+      # 发送短信， 记录短信
+      # IM::Ronglian.send_templated_sms
 
       redirect_to my_doctors_reservation_path(resource) and return
     end
   end
 
-	# 医生完成服务
-	def complete
-		resource.diagnose!
-		redirect_to my_doctors_reservation_path(resource) and return
-	end
+  # 医生完成服务
+  def complete
+    resource.diagnose! do
+      # doctor diagnosed and send sms to notify user to pay
+      IM::Ronglian.send_templated_sms(resource.patient_user.try(:mobile_phone), Settings.sms_templates.when_diagnosed_notify_user, resource.patient_user.try(:name))
+    end
+    redirect_to my_doctors_reservation_path(resource) and return
+  end
 
   private
 
-	def reservation_params
+  def reservation_params
     params.require(:reservation).permit!
   end
 

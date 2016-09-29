@@ -173,9 +173,21 @@ class My::Patients::ReservationsController < InheritedResources::Base
       p 'trigger prepay or pay event'
 
       if reservation.reserved?
-        reservation.prepay!
+
+        reservation.prepay! do
+          # user prepay and send sms to notify doctor prepaid
+          params1 = [reservation.patient_user.name, reservation.doctor_user.try(:name), reservation.try(:reservation_time), reservation.try(:reservation_location)]
+          params2 = [reservation.doctor_user.try(:name), reservation.patient_user.name, reservation.try(:reservation_location), reservation.try(:reservation_time)]
+          IM::Ronglian.send_templated_sms(reservation.patient_user.try(:mobile_phone), Settings.sms_templates.when_prepaid_notify_user, params1)
+          IM::Ronglian.send_templated_sms(reservation.doctor_user.try(:mobile_phone), Settings.sms_templates.when_prepaid_notify_doctor, params2)
+        end
+
       elsif reservation.diagnosed?
-        reservation.pay!
+        reservation.pay! do
+          # user paid and send sms to doctors
+          params = [reservation.doctor_user.try(:name), reservation.patient_user.try(:name)]
+          IM::Ronglian.send_templated_sms(reservation.doctor_user.try(:mobile_phone), Settings.sms_templates.when_paid_notify_doctor, params)
+        end
       end
     end
   end

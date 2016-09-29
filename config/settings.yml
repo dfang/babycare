@@ -29,3 +29,11 @@ wx_pay:
   # partner_key: 'k9RrfNLZtOx5GghfPJc3tOYXGVr68qpu'
   key: 'k9RrfNLZtOx5GghfPJc3tOYXGVr68qpu'
   mch_id: '1368072702'
+
+sms_templates:
+  notify_all_when_new_reservation: 120561
+  when_reserved_notify_user: 120574
+  when_prepaid_notify_user: 120577
+  when_prepaid_notify_doctor: 120576
+  when_diagnosed_notify_user: 120578
+  when_paid_notify_doctor: 120579
