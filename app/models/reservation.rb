@@ -117,4 +117,11 @@ class Reservation < ActiveRecord::Base
     reservation_time
   end
 
+  def doctor
+    docotr ||= doctor_user.try(:doctor)
+  end
+
+  def hospital
+    doctor.hospital
+  end
 end
