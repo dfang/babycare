@@ -12,6 +12,12 @@ Rails.application.routes.draw do
     get 'profile' => 'users/registrations#show', as: :profile
   end
 
+  resources :users do
+    member do
+      get :scan_qrcode
+      get :qrcode
+    end
+  end
 
   get 'global/status'
   get 'global/denied'
@@ -92,11 +98,6 @@ Rails.application.routes.draw do
       put 'offline'
     end
   end
-
-
-
-
-
 
   resources :reservations do
     get 'public', on: :collection

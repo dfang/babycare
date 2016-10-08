@@ -4,6 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  include ImageVersion
+  mount_image_version :avatar
+  # mount_image_version :qrcode
+  mount_uploader :qrcode, SingleUploader
+
+
   has_many :authentications, :dependent => :destroy
   has_one :doctor
 

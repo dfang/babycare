@@ -1,199 +1,223 @@
 body,
 html {
-	height: 100%;
-	-webkit-tap-highlight-color: transparent;
-	overflow-x: hidden;
-	background-color: #fbf9fe;
-	.weui_cell.validation_error{
-		border-bottom: 1px solid red;
-		color: red;
-	}
-	.wrapper {
-		height: 100%;
-		margin: 0;
-		padding: 0;
-		#mapContainer {
-			width: 100%;
-			padding: 0;
-			margin: 0;
-			min-height: 300px;
-		}
-	}
-	.weui_cells_form .weui_cell_hd {
-		padding-right: 1.3em;
-		.weui_label {
-			width: 100%;
-		}
-	}
-	.container {
-		height: 100%;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
-		.tabbar {
-			height: 100%;
-		}
-		.weui_tab_bd {
-			.bd {
-				position: inherit;
-				& > a {
-					display: block;
-				}
-				.weui_panel_bd {
-					position: relative;
-					.weui_media_status {
-						position: absolute;
-						top: 21px;
-						right: 3px;
-						font-size: 11px;
-					}
-				}
-			}
-		}
-	}
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  background-color: #fbf9fe;
+  .weui_cell.validation_error{
+    border-bottom: 1px solid red;
+    color: red;
+  }
+  .wrapper {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    #mapContainer {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      min-height: 300px;
+    }
+  }
+  .weui_cells_form .weui_cell_hd {
+    padding-right: 1.3em;
+    .weui_label {
+      width: 100%;
+    }
+  }
+  .container {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    .tabbar {
+      height: 100%;
+    }
+    .weui_tab_bd {
+      .bd {
+        position: inherit;
+        & > a {
+          display: block;
+        }
+        .weui_panel_bd {
+          position: relative;
+          .weui_media_status {
+            position: absolute;
+            top: 21px;
+            right: 3px;
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
 }
 // 让fex uploader 生成的层浮动到最上层，不然触发了fex uploader 的上传事件
 .weui_uploader .webuploader-pick {
-	width: 48px;
-	height: 57px;
-	z-index: 2;
-	background: none;
+  width: 48px;
+  height: 57px;
+  z-index: 2;
+  background: none;
 }
 .weui_uploader .webuploader-pick + div {
-	z-index: 3;
+  z-index: 3;
 }
 .bd {
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .bd .weui_tab_bd {
-	padding-top: 50px;
-	text-align: center;
+  padding-top: 50px;
+  text-align: center;
 }
 .weui_uploader_files {
-	li {
-		float: left;
-		margin-right: 10px;
-		border: 1px solid #EEE;
-	}
+  li {
+    float: left;
+    margin-right: 10px;
+    border: 1px solid #EEE;
+  }
 }
 .reservations_show {
-	section {
-		padding: 10px 15px;
-		.weui_cell {
-			padding: 0 15px 10px 0;
-		}
-	}
+  section {
+    padding: 10px 15px;
+    .weui_cell {
+      padding: 0 15px 10px 0;
+    }
+  }
 }
 .home_index {
-	ul {
-		li {
-			padding: 8px;
-			list-style: none;
-		}
-	}
+  ul {
+    li {
+      padding: 8px;
+      list-style: none;
+    }
+  }
 }
 .reservations_public {
-	.weui_btn_primary {
-		float: right;
-		margin-top: -57px;
-	}
-	.weui_media_info{
-		text-decoration: none;
-	}
+  .weui_btn_primary {
+    float: right;
+    margin-top: -57px;
+  }
+  .weui_media_info{
+    text-decoration: none;
+  }
 }
 
 
 .my_doctors_reservations_index{
-	.container .weui_tab_bd .bd{
-		// margin-top: 15%;
-	}
+  .container .weui_tab_bd .bd{
+    // margin-top: 15%;
+  }
 
 }
 
 
 .posts_show{
-	.weui_tab_bd{
-		.page_title{
-			padding: 30px;
-		}
-		.weui_article{
-			padding: 50px;
-		}
-	}
+  .weui_tab_bd{
+    .page_title{
+      padding: 30px;
+    }
+    .weui_article{
+      padding: 50px;
+    }
+  }
 }
 
 .my_patients_medical_records_index{
-	.weui_tab_bd{
-		a.weui_btn_primary{
-			margin-top: 20px;
-			width: 90%;
-		}
-	}
+  .weui_tab_bd{
+    a.weui_btn_primary{
+      margin-top: 20px;
+      width: 90%;
+    }
+  }
 }
 
 .rating_body{
-	margin-bottom: 30px;
-	textarea{
-		height: 100px !important;
-	}
+  margin-bottom: 30px;
+  textarea{
+    height: 100px !important;
+  }
 }
 
 .new_rating{
-	.btn.weui_btn.weui_btn_primary{
-		font-size: 18px;
-	}
+  .btn.weui_btn.weui_btn_primary{
+    font-size: 18px;
+  }
 }
 
 .my_patients_reservations_show{
-	.weui_msg .weui_text_area{
-		margin-bottom: 10px;
-	}
+  .weui_msg .weui_text_area{
+    margin-bottom: 10px;
+  }
 }
 
 #tags-input{
-	margin-top: 10px;
-	margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
-	.badge{
-		border: 1px gray solid;
-		color: inherit;
-		background-color: inherit;
-	}
+  .badge{
+    border: 1px gray solid;
+    color: inherit;
+    background-color: inherit;
+  }
 
-	.badge.active {
-		color: #fff;
-		background-color: #777;
-	}
+  .badge.active {
+    color: #fff;
+    background-color: #777;
+  }
 
-	.tag-badge {
-		margin-right: 5px;
-		margin-bottom: 5px;
-		font-weight: 100;
-		font-size: 14px;
-		line-height: 20px;
-	}
-	.tag-icon {
-		margin-left: 5px;
-		margin-right: -3px;
-	}
-	.tag-badge a.tag-link {
-		color: #ffffff;
-		text-decoration: underline;
-	}
-	.tag-input {
-		border: 0 solid;
-		margin: 0;
-		padding: 0;
-		font-weight: 100;
-		border: 0 solid;
-		background-color: transparent;
-		height: 18px;
-		margin-top: -5px;
-		color: #ffffff;
-		outline: none;
-	}
+  .tag-badge {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .tag-icon {
+    margin-left: 5px;
+    margin-right: -3px;
+  }
+  .tag-badge a.tag-link {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+  .tag-input {
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+    font-weight: 100;
+    border: 0 solid;
+    background-color: transparent;
+    height: 18px;
+    margin-top: -5px;
+    color: #ffffff;
+    outline: none;
+  }
+}
+
+.users_scan_qrcode{
+  .container{
+    margin: 90px auto;
+    table {
+      border-width: 0;
+      border-style: none;
+      border-color: #0000ff;
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+
+    td {
+      border-left: solid 10px #000;
+      padding: 0;
+      margin: 0;
+      width: 0px;
+      height: 10px;
+    }
+
+    td.black { border-color: #000; }
+    td.white { border-color: #fff; }
+  }
 }

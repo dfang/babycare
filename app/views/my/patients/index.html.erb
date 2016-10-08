@@ -15,6 +15,13 @@
                     <div class="weui_cell_ft">
                     </div>
                 </a>
+                <%= link_to scan_qrcode_user_path(current_user), class: "weui_cell" do %>
+                    <div class="weui_cell_bd weui_cell_primary">
+                      <p>我的二维码</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                    </div>
+                <% end %>
                 <a class="weui_cell" href="javascript:;">
                     <div class="weui_cell_bd weui_cell_primary">
                         <p>我的钱包</p>

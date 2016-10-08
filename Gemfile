@@ -17,12 +17,13 @@ gem 'unicorn'
 
 gem 'rails-observers'
 
+gem 'rqrcode', '~> 0.10.1'
+# gem 'rqrcode_png'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 gem 'ruby-prof'
-
 gem 'httparty', '~> 0.13.7'
 
 gem 'devise'
@@ -60,6 +61,8 @@ gem 'qiniu'
 gem 'carrierwave'
 gem 'carrierwave-qiniu', '~> 0.2.3'
 gem 'mini_magick'
+
+gem 'carrierwave-data-uri'
 
 gem 'smart_sms'
 
