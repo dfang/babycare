@@ -22,7 +22,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
 
       resource.reserve! do
         # reserve and send sms to notify patients to prepay
-        IM::Ronglian.send_templated_sms(resource.patient_user_phone, Settings.sms_templates.when_reserved_notify_user, resource.hospital, resource.doctor_user_name)
+        IM::Ronglian.send_templated_sms(resource.patient_user_phone, Settings.sms_templates.when_reserved_notify_user, resource.doctor.hospital, resource.doctor_user_name)
       end
 
       # 发送短信， 记录短信
