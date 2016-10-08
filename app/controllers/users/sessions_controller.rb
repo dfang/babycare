@@ -18,7 +18,8 @@ class Users::SessionsController < Devise::SessionsController
       authentication = Authentication.find_by provider: 'wechat', uid: session[:weixin_openid] || cookies[:weixin_openid]
       if authentication.present?
         Rails.logger.info "authentication id is ::::::: #{authentication.id}"
-        authentication = nil if authentication.unionid.blank?
+        # authentication = nil if authentication.unionid.blank?
+        authentication = nil if authentication.uid.blank?
       end
     end
 
