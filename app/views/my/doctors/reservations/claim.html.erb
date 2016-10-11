@@ -8,19 +8,19 @@
 
   <div class="weui-cell">
     <div class="weui-cell__hd">
-      <label class="weui_label" for="">时间</label>
+      <label class="weui-label" for="">时间</label>
     </div>
     <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui_input" name="reservation[reservation_time]" placeholder="你们商量好的时间" type="datetime-local" value="<%= resource.reservation_time %>">
+      <input class="weui-input" name="reservation[reservation_time]" placeholder="你们商量好的时间" type="datetime-local" value="<%= resource.reservation_time %>">
     </div>
   </div>
 
   <div class="weui-cell">
     <div class="weui-cell__hd">
-        <label for="" class="weui_label">地点</label>
+        <label for="" class="weui-label">地点</label>
     </div>
     <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui_input" name="reservation[reservation_location]" placeholder="你们商量好的位置" type="text" value="<%= current_user.doctor.location %>">
+      <input class="weui-input" name="reservation[reservation_location]" placeholder="你们商量好的位置" type="text" value="<%= current_user.doctor.location %>">
     </div>
   </div>
 </div>

@@ -14,11 +14,11 @@
   <div class="weui-cells weui-cells_form">
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui_label" for="">身份证号码</label>
+        <label class="weui-label" for="">身份证号码</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <!-- <input class="weui_input" name="doctor[id_card_num]" type="text" value=""> -->
-        <%= f.text_field :id_card_num, class: 'weui_input', data: { "parsley-required": "true", "parsley-pattern": /[d{18}|d{17}x]/ } %>
+        <!-- <input class="weui-input" name="doctor[id_card_num]" type="text" value=""> -->
+        <%= f.text_field :id_card_num, class: 'weui-input', data: { "parsley-required": "true", "parsley-pattern": /[d{18}|d{17}x]/ } %>
       </div>
     </div>
 
@@ -139,12 +139,12 @@
     </div>
 
 
-    <div class="weui-cell weui-cell_select weui_select_after">
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
         <div class="weui-cell__hd">
-            <label for="" class="weui_label">职称</label>
+            <label for="" class="weui-label">职称</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
-            <select class="weui_select" name="select2">
+            <select class="weui-select" name="select2">
               <%= options_for_select Doctor::JOB_TITLES, "主任医师" %>
             </select>
         </div>
@@ -152,21 +152,21 @@
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui_label" for="">医院名称</label>
+        <label class="weui-label" for="">医院名称</label>
       </div>
       <div class="weui-cell__hd">
-        <!-- <input class="weui_input" name="doctor[hospital]" type="text" value=""> -->
-        <%= f.text_field :hospital, class: 'weui_input', data: { "parsley-required": "true" } %>
+        <!-- <input class="weui-input" name="doctor[hospital]" type="text" value=""> -->
+        <%= f.text_field :hospital, class: 'weui-input', data: { "parsley-required": "true" } %>
       </div>
     </div>
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui_label" for="">医院地址</label>
+        <label class="weui-label" for="">医院地址</label>
       </div>
       <div class="weui-cell__hd">
-        <!-- <input class="weui_input" name="doctor[location]" type="text" value=""> -->
-        <%= f.text_field :location, class: 'weui_input', data: { "parsley-required": "true" } %>
+        <!-- <input class="weui-input" name="doctor[location]" type="text" value=""> -->
+        <%= f.text_field :location, class: 'weui-input', data: { "parsley-required": "true" } %>
       </div>
     </div>
 
@@ -176,7 +176,7 @@
   <div class="weui-cells weui-cells_form">
     <div class="weui-cell">
       <div class="weui-cell__bd weui-cell_primary">
-        <textarea class="weui_textarea" name="doctor[remark]" placeholder="你还有什么补充的吗？"></textarea>
+        <textarea class="weui-textarea" name="doctor[remark]" placeholder="你还有什么补充的吗？"></textarea>
       </div>
     </div>
   </div>

@@ -9,19 +9,19 @@
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui_label" for="">怎么称呼您</label>
+        <label class="weui-label" for="">怎么称呼您</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui_input" name="reservation[name]" data-parsley-required="true" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
+        <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
       </div>
     </div>
 
-    <div class="weui-cell weui-cell_select weui_select_after">
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
       <div class="weui-cell__hd">
-          <label for="" class="weui_label">男孩还是女孩</label>
+          <label for="" class="weui-label">男孩还是女孩</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-          <select class="weui_select" name="reservation[child_gender]" data-parsley-required="true">
+          <select class="weui-select" name="reservation[child_gender]" data-parsley-required="true">
             <%= options_for_select Reservation::GENDERS, "儿子" %>
           </select>
       </div>
@@ -29,29 +29,29 @@
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui_label" for="">您的电话</label>
+        <label class="weui-label" for="">您的电话</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui_input" name="reservation[mobile_phone]" placeholder="医生可以看到您的电话并联系你" type="number"
+        <input class="weui-input" name="reservation[mobile_phone]" placeholder="医生可以看到您的电话并联系你" type="number"
           data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]" value="">
       </div>
     </div>
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui_label" for="">您的位置</label>
+        <label class="weui-label" for="">您的位置</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui_input" name="reservation[location]" data-parsley-required="true" type="text" placeholder="方便为你就近预约" value="">
+        <input class="weui-input" name="reservation[location]" data-parsley-required="true" type="text" placeholder="方便为你就近预约" value="">
       </div>
     </div>
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui_label" for="">症状</label>
+        <label class="weui-label" for="">症状</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <textarea class="weui_textarea" name="reservation[remark]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
+        <textarea class="weui-textarea" name="reservation[remark]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
       </div>
     </div>
 

@@ -88,7 +88,7 @@ SimpleForm.setup do |config|
 
   end
 
-  config.wrappers :weui_input, class: :'weui-cell',
+  config.wrappers :weui-input, class: :'weui-cell',
     hint_class: :field_with_hint, error_class: :field_with_errors do |b|
 
     # Determines whether to use HTML5 (:email, :url, ...)
@@ -118,11 +118,11 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper :tag => 'div', :class => 'weui-cell__hd' do |ba|
-      ba.use :label, class: 'weui_label'
+      ba.use :label, class: 'weui-label'
     end
 
     b.wrapper :tag => 'div', :class => 'weui-cell__bd weui-cell_primary' do |ba|
-      ba.use :input, class: 'weui_input'
+      ba.use :input, class: 'weui-input'
     end
 
     ## Inputs
