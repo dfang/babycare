@@ -111,8 +111,8 @@ a {
   content: "\EA11";
 }
 /* '' */
-[class^="weui-icon_"]:before,
-[class*=" weui-icon_"]:before {
+[class^="weui-icon-"]:before,
+[class*=" weui-icon-"]:before {
   margin: 0;
 }
 .weui-icon-success {
@@ -173,7 +173,7 @@ a {
   color: #B2B2B2;
   font-size: 14px;
 }
-.weui-icon-delete.weui-icon_gallery-delete {
+.weui-icon-delete.weui-icon-gallery-delete {
   color: #FFFFFF;
   font-size: 22px;
 }
@@ -189,7 +189,7 @@ a {
 .weui-icon_msg-primary.weui-icon-warn {
   color: #C9C9C9;
 }
-.weui-icon_safe {
+.weui-icon-safe {
   font-size: 95px;
 }
 .weui-btn {
@@ -1758,15 +1758,15 @@ a.weui-media-box:active {
   border-radius: 5px;
   color: #FFFFFF;
 }
-.weui-icon_toast {
+.weui-icon-toast {
   margin: 22px 0 0;
   display: block;
 }
-.weui-icon_toast.weui-icon-success-no-circle:before {
+.weui-icon-toast.weui-icon-success-no-circle:before {
   color: #FFFFFF;
   font-size: 55px;
 }
-.weui-icon_toast.weui-loading {
+.weui-icon-toast.weui-loading {
   margin: 30px 0 0;
   width: 38px;
   height: 38px;

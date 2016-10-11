@@ -1,12 +1,12 @@
 <div class="msg">
-    <div class="weui_msg">
-        <div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div>
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-info weui-icon_msg"></i></div>
         <div class="weui_text_area">
-            <h2 class="weui_msg_title">订单已成立</h2>
-            <p class="weui_msg_desc">请按照医生和你沟通的时间准时到达约定地点, 如有变动, 请尽早通知医生, 另外添加病例里可以填写基础内容和不适症状以便医生更好的服务您，谢谢！</p>
+            <h2 class="weui-msg__title">订单已成立</h2>
+            <p class="weui-msg__desc">请按照医生和你沟通的时间准时到达约定地点, 如有变动, 请尽早通知医生, 另外添加病例里可以填写基础内容和不适症状以便医生更好的服务您，谢谢！</p>
         </div>
-        <div class="weui_opr_area">
-            <p class="weui-btn_area">
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
               <a href="javascript: IM.call(<%= current_user.id %>, <%= @reservation.user_b %>, <%= @reservation.id %>, <%= @reservation.mobile_phone %>, <%= @reservation.try(:doctor_user).try(:doctor).try(:mobile_phone) %>);" class="weui-btn weui-btn__primary">拨打医生电话</a>
 
               <%= link_to "查看个人资料", my_patients_profile_path %>
@@ -18,7 +18,7 @@
 							<% end %>
             </p>
         </div>
-        <div class="weui_extra_area">
+        <div class="weui-msg__extra-area">
             <a href="">帮助</a>
         </div>
     </div>
