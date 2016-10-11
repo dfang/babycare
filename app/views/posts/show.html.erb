@@ -1,6 +1,6 @@
 <div class="tabbar">
 	<div class="weui-tab">
-		<div class="weui-tab_bd">
+		<div class="weui-tab__panel">
 
 			<div class="panel">
 				<div class="bd">
@@ -24,40 +24,28 @@
 
 			<% if current_user.is_verified_doctor? %>
 			<a href="/my/doctors/reservations" class="weui-tabbar__item">
-				<div class="weui-tabbar__icon">
-					<img src="/icon_nav_button.png" alt="">
-				</div>
+				<img src="/icon_nav_button.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我的预约</p>
 			</a>
-			<a href="/posts" class="weui-tabbar__item weui_bar_item_on">
-				<div class="weui-tabbar__icon">
-					<img src="/icon_nav_article.png" alt="">
-				</div>
+			<a href="/posts" class="weui-tabbar__item weui_bar_item__on">
+				<img src="/icon_nav_article.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">必读文章</p>
 			</a>
 			<a href="/my/doctors/" class="weui-tabbar__item">
-				<div class="weui-tabbar__icon">
-					<img src="/icon_nav_cell.png" alt="">
-				</div>
+				<img src="/icon_nav_cell.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我</p>
 			</a>
 		<% else %>
 			<a href="/my/patients/reservations" class="weui-tabbar__item">
-				<div class="weui-tabbar__icon">
-					<img src="/icon_nav_button.png" alt="">
-				</div>
+				<img src="/icon_nav_button.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我的预约</p>
 			</a>
-			<a href="/posts" class="weui-tabbar__item weui_bar_item_on">
-				<div class="weui-tabbar__icon">
-					<img src="/icon_nav_article.png" alt="">
-				</div>
+			<a href="/posts" class="weui-tabbar__item weui_bar_item__on">
+				<img src="/icon_nav_article.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">必读文章</p>
 			</a>
 			<a href="/my/patients/" class="weui-tabbar__item">
-				<div class="weui-tabbar__icon">
-					<img src="/icon_nav_cell.png" alt="">
-				</div>
+				<img src="/icon_nav_cell.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我</p>
 			</a>
 			<% end %>
