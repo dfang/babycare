@@ -88,7 +88,7 @@ SimpleForm.setup do |config|
 
   end
 
-  config.wrappers :weui-input, class: :'weui-cell',
+  config.wrappers :weui_input, class: :'weui-cell',
     hint_class: :field_with_hint, error_class: :field_with_errors do |b|
 
     # Determines whether to use HTML5 (:email, :url, ...)
