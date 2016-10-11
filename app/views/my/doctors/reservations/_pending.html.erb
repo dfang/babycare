@@ -6,9 +6,9 @@
             <p class="weui_msg_desc">请尽快直接短信通知用户来咨询，如有变化请给用户拨打电话解释并沟通, 然后再送短信通知</p>
         </div>
         <div class="weui_opr_area">
-            <p class="weui_btn_area">
-              <a href="<%= claim_my_doctors_reservation_path(resource) %>" class="weui_btn weui_btn_primary">发送短信</a>
-              <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.mobile_phone %>);" class="weui_btn weui_btn_default">拨打电话</a>
+            <p class="weui-btn_area">
+              <a href="<%= claim_my_doctors_reservation_path(resource) %>" class="weui-btn weui-btn__primary">发送短信</a>
+              <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.mobile_phone %>);" class="weui-btn weui-btn_default">拨打电话</a>
             </p>
         </div>
         <div class="weui_extra_area">

@@ -6,7 +6,7 @@
           <!-- <p class="weui_msg_desc">请对用户进行评价</p> -->
       </div>
       <div class="weui_opr_area">
-        <p class="weui_btn_area">
+        <p class="weui-btn_area">
           <%= simple_form_for Rating.new, url: reservation_ratings_path(resource) do |f| %>
             <input id="rating-doctor" type="text" class="" value="5" name="rating[stars]" data-size="md" title="">
             <div id="tags-input"></div>
@@ -14,7 +14,7 @@
             <%= f.input :tag_list, as: :hidden %>
             <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
             <%= f.input :user_id, as: :hidden, input_html: { value: resource.user_a } %>
-            <%= f.button :submit, class: "weui_btn weui_btn_primary" %>
+            <%= f.button :submit, class: "weui-btn weui-btn__primary" %>
           <% end %>
         </p>
       </div>

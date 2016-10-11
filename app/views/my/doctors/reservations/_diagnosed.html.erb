@@ -6,8 +6,8 @@
             <p class="weui_msg_desc">支付完成后，你可以对用户进行评价</p>
         </div>
         <div class="weui_opr_area">
-          <p class="weui_btn_area">
-            <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.try(:mobile_phone) %>, <%= resource.mobile_phone %>);" class="weui_btn weui_btn_primary">拨打电话</a>
+          <p class="weui-btn_area">
+            <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.try(:mobile_phone) %>, <%= resource.mobile_phone %>);" class="weui-btn weui-btn__primary">拨打电话</a>
           </p>
         </div>
         <div class="weui_extra_area">

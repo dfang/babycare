@@ -1,10 +1,10 @@
-<div class="weui_panel_bd">
+<div class="weui-panel__bd">
 	<%= link_to post_path(post) do %>
-		<div class="weui_media_box weui_media_text">
-				<h4 class="weui_media_title"><%= post.title %></h4>
-				<p class="weui_media_desc"><%= post.description %></p>
-				<ul class="weui_media_info">
-					<li class="weui_media_info_meta">发布于<%= post.published_at.strftime("%Y.%m.%d %H:%M:%S") %></li>
+		<div class="weui-media-box weui-media-box_text">
+				<h4 class="weui-media-box__title"><%= post.title %></h4>
+				<p class="weui-media-box__desc"><%= post.description %></p>
+				<ul class="weui-media-box__info">
+					<li class="weui-media-box__info__meta">发布于<%= post.published_at.strftime("%Y.%m.%d %H:%M:%S") %></li>
 				</ul>
 		</div>
 	<% end %>

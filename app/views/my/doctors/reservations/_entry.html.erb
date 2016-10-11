@@ -1,12 +1,12 @@
 <%= link_to my_doctors_reservation_path(res) do %>
-  <div class="weui_panel_bd">
-      <div class="weui_media_box weui_media_text">
-					<h4 class="weui_media_title"> <%= res.name %>的<%= res.child_gender %> </h4>
-          <p class="weui_media_desc"> <%= res.remark %></p>
-          <ul class="weui_media_info">
-            <li class="weui_media_info_meta"><%= res.mobile_phone %></li>
-            <li class="weui_media_info_meta"><%= res.created_at.strftime('%Y.%m.%d %H:%M') %></li>
-            <li class="weui_media_info_meta weui_media_info_meta_extra"><%= res.location %></li>
+  <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text">
+					<h4 class="weui-media-box__title"> <%= res.name %>的<%= res.child_gender %> </h4>
+          <p class="weui-media-box__desc"> <%= res.remark %></p>
+          <ul class="weui-media-box__info">
+            <li class="weui-media-box__info__meta"><%= res.mobile_phone %></li>
+            <li class="weui-media-box__info__meta"><%= res.created_at.strftime('%Y.%m.%d %H:%M') %></li>
+            <li class="weui-media-box__info__meta weui-media-box__info__meta__extra"><%= res.location %></li>
           </ul>
       </div>
 			<div class="weui_media_status">

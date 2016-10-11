@@ -7,27 +7,27 @@
 <% end %>
 
 <%= simple_form_for @doctor, as: :doctor, url: url, html: { method: method } do |f| %>
-  <!-- <div class="weui_cells_title">申请成为医生</div>
-  <p class="weui_cells_tips">顶部说明文字</p> -->
+  <!-- <div class="weui-cells__title">申请成为医生</div>
+  <p class="weui-cells_tips">顶部说明文字</p> -->
 
-  <div class="weui_cells_title">从业信息</div>
-  <div class="weui_cells weui_cells_form">
-    <div class="weui_cell">
-      <div class="weui_cell_hd">
+  <div class="weui-cells__title">从业信息</div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
         <label class="weui_label" for="">身份证号码</label>
       </div>
-      <div class="weui_cell_bd weui_cell_primary">
+      <div class="weui-cell__bd weui-cell_primary">
         <!-- <input class="weui_input" name="doctor[id_card_num]" type="text" value=""> -->
         <%= f.text_field :id_card_num, class: 'weui_input', data: { "parsley-required": "true", "parsley-pattern": /[d{18}|d{17}x]/ } %>
       </div>
     </div>
 
-    <div class="weui_cell">
-        <div class="weui_cell_bd weui_cell_primary">
+    <div class="weui-cell">
+        <div class="weui-cell__bd weui-cell_primary">
             <div class="weui_uploader weui_uploader1">
-                <div class="weui_uploader_hd weui_cell">
-                    <div class="weui_cell_bd weui_cell_primary">身份证正面照片</div>
-                    <!-- <div class="weui_cell_ft">
+                <div class="weui_uploader_hd weui-cell">
+                    <div class="weui-cell__bd weui-cell_primary">身份证正面照片</div>
+                    <!-- <div class="weui-cell__ft">
                       <% if @doctor.id_card_front.present? %>
                         1/1
                       <% else %>
@@ -54,12 +54,12 @@
         </div>
     </div>
 
-    <div class="weui_cell">
-        <div class="weui_cell_bd weui_cell_primary">
+    <div class="weui-cell">
+        <div class="weui-cell__bd weui-cell_primary">
             <div class="weui_uploader weui_uploader2">
-                <div class="weui_uploader_hd weui_cell">
-                    <div class="weui_cell_bd weui_cell_primary">身份证反面照片</div>
-                    <!-- <div class="weui_cell_ft">
+                <div class="weui_uploader_hd weui-cell">
+                    <div class="weui-cell__bd weui-cell_primary">身份证反面照片</div>
+                    <!-- <div class="weui-cell__ft">
                       <% if @doctor.id_card_back.present? %>
                         1/1
                       <% else %>
@@ -82,12 +82,12 @@
         </div>
     </div>
 
-    <div class="weui_cell">
-        <div class="weui_cell_bd weui_cell_primary">
+    <div class="weui-cell">
+        <div class="weui-cell__bd weui-cell_primary">
             <div class="weui_uploader weui_uploader3">
-                <div class="weui_uploader_hd weui_cell">
-                    <div class="weui_cell_bd weui_cell_primary">医生执照正页</div>
-                    <!-- <div class="weui_cell_ft">
+                <div class="weui_uploader_hd weui-cell">
+                    <div class="weui-cell__bd weui-cell_primary">医生执照正页</div>
+                    <!-- <div class="weui-cell__ft">
                       <% if @doctor.license_front.present? %>
                         1/1
                       <% else %>
@@ -110,12 +110,12 @@
         </div>
     </div>
 
-    <div class="weui_cell">
-        <div class="weui_cell_bd weui_cell_primary">
+    <div class="weui-cell">
+        <div class="weui-cell__bd weui-cell_primary">
             <div class="weui_uploader weui_uploader4">
-                <div class="weui_uploader_hd weui_cell">
-                    <div class="weui_cell_bd weui_cell_primary">医生执照副页</div>
-                    <!-- <div class="weui_cell_ft">
+                <div class="weui_uploader_hd weui-cell">
+                    <div class="weui-cell__bd weui-cell_primary">医生执照副页</div>
+                    <!-- <div class="weui-cell__ft">
                       <% if @doctor.license_back.present? %>
                         1/1
                       <% else %>
@@ -139,32 +139,32 @@
     </div>
 
 
-    <div class="weui_cell weui_cell_select weui_select_after">
-        <div class="weui_cell_hd">
+    <div class="weui-cell weui-cell_select weui_select_after">
+        <div class="weui-cell__hd">
             <label for="" class="weui_label">职称</label>
         </div>
-        <div class="weui_cell_bd weui_cell_primary">
+        <div class="weui-cell__bd weui-cell_primary">
             <select class="weui_select" name="select2">
               <%= options_for_select Doctor::JOB_TITLES, "主任医师" %>
             </select>
         </div>
     </div>
 
-    <div class="weui_cell">
-      <div class="weui_cell_hd">
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
         <label class="weui_label" for="">医院名称</label>
       </div>
-      <div class="weui_cell_hd">
+      <div class="weui-cell__hd">
         <!-- <input class="weui_input" name="doctor[hospital]" type="text" value=""> -->
         <%= f.text_field :hospital, class: 'weui_input', data: { "parsley-required": "true" } %>
       </div>
     </div>
 
-    <div class="weui_cell">
-      <div class="weui_cell_hd">
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
         <label class="weui_label" for="">医院地址</label>
       </div>
-      <div class="weui_cell_hd">
+      <div class="weui-cell__hd">
         <!-- <input class="weui_input" name="doctor[location]" type="text" value=""> -->
         <%= f.text_field :location, class: 'weui_input', data: { "parsley-required": "true" } %>
       </div>
@@ -172,20 +172,20 @@
 
   </div>
 
-  <!-- <div class="weui_cells_title">备注</div>
-  <div class="weui_cells weui_cells_form">
-    <div class="weui_cell">
-      <div class="weui_cell_bd weui_cell_primary">
+  <!-- <div class="weui-cells__title">备注</div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+      <div class="weui-cell__bd weui-cell_primary">
         <textarea class="weui_textarea" name="doctor[remark]" placeholder="你还有什么补充的吗？"></textarea>
       </div>
     </div>
   </div>
 
-  <p class="weui_cells_tips">底部说明文字底部说明文字</p> -->
+  <p class="weui-cells_tips">底部说明文字底部说明文字</p> -->
 
-  <div class="weui_btn_area">
-    <!-- <a class="weui_btn weui_btn_primary" href="javascript:">确定</a> -->
-    <button class="weui_btn weui_btn_primary">确定</button>
+  <div class="weui-btn_area">
+    <!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
+    <button class="weui-btn weui-btn__primary">确定</button>
   </div>
 
 <% end %>

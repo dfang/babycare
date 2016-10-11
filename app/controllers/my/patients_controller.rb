@@ -15,6 +15,10 @@ class My::PatientsController < InheritedResources::Base
   def status
   end
 
+  def profile
+    @resource = current_user.medical_records.first
+  end
+
   private
 
   def check_is_verified_doctor

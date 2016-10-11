@@ -51,6 +51,8 @@ Rails.application.routes.draw do
         get 'payment_te', on: :collection
         post 'payment_notify', on: :collection
       end
+
+      get 'profile'
       get 'status'
       get 'index'
 

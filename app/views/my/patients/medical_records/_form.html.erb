@@ -1,20 +1,36 @@
 <%= simple_nested_form_for resource, url: url, method: method do |f| %>
+<div class="weui-tab">
+  <div class="weui-navbar">
+      <div class="weui-navbar__item weui-bar__item_on">
+          基本资料
+      </div>
+      <div class="weui-navbar__item">
+          预约信息
+      </div>
+      <div class="weui-navbar__item">
+          就诊信息
+      </div>
+  </div>
+  <div class="weui-tab__panel">
+    
+  </div>
+</div>
 
 	<%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
 	<%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
 	<!-- <%= f.input :birthdate, wrapper: :weui_input %> -->
 	<!-- <%= f.input :gender, wrapper: :weui_input %> -->
-	<div class="weui_cell">
-    <div class="weui_cell_hd"><label for="" class="weui_label">生日</label></div>
-    <div class="weui_cell_bd weui_cell_primary">
+	<div class="weui-cell">
+    <div class="weui-cell__hd"><label for="" class="weui_label">生日</label></div>
+    <div class="weui-cell__bd weui-cell_primary">
       <input class="weui_input" type="date" name="reservation[birthdate]">
     </div>
   </div>
-	<div class="weui_cell weui_cell_select weui_select_after">
-		<div class="weui_cell_hd">
+	<div class="weui-cell weui-cell_select weui_select_after">
+		<div class="weui-cell__hd">
 				<label for="" class="weui_label">性别</label>
 		</div>
-		<div class="weui_cell_bd weui_cell_primary">
+		<div class="weui-cell__bd weui-cell_primary">
 				<select class="weui_select" name="reservation[child_gender]">
 					<%= options_for_select MedicalRecord::GENDERS, "男" %>
 				</select>
@@ -40,11 +56,11 @@
 	<%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
 	<%= f.input :physical_examination, as: :text, wrapper: :weui_input %>
 	<%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
-	<div class="weui_cell">
-			<div class="weui_cell_bd weui_cell_primary">
+	<div class="weui-cell">
+			<div class="weui-cell__bd weui-cell_primary">
 					<div class="weui_uploader weui_uploader1">
-							<div class="weui_uploader_hd weui_cell">
-									<div class="weui_cell_bd weui_cell_primary">实验室检查图片</div>
+							<div class="weui_uploader_hd weui-cell">
+									<div class="weui-cell__bd weui-cell_primary">实验室检查图片</div>
 							</div>
 							<div class="weui_uploader_bd">
 									<ul class="weui_uploader_files">
@@ -59,11 +75,11 @@
 	</div>
 
 	<%= f.input :imaging_examination, as: :text, wrapper: :weui_input %>
-	<div class="weui_cell">
-			<div class="weui_cell_bd weui_cell_primary">
+	<div class="weui-cell">
+			<div class="weui-cell__bd weui-cell_primary">
 					<div class="weui_uploader weui_uploader2">
-							<div class="weui_uploader_hd weui_cell">
-									<div class="weui_cell_bd weui_cell_primary">影像学意见图片</div>
+							<div class="weui_uploader_hd weui-cell">
+									<div class="weui-cell__bd weui-cell_primary">影像学意见图片</div>
 							</div>
 							<div class="weui_uploader_bd">
 									<ul class="weui_uploader_files">
@@ -79,8 +95,8 @@
 	<%= f.input :preliminary_diagnosis, as: :text, wrapper: :weui_input %>
 	<%= f.input :treatment_recommendation, as: :text, wrapper: :weui_input %>
 	<%= f.input :remarks, as: :text, wrapper: :weui_input %>
-	<div class="weui_btn_area">
-		<!-- <a class="weui_btn weui_btn_primary" href="javascript:">确定</a> -->
-		<button class="weui_btn weui_btn_primary">确定</button>
+	<div class="weui-btn_area">
+		<!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
+		<button class="weui-btn weui-btn__primary">确定</button>
 	</div>
 <% end %>

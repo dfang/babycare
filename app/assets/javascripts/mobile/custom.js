@@ -96,10 +96,10 @@ var uploader =  (function() {
   // });
 
   // window.Parsley.on('field:error', function() {
-  //   $(this.$element).parents('.weui_cell').addClass('validation_error')
+  //   $(this.$element).parents('.weui-cell').addClass('validation_error')
   // })
   // .on('field:success', function() {
-  //   $(this.$element).parents('.weui_cell').removeClass('validation_error')
+  //   $(this.$element).parents('.weui-cell').removeClass('validation_error')
   // })
 
 

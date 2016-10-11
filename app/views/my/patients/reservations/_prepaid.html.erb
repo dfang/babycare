@@ -6,12 +6,15 @@
             <p class="weui_msg_desc">请按照医生和你沟通的时间准时到达约定地点, 如有变动, 请尽早通知医生, 另外添加病例里可以填写基础内容和不适症状以便医生更好的服务您，谢谢！</p>
         </div>
         <div class="weui_opr_area">
-            <p class="weui_btn_area">
-              <a href="javascript: IM.call(<%= current_user.id %>, <%= @reservation.user_b %>, <%= @reservation.id %>, <%= @reservation.mobile_phone %>, <%= @reservation.try(:doctor_user).try(:doctor).try(:mobile_phone) %>);" class="weui_btn weui_btn_primary">拨打医生电话</a>
+            <p class="weui-btn_area">
+              <a href="javascript: IM.call(<%= current_user.id %>, <%= @reservation.user_b %>, <%= @reservation.id %>, <%= @reservation.mobile_phone %>, <%= @reservation.try(:doctor_user).try(:doctor).try(:mobile_phone) %>);" class="weui-btn weui-btn__primary">拨打医生电话</a>
+
+              <%= link_to "查看个人资料", my_patients_profile_path %>
+
 							<%- if resource.medical_record.present?  %>
-								<%= link_to "修改病例", edit_my_patients_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.user_a), class: 'weui_btn weui_btn_primary', data: { turbolinks: "false" } %>
+								<%= link_to "修改病例", edit_my_patients_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
 							<% else %>
-              	<%= link_to "添加病例", new_my_patients_medical_record_path(reservation_id: resource, user_id: resource.user_a), class: 'weui_btn weui_btn_primary', data: { turbolinks: "false" } %>
+              	<%= link_to "添加病例", new_my_patients_medical_record_path(reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
 							<% end %>
             </p>
         </div>

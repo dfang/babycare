@@ -4,7 +4,7 @@ html {
   -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
   background-color: #fbf9fe;
-  .weui_cell.validation_error{
+  .weui-cell.validation_error{
     border-bottom: 1px solid red;
     color: red;
   }
@@ -19,7 +19,7 @@ html {
       min-height: 300px;
     }
   }
-  .weui_cells_form .weui_cell_hd {
+  .weui-cells_form .weui-cell__hd {
     padding-right: 1.3em;
     .weui_label {
       width: 100%;
@@ -32,13 +32,13 @@ html {
     .tabbar {
       height: 100%;
     }
-    .weui_tab_bd {
+    .weui-tab_bd {
       .bd {
         position: inherit;
         & > a {
           display: block;
         }
-        .weui_panel_bd {
+        .weui-panel__bd {
           position: relative;
           .weui_media_status {
             position: absolute;
@@ -69,7 +69,7 @@ html {
   right: 0;
   bottom: 0;
 }
-.bd .weui_tab_bd {
+.bd .weui-tab_bd {
   padding-top: 50px;
   text-align: center;
 }
@@ -83,7 +83,7 @@ html {
 .reservations_show {
   section {
     padding: 10px 15px;
-    .weui_cell {
+    .weui-cell {
       padding: 0 15px 10px 0;
     }
   }
@@ -97,18 +97,18 @@ html {
   }
 }
 .reservations_public {
-  .weui_btn_primary {
+  .weui-btn__primary {
     float: right;
     margin-top: -57px;
   }
-  .weui_media_info{
+  .weui-media-box__info{
     text-decoration: none;
   }
 }
 
 
 .my_doctors_reservations_index{
-  .container .weui_tab_bd .bd{
+  .container .weui-tab_bd .bd{
     // margin-top: 15%;
   }
 
@@ -116,7 +116,7 @@ html {
 
 
 .posts_show{
-  .weui_tab_bd{
+  .weui-tab_bd{
     .page_title{
       padding: 30px;
     }
@@ -127,8 +127,8 @@ html {
 }
 
 .my_patients_medical_records_index{
-  .weui_tab_bd{
-    a.weui_btn_primary{
+  .weui-tab_bd{
+    a.weui-btn__primary{
       margin-top: 20px;
       width: 90%;
     }
@@ -143,7 +143,7 @@ html {
 }
 
 .new_rating{
-  .btn.weui_btn.weui_btn_primary{
+  .btn.weui-btn.weui-btn__primary{
     font-size: 18px;
   }
 }
@@ -219,5 +219,24 @@ html {
 
     td.black { border-color: #000; }
     td.white { border-color: #fff; }
+  }
+}
+
+
+
+
+
+
+
+
+.weui-panel__access{
+  .weui-panel__hd{
+    .weui-cell_link{
+      font-size: 18px;
+      padding:10px 0;
+    }
+    .weui-cell:before{
+      border-top: 0;
+    }
   }
 }
