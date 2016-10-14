@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161008040501) do
+ActiveRecord::Schema.define(version: 20161011071735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -296,6 +296,22 @@ ActiveRecord::Schema.define(version: 20161008040501) do
     t.string   "child_gender"
     t.string   "out_trade_pay_no"
     t.string   "out_trade_prepay_no"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "mobile_phone"
+    t.string   "blood_type"
+    t.datetime "birthdate"
+    t.boolean  "gender"
+    t.text     "history_of_present_illness"
+    t.text     "past_medical_history"
+    t.text     "allergic_history"
+    t.text     "personal_history"
+    t.text     "family_history"
+    t.text     "vaccination_history"
+    t.integer  "user_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "sms_histories", force: :cascade do |t|

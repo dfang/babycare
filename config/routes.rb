@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'ratings/create'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -34,31 +33,36 @@ Rails.application.routes.draw do
   end
 
   namespace :my do
+
     namespace :doctors do
       resources :reservations do
         get 'claim', on: :member
         put 'claim', on: :member
         put 'complete', on: :member
       end
+      resources :patients do
+        member do
+          get 'profile'
+        end
+      end
       get 'status'
       get 'index'
-
+      get 'profile'
       resources :medical_records
     end
 
     namespace :patients do
+      resource :settings
+
       resources :reservations do
         get 'payment_te', on: :collection
         post 'payment_notify', on: :collection
       end
-
       get 'profile'
       get 'status'
       get 'index'
-
       resources :medical_records
     end
-
     get '/doctors', to: 'doctors#index', as: :doctor_root
     get '/patients', to: 'patients#index', as: :patient_root
 

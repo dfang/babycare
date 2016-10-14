@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   # has_many :reservations, :foreign_key => 'user_a'
   has_many :medical_records
+  has_many :settings
   has_many :ratings, :dependent => :destroy
 
 
