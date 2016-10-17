@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_many :settings
   has_many :ratings, :dependent => :destroy
 
+  def wechat_authentication
+    wechat ||= authentications.where(provider: 'wechat').first
+  end
 
   def self.create_wechat_user(wechat_session)
     Rails.logger.info "wechat_session:::: #{wechat_session}"
