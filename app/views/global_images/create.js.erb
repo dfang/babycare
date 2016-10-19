@@ -10,6 +10,9 @@
     $files.find('li').each(function(index, element){
       $(element).find('input').attr('name', "medical_record[<%= params[:uploadPhotosField] %>_attributes][" + index + "][data]")
     })
+
+    new uploader( "<%= params[:pickerId] %>", "<%= params[:uploadTarget] %>", '/global_images.js', 'multiple', "<%= params[:uploadPhotosField] %>")
+
   <% else %>
     console.log('single image')
     $hidden_file_field = $('<%= params[:uploadTarget] %>').find('.weui-uploader__files').find('input:hidden')

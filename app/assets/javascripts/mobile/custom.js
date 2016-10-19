@@ -43,6 +43,7 @@ var uploader =  (function() {
       holder = $button.parent('.fields').attr('id', Math.floor(Math.random()*100000+1))
       webUploader.settings.multipart_params = {
         file_id: file.id,
+        pickerId: pickerId,
         uploadTarget: uploadTarget,
         uploadType: uploadType,
         uploadPhotosField: uploadPhotosField, // 上传多张图片的时候用这个，特别是适合于一个模型有多个多张图片比如MedicalRecord 有 has_many laboratory_examination_images， imaging_examination_images
@@ -50,6 +51,18 @@ var uploader =  (function() {
         authenticity_token: $('meta[name="csrf-token"]').attr('content'),
         holderId: $button.parent('.fields').attr('id')
       }
+
+      if(uploadType == 'multiple'){
+        console.log('uploading multiple images')
+        console.log('fuck')
+        console.log('you')
+
+        if(!$(uploadTarget).find('.weui-uploader__file.holder').length > 0 ){
+          console.log(' has not holder so append a holder ')
+          $(uploadTarget).find('ul.weui-uploader__files').append('<li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>')
+        }
+      }
+
     })
 
 
@@ -60,6 +73,9 @@ var uploader =  (function() {
     webUploader.bind('UploadProgress', function(up, file){
       console.log('UploadProgress')
       text = file.percent + '%'
+      console.log(up)
+      console.log(file)
+      $(uploadTarget).find('li.weui-uploader__file:last').addClass('weui-uploader__file_status').html('<div class="weui-uploader__file-content">' + file.percent  + '%</div>')
     })
 
     webUploader.bind('FileUploaded', function(up, file, data){
@@ -68,10 +84,12 @@ var uploader =  (function() {
       console.log(up)
       console.log(file)
       console.log(data)
+      $(uploadTarget).find('li.weui-uploader__file').removeClass('weui-uploader__file_status')
     })
 
     webUploader.bind('UploadComplete', function(up, files){
       console.log('UploadComplete')
+      up.destroy();
     })
 
     webUploader.bind('Error', function(up, err){
