@@ -57,35 +57,10 @@ html {
     }
   }
 }
-// 让fex uploader 生成的层浮动到最上层，不然触发了fex uploader 的上传事件
-.weui_uploader .webuploader-pick {
-  width: 48px;
-  height: 57px;
-  z-index: 2;
-  background: none;
+li.weui-uploader__file{
+  border: 1px solid #D8D7D7;
 }
-.weui_uploader .webuploader-pick + div {
-  z-index: 3;
-}
-.bd {
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-.bd .weui-tab__panel {
-  padding-top: 50px;
-  text-align: center;
-}
-.weui_uploader_files {
-  li {
-    float: left;
-    margin-right: 10px;
-    border: 1px solid #EEE;
-  }
-}
+
 .reservations_show {
   section {
     padding: 10px 15px;

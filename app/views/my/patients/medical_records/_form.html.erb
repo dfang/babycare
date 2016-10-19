@@ -56,43 +56,46 @@
 	<%= f.input :family_history, as: :text, wrapper: :weui_input %>
 	<%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
 	<%= f.input :physical_examination, as: :text, wrapper: :weui_input %>
-	<%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
-	<div class="weui-cell">
-			<div class="weui-cell__bd weui-cell_primary">
-					<div class="weui_uploader weui_uploader1">
-							<div class="weui_uploader_hd weui-cell">
-									<div class="weui-cell__bd weui-cell_primary">实验室检查图片</div>
-							</div>
-							<div class="weui_uploader_bd">
-									<ul class="weui_uploader_files">
-										<li class="weui_uploader_file holder">
-										</li>
-									</ul>
-									<div class="weui_uploader_input_wrp" id='picker1'>
-									</div>
-							</div>
-					</div>
-			</div>
-	</div>
+
+  <%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
+  <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <div class="weui-uploader weui_uploader1">
+              <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">实验室检查图片</p>
+                  <!-- <div class="weui-uploader__info">0/2</div> -->
+              </div>
+              <div class="weui-uploader__bd">
+                  <ul class="weui-uploader__files" id="uploaderFiles">
+                      <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>
+                  </ul>
+                  <div class="weui-uploader__input-box" id='picker1'>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
 	<%= f.input :imaging_examination, as: :text, wrapper: :weui_input %>
-	<div class="weui-cell">
-			<div class="weui-cell__bd weui-cell_primary">
-					<div class="weui_uploader weui_uploader2">
-							<div class="weui_uploader_hd weui-cell">
-									<div class="weui-cell__bd weui-cell_primary">影像学意见图片</div>
-							</div>
-							<div class="weui_uploader_bd">
-									<ul class="weui_uploader_files">
-										<li class="weui_uploader_file holder">
-										</li>
-									</ul>
-									<div class="weui_uploader_input_wrp" id='picker2'>
-									</div>
-							</div>
-					</div>
-			</div>
-	</div>
+  <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <div class="weui-uploader weui_uploader2">
+              <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">影像学意见图片</p>
+                  <!-- <div class="weui-uploader__info">0/2</div> -->
+              </div>
+              <div class="weui-uploader__bd">
+                  <ul class="weui-uploader__files" id="uploaderFiles">
+                      <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>
+                  </ul>
+                  <div class="weui-uploader__input-box" id='picker2'>
+                      <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
 	<%= f.input :preliminary_diagnosis, as: :text, wrapper: :weui_input %>
 	<%= f.input :treatment_recommendation, as: :text, wrapper: :weui_input %>
 	<%= f.input :remarks, as: :text, wrapper: :weui_input %>
