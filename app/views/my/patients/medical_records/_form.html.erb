@@ -1,31 +1,32 @@
-<%= simple_nested_form_for resource, url: url, method: method do |f| %>
-<div class="weui-tab">
+<!-- <div class="weui-tab">
   <div class="weui-navbar">
-      <div class="weui-navbar__item weui-bar__item_on">
-          基本资料
-      </div>
-      <div class="weui-navbar__item">
-          预约信息
-      </div>
-      <div class="weui-navbar__item">
-          就诊信息
-      </div>
+    <div class="weui-navbar__item weui-bar__item_on">
+      基本资料
+    </div>
+    <div class="weui-navbar__item">
+      预约信息
+    </div>
+    <div class="weui-navbar__item">
+      就诊信息
+    </div>
   </div>
   <div class="weui-tab__panel">
-    
+
   </div>
-</div>
+</div> -->
+
+<%= simple_nested_form_for resource, url: url, method: method do |f| %>
 
 	<%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
 	<%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
-	<!-- <%= f.input :birthdate, wrapper: :weui_input %> -->
+	<%= f.input :birthdate, wrapper: :weui_input %>
 	<!-- <%= f.input :gender, wrapper: :weui_input %> -->
-	<div class="weui-cell">
+	<!-- <div class="weui-cell">
     <div class="weui-cell__hd"><label for="" class="weui-label">生日</label></div>
     <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" type="date" name="reservation[birthdate]">
+      <%= f.input :birthdate %>
     </div>
-  </div>
+  </div> -->
 	<div class="weui-cell weui-cell_select weui-cell_select-after">
 		<div class="weui-cell__hd">
 				<label for="" class="weui-label">性别</label>

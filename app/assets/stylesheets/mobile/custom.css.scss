@@ -265,3 +265,10 @@ a.add-medical-record{
 .weui-msg__icon-area{
   margin-bottom: 10px;
 }
+
+
+.simple_form.new_medical_record, .simple_form.edit_medical_record{
+  select.weui-input{
+    width: 30%;
+  }
+}

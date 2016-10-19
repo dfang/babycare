@@ -25,6 +25,20 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   def show
   end
 
+  def new
+    @medical_record ||= MedicalRecord.new
+    # @medical_record.blood_type = current_user.settings.first.try(:blood_type)
+    # @medical_record.blood_pressure = current_user.settings.first.try(:blood_type)
+    @medical_record.birthdate = current_user.settings.first.try(:birthdate)
+    @medical_record.gender = current_user.settings.first.try(:gender)
+    @medical_record.history_of_present_illness = current_user.settings.first.try(:history_of_present_illness)
+    @medical_record.past_medical_history = current_user.settings.first.try(:past_medical_history)
+    @medical_record.allergic_history = current_user.settings.first.try(:allergic_history)
+    @medical_record.personal_history = current_user.settings.first.try(:personal_history)
+    @medical_record.family_history = current_user.settings.first.try(:family_history)
+    @medical_record.vaccination_history = current_user.settings.first.try(:vaccination_history)
+  end
+
   private
 
   # def begin_of_association_chain
