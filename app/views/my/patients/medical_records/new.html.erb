@@ -69,7 +69,7 @@
                 success: function (res) {
                     var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                     for (var i = 0; i<localIds.length; i++) {
-                      $files = e.currentTarget.parents('.weui-uploader')
+                      $files = $(e.target).parents('.weui-uploader')
                       $files.find('.weui-uploader__file.holder').remove()
                       $files.append('<li class="weui-uploader__file" style="background-image:url(" + localIds[i] + ">"' +
                       '<input type="hidden" name="reservation[photos][]" value=" + localIds[i] + "> </li>"')
