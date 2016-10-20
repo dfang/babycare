@@ -24,8 +24,30 @@
   <%= f.input :pain_score, wrapper: :weui_input %>
   <%= f.input :onset_date, as: :string, wrapper: :weui_input, input_html: { class: 'datepicker' } %>
   <%= f.input :chief_complaint, as: :text, wrapper: :weui_input %>
-  <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
+  <div class="weui-cell">
+			<div class="weui-cell__bd weui-cell_primary">
+					<div class="weui_uploader weui_uploader1">
+							<div class="weui_uploader_hd weui-cell">
+									<div class="weui-cell__bd weui-cell_primary">病例图片</div>
+							</div>
+							<div class="weui_uploader_bd">
+									<ul class="weui_uploader_files">
+                    <% if resource.medical_record_images.any? %>
+                      <%  resource.medical_record_images.each_with_index do |image, index| %>
+                        <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
+                          <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
+                        </li>
+                      <% end %>
+                    <% end %>
+									</ul>
+									<div class="weui_uploader_input_wrp" id='picker1'>
+									</div>
+							</div>
+					</div>
+			</div>
+	</div>
 
+  <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
   <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
   <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
   <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
@@ -36,7 +58,7 @@
   <%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
   <div class="weui-cell">
       <div class="weui-cell__bd">
-          <div class="weui-uploader weui_uploader1">
+          <div class="weui-uploader weui_uploader2">
               <div class="weui-uploader__hd">
                   <p class="weui-uploader__title">实验室检查图片</p>
                   <!-- <div class="weui-uploader__info">0/2</div> -->
@@ -51,7 +73,7 @@
                       <% end %>
                     <% end %>
                   </ul>
-                  <div class="weui-uploader__input-box" id='picker1'>
+                  <div class="weui-uploader__input-box" id='picker2'>
                   </div>
               </div>
           </div>
@@ -61,7 +83,7 @@
   <%= f.input :imaging_examination, as: :text, wrapper: :weui_input %>
   <div class="weui-cell">
       <div class="weui-cell__bd">
-          <div class="weui-uploader weui_uploader2">
+          <div class="weui-uploader weui_uploader3">
               <div class="weui-uploader__hd">
                   <p class="weui-uploader__title">影像学意见图片</p>
                   <!-- <div class="weui-uploader__info">0/2</div> -->
@@ -76,7 +98,7 @@
                       <% end %>
                     <% end %>
                   </ul>
-                  <div class="weui-uploader__input-box" id='picker2'>
+                  <div class="weui-uploader__input-box" id='picker3'>
                   </div>
               </div>
           </div>
