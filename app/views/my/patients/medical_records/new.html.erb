@@ -57,7 +57,20 @@
         });
 
         wx.ready(function(){
-          alert('config is ready');
+          alert('config is ready, checking js api available');
+          wx.checkJsApi({
+             jsApiList: [
+               'chooseWXPay',
+               'previewImage',
+               'chooseImage',
+               'uploadImage',
+               'downloadImage'
+             ],
+             success: function (res) {
+               alert(JSON.stringify(res));
+             }
+           });
+
         });
 
         wx.error(function(){
