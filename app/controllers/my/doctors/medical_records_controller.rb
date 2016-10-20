@@ -5,13 +5,17 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
 
   def create
     create! {
-      my_doctors_reservation_path(@reservation)
+      if @reservation.present?
+        my_doctors_reservation_path(@reservation)
+      end
     }
   end
 
   def update
     update! {
-      my_doctors_reservation_path(@reservation)
+      if @reservation.present?
+        my_doctors_reservation_path(@reservation)
+      end
     }
   end
 
@@ -19,7 +23,9 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
 
   def find_reservation
     reservation_id ||= params[:reservation_id] || medical_record_params[:reservation_id]
-    @reservation ||= Reservation.find(reservation_id)
+    if reservation_id.present?
+      @reservation ||= Reservation.find(reservation_id)
+    end
   end
 
   def current_wechat_authentication
