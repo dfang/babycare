@@ -1,3 +1,13 @@
+function isWeiXin(){
+  var ua = window.navigator.userAgent.toLowerCase();
+  return ua.match(/MicroMessenger/i) == 'micromessenger'
+}
+
+function isAndroid(){
+  var ua = navigator.userAgent.toLowerCase();
+  return ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+}
+
 var uploader =  (function() {
   function uploader(pickerId, uploadTarget, uploadUrl, uploadType, uploadPhotosField){
 
@@ -119,7 +129,6 @@ var uploader =  (function() {
   // .on('field:success', function() {
   //   $(this.$element).parents('.weui-cell').removeClass('validation_error')
   // })
-
 
 
 })();
