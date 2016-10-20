@@ -1,5 +1,6 @@
 class My::Doctors::MedicalRecordsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
+  before_action :check_is_verified_doctor
   before_action :find_reservation
   skip_before_action :find_reservation, except: [:create, :update]
 
@@ -34,5 +35,11 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
 
   def medical_record_params
     params.require(:medical_record).permit!
+  end
+
+  def check_is_verified_doctor
+    unless current_user.is_verified_doctor?
+      redirect_to my_doctors_status_path and return
+    end
   end
 end
