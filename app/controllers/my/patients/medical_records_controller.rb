@@ -37,9 +37,10 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
     @appId = Settings.wx_pay.app_id
     @nonceStr = SecureRandom.hex
     @timestamp =  DateTime.now.to_i
-    @signature = js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
+    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
                         "#{k}=#{v}" if v != "" && !v.nil?
                       end.compact.join('&')
+    @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
 
 
     @medical_record ||= MedicalRecord.new

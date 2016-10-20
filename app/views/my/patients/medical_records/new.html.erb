@@ -44,19 +44,20 @@
       console.log(isWeiXin())
       console.log(isAndroid())
 
+      wx.config({
+        debug: false,
+        appId: "<%= @appId %>",
+        timestamp: "<%= @timestamp %>",
+        nonceStr: "<%= @nonceStr %>",
+        signature: "<%= @signature %>",
+        jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
       if( true ){
         $('body').on('click', '#picker1, #picker2, #picker3', function(e){
 
           alert('click picker ')
 
-          wx.config({
-            debug: false,
-      			appId: "<%= @appId %>",
-            timestamp: "<%= @timestamp %>",
-            nonceStr: "<%= @nonceStr %>",
-            signature: "<%= @signature %>",
-            jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-          });
 
           wx.ready(function(){
             alert('config is ready');
@@ -72,25 +73,17 @@
                       $files.find('.weui-uploader__file.holder').remove()
                       $files.append('<li class="weui-uploader__file" style="background-image:url(" + localIds[i] + ">"' +
                       '<input type="hidden" name="reservation[photos][]" value=" + localIds[i] + "> </li>"')
-
-
                     }
-                    $("#select_image").after(str);
-                    (function(window, $, PhotoSwipe){
-                        console.log(options)
-                        $("#Gallery a").photoSwipe(options);
-
-                    }(window, window.jQuery, window.Code.PhotoSwipe));
                 }
             });
 
-            wx.uploadImage({
-                localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
-                isShowProgressTips: 1, // 默认为1，显示进度提示
-                success: function (res) {
-                    var serverId = res.serverId; // 返回图片的服务器端ID
-                }
-            });
+            // wx.uploadImage({
+            //     localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
+            //     isShowProgressTips: 1, // 默认为1，显示进度提示
+            //     success: function (res) {
+            //         var serverId = res.serverId; // 返回图片的服务器端ID
+            //     }
+            // });
 
           })
 
