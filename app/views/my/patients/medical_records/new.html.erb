@@ -46,22 +46,28 @@
 
 
       if( true ){
+
+        wx.config({
+          debug: false,
+          appId: "<%= @appId %>",
+          timestamp: "<%= @timestamp %>",
+          nonceStr: "<%= @nonceStr %>",
+          signature: "<%= @signature %>",
+          jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+        wx.ready(function(){
+          alert('config is ready');
+        });
+
+        wx.error(function(){
+          alert('config is error');
+        })
+
         $('body').on('click', '#picker1, #picker2, #picker3', function(e){
 
-          wx.config({
-            debug: false,
-            appId: "<%= @appId %>",
-            timestamp: "<%= @timestamp %>",
-            nonceStr: "<%= @nonceStr %>",
-            signature: "<%= @signature %>",
-            jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-          });
 
-          // alert('click picker ')
-
-
-          wx.ready(function(){
-            alert('config is ready');
+          alert('chooseImage ')
 
             wx.chooseImage({
                 count: 1, // 默认9
@@ -88,15 +94,11 @@
 
           })
 
-          wx.error(function(){
-            alert('config is error');
-          })
 
 
 
 
 
-        })
 
       }else{
 
