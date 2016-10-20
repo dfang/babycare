@@ -1,0 +1,105 @@
+<%= simple_nested_form_for resource, url: url, method: method do |f| %>
+
+	<%= f.input :user_id, as: :hidden, input_html: { value: params[:user_id] } %>
+	<%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
+	<%= f.input :birthdate, wrapper: :weui_input %>
+	<!-- <%= f.input :gender, wrapper: :weui_input %> -->
+	<!-- <div class="weui-cell">
+    <div class="weui-cell__hd"><label for="" class="weui-label">生日</label></div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <%= f.input :birthdate %>
+    </div>
+  </div> -->
+	<div class="weui-cell weui-cell_select weui-cell_select-after">
+		<div class="weui-cell__hd">
+				<label for="" class="weui-label">性别</label>
+		</div>
+		<div class="weui-cell__bd weui-cell_primary">
+				<select class="weui-select" name="reservation[child_gender]">
+					<%= options_for_select MedicalRecord::GENDERS, "男" %>
+				</select>
+		</div>
+	</div>
+	<%= f.input :height, wrapper: :weui_input %>
+	<%= f.input :weight, wrapper: :weui_input %>
+	<%= f.input :bmi, wrapper: :weui_input %>
+	<%= f.input :temperature, wrapper: :weui_input %>
+	<%= f.input :pulse, wrapper: :weui_input %>
+	<%= f.input :respiratory_rate, wrapper: :weui_input %>
+	<%= f.input :blood_pressure, wrapper: :weui_input %>
+	<%= f.input :oxygen_saturation, wrapper: :weui_input %>
+	<%= f.input :pain_score, wrapper: :weui_input %>
+	<%= f.input :onset_date, as: :string, wrapper: :weui_input, input_html: { class: 'datepicker' } %>
+	<%= f.input :chief_complaint, as: :text, wrapper: :weui_input %>
+  <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <div class="weui-uploader weui_uploader1">
+              <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">病例图片</p>
+                  <!-- <div class="weui-uploader__info">0/2</div> -->
+              </div>
+              <div class="weui-uploader__bd">
+                  <ul class="weui-uploader__files" id="uploaderFiles">
+                      <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>
+                  </ul>
+                  <div class="weui-uploader__input-box" id='picker1'>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+	<%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
+	<%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
+	<%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
+	<%= f.input :personal_history, as: :text, wrapper: :weui_input %>
+	<%= f.input :family_history, as: :text, wrapper: :weui_input %>
+	<%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
+	<%= f.input :physical_examination, as: :text, wrapper: :weui_input %>
+
+  <%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
+  <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <div class="weui-uploader weui_uploader2">
+              <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">实验室检查图片</p>
+                  <!-- <div class="weui-uploader__info">0/2</div> -->
+              </div>
+              <div class="weui-uploader__bd">
+                  <ul class="weui-uploader__files" id="uploaderFiles">
+                      <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>
+                  </ul>
+                  <div class="weui-uploader__input-box" id='picker2'>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+	<%= f.input :imaging_examination, as: :text, wrapper: :weui_input %>
+  <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <div class="weui-uploader weui_uploader3">
+              <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">影像学意见图片</p>
+                  <!-- <div class="weui-uploader__info">0/2</div> -->
+              </div>
+              <div class="weui-uploader__bd">
+                  <ul class="weui-uploader__files" id="uploaderFiles">
+                      <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>
+                  </ul>
+                  <div class="weui-uploader__input-box" id='picker3'>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+	<%= f.input :preliminary_diagnosis, as: :text, wrapper: :weui_input %>
+	<%= f.input :treatment_recommendation, as: :text, wrapper: :weui_input %>
+	<%= f.input :remarks, as: :text, wrapper: :weui_input %>
+	<div class="weui-btn-area">
+		<!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
+		<button class="weui-btn weui-btn__primary">确定</button>
+	</div>
+<% end %>

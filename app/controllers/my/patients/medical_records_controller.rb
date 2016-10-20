@@ -19,7 +19,11 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
 
   def update
     update! {
-      my_patients_reservation_path(@reservation)
+      if @reservation.present?
+        my_patients_reservation_path(@reservation)
+      else
+        my_patients_profile_path
+      end
     }
   end
 
