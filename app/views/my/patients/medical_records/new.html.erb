@@ -44,19 +44,20 @@
       console.log(isWeiXin())
       console.log(isAndroid())
 
-      wx.config({
-        debug: false,
-        appId: "<%= @appId %>",
-        timestamp: "<%= @timestamp %>",
-        nonceStr: "<%= @nonceStr %>",
-        signature: "<%= @signature %>",
-        jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-      });
 
       if( true ){
         $('body').on('click', '#picker1, #picker2, #picker3', function(e){
 
-          alert('click picker ')
+          wx.config({
+            debug: false,
+            appId: "<%= @appId %>",
+            timestamp: "<%= @timestamp %>",
+            nonceStr: "<%= @nonceStr %>",
+            signature: "<%= @signature %>",
+            jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          });
+
+          // alert('click picker ')
 
 
           wx.ready(function(){
@@ -72,7 +73,7 @@
                       $files = $(e.target).parents('.weui-uploader')
                       $files.find('.weui-uploader__file.holder').remove()
                       $files.append('<li class="weui-uploader__file" style="background-image:url(" + localIds[i] + ">"' +
-                      '<input type="hidden" name="reservation[photos][]" value=" + localIds[i] + "> </li>"')
+                      '<input type="hidden" name="reservation[photos][]" value=" + localIds[i] + "></li>"')
                     }
                 }
             });
