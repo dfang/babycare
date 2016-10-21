@@ -52,9 +52,6 @@
         uploader3 = new uploader( 'picker3', '.weui_uploader3', '/global_images.js', 'multiple', 'imaging_examination_images', true)
 
         alert('disable browse, let wx chooseImage to trigger image picker')
-        uploader1.disableBrowse()
-        uploader2.disableBrowse()
-        uploader3.disableBrowse()
 
         uploader1.bind('browse', function(up, files){
           console.log('Browse xxxx ')
@@ -90,25 +87,28 @@
           alert('config is error');
         })
 
-        $('body').on('click', '#picker1, #picker2, #picker3', function(e){
+        $(document).on('click', '#picker1, #picker2, #picker3', function(e){
 
+          uploader1.disableBrowse()
+          uploader2.disableBrowse()
+          uploader3.disableBrowse()
 
           alert('chooseImage ')
 
-            wx.chooseImage({
-                count: 1, // 默认9
-                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                success: function (res) {
-                    var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-                    for (var i = 0; i<localIds.length; i++) {
-                      $files = $(e.target).parents('.weui-uploader')
-                      $files.find('.weui-uploader__file.holder').remove()
-                      $files.append('<li class="weui-uploader__file" style="background-image:url(" + localIds[i] + ">"' +
-                      '<input type="hidden" name="reservation[photos][]" value=" + localIds[i] + "></li>"')
-                    }
-                }
-            });
+          wx.chooseImage({
+              count: 1, // 默认9
+              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              success: function (res) {
+                  var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                  for (var i = 0; i<localIds.length; i++) {
+                    $files = $(e.target).parents('.weui-uploader')
+                    $files.find('.weui-uploader__file.holder').remove()
+                    $files.append('<li class="weui-uploader__file" style="background-image:url(" + localIds[i] + ">"' +
+                    '<input type="hidden" name="reservation[photos][]" value=" + localIds[i] + "></li>"')
+                  }
+              }
+          });
 
             // wx.uploadImage({
             //     localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
@@ -118,7 +118,7 @@
             //     }
             // });
 
-          })
+        })
 
 
 
