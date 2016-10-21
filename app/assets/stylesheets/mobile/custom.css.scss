@@ -247,3 +247,8 @@ a.add-medical-record{
     width: 30%;
   }
 }
+
+
+.weui-uploader__input-box#picker1,.weui-uploader__input-box#picker2,.weui-uploader__input-box#picker3{
+  z-index: 9999;
+}
