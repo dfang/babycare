@@ -9,7 +9,8 @@ function isAndroid(){
 }
 
 var uploader =  (function() {
-  function uploader(pickerId, uploadTarget, uploadUrl, uploadType, uploadPhotosField){
+
+  function uploader(pickerId, uploadTarget, uploadUrl, uploadType, uploadPhotosField, notAutoStart){
 
     var webUploader;
     if(uploadType != 'multiple'){
@@ -37,13 +38,15 @@ var uploader =  (function() {
       console.log('init uploader')
     })
 
-    webUploader.bind('browse', function(up, files){
-      console.log('Browse')
-    })
+    // webUploader.bind('browse', function(up, files){
+    //   console.log('Browse')
+    // })
 
     webUploader.bind('FilesAdded', function(up, files){
       console.log('FilesAdded')
-      webUploader.start()
+      if(!notAutoStart){
+        webUploader.start()
+      }
     })
 
     webUploader.bind("BeforeUpload", function(up, file){

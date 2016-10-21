@@ -47,6 +47,14 @@
 
       if( true ){
 
+        uploader1 = new uploader( 'picker1', '.weui_uploader1', '/global_images.js', 'multiple', 'medical_record_images', true)
+        uploader2 = new uploader( 'picker2', '.weui_uploader2', '/global_images.js', 'multiple', 'laboratory_examination_images', true)
+        uploader3 = new uploader( 'picker3', '.weui_uploader3', '/global_images.js', 'multiple', 'imaging_examination_images', true)
+
+        uploader1.bind('browse', function(up, files){
+          console.log('Browse .......')
+        })
+
         wx.config({
           debug: false,
           appId: "<%= @appId %>",
