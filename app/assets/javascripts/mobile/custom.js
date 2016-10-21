@@ -113,6 +113,8 @@ var uploader =  (function() {
     webUploader.bind('Destroy', function(up, file){
       console.log('Destroy');
     })
+
+    return webUploader;
   }
   return uploader;
 
