@@ -113,16 +113,22 @@
                     $li.append($input)
                     $files.append($li)
 
-                    if($(e.target) == $('#picker1')){
+                    var img = new mOxie.Image();
+                    img.load(localIds[i])
+
+                    if($(e.target).attr('id')== '#picker1'){
                       alert('add file to uploader1')
-                      uploader1.addFile(localIds[i])
-                    }else if($(e.target) == $('#picker2')){
+                      uploader1.addFile(img)
+                    }else if($(e.target).attr('id') == '#picker2'){
                       alert('add file to uploader2')
-                      uploader2.addFile(localIds[i])
+                      uploader2.addFile(img)
                     }else{
                       alert('add file to uploader3')
-                      uploader3.addFile(localIds[i])
+                      uploader3.addFile(img)
                     }
+
+                    console.log(localIds[i])
+
                   }
               }
           });
