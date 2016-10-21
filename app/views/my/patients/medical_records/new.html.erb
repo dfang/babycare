@@ -40,7 +40,6 @@
   <script type="text/javascript">
     $(document).on("ready", function(){
 
-
       console.log(isWeiXin())
       console.log(isAndroid())
 
@@ -94,17 +93,17 @@
           uploader3.disableBrowse()
 
           alert('chooseImage ')
-
+          console.log(e.target)
+          console.log($(e.target))
           wx.chooseImage({
-              count: 1, // 默认9
-              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              count:      9, // 默认9
+              sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
                   var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                   for (var i = 0; i<localIds.length; i++) {
                     $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
                     $files.find('.weui-uploader__file.holder').remove()
-
                     // $files = $('.weui_uploader2').find('.weui-uploader__files')
                     // $files.find('.weui-uploader__file.holder').remove()
                     $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
@@ -113,18 +112,13 @@
                     $files.append($li)
                   }
 
-                  uploader1.start()
+                  if(e.target== $('#picker1')){
+                    uploader1.start()
+                  }else if(e.target== $('#picker2')){
+                    uploader2.start()
+                  }
               }
           });
-
-            // wx.uploadImage({
-            //     localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
-            //     isShowProgressTips: 1, // 默认为1，显示进度提示
-            //     success: function (res) {
-            //         var serverId = res.serverId; // 返回图片的服务器端ID
-            //     }
-            // });
-
         })
 
 
