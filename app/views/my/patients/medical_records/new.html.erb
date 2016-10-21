@@ -113,11 +113,14 @@
                     $li.append($input)
                     $files.append($li)
 
-                    if(e.target== $('#picker1')){
+                    if($(e.target) == $('#picker1')){
+                      alert('add file to uploader1')
                       uploader1.addFile(localIds[i])
-                    }else if(e.target== $('#picker2')){
+                    }else if($(e.target) == $('#picker2')){
+                      alert('add file to uploader2')
                       uploader2.addFile(localIds[i])
                     }else{
+                      alert('add file to uploader3')
                       uploader3.addFile(localIds[i])
                     }
                   }
