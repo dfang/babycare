@@ -92,9 +92,11 @@
           uploader2.disableBrowse()
           uploader3.disableBrowse()
 
-          alert('chooseImage ')
+          console.log('chooseImage')
+
           console.log(e.target)
           console.log($(e.target))
+
           wx.chooseImage({
               count:      9, // 默认9
               sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -110,12 +112,14 @@
                     $input = $('<input type="hidden">').attr("name", "reservation[photos][" + i + "]").attr('value', localIds[i])
                     $li.append($input)
                     $files.append($li)
-                  }
 
-                  if(e.target== $('#picker1')){
-                    uploader1.start()
-                  }else if(e.target== $('#picker2')){
-                    uploader2.start()
+                    if(e.target== $('#picker1')){
+                      uploader1.addFile(localIds[i])
+                    }else if(e.target== $('#picker2')){
+                      uploader2.addFile(localIds[i])
+                    }elese{
+                      uploader3.addFile(localIds[i])
+                    }
                   }
               }
           });

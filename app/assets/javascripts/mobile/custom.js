@@ -45,7 +45,7 @@ var uploader =  (function() {
     webUploader.bind('FilesAdded', function(up, files){
       console.log('FilesAdded')
       // if(!notAutoStart){
-        // webUploader.start()
+        webUploader.start()
       // }
     })
 
