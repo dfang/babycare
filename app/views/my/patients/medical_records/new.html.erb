@@ -102,11 +102,18 @@
               success: function (res) {
                   var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                   for (var i = 0; i<localIds.length; i++) {
-                    $files = $(e.target).parents('.weui-uploader')
+                    $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
                     $files.find('.weui-uploader__file.holder').remove()
-                    $files.append('<li class="weui-uploader__file" style="background-image:url(" + localIds[i] + ">"' +
-                    '<input type="hidden" name="reservation[photos][]" value=" + localIds[i] + "></li>"')
+
+                    // $files = $('.weui_uploader2').find('.weui-uploader__files')
+                    // $files.find('.weui-uploader__file.holder').remove()
+                    $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
+                    $input = $('<input type="hidden">').attr("name", "reservation[photos][" + i + "]").attr('value', localIds[i])
+                    $li.append($input)
+                    $files.append($li)
                   }
+
+                  uploader1.start()
               }
           });
 
