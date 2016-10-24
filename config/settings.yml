@@ -32,8 +32,8 @@ wx_pay:
 
 sms_templates:
   notify_all_when_new_reservation: 121703
-  when_reserved_notify_user: 121704
-  when_prepaid_notify_user: 121708
-  when_prepaid_notify_doctor: 121706
-  when_diagnosed_notify_user: 121709
-  when_paid_notify_doctor: 121710
+  notify_user_when_reserved: 121704
+  notify_user_when_prepaid: 121708
+  notify_doctor_when_prepaid: 121706
+  notify_user_when_diagnosed: 121709
+  notify_doctor_when_paid: 121710

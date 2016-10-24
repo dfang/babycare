@@ -108,7 +108,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def reserved_location
-    reservation_location || doctor_user.hospital
+    reservation_location || doctor_user.doctor.try(:hospital)
   end
 
   def reserved_time
