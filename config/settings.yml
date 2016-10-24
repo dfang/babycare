@@ -31,9 +31,9 @@ wx_pay:
   mch_id: '1368072702'
 
 sms_templates:
-  notify_all_when_new_reservation: 120561
-  when_reserved_notify_user: 120574
-  when_prepaid_notify_user: 120577
-  when_prepaid_notify_doctor: 120576
-  when_diagnosed_notify_user: 120578
-  when_paid_notify_doctor: 120579
+  notify_all_when_new_reservation: 121703
+  when_reserved_notify_user: 121704
+  when_prepaid_notify_user: 121708
+  when_prepaid_notify_doctor: 121706
+  when_diagnosed_notify_user: 121709
+  when_paid_notify_doctor: 121710

@@ -176,18 +176,20 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
         reservation.prepay! do
           # user prepay and send sms to notify doctor prepaid
-          params1 = [reservation.patient_user_name, reservation.doctor_user_name, reservation.reserved_time, reservation.reserved_location]
-          params2 = [reservation.doctor_user_name, reservation.patient_user_name, reservation.reserved_location, reservation.reserved_time]
+          params1 = [ reservation.doctor_user_name, reservation.reserved_time, reservation.reserved_location ]
+          params2 = [ reservation.patient_user_name, reservation.reserved_time, reservation.reserved_location]
           IM::Ronglian.send_templated_sms(reservation.patient_user_phone, Settings.sms_templates.when_prepaid_notify_user, params1)
           IM::Ronglian.send_templated_sms(reservation.doctor_user_phone, Settings.sms_templates.when_prepaid_notify_doctor, params2)
         end
 
       elsif reservation.diagnosed?
+
         reservation.pay! do
           # user paid and send sms to doctors
-          params = [reservation.doctor_user_name, reservation.patient_user_name]
+          params = [reservation.patient_user_name]
           IM::Ronglian.send_templated_sms(reservation.doctor_user_phone, Settings.sms_templates.when_paid_notify_doctor, params)
         end
+
       end
     end
   end

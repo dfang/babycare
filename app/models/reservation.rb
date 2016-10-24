@@ -112,7 +112,9 @@ class Reservation < ActiveRecord::Base
   end
 
   def reserved_time
-    reservation_time
+    if reservation_time.present?
+      reservation_time.strftime("%Y-%m-%d %H:%M:%S")
+    end
   end
 
   def doctor

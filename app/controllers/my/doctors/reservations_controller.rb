@@ -22,7 +22,8 @@ class My::Doctors::ReservationsController < InheritedResources::Base
 
       resource.reserve! do
         # reserve and send sms to notify patients to prepay
-        IM::Ronglian.send_templated_sms(resource.patient_user_phone, Settings.sms_templates.when_reserved_notify_user, resource.hospital, resource.doctor_user_name)
+        params = [ resource.doctor_user_name, resource.reserved_time, resource.reserved_location ]
+        IM::Ronglian.send_templated_sms(resource.patient_user_phone, Settings.sms_templates.when_reserved_notify_user, params)
       end
 
       # 发送短信， 记录短信
@@ -35,7 +36,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   def complete
     resource.diagnose! do
       # doctor diagnosed and send sms to notify user to pay
-      IM::Ronglian.send_templated_sms(resource.patient_user_phone, Settings.sms_templates.when_diagnosed_notify_user, resource.patient_user_name)
+      IM::Ronglian.send_templated_sms(resource.patient_user_phone, Settings.sms_templates.when_diagnosed_notify_user)
     end
     redirect_to my_doctors_reservation_path(resource) and return
   end
