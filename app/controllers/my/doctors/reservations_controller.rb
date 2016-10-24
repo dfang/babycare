@@ -36,7 +36,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   def complete
     resource.diagnose! do
       # doctor diagnosed and send sms to notify user to pay
-      SmsNotifyUserWhenDiagnosedJob.perform_now((resource.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
+      SmsNotifyUserWhenDiagnosedJob.perform_now(resource.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
     end
     redirect_to my_doctors_reservation_path(resource) and return
   end
