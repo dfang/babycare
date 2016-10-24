@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   get 'global/status'
   get 'global/denied'
+  get 'global/switch'
 
   # get 'posts/index'
   # get 'posts/show'

@@ -48,10 +48,16 @@ class Reservation < ActiveRecord::Base
 
   GENDERS = %w(儿子 女儿).freeze
 
-  # use claimed_by instead of res.reserve to debug in rails console
-  def claimed_by(user_b)
+  # for testing, use claimed_by instead of res.reserve to debug in rails console
+  def claimed_by(user_b, reservation_time, reservation_location, reservation_phone)
     self.user_b = user_b
-    self.reserve
+    self.reserve do
+      params = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
+      SmsNotifyUserWhenReservedJob.perform_now(self.patient_user_phone, params)
+    end
+    self.reservation_time = reservation_time
+    self.reservation_location = reservation_location
+    self.reservation_phone = reservation_phone || doctor_user.mobile_phone
     self.save!
   end
 
