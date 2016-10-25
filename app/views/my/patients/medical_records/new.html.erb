@@ -80,7 +80,7 @@
                'downloadImage'
              ],
              success: function (res) {
-               alert(JSON.stringify(res));
+               console.log(JSON.stringify(res));
              }
            });
 
@@ -136,8 +136,8 @@
                           localId: localIds[i].toString(),
                           isShowProgressTips: 1,
                           success: function(res) {
-                            alert('upload complete, serverId is ')
-                            alert(res.serverId)
+                            // alert('upload complete, serverId is ')
+                            // alert(res.serverId)
 
                             $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
                             $li.append($input)
@@ -155,7 +155,7 @@
                             alert(JSON.stringify(res));
                           }
                         })
-                      , 100);
+                      , 1000);
 
                     }
 
