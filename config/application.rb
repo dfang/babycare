@@ -20,7 +20,7 @@ module FusionAdmin
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin)
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin #{Rails.root}/app/models/observers)
     config.eager_load_paths += %W(#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin)
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -35,7 +35,10 @@ module FusionAdmin
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-		config.active_record.observers = :reservation_observer
+		# config.active_record.observers = :reservation_observer
+
+    config.active_record.observers = Dir["#{Rails.root}/app/models/observers/*.rb"].map{|file| File.basename(file, '.rb').to_sym}
+
 
 
     # config.assets.paths << Rails.root.join("app", "assets", "fonts")

@@ -86,6 +86,12 @@
           alert('config is error');
         })
 
+        var images = {
+          localId: [],
+          serverId: []
+        };
+
+
         $(document).on('click', '#picker1, #picker2, #picker3', function(e){
 
           uploader1.disableBrowse()
@@ -102,6 +108,8 @@
               sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
+                  images.localId = res.localIds;
+
                   var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                   for (var i = 0; i<localIds.length; i++) {
                     $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
@@ -109,23 +117,35 @@
                     // $files = $('.weui_uploader2').find('.weui-uploader__files')
                     // $files.find('.weui-uploader__file.holder').remove()
                     $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
-                    $input = $('<input type="hidden">').attr("name", "reservation[photos][" + i + "]").attr('value', localIds[i])
+                    // $input = $('<input type="hidden">').attr("name", "reservation[photos][" + i + "]").attr('value', localIds[i])
+
+                    wx.uploadImage({
+                        localId: localIds[i],
+                        success: function(res) {
+                          images.serverId.push(res.serverId);
+                          $input = $('<input type="hidden">').attr("name", "reservation[photos][" + i + "]").attr('value', res.serverId)
+                        },
+                        fail: function(res) {
+                          alert(JSON.stringify(res));
+                        }
+                    });
+
                     $li.append($input)
                     $files.append($li)
 
-                    var img = new mOxie.Image();
-                    img.load(localIds[i])
+                    // var img = new mOxie.Image();
+                    // img.load(localIds[i])
 
-                    if($(e.target).attr('id')== '#picker1'){
-                      alert('add file to uploader1')
-                      uploader1.addFile(img)
-                    }else if($(e.target).attr('id') == '#picker2'){
-                      alert('add file to uploader2')
-                      uploader2.addFile(img)
-                    }else{
-                      alert('add file to uploader3')
-                      uploader3.addFile(img)
-                    }
+                    // if($(e.target).attr('id')== '#picker1'){
+                    //   alert('add file to uploader1')
+                    //   uploader1.addFile(img)
+                    // }else if($(e.target).attr('id') == '#picker2'){
+                    //   alert('add file to uploader2')
+                    //   uploader2.addFile(img)
+                    // }else{
+                    //   alert('add file to uploader3')
+                    //   uploader3.addFile(img)
+                    // }
 
                     console.log(localIds[i])
 
