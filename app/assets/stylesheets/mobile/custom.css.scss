@@ -249,6 +249,7 @@ a.add-medical-record{
 }
 
 
-.weui-uploader__input-box#picker1,.weui-uploader__input-box#picker2,.weui-uploader__input-box#picker3{
-  z-index: 9999;
-}
+// .weui-uploader__input-box#picker1,.weui-uploader__input-box#picker2,.weui-uploader__input-box#picker3{
+//   可以遮住plupload生成的上传按钮
+//   z-index: 9999;
+// }

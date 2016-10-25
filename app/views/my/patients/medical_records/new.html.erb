@@ -50,10 +50,9 @@
 
       if( isWeiXin() && isAndroid() ){
 
-        uploader1 = new uploader( 'picker1', '.weui_uploader1', '/global_images.js', 'multiple', 'medical_record_images', true)
-        uploader2 = new uploader( 'picker2', '.weui_uploader2', '/global_images.js', 'multiple', 'laboratory_examination_images', true)
-        uploader3 = new uploader( 'picker3', '.weui_uploader3', '/global_images.js', 'multiple', 'imaging_examination_images', true)
-
+        // z-index可以遮住plupload生成的上传按钮, iOS的plupload选择框有拍照功能，所以用plupload
+        // android 用 wx js sdk, 设置z-index 把plupload上传按钮遮住
+        $(".weui-uploader__input-box").attr('z-index', 9999)
 
         wx.config({
           debug: false,
