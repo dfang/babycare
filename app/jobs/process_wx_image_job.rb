@@ -14,7 +14,7 @@ class ProcessWxImageJob < ActiveJob::Base
     image.data = global_image.data
 
     # 把wx.uploadImage 生成的 media_id 置空
-    image.media_id = nil
+    image.media_id = ""
 
     image.save!
   end
