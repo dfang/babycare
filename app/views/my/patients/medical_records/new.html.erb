@@ -141,6 +141,11 @@
                             // images.serverId.push(res.serverId);
                             $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
                             $li.append($input)
+                            $files.append($li)
+
+                            alert($li.find('input').attr('name'))
+                            alert($files.find('li input').length);
+
                           },
                           fail: function(res) {
                             alert(JSON.stringify(res));
@@ -148,9 +153,6 @@
                       });
                     // },100)
 
-                    $files.append($li)
-                    alert($li.find('input').attr('name'))
-                    alert($files.find('li input').length);
 
                     // var img = new mOxie.Image();
                     // img.load(localIds[i])
