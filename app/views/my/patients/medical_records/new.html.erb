@@ -130,8 +130,6 @@
               sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
-                  images.localId = res.localIds;
-
                   var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                   for (var i = 0; i<localIds.length; i++) {
                     $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
@@ -141,7 +139,7 @@
                     $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
                     // $input = $('<input type="hidden">').attr("name", "reservation[photos][" + i + "]").attr('value', localIds[i])
 
-                    setTimeout(function(){
+                    // setTimeout(function(){
                       wx.uploadImage({
                           localId: localIds[i].toString(),
                           isShowProgressTips: 1,
@@ -156,7 +154,7 @@
                             alert(JSON.stringify(res));
                           }
                       });
-                    },100)
+                    // },100)
 
                     alert($li.find('input').attr('name'))
                     $files.append($li)
