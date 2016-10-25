@@ -115,13 +115,13 @@
           }
 
 
-
+          var localIds;
           wx.chooseImage({
               count:      9,
               sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
-                  var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                  localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
 
                   for (var i = 0; i < localIds.length; i++) {
                     $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
@@ -130,35 +130,6 @@
                     // $files.find('.weui-uploader__file.holder').remove()
                     $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
                     $files.append($li)
-
-                    function uploadImage(i){
-                      wx.uploadImage({
-                        localId: localIds[i].toString(),
-                        isShowProgressTips: 1,
-                        success: function(res) {
-                          // alert('upload complete, serverId is ')
-                          // alert(res.serverId)
-
-                          $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
-                          $li.append($input)
-
-                          // alert('input field name is')
-                          // alert($li.find('input').attr('name'))
-                          // alert('input field value is')
-                          // alert($li.find('input').attr('value'))
-                          // alert('images length is')
-                          // alert($files.find('li input').length);
-
-                        },
-                        fail: function(res) {
-                          alert(JSON.stringify(res));
-                        }
-                      })
-                    }
-
-                    setTimeout(uploadImage(i), 1000)
-
-
 
                     // var img = new mOxie.Image();
                     // img.load(localIds[i])
@@ -177,8 +148,44 @@
                     console.log(localIds[i])
 
                   }
+
+                  syncUpload(localIds);
+
+
+
               }
           });
+
+          var syncUpload = function(localIds){
+            for (var i = 0; i < localIds.length; i++) {
+              wx.uploadImage({
+                localId: localIds[i].toString(),
+                isShowProgressTips: 1,
+                success: function(res) {
+                  // alert('upload complete, serverId is ')
+                  // alert(res.serverId)
+
+                  $li = $(e.target).parents('.weui-uploader').find('.weui-uploader__files li').eq(i)
+                  $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
+                  $li.append($input)
+
+                  // alert('input field name is')
+                  // alert($li.find('input').attr('name'))
+                  // alert('input field value is')
+                  // alert($li.find('input').attr('value'))
+                  // alert('images length is')
+                  // alert($files.find('li input').length);
+
+                },
+                fail: function(res) {
+                  alert(JSON.stringify(res));
+                }
+              })
+            }
+          }
+
+
+
         })
 
 
