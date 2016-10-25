@@ -54,7 +54,7 @@
         uploader2 = new uploader( 'picker2', '.weui_uploader2', '/global_images.js', 'multiple', 'laboratory_examination_images', true)
         uploader3 = new uploader( 'picker3', '.weui_uploader3', '/global_images.js', 'multiple', 'imaging_examination_images', true)
 
-        alert('disable browse, let wx chooseImage to trigger image picker')
+        // alert('disable browse, let wx chooseImage to trigger image picker')
 
         uploader1.bind('browse', function(up, files){
           console.log('Browse xxxx ')
@@ -70,7 +70,7 @@
         });
 
         wx.ready(function(){
-          alert('config is ready, checking js api available');
+          // alert('config is ready, checking js api available');
           wx.checkJsApi({
              jsApiList: [
                'chooseWXPay',
@@ -146,6 +146,7 @@
                           localId: localIds[i].toString(),
                           isShowProgressTips: 1,
                           success: function(res) {
+                            alert('upload complete!')
                             // images.serverId.push(res.serverId);
                             $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
                             $li.append($input)
@@ -157,6 +158,7 @@
                       });
                     },100)
 
+                    alert($li.find('input').attr('name'))
                     $files.append($li)
 
 
