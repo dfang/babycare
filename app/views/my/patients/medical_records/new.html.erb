@@ -129,37 +129,34 @@
                     // $files = $('.weui_uploader2').find('.weui-uploader__files')
                     // $files.find('.weui-uploader__file.holder').remove()
                     $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
+                    $files.append($li)
 
                     function uploadImage(i){
-                      setTimeout(
-                        wx.uploadImage({
-                          localId: localIds[i].toString(),
-                          isShowProgressTips: 1,
-                          success: function(res) {
-                            // alert('upload complete, serverId is ')
-                            // alert(res.serverId)
+                      wx.uploadImage({
+                        localId: localIds[i].toString(),
+                        isShowProgressTips: 1,
+                        success: function(res) {
+                          // alert('upload complete, serverId is ')
+                          // alert(res.serverId)
 
-                            $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
-                            $li.append($input)
-                            $files.append($li)
+                          $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
+                          $li.append($input)
 
-                            // alert('input field name is')
-                            // alert($li.find('input').attr('name'))
-                            // alert('input field value is')
-                            // alert($li.find('input').attr('value'))
-                            // alert('images length is')
-                            // alert($files.find('li input').length);
+                          // alert('input field name is')
+                          // alert($li.find('input').attr('name'))
+                          // alert('input field value is')
+                          // alert($li.find('input').attr('value'))
+                          // alert('images length is')
+                          // alert($files.find('li input').length);
 
-                          },
-                          fail: function(res) {
-                            alert(JSON.stringify(res));
-                          }
-                        })
-                      , 1000);
-
+                        },
+                        fail: function(res) {
+                          alert(JSON.stringify(res));
+                        }
+                      })
                     }
 
-                    uploadImage(i)
+                    setTimeout(uploadImage(i), 1000)
 
 
 
