@@ -117,7 +117,7 @@
 
           var localIds;
           wx.chooseImage({
-              count:      9,
+              count:      1,
               sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
@@ -134,58 +134,36 @@
                     // var img = new mOxie.Image();
                     // img.load(localIds[i])
 
-                    // if($(e.target).attr('id')== '#picker1'){
-                    //   alert('add file to uploader1')
-                    //   uploader1.addFile(img)
-                    // }else if($(e.target).attr('id') == '#picker2'){
-                    //   alert('add file to uploader2')
-                    //   uploader2.addFile(img)
-                    // }else{
-                    //   alert('add file to uploader3')
-                    //   uploader3.addFile(img)
-                    // }
 
-                    console.log(localIds[i])
+                    wx.uploadImage({
+                      localId: localIds[i].toString(),
+                      isShowProgressTips: 1,
+                      success: function(res) {
+                        // alert('upload complete, serverId is ')
+                        // alert(res.serverId)
+
+                        // $li = $(e.target).parents('.weui-uploader').find('.weui-uploader__files li').eq(i)
+                        $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
+                        $li.append($input)
+
+                        // alert('input field name is')
+                        // alert($li.find('input').attr('name'))
+                        // alert('input field value is')
+                        // alert($li.find('input').attr('value'))
+                        // alert('images length is')
+                        // alert($files.find('li input').length);
+
+                      },
+                      fail: function(res) {
+                        alert(JSON.stringify(res));
+                      }
+                    })
 
                   }
-
-                  syncUpload(localIds);
-
 
 
               }
           });
-
-          var syncUpload = function(localIds){
-            for (var i = 0; i < localIds.length; i++) {
-              wx.uploadImage({
-                localId: localIds[i].toString(),
-                isShowProgressTips: 1,
-                success: function(res) {
-                  // alert('upload complete, serverId is ')
-                  // alert(res.serverId)
-
-                  $li = $(e.target).parents('.weui-uploader').find('.weui-uploader__files li').eq(i)
-                  $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
-                  $li.append($input)
-
-                  // alert('input field name is')
-                  // alert($li.find('input').attr('name'))
-                  // alert('input field value is')
-                  // alert($li.find('input').attr('value'))
-                  // alert('images length is')
-                  // alert($files.find('li input').length);
-
-                },
-                fail: function(res) {
-                  alert(JSON.stringify(res));
-                }
-              })
-            }
-          }
-
-
-
         })
 
 
