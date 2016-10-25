@@ -136,14 +136,18 @@
                           localId: localIds[i].toString(),
                           isShowProgressTips: 1,
                           success: function(res) {
-                            alert('upload complete!')
+                            alert('upload complete, serverId is ')
                             alert(res.serverId)
-                            // images.serverId.push(res.serverId);
+
                             $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
                             $li.append($input)
                             $files.append($li)
 
+                            alert('input field name is')
                             alert($li.find('input').attr('name'))
+                            alert('input field value is')
+                            alert($li.find('input').attr('value'))
+                            alert('images length is')
                             alert($files.find('li input').length);
 
                           },
