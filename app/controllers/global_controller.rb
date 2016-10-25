@@ -7,16 +7,9 @@ class GlobalController < ApplicationController
   end
 
   def switch
-    doctor = Doctor.first
+    doctor = Doctor.first.reload
     doctor.user_id = current_user.id
-    doctor.save
-
-    if doctor.verified?
-      doctor.verified = false
-    else
-      doctor.verified = true
-    end
-
+    doctor.verified = !doctor.verified?
     doctor.save!
 
     if current_user.is_verified_doctor?
