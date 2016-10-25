@@ -38,9 +38,9 @@ var uploader =  (function() {
       console.log('init uploader')
     })
 
-    // webUploader.bind('browse', function(up, files){
-    //   console.log('Browse')
-    // })
+    webUploader.bind('browse', function(up, files){
+      console.log('Browse')
+    })
 
     webUploader.bind('FilesAdded', function(up, files){
       console.log('FilesAdded')

@@ -40,6 +40,10 @@
   <script type="text/javascript">
     $(document).on("ready", function(){
 
+      // uploader1 = new uploader( 'picker1', '.weui_uploader1', '/global_images.js', 'multiple', 'medical_record_images')
+      // uploader2 = new uploader( 'picker2', '.weui_uploader2', '/global_images.js', 'multiple', 'laboratory_examination_images')
+      // uploader3 = new uploader( 'picker3', '.weui_uploader3', '/global_images.js', 'multiple', 'imaging_examination_images')
+
       console.log(isWeiXin())
       console.log(isAndroid())
 
@@ -103,6 +107,24 @@
           console.log(e.target)
           console.log($(e.target))
 
+
+          function uploadPhotosField(i){
+            uploadPhotosField = ""
+            switch ($(e.target).attr('id')) {
+              case 'picker1':
+                uploadPhotosField = "medical_record[medical_record_images_attributes][" + i + "][media_id]"
+                break;
+              case 'picker2':
+                uploadPhotosField = "medical_record[laboratory_examination_images][" + i + "][media_id]"
+                break;
+              default:
+                uploadPhotosField = "medical_record[imaging_examination_images][" + i + "][media_id]"
+                break;
+            }
+            return uploadPhotosField
+          }
+
+
           wx.chooseImage({
               count:      9, // 默认9
               sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -119,16 +141,21 @@
                     $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
                     // $input = $('<input type="hidden">').attr("name", "reservation[photos][" + i + "]").attr('value', localIds[i])
 
-                    wx.uploadImage({
-                        localId: localIds[i],
-                        success: function(res) {
-                          images.serverId.push(res.serverId);
-                          $input = $('<input type="hidden">').attr("name", "reservation[photos][" + i + "]").attr('value', res.serverId)
-                        },
-                        fail: function(res) {
-                          alert(JSON.stringify(res));
-                        }
-                    });
+                    setTimeout(function(){
+                      wx.uploadImage({
+                          localId: localIds[i],
+                          success: function(res) {
+                            images.serverId.push(res.serverId);
+                            $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
+
+                            // medical_record[<%= params[:uploadPhotosField] %>_attributes][" + index + "][data]")
+                          },
+                          fail: function(res) {
+                            alert(JSON.stringify(res));
+                          }
+                      });
+                    },10)
+
 
                     $li.append($input)
                     $files.append($li)
@@ -165,7 +192,6 @@
         uploader1 = new uploader( 'picker1', '.weui_uploader1', '/global_images.js', 'multiple', 'medical_record_images')
         uploader2 = new uploader( 'picker2', '.weui_uploader2', '/global_images.js', 'multiple', 'laboratory_examination_images')
         uploader3 = new uploader( 'picker3', '.weui_uploader3', '/global_images.js', 'multiple', 'imaging_examination_images')
-
 
       }
     })
