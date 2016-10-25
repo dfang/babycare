@@ -144,21 +144,21 @@
                     setTimeout(function(){
                       wx.uploadImage({
                           localId: localIds[i],
+                          isShowProgressTips: 1,
                           success: function(res) {
-                            images.serverId.push(res.serverId);
+                            // images.serverId.push(res.serverId);
                             $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
-
+                            $li.append($input)
                             // medical_record[<%= params[:uploadPhotosField] %>_attributes][" + index + "][data]")
                           },
                           fail: function(res) {
                             alert(JSON.stringify(res));
                           }
                       });
-                    },10)
+                    },100)
 
-
-                    $li.append($input)
                     $files.append($li)
+
 
                     // var img = new mOxie.Image();
                     // img.load(localIds[i])
