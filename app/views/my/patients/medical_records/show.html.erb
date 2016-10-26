@@ -6,102 +6,123 @@
             <div class="bd">
                 <div class="weui-cells__title">带说明的列表项</div>
                 <div class="weui-cells">
-                  <%= show_medical_record_cell(resource, :bmi) %>
-                  <%= show_medical_record_cell(resource, :temperature) %>
-                  <%= show_medical_record_cell(resource, :pulse) %>
-                  <%= show_medical_record_cell(resource, :respiratory_rate) %>
-                  <%= show_medical_record_cell(resource, :blood_pressure) %>
-                  <%= show_medical_record_cell(resource, :oxygen_saturation) %>
-                  <%= show_medical_record_cell(resource, :pain_score) %>
-                  <%= show_medical_record_cell(resource, :onset_date) %>
-                  <%= show_medical_record_cell(resource, :chief_complaint) %>
-                  <div class="weui-cell">
-                      <div class="weui-cell__bd">
-                          <div class="weui-uploader weui_uploader1">
-                              <div class="weui-uploader__hd">
-                                  <p class="weui-uploader__title">病例图片</p>
-                                  <!-- <div class="weui-uploader__info">0/2</div> -->
-                              </div>
-                              <div class="weui-uploader__bd">
-                                  <ul class="weui-uploader__files" id="uploaderFiles">
-                                    <% if resource.medical_record_images.any? %>
-                                      <%  resource.medical_record_images.each_with_index do |image, index| %>
-                                        <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                          <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
-                                        </li>
-                                      <% end %>
-                                    <% end %>
-                                  </ul>
-                                  <div class="weui-uploader__input-box" id='picker1'>
+                  <div class="page">
+                      <div class="page__bd" style="height: 100%;">
+                          <div class="weui-tab">
+                              <div class="weui-navbar">
+                                  <div class="weui-navbar__item weui-bar__item_on">
+                                      基本信息
                                   </div>
+                                  <div class="weui-navbar__item">
+                                      检查信息
+                                  </div>
+                                  <div class="weui-navbar__item">
+                                      诊断意见
+                                  </div>
+                              </div>
+                              <div class="weui-tab__panel">
+                                <div class="tab1 tab-content">
+                                  <%= show_medical_record_cell(resource, :onset_date) %>
+                                  <%= show_medical_record_cell(resource, :chief_complaint) %>
+                                  <%= show_medical_record_cell(resource, :history_of_present_illness) %>
+                                  <%= show_medical_record_cell(resource, :past_medical_history) %>
+                                  <%= show_medical_record_cell(resource, :allergic_history) %>
+                                  <%= show_medical_record_cell(resource, :personal_history) %>
+                                  <%= show_medical_record_cell(resource, :family_history) %>
+                                  <%= show_medical_record_cell(resource, :vaccination_history) %>
+                                </div>
+
+                                <div class="tab2 tab-content hidden">
+                                  <%= show_medical_record_cell(resource, :bmi) %>
+                                  <%= show_medical_record_cell(resource, :temperature) %>
+                                  <%= show_medical_record_cell(resource, :pulse) %>
+                                  <%= show_medical_record_cell(resource, :respiratory_rate) %>
+                                  <%= show_medical_record_cell(resource, :blood_pressure) %>
+                                  <%= show_medical_record_cell(resource, :oxygen_saturation) %>
+                                  <%= show_medical_record_cell(resource, :pain_score) %>
+                                  <%= show_medical_record_cell(resource, :physical_examination) %>
+                                  <%= show_medical_record_cell(resource, :laboratory_and_supplementary_examinations) %>
+                                  <div class="weui-cell">
+                                      <div class="weui-cell__bd">
+                                          <div class="weui-uploader weui_uploader2">
+                                              <div class="weui-uploader__hd">
+                                                  <p class="weui-uploader__title">实验室检查图片</p>
+                                                  <!-- <div class="weui-uploader__info">0/2</div> -->
+                                              </div>
+                                              <div class="weui-uploader__bd">
+                                                  <ul class="weui-uploader__files" id="uploaderFiles">
+                                                    <% if resource.laboratory_examination_images.any? %>
+                                                      <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
+                                                        <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
+                                                          <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                                        </li>
+                                                      <% end %>
+                                                    <% end %>
+                                                  </ul>
+                                                  <div class="weui-uploader__input-box" id='picker2'>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <%= show_medical_record_cell(resource, :imaging_examination) %>
+                                  <div class="weui-cell">
+                                      <div class="weui-cell__bd">
+                                          <div class="weui-uploader weui_uploader3">
+                                              <div class="weui-uploader__hd">
+                                                  <p class="weui-uploader__title">影像学意见图片</p>
+                                                  <!-- <div class="weui-uploader__info">0/2</div> -->
+                                              </div>
+                                              <div class="weui-uploader__bd">
+                                                  <ul class="weui-uploader__files" id="uploaderFiles">
+                                                    <% if resource.laboratory_examination_images.any? %>
+                                                      <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
+                                                        <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
+                                                          <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                                        </li>
+                                                      <% end %>
+                                                    <% end %>
+                                                  </ul>
+                                                  <div class="weui-uploader__input-box" id='picker3'>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="weui-cell">
+                                    <div class="weui-cell__bd">
+                                        <div class="weui-uploader weui_uploader1">
+                                            <div class="weui-uploader__hd">
+                                                <p class="weui-uploader__title">病例图片</p>
+                                                <!-- <div class="weui-uploader__info">0/2</div> -->
+                                            </div>
+                                            <div class="weui-uploader__bd">
+                                                <ul class="weui-uploader__files" id="uploaderFiles">
+                                                  <% if resource.medical_record_images.any? %>
+                                                    <%  resource.medical_record_images.each_with_index do |image, index| %>
+                                                      <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
+                                                        <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                                      </li>
+                                                    <% end %>
+                                                  <% end %>
+                                                </ul>
+                                                <div class="weui-uploader__input-box" id='picker1'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              <div class="tab3 tab-content hidden">
+                                <%= show_medical_record_cell(resource, :preliminary_diagnosis) %>
+                                <%= show_medical_record_cell(resource, :treatment_recommendation) %>
+                                <%= show_medical_record_cell(resource, :remarks) %>
                               </div>
                           </div>
                       </div>
                   </div>
-
-                  <%= show_medical_record_cell(resource, :history_of_present_illness) %>
-                  <%= show_medical_record_cell(resource, :past_medical_history) %>
-                  <%= show_medical_record_cell(resource, :allergic_history) %>
-                  <%= show_medical_record_cell(resource, :personal_history) %>
-                  <%= show_medical_record_cell(resource, :family_history) %>
-                  <%= show_medical_record_cell(resource, :vaccination_history) %>
-                  <%= show_medical_record_cell(resource, :physical_examination) %>
-                  <%= show_medical_record_cell(resource, :laboratory_and_supplementary_examinations) %>
-                  <div class="weui-cell">
-                      <div class="weui-cell__bd">
-                          <div class="weui-uploader weui_uploader2">
-                              <div class="weui-uploader__hd">
-                                  <p class="weui-uploader__title">实验室检查图片</p>
-                                  <!-- <div class="weui-uploader__info">0/2</div> -->
-                              </div>
-                              <div class="weui-uploader__bd">
-                                  <ul class="weui-uploader__files" id="uploaderFiles">
-                                    <% if resource.laboratory_examination_images.any? %>
-                                      <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
-                                        <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                          <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
-                                        </li>
-                                      <% end %>
-                                    <% end %>
-                                  </ul>
-                                  <div class="weui-uploader__input-box" id='picker2'>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-
-                  <%= show_medical_record_cell(resource, :imaging_examination) %>
-                  <div class="weui-cell">
-                      <div class="weui-cell__bd">
-                          <div class="weui-uploader weui_uploader3">
-                              <div class="weui-uploader__hd">
-                                  <p class="weui-uploader__title">影像学意见图片</p>
-                                  <!-- <div class="weui-uploader__info">0/2</div> -->
-                              </div>
-                              <div class="weui-uploader__bd">
-                                  <ul class="weui-uploader__files" id="uploaderFiles">
-                                    <% if resource.laboratory_examination_images.any? %>
-                                      <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
-                                        <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                          <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
-                                        </li>
-                                      <% end %>
-                                    <% end %>
-                                  </ul>
-                                  <div class="weui-uploader__input-box" id='picker3'>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <%= show_medical_record_cell(resource, :preliminary_diagnosis) %>
-                  <%= show_medical_record_cell(resource, :treatment_recommendation) %>
-                  <%= show_medical_record_cell(resource, :remarks) %>
-
               </div>
-
             </div>
           </div>
 
@@ -125,3 +146,20 @@
 
   </div>
 </div>
+
+
+<%- content_for :js  do %>
+  <%= javascript_include_tag :uploader %>
+  <script type="text/javascript">
+    $(document).on("ready", function(){
+      $('.weui-navbar__item').on('click', function (e) {
+        $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+
+        index = $('.weui-navbar__item').index($(e.target))
+        console.log(index);
+        $('.tab-content').not('.tab'+ (index+1)).hide();
+        $('.tab'+ (index+1)).show()
+      });
+    })
+  </script>
+<% end %>
