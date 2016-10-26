@@ -112,9 +112,13 @@
 
           wx.openLocation(res);
 
-          url = "http://apis.map.qq.com/ws/geocoder/v1/?location=" + latitude + "," + longitude + "&key=G5ZBZ-EFEHV-KWLPT-UTUUD-NOS4S-LTFWJ"
+          var url = "http://apis.map.qq.com/ws/geocoder/v1/?location=" + latitude + "," + longitude + "&key=G5ZBZ-EFEHV-KWLPT-UTUUD-NOS4S-LTFWJ"
+
           $.get(url, function(res){
+            alert(res.status)
+
             if(res.status == 0){
+
               $('input[name="reservation[location]"]').val(res.result.address)
             }
           })
