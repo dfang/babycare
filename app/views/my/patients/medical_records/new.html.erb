@@ -34,6 +34,20 @@
   </div>
 </div>
 
+<%- content_for :js  do %>
+  <script type="text/javascript">
+    $(document).on("ready", function(){
+      $('.weui-navbar__item').on('click', function (e) {
+        $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+
+        index = $('.weui-navbar__item').index($(e.target))
+        console.log(index);
+        $('.tab-content').not('.tab'+ (index+1)).hide();
+        $('.tab'+ (index+1)).show()
+      });
+    })
+  </script>
+<% end %>
 
 <%- content_for :js  do %>
   <%= javascript_include_tag :uploader %>
