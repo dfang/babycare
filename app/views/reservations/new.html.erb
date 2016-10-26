@@ -102,7 +102,7 @@
     });
 
     $(document).on('click', '.weui-vcode-btn', function(e){
-      alert('click get Location');
+      console.log('click get Location');
       wx.getLocation({
         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
         success: function (res) {
@@ -119,7 +119,7 @@
           　　　　}
 
           var url= "http://apis.map.qq.com/ws/geocoder/v1/?";
-          alert('convert latitude and longitude to address');
+          console.log('convert latitude and longitude to address');
           $.ajax({
               type: "get",
               dataType:'jsonp',
@@ -155,10 +155,6 @@
       });
 
     })
-
-
-
-
 
     wx.error(function(){
       alert('config is error');
