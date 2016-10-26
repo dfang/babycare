@@ -21,6 +21,18 @@ class ReservationsController < InheritedResources::Base
   def status
   end
 
+  def new
+    @appId = Settings.wx_pay.app_id
+    @nonceStr = SecureRandom.hex
+    @timestamp =  DateTime.now.to_i
+    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
+                        "#{k}=#{v}" if v != "" && !v.nil?
+                      end.compact.join('&')
+    @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
+
+    super
+  end
+
   def wxpay_test
     params = {
       body: '测试商品',
