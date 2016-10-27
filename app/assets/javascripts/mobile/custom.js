@@ -36,6 +36,12 @@ var uploader =  (function() {
 
     webUploader.bind('init', function(up, files){
       console.log('init uploader')
+
+      // delegate click weui upload icon to uploader 
+      $(document).on('click', '.weui-uploader__input-box', function(e){
+        $(e.target).parent('.weui-uploader__bd').find('.moxie-shim input[type=file]').trigger('click')
+      })
+
     })
 
     webUploader.bind('browse', function(up, files){
