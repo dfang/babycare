@@ -18,6 +18,10 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   end
 
   def update
+    resource.medical_record_images.delete_all
+    resource.laboratory_examination_images.delete_all
+    resource.imaging_examination_images.delete_all
+    
     update! {
       if @reservation.present?
         my_patients_reservation_path(@reservation)
