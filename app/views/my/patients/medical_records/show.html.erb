@@ -59,8 +59,6 @@
                                                     <% end %>
                                                   <% end %>
                                                 </ul>
-                                                <div class="weui-uploader__input-box" id='picker2'>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -83,8 +81,6 @@
                                                     <% end %>
                                                   <% end %>
                                                 </ul>
-                                                <div class="weui-uploader__input-box" id='picker3'>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -106,8 +102,6 @@
                                                   <% end %>
                                                 <% end %>
                                               </ul>
-                                              <div class="weui-uploader__input-box" id='picker1'>
-                                              </div>
                                           </div>
                                       </div>
                                   </div>
@@ -146,6 +140,20 @@
         $('.tab-content').not('.tab'+ (index+1)).hide();
         $('.tab'+ (index+1)).show()
       });
+
+
+      $(document).on('click', '.weui-uploader__files li.weui-uploader__file', function(e){
+        current = $(e.target).find('input').val()
+        urls = []
+        $(e.target).parents('.weui-uploader__files').find('input').map(function(i,e){
+          urls.push($(e).val())
+        })
+        wx.previewImage({
+            current: current, // 当前显示图片的http链接
+            urls: urls // 需要预览的图片http链接列表
+        });
+
+      })
     })
   </script>
 <% end %>
