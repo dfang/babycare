@@ -139,7 +139,9 @@
 
                         // $li = $(e.target).parents('.weui-uploader').find('.weui-uploader__files li').eq(i)
                         $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
+                        $i = $("i.weui-icon-delete.weui-icon_gallery-delete").css("float: right;margin-top: 2px;")
                         $li.append($input)
+                        $li.append($i)
 
                         // alert('input field name is')
                         // alert($li.find('input').attr('name'))
@@ -180,6 +182,14 @@
 
         })
 
+
+        $(document).on('click', '.weui-icon-delete', function(e){
+          $files = $(e.target).parents('.weui-uploader__files')
+          $(e.target).parents('li').remove()
+          $files.find('li.weui-uploader__file').each(function(index, element){
+            $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][" + index + "][media_id]")
+          })
+        })
 
 
       }else{

@@ -2,19 +2,18 @@
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
             <div class="weui-navbar">
-                <div class="weui-navbar__item weui-bar__item_on">
-                    基本信息
-                </div>
-                <div class="weui-navbar__item">
-                    检查信息
-                </div>
-                <div class="weui-navbar__item">
-                    诊断意见
-                </div>
+              <div class="weui-navbar__item weui-bar__item_on">
+                基本信息
+              </div>
+              <div class="weui-navbar__item">
+                检查信息
+              </div>
+              <div class="weui-navbar__item">
+                诊断意见
+              </div>
             </div>
             <div class="weui-tab__panel">
               <%= simple_nested_form_for resource, url: url, method: method do |f| %>
-
                 <div class="tab1 tab-content">
                   <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
                   <%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
@@ -56,6 +55,7 @@
                                       <%  resource.medical_record_images.each_with_index do |image, index| %>
                                         <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
                                           <input type="hidden" name="reservation[medical_record_images_attributes][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                          <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
                                         </li>
                                       <% end %>
                                     <% end %>
@@ -91,6 +91,7 @@
                                       <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
                                         <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
                                           <input type="hidden" name="reservation[laboratory_examination_images_attributes][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                          <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
                                         </li>
                                       <% end %>
                                     <% end %>
@@ -116,6 +117,7 @@
                                       <%  resource.imaging_examination_images.each_with_index do |image, index| %>
                                         <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
                                           <input type="hidden" name="reservation[imaging_examination_images_attributes][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                          <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
                                         </li>
                                       <% end %>
                                     <% end %>
