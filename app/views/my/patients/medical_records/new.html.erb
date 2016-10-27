@@ -9,27 +9,12 @@
                 <%= render 'new_form', url: my_patients_medical_records_path, method: 'POST' %>
               </div>
             </div>
-
             </div>
           </div>
 
       </div>
 
-      <div class="weui-tabbar">
-        <a href="/my/patients/reservations" class="weui-tabbar__item">
-          <img src="/icon_nav_button.png" alt="" class="weui-tabbar__icon">
-          <p class="weui-tabbar__label">当前预约</p>
-        </a>
-
-        <a href="/posts" class="weui-tabbar__item">
-          <img src="/icon_nav_article.png" alt="" class="weui-tabbar__icon">
-          <p class="weui-tabbar__label">必读文章</p>
-        </a>
-        <a href="/my/patients/index" class="weui-tabbar__item weui_bar__item_on">
-          <img src="/icon_nav_cell.png" alt="" class="weui-tabbar__icon">
-          <p class="weui-tabbar__label">我</p>
-        </a>
-      </div>
+      <%= render 'tab_bar' %>
 
   </div>
 </div>
@@ -63,8 +48,6 @@
 
 
       if( isWeiXin() && isAndroid() ){
-
-        alert('isAndroid and isWeixin')
 
         // z-index可以遮住plupload生成的上传按钮, iOS的plupload选择框有拍照功能，所以用plupload
         // android 用 wx js sdk, 设置z-index 把plupload上传按钮遮住
@@ -198,8 +181,6 @@
 
 
       }else{
-
-        alert('iOS')
 
         uploader1 = new uploader( 'picker1', '.weui_uploader1', '/global_images.js', 'multiple', 'medical_record_images')
         uploader2 = new uploader( 'picker2', '.weui_uploader2', '/global_images.js', 'multiple', 'laboratory_examination_images')
