@@ -119,9 +119,9 @@ var uploader =  (function() {
   return uploader;
 
 
-  $(document).on('click', '.weui-uploader__input-box', function(e){
-    $(e.target).parent('.weui-uploader__bd').find('.moxie-shim input[type=file]').trigger('click')
-  })
+  // $(document).on('click', '.weui-uploader__input-box', function(e){
+  //   $(e.target).parent('.weui-uploader__bd').find('.moxie-shim input[type=file]').trigger('click')
+  // })
 
   // window.ParsleyConfig = $.extend( true, {}, window.ParsleyConfig, {
   //   uiEnabled: true,
