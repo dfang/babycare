@@ -137,7 +137,7 @@
 
                         // $li = $(e.target).parents('.weui-uploader').find('.weui-uploader__files li').eq(i)
                         $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
-                        $i = $("i.weui-icon-delete.weui-icon_gallery-delete").css("float: right;margin-top: 2px;")
+                        $i = $("i.weui-icon-delete.weui-icon_gallery-delete").css("float", "right").css("margin-top", "2px")
                         $li.append($input)
                         $li.append($i)
 
