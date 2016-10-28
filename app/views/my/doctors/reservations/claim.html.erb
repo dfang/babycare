@@ -1,9 +1,6 @@
 <%= simple_form_for resource, url: claim_my_doctors_reservation_path(resource) , method: 'PUT' do |f| %>
 
 <div class="weui-cells__title">预约</div>
-
-<p class="weui-cells_tips">顶部说明文字</p>
-
 <div class="weui-cells weui-cells_form">
 
   <div class="weui-cell">
@@ -23,12 +20,12 @@
       <input class="weui-input" name="reservation[reservation_location]" placeholder="你们商量好的位置" type="text" value="<%= current_user.doctor.location %>">
     </div>
   </div>
+
 </div>
 
-<p class="weui-cells_tips">底部说明文字底部说明文字</p>
+<div class="weui-cells__tips">底部说明文字底部说明文字</div>
 
 <div class="weui-btn-area">
-  <!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
   <button class="weui-btn weui-btn__primary">确定</button>
 </div>
 
