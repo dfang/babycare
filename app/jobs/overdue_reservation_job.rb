@@ -1,4 +1,4 @@
-class CancelOverdueReservationJob < ActiveJob::Base
+class OverdueReservationJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
