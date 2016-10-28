@@ -109,6 +109,7 @@ Rails.application.routes.draw do
   resources :reservations do
     get 'public', on: :collection
     get 'status', on: :member
+    get 'restricted', on: :collection
     get 'wxpay_test', on: :member
     resources :ratings
   end

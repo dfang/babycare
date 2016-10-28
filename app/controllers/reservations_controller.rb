@@ -2,6 +2,7 @@ class ReservationsController < InheritedResources::Base
   before_filter ->{ authenticate_user!( force: true ) }
 
   custom_actions :resource => :wxpay_test
+  before_action :rectrict_access
   before_action :deny_doctors
   skip_before_action :deny_doctors, only: [ :public, :show, :status ]
 
@@ -18,9 +19,6 @@ class ReservationsController < InheritedResources::Base
     @reservations = Reservation.pending.order("created_at DESC")
   end
 
-  def status
-  end
-
   def new
     @appId = Settings.wx_pay.app_id
     @nonceStr = SecureRandom.hex
@@ -31,6 +29,12 @@ class ReservationsController < InheritedResources::Base
     @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
 
     super
+  end
+
+  def restricted
+  end
+
+  def status
   end
 
   def wxpay_test
@@ -61,6 +65,13 @@ class ReservationsController < InheritedResources::Base
   end
 
   private
+
+  def rectrict_access
+    access = AccessWhitelist.find_by(uid: current_user.authentication.uid)
+    if access.blank?
+      redirect_to restricted_reservations_path
+    end
+  end
 
   def reservation_params
     params.require(:reservation).permit!

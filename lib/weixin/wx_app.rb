@@ -44,7 +44,7 @@ end
 
 
 module WxApp
-  module WxMenu
+  module WxButton
     include WxApp::WxCommon
     extend self
 
@@ -101,7 +101,7 @@ module WxApp
                   if sub_menu.menu_type == 'click'
                     json.key  sub_menu.key
                   else
-                    json.url WxApp::WxMenu.process_url(sub_menu.url)
+                    json.url WxApp::WxButton.process_url(sub_menu.url)
                     # json.url sub_menu.url
                   end
                 end
@@ -112,7 +112,7 @@ module WxApp
                 json.key  menu.key
               else
                 # json.url menu.url
-                json.url WxApp::WxMenu.process_url(menu.url)
+                json.url WxApp::WxButton.process_url(menu.url)
               end
             end
           end
