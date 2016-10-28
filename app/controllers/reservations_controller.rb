@@ -3,6 +3,8 @@ class ReservationsController < InheritedResources::Base
 
   custom_actions :resource => :wxpay_test
   before_action :rectrict_access
+  skip_before_action :rectrict_access, only: [ :restricted ]
+
   before_action :deny_doctors
   skip_before_action :deny_doctors, only: [ :public, :show, :status ]
 
