@@ -69,7 +69,7 @@ class ReservationsController < InheritedResources::Base
   def rectrict_access
     access = AccessWhitelist.find_by(uid: current_user.wechat_authentication.try(:uid))
     if access.blank?
-      redirect_to restricted_reservations_path
+      redirect_to restricted_reservations_path and return
     end
   end
 
