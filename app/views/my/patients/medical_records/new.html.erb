@@ -47,7 +47,7 @@
       console.log(isAndroid())
 
 
-      if( isWeiXin() && isAndroid() ){
+      if( true ){
 
         // z-index可以遮住plupload生成的上传按钮, iOS的plupload选择框有拍照功能，所以用plupload
         // android 用 wx js sdk, 设置z-index 把plupload上传按钮遮住
@@ -59,7 +59,7 @@
           timestamp: "<%= @timestamp %>",
           nonceStr: "<%= @nonceStr %>",
           signature: "<%= @signature %>",
-          jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
 
         wx.ready(function(){

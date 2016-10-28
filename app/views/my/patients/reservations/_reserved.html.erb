@@ -33,7 +33,7 @@
         timestamp: "<%= @order_params[:timeStamp] %>", // 必填，生成签名的时间戳
         nonceStr: "<%= @order_params[:nonceStr] %>", // 必填，生成签名的随机串
         signature: "<%= @order_params[:sign] %>", // 必填，签名，见附录1
-        jsApiList: ['checkJsApi', 'chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
 
       wx.ready(function(){
