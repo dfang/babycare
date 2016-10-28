@@ -23,7 +23,6 @@ class BackgroundJobsController < ApplicationController
   end
 
   def send_sms
-
   end
 
   def cancel_reservation
@@ -53,6 +52,5 @@ class BackgroundJobsController < ApplicationController
       reservation_state_when_call: reservation_state_when_call
     )
   end
-
 
 end
