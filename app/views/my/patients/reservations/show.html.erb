@@ -10,4 +10,6 @@
 		<%= render 'diagnosed' %>
 <% elsif resource.paid? %>
 	<%= render 'paid' %>
+<% elsif resource.cancelled? %>
+	<%= render 'cancelled' %>
 <% end %>

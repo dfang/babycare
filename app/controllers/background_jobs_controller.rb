@@ -28,7 +28,7 @@ class BackgroundJobsController < ApplicationController
 
   def cancel_reservation
     reservation = Reservation.find_by(id: params[:reservation_id])
-    reservation.destroy!
+    reservation.cancel!
     render json: {
       status: 'ok'
     }
