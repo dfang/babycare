@@ -96,6 +96,7 @@ module IM
           'Accept': 'application/json'
         }
       )
+
     end
   end
 end
@@ -106,37 +107,22 @@ module IM
     include HTTParty
     include ActiveSupport::Callbacks
 
-    define_callbacks :call
-    define_callbacks :send_templated_sms
-
-    set_callback :call, :after, :record_phone_call_history
-    set_callback :send_templated_sms, :after, :record_sms_send_history
-
-    def record_phone_call_history
-        p "- record phone call history"
-        RecordPhoneCallHistoryJob.perform_now
-    end
-
-    def record_sms_send_history
-        p "- record sms send history"
-        RecordSmsSendHistoryJob.perform_now
-    end
-
-    # def after_call
-    #   run_callbacks :after_call do
-    #   end
+    # define_callbacks :call
+    # define_callbacks :send_templated_sms
+    # set_callback :call, :after, :record_phone_call_history
+    # set_callback :send_templated_sms, :after, :record_sms_send_history
+    #
+    # def record_phone_call_history
+    #     p "- record phone call history"
     # end
     #
-    # def after_send_sms
-    #   run_callbacks :after_send_sms do
-    #       p "- record sms send history"
-    #       RecordSmsSendHistoryJob.perform_now
-    #   end
+    # def record_sms_send_history
+    #     p "- record sms send history"
+    #     RecordSmsSendHistoryJob.perform_now
     # end
 
-
     # 预约的时候可以填别的号码
-    def self.call(caller_id, callee_id, reservation_id, caller_phone, callee_phone)
+    def call(caller_id, callee_id, reservation_id, caller_phone, callee_phone)
       caller = User.find_by(id: caller_id)
       callee = User.find_by(id: callee_id)
       reservation = Reservation.find_by(id: reservation_id)
@@ -181,12 +167,12 @@ module IM
         }
       )
 
-      run_callbacks :call do
-        p 'after call run record_phone_call_history'
-      end
+
+      RecordPhoneCallHistoryJob.perform_later(caller_id, callee_id, reservation_id, caller_phone, callee_phone)
+
     end
 
-    def self.send_templated_sms(to, templateId, *params)
+    def send_templated_sms(to, templateId, *params)
       softversion = Settings.ronglian.SoftVersion
       accountsid = Settings.ronglian.AccountSid
       accountauthtoken = Settings.ronglian.AccountAuthToken
@@ -229,9 +215,8 @@ module IM
         headers: headers
       )
 
-      run_callbacks :send_templated_sms do
-        p 'after call run record_sms_send_history'
-      end
+      RecordSmsSendHistoryJob.perform_later(to, templateId)
+      # RecordSmsSendHistoryJob.perform_later(sender_user_id, sendee_user_id, sender_phone, sendee_phone, templateId, reservation_id)
     end
 
   end
