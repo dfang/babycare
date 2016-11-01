@@ -106,11 +106,11 @@ module IM
     include HTTParty
     include ActiveSupport::Callbacks
 
-    define_callbacks :after_call
-    define_callbacks :after_send_sms
+    define_callbacks :call
+    define_callbacks :send_templated_sms
 
-    set_callback :after_call, :after, :record_phone_call_history
-    set_callback :after_send_sms, :after, :record_sms_send_history
+    set_callback :call, :after, :record_phone_call_history
+    set_callback :send_templated_sms, :after, :record_sms_send_history
 
     def record_phone_call_history
         p "- record phone call history"
@@ -181,7 +181,7 @@ module IM
         }
       )
 
-      run_callbacks :after_call do
+      run_callbacks :call do
         p 'after call run record_phone_call_history'
       end
     end
@@ -229,7 +229,7 @@ module IM
         headers: headers
       )
 
-      run_callbacks :after_send_sms do
+      run_callbacks :send_templated_sms do
         p 'after call run record_sms_send_history'
       end
     end
