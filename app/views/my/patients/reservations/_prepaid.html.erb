@@ -14,7 +14,7 @@
 							<%- if resource.medical_record.present?  %>
 								<%= link_to "修改病例", edit_my_patients_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
 							<% else %>
-              	<%= link_to "添加病例", new_my_patients_medical_record_path(reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+              	<%= link_to "补充病例资料", new_my_patients_medical_record_path(reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
 							<% end %>
             </p>
         </div>
