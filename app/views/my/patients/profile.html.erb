@@ -1,6 +1,8 @@
 <div class="weui-msg">
     <div class="weui-msg__icon-area">
-      <%= image_tag current_user.avatar %>
+      <a href="/my/patients/index">
+        <%= image_tag current_user.avatar %>
+      </a>
     </div>
     <div class="weui-msg__text-area">
         <h2 class="weui-msg__title"><%= current_user.wechat_authentication.nickname %></h2>

@@ -56,7 +56,7 @@ Rails.application.routes.draw do
       resource :settings
 
       resources :reservations do
-        get 'payment_te', on: :collection
+        get 'payment_test', on: :collection
         post 'payment_notify', on: :collection
       end
       get 'profile'
