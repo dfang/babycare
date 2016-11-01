@@ -1,7 +1,7 @@
 class BackgroundJobsController < ApplicationController
   skip_before_action :verify_authenticity_token
   respond_to :html, :json, :js
-  after_action :record_phone_call, only: :call
+  # after_action :record_phone_call, only: :call
 
   def call
     @reservation = Reservation.find_by_id(params[:reservation_id])

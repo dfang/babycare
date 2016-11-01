@@ -42,7 +42,6 @@ module IM
       )
     end
 
-
     def self.send_sms(mobile, code)
       mobile = '15618903080'
       code = (0...6).map { (65 + rand(26)).chr }.join
@@ -104,6 +103,29 @@ end
 module IM
   class Ronglian
     include HTTParty
+    include ActiveSupport::Callbacks
+    define_callbacks :after_call
+    define_callbacks :after_send_sms
+
+    set_callback :after_call, :after, IM::Ronglian.call
+    set_callback :after_send_sms, :after, IM::Ronglian.send_templated_sms
+
+    def after_call
+      run_callbacks :after_call do
+          puts "- record phone call history"
+
+          RecordPhoneCallHistoryJob.perform_now
+      end
+    end
+
+    def after_send_sms
+      run_callbacks :after_send_sms do
+          puts "- record sms send history"
+
+          RecordSmsSendHistoryJob.perform_now
+      end
+    end
+
 
     # 预约的时候可以填别的号码
     def self.call(caller_id, callee_id, reservation_id, caller_phone, callee_phone)
