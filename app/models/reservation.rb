@@ -8,7 +8,7 @@ class Reservation < ActiveRecord::Base
   has_many :phone_call_histories, :dependent => :destroy
   has_many :sms_histories, :dependent => :destroy
 
-  validates :mobile_phone, format: /(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}/
+  validates :reservation_phone, format: /(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}/
   validates_presence_of :name, :remark
 
   aasm do
