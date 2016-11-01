@@ -11,7 +11,6 @@ class ReservationsController < InheritedResources::Base
   def create
     @reservation = Reservation.new(reservation_params)
     @reservation.user_a = current_user.id
-    binding.pry
     create! {
       status_reservation_path(resource)
     }
