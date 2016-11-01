@@ -3,6 +3,7 @@
 require "base64"
 require 'digest/sha1'
 require 'httparty'
+require 'active_support/callbacks'
 
 module IM
   class Netease
@@ -104,27 +105,34 @@ module IM
   class Ronglian
     include HTTParty
     include ActiveSupport::Callbacks
+
     define_callbacks :after_call
     define_callbacks :after_send_sms
 
-    set_callback :after_call, :after, :call
-    set_callback :after_send_sms, :after, :send_templated_sms
+    set_callback :after_call, :after, :record_phone_call_history
+    set_callback :after_send_sms, :after, :record_sms_send_history
 
-    def after_call
-      run_callbacks :after_call do
-          puts "- record phone call history"
-
-          RecordPhoneCallHistoryJob.perform_now
-      end
+    def record_phone_call_history
+        p "- record phone call history"
+        RecordPhoneCallHistoryJob.perform_now
     end
 
-    def after_send_sms
-      run_callbacks :after_send_sms do
-          puts "- record sms send history"
-
-          RecordSmsSendHistoryJob.perform_now
-      end
+    def record_sms_send_history
+        p "- record sms send history"
+        RecordSmsSendHistoryJob.perform_now
     end
+
+    # def after_call
+    #   run_callbacks :after_call do
+    #   end
+    # end
+    #
+    # def after_send_sms
+    #   run_callbacks :after_send_sms do
+    #       p "- record sms send history"
+    #       RecordSmsSendHistoryJob.perform_now
+    #   end
+    # end
 
 
     # 预约的时候可以填别的号码
@@ -172,6 +180,10 @@ module IM
           'Accept' => 'application/json'
         }
       )
+
+      run_callbacks :after_call do
+        p 'after call run record_phone_call_history'
+      end
     end
 
     def self.send_templated_sms(to, templateId, *params)
@@ -216,6 +228,10 @@ module IM
         body: body,
         headers: headers
       )
+
+      run_callbacks :after_send_sms do
+        p 'after call run record_sms_send_history'
+      end
     end
 
   end
