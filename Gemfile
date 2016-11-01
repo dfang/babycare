@@ -81,6 +81,8 @@ end
 # create test data on server, tempary moved out of development group
 gem 'ffaker'
 gem 'factory_girl_rails'
+gem 'rspec-rails'
+
 gem 'pry-rails'
 gem 'pry-remote'
 

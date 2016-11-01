@@ -1,9 +1,11 @@
 $.ajaxSetup({
   beforeSend: function(jqXHR){
-    $('#loadingToast').show();
+    $('#loadingToast').fadeIn(100);
   },
   complete: function(jqXHR){
-    $('#loadingToast').hide();
+    $('#loadingToast').hide(100);
+    setTimeout(function () {
+    }, 1200);
   }
 });
 
