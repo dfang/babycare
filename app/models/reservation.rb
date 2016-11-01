@@ -94,7 +94,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def rated?
-    doctor_has_rated? && patient_has_rated?
+    doctor_has_rated? && patient_has_rated? && aasm_state == :rated
   end
 
   def patient_user
