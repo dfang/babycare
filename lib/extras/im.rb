@@ -107,8 +107,8 @@ module IM
     define_callbacks :after_call
     define_callbacks :after_send_sms
 
-    set_callback :after_call, :after, IM::Ronglian.call
-    set_callback :after_send_sms, :after, IM::Ronglian.send_templated_sms
+    set_callback :after_call, :after, :call
+    set_callback :after_send_sms, :after, :send_templated_sms
 
     def after_call
       run_callbacks :after_call do
