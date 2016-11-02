@@ -3,8 +3,8 @@ $.ajaxSetup({
     $('#loadingToast').fadeIn(100);
   },
   complete: function(jqXHR){
-    $('#loadingToast').hide(100);
     setTimeout(function () {
+      $('#loadingToast').hide(100);
     }, 1200);
   }
 });

@@ -10,7 +10,7 @@ class GlobalController < ApplicationController
     if current_user.doctor.present?
       doctor ||= current_user.doctor.reload
     else
-      doctor ||= User.first.doctor
+      doctor ||= Doctor.first
     end
 
     doctor.reload
