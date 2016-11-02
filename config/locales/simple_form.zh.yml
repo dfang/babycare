@@ -1,0 +1,46 @@
+zh-CN:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Please review the problems below:"
+    # Examples
+    # labels:
+    #   defaults:
+    #     password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail to sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
+    # include_blanks:
+    #   defaults:
+    #     age: 'Rather not say'
+    # prompts:
+    #   defaults:
+    #     age: 'Select your age'
+    placeholders:
+      medical_record:
+        chief_complaint: "描述下不适症状"
+        history_of_present_illness: "详细描述不适症状的过程,时间周期"
+        past_medical_history: "描述下以前发病的描述"
+        allergic_history: "描述下有无过敏症状"
+        personal_history: "描述下顺产还是剖腹产，是否母乳喂养或者吃奶粉..."
+        family_history: "描述下近亲有无遗传疾病"
+        vaccination_history: "描述下是否正常接种疫苗"
+      setting:
+        past_medical_history: "描述下以前发病的描述"
+        allergic_history: "描述下有无过敏症状"
+        personal_history: "描述下顺产还是剖腹产，是否母乳喂养或者吃奶粉..."
+        family_history: "描述下近亲有无遗传疾病"
+        vaccination_history: "描述下是否正常接种疫苗"
