@@ -257,3 +257,11 @@ a.add-medical-record{
 //   可以遮住plupload生成的上传按钮
 //   z-index: 9999;
 // }
+
+
+.weui-input{
+  /* webkit solution */
+  ::-webkit-input-placeholder { text-align:right; }
+  /* mozilla solution */
+  input:-moz-placeholder { text-align:right; }
+}

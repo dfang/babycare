@@ -38,6 +38,7 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   end
 
   def new
+
     @appId = Settings.wx_pay.app_id
     @nonceStr = SecureRandom.hex
     @timestamp =  DateTime.now.to_i

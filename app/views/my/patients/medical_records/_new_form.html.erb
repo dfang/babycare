@@ -23,34 +23,62 @@
                         <label for="" class="weui-label">性别</label>
                     </div>
                     <div class="weui-cell__bd weui-cell_primary">
-                        <select class="weui-select" name="reservation[child_gender]">
+                        <select class="weui-select" name="medical_record[child_gender]">
                           <%= options_for_select MedicalRecord::GENDERS, "男" %>
                         </select>
                     </div>
                   </div>
-                  <%= f.input :height, wrapper: :weui_input %>
-                  <%= f.input :weight, wrapper: :weui_input %>
+                  <!-- <%= f.input :height, wrapper: :weui_input %> -->
+                  <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">身高(cm)</label>
+                    </div>
+                    <div class="weui-cell__bd weui-cell_primary">
+                        <select class="weui-select" name="medical_record[height]">
+                          <%= options_for_select MedicalRecord::HEIGHTS, 50 %>
+                        </select>
+                    </div>
+                  </div>
+                  <!-- <%= f.input :weight, wrapper: :weui_input %> -->
+                  <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">体重(kg)</label>
+                    </div>
+                    <div class="weui-cell__bd weui-cell_primary">
+                        <select class="weui-select" name="medical_record[height]">
+                          <%= options_for_select MedicalRecord::WEIGHTS, 8 %>
+                        </select>
+                    </div>
+                  </div>
                   <%= f.input :onset_date, as: :string, wrapper: :weui_input, input_html: { class: 'datepicker' } %>
-                  <%= f.input :chief_complaint, as: :text, wrapper: :weui_input %>
-                  <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
-                  <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
-                  <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
-                  <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
-                  <%= f.input :family_history, as: :text, wrapper: :weui_input %>
-                  <%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
+                  <%= f.input :chief_complaint, as: :text, wrapper: :weui_input, input_html: { placeholder: "描述下不适症状" } %>
+                  <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input, input_html: { placeholder: "详细描述不适症状的过程,时间周期" } %>
+                  <%= f.input :past_medical_history, as: :text, wrapper: :weui_input, input_html: { placeholder: "描述下以前发病的描述" } %>
+                  <%= f.input :allergic_history, as: :text, wrapper: :weui_input, input_html: { placeholder: "描述下有无过敏症状" } %>
+                  <%= f.input :personal_history, as: :text, wrapper: :weui_input, input_html: { placeholder: "描述下顺产还是剖腹产，是否母乳喂养或者吃奶粉..." } %>
+                  <%= f.input :family_history, as: :text, wrapper: :weui_input, input_html: { placeholder: "描述下近亲有无遗传疾病" } %>
+                  <%= f.input :vaccination_history, as: :text, wrapper: :weui_input, input_html: { placeholder: "描述下是否正常接种疫苗" } %>
                 </div>
 
                 <div class="tab2 tab-content hidden">
                   <%= f.input :bmi, wrapper: :weui_input %>
-                  <%= f.input :temperature, wrapper: :weui_input %>
+                  <!-- <%= f.input :temperature, wrapper: :weui_input %> -->
+                  <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">体温</label>
+                    </div>
+                    <div class="weui-cell__bd weui-cell_primary">
+                        <select class="weui-select" name="medical_record[temperature]">
+                          <%= options_for_select MedicalRecord::TEMPERATURES, "39" %>
+                        </select>
+                    </div>
+                  </div>
                   <%= f.input :pulse, wrapper: :weui_input %>
                   <%= f.input :respiratory_rate, wrapper: :weui_input %>
                   <%= f.input :blood_pressure, wrapper: :weui_input %>
                   <%= f.input :oxygen_saturation, wrapper: :weui_input %>
                   <%= f.input :pain_score, wrapper: :weui_input %>
-
                   <%= f.input :physical_examination, as: :text, wrapper: :weui_input %>
-
                   <%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
                   <div class="weui-cell">
                       <div class="weui-cell__bd">

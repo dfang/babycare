@@ -8,11 +8,15 @@
         <div class="weui-msg__opr-area">
           <p class="weui-btn-area">
 						<%= link_to "确认服务完成", complete_my_doctors_reservation_path(resource), method: 'PUT', class: "weui-btn weui-btn__primary" %>
-						<%- if resource.medical_record.present?  %>
+
+            <%- if resource.medical_record.present?  %>
 							<%= link_to "修改病例", edit_my_doctors_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
 						<% else %>
 							<%= link_to "添加病例", new_my_doctors_medical_record_path(reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
 						<% end  %>
+
+            <%= link_to "查看用户资料", "#", class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+
             <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.mobile_phone %>);" class="weui-btn weui-btn_default">拨打电话</a>
           </p>
         </div>
