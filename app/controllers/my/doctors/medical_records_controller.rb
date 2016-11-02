@@ -28,6 +28,8 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
                         "#{k}=#{v}" if v != "" && !v.nil?
                       end.compact.join('&')
     @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
+
+    @medical_record ||= MedicalRecord.new
   end
 
   private
