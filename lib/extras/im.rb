@@ -9,12 +9,8 @@ module IM
   class Netease
     include HTTParty
 
-    # def initialize()
-    #   @appkey = Settings.im.appkey
-    #   @appsecret = Settings.im.appsecret
-    # end
-
-    def self.call(caller, callee)
+    # 文档地址 http://dev.netease.im/docs?doc=server_call
+    def self.call(caller_phone, callee_phone, caller_id, callee_id, reservation_id)
       url = 'https://api.netease.im/call/ecp/startcall.action'
       @appkey = Settings.im.appkey
       @appsecret = Settings.im.appsecret
@@ -28,8 +24,8 @@ module IM
         body:
           {
             callerAcc: "xyzzyx",
-            caller:  caller,
-            callee:  callee,
+            caller:  caller_phone,
+            callee:  callee_phone,
             maxDur:  3600
           },
         headers: {

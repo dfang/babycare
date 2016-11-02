@@ -8,7 +8,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   end
 
   def index
-    @reservations = current_user.reservations
+    @reservations = current_user.reservations.order("updated_at DESC")
   end
 
   def status

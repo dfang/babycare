@@ -15,7 +15,9 @@ class BackgroundJobsController < ApplicationController
     # end
     @reservation.save!
 
-    IM::Ronglian.new().call(params["caller"], params["callee"], params["reservation_id"], params['caller_phone'], params['callee_phone'])
+    # IM::Ronglian.new().call(params["caller"], params["callee"], params["reservation_id"], params['caller_phone'], params['callee_phone'])
+    # 受国家政策通讯政策影响, 云通讯暂停回拨电话的使用, 切换到网易云信
+    IM::Netease.call(params['caller_phone'], params['callee_phone'], params["caller"], params["callee"], params["reservation_id"])
 
     render status: 200
   end
