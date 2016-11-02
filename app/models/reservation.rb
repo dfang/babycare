@@ -72,8 +72,8 @@ class Reservation < ActiveRecord::Base
   def marked_phone_number
     # http://stackoverflow.com/questions/26103394/regular-expression-to-mask-all-but-the-last-4-digits-of-a-social-security-number
     # Simply extract the last four characters and append them to a string of five '*'
-    if mobile_phone.present?
-      '*' * 7 + mobile_phone[-4..-1]
+    if reservation_phone.present?
+      '*' * 7 + reservation_phone[-4..-1]
     end
   end
 

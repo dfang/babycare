@@ -5,7 +5,7 @@
           <p class="weui-media-box__desc"> <%= res.remark %></p>
           <ul class="weui-media-box__info">
             <%- if current_user && current_user.is_doctor? %>
-              <li class="weui-media-box__info__meta"><%= res.mobile_phone %></li>
+              <li class="weui-media-box__info__meta"><%= res.reservation_phone %></li>
             <% else %>
               <li class="weui-media-box__info__meta"><%= res.marked_phone_number %></li>
             <% end %>

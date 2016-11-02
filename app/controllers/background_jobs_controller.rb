@@ -4,7 +4,7 @@ class BackgroundJobsController < ApplicationController
   # after_action :record_phone_call, only: :call
 
   def call
-    @reservation = Reservation.find_by_id(params[:reservation_id])
+    @reservation = Reservation.find_by(id: params[:reservation_id])
     # 打电话不应该改变user_b的值
     # if current_user.doctor.present?
     #   # 医生给用户打电话
