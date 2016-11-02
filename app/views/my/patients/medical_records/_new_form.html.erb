@@ -3,10 +3,10 @@
         <div class="weui-tab">
             <div class="weui-navbar">
                 <div class="weui-navbar__item weui-bar__item_on">
-                    基本信息
+                    病例内容
                 </div>
                 <div class="weui-navbar__item">
-                    检查信息
+                    体格检查信息
                 </div>
                 <div class="weui-navbar__item">
                     诊断意见
@@ -58,26 +58,26 @@
                   <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
                   <%= f.input :family_history, as: :text, wrapper: :weui_input %>
                   <%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
+                  <div class="weui-cell">
+                      <div class="weui-cell__bd">
+                          <div class="weui-uploader weui_uploader1">
+                              <div class="weui-uploader__hd">
+                                  <p class="weui-uploader__title">既往病案资料图片(药品处方, 纸质病例, 收费单据, 治疗处方, 用户自己拍照上传)</p>
+                                  <!-- <div class="weui-uploader__info">0/2</div> -->
+                              </div>
+                              <div class="weui-uploader__bd">
+                                  <ul class="weui-uploader__files" id="uploaderFiles">
+                                    <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>
+                                  </ul>
+                                  <div class="weui-uploader__input-box" id='picker1'>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 </div>
 
                 <div class="tab2 tab-content hidden">
-                  <%= f.input :bmi, wrapper: :weui_input %>
-                  <!-- <%= f.input :temperature, wrapper: :weui_input %> -->
-                  <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__hd">
-                        <label for="" class="weui-label">体温</label>
-                    </div>
-                    <div class="weui-cell__bd weui-cell_primary">
-                        <select class="weui-select" name="medical_record[temperature]">
-                          <%= options_for_select MedicalRecord::TEMPERATURES, "39" %>
-                        </select>
-                    </div>
-                  </div>
-                  <%= f.input :pulse, wrapper: :weui_input %>
-                  <%= f.input :respiratory_rate, wrapper: :weui_input %>
-                  <%= f.input :blood_pressure, wrapper: :weui_input %>
-                  <%= f.input :oxygen_saturation, wrapper: :weui_input %>
-                  <%= f.input :pain_score, wrapper: :weui_input %>
                   <%= f.input :physical_examination, as: :text, wrapper: :weui_input %>
                   <%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
                   <div class="weui-cell">
@@ -115,23 +115,23 @@
                           </div>
                       </div>
                   </div>
-                  <div class="weui-cell">
-                      <div class="weui-cell__bd">
-                          <div class="weui-uploader weui_uploader1">
-                              <div class="weui-uploader__hd">
-                                  <p class="weui-uploader__title">病例图片</p>
-                                  <!-- <div class="weui-uploader__info">0/2</div> -->
-                              </div>
-                              <div class="weui-uploader__bd">
-                                  <ul class="weui-uploader__files" id="uploaderFiles">
-                                    <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>
-                                  </ul>
-                                  <div class="weui-uploader__input-box" id='picker1'>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+
+                  <%= f.input :bmi, wrapper: :weui_input %>
+                  <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">体温</label>
+                    </div>
+                    <div class="weui-cell__bd weui-cell_primary">
+                        <select class="weui-select" name="medical_record[temperature]">
+                          <%= options_for_select MedicalRecord::TEMPERATURES, "39" %>
+                        </select>
+                    </div>
                   </div>
+                  <%= f.input :pulse, wrapper: :weui_input %>
+                  <%= f.input :respiratory_rate, wrapper: :weui_input %>
+                  <%= f.input :blood_pressure, wrapper: :weui_input %>
+                  <%= f.input :oxygen_saturation, wrapper: :weui_input %>
+                  <%= f.input :pain_score, wrapper: :weui_input %>
                 </div>
 
                 <div class="tab3 tab-content hidden">
