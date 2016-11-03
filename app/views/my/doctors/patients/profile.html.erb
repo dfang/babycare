@@ -1,7 +1,7 @@
 <div class="weui-msg">
     <div class="weui-msg__icon-area">
       <a href="/my/patients/index">
-        <%= image_tag rescurrent_user.avatar %>
+        <%= image_tag current_user.avatar %>
       </a>
     </div>
     <div class="weui-msg__text-area">
@@ -19,22 +19,22 @@
           <div class="weui-panel__bd">
               <div class="weui-media-box weui-media-box__text" style="display: none">
                   <h4 class="weui-media__title">姓名</h4>
-                  <p class="weui-media__desc">段访</p>
+                  <p class="weui-media__desc"><%= current_user.name %></p>
               </div>
               <div class="weui-media-box weui-media-box__text" style="display: none">
                   <h4 class="weui-media__title">手机号码</h4>
-                  <p class="weui-media__desc">15618903080</p>
+                  <p class="weui-media__desc"><%= current_user.mobile_phone %></p>
               </div>
 
               <div class="weui-media-box weui-media-box__text" style="display: none">
                   <h4 class="weui-media__title">性别</h4>
-                  <p class="weui-media__desc">女</p>
+                  <p class="weui-media__desc"><%= current_user.gender %></p>
               </div>
 
-              <div class="weui-media-box weui-media-box__text" style="display: none">
+              <!-- <div class="weui-media-box weui-media-box__text" style="display: none">
                   <h4 class="weui-media__title">常住地址</h4>
                   <p class="weui-media__desc">南湖大道</p>
-              </div>
+              </div> -->
           </div>
       </div>
 

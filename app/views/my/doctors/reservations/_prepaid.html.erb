@@ -15,7 +15,7 @@
 							<%= link_to "添加病例", new_my_doctors_medical_record_path(reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
 						<% end  %>
 
-            <%= link_to "查看用户资料", profile_my_doctors_patient_path(resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+            <!-- <%= link_to "查看用户资料", profile_my_doctors_patient_path(resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %> -->
 
             <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.reservation_phone %>);" class="weui-btn weui-btn_default">拨打电话</a>
           </p>
