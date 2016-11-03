@@ -11,7 +11,11 @@ class My::Patients::SettingsController < InheritedResources::Base
   end
 
   def update
-    setting = current_user.settings.first
+    if current_user.settings.present?
+      setting = current_user.settings.first
+    else
+      setting = current_user.settings.build
+    end
     setting.update(setting_params)
     redirect_to my_patients_settings_path
   end
