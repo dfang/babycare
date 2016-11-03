@@ -11,7 +11,11 @@ zh-CN:
     error_notification:
       default_message: "Please review the problems below:"
     # Examples
-    # labels:
+    labels:
+      medical_record:
+        chief_complaint:  "主诉"
+
+
     #   defaults:
     #     password: 'Password'
     #   user:

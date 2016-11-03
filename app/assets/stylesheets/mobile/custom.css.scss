@@ -265,3 +265,9 @@ a.add-medical-record{
   /* mozilla solution */
   input:-moz-placeholder { text-align:right; }
 }
+
+.simple_form.new_medical_record select.weui-input,
+.simple_form.edit_medical_record select.weui-input,
+.weui-cell_select-after .weui-select{
+  text-align-last: right;
+}
