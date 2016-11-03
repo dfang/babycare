@@ -268,6 +268,9 @@ a.add-medical-record{
 
 .simple_form.new_medical_record select.weui-input,
 .simple_form.edit_medical_record select.weui-input,
-.weui-cell_select-after .weui-select{
+.weui-cell_select-after select.weui-select {
+  text-align: justify;
   text-align-last: right;
+  -moz-text-align-last: right;
+  -webkit-text-align-last: right;
 }
