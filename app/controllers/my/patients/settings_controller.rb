@@ -17,7 +17,7 @@ class My::Patients::SettingsController < InheritedResources::Base
       setting = current_user.settings.build
     end
     setting.update(setting_params)
-    redirect_to my_patients_settings_path
+    redirect_to my_patients_index_path and return
   end
 
   protected

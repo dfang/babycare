@@ -20,7 +20,7 @@
 
               <%= link_to "查看个人资料", my_patients_profile_path, class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
 
-              <a href="javascript: IM.call(<%= current_user.id %>, <%= @reservation.user_b %>, <%= @reservation.id %>, <%= @reservation.mobile_phone %>, <%= @reservation.try(:doctor_user).try(:doctor).try(:mobile_phone) %>);" class="weui-btn weui-btn__primary">拨打医生电话</a>
+              <a href="javascript: IM.call(<%= current_user.id %>, <%= @reservation.user_b %>, <%= @reservation.id %>, <%= @reservation.reservation_phone %>, <%= @reservation.try(:doctor_user).try(:doctor).try(:mobile_phone) %>);" class="weui-btn weui-btn__primary">拨打医生电话</a>
 
             </p>
         </div>
