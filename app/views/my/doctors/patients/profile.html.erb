@@ -1,9 +1,11 @@
 <div class="weui-msg">
     <div class="weui-msg__icon-area">
-      <%= image_tag @user.avatar %>
+      <a href="/my/patients/index">
+        <%= image_tag rescurrent_user.avatar %>
+      </a>
     </div>
     <div class="weui-msg__text-area">
-        <h2 class="weui-msg__title"><%= @user.wechat_authentication.nickname %></h2>
+        <h2 class="weui-msg__title"><%= current_user.wechat_authentication.nickname %></h2>
     </div>
     <div class="weui-msg__opr-area">
 
@@ -25,204 +27,38 @@
               </div>
 
               <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">血型</h4>
-                  <p class="weui-media__desc">AB型 阴性</p>
-              </div>
-
-
-              <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">BMI指数</h4>
-                  <p class="weui-media__desc">20.52 （体质指数：18.5-25）/ 正常</p>
-              </div>
-
-              <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">身高</h4>
-                  <p class="weui-media__desc">150cm</p>
-              </div>
-              <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">体重</h4>
-                  <p class="weui-media__desc">50kg</p>
-              </div>
-
-              <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">生日</h4>
-                  <p class="weui-media__desc">1927-12-23</p>
-              </div>
-              <div class="weui-media-box weui-media-box__text" style="display: none">
                   <h4 class="weui-media__title">性别</h4>
                   <p class="weui-media__desc">女</p>
               </div>
+
               <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">地址</h4>
+                  <h4 class="weui-media__title">常住地址</h4>
                   <p class="weui-media__desc">南湖大道</p>
               </div>
-              <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">个人史</h4>
-                  <p class="weui-media__desc">吸烟2年，10支/日，已戒烟3个月</p>
-              </div>
-              <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">家族史</h4>
-                  <p class="weui-media__desc">无特殊</p>
-              </div>
-              <div class="weui-media-box weui-media-box__text" style="display: none">
-                  <h4 class="weui-media__title">过敏史</h4>
-                  <p class="weui-media__desc">阿司匹林/局部皮肤红肿、痒感/重度</p>
-              </div>
           </div>
       </div>
 
 
       <div class="weui-panel weui-panel__access">
           <div class="weui-panel__hd">
-            <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+            <%= link_to my_doctors_patient_medical_records_path(resource), class: "weui-cell weui-cell_access weui-cell_link"  do%>
                 <div class="weui-cell__bd">病例信息</div>
                 <span class="weui-cell__ft"></span>
-            </a>
-          </div>
-          <div class="weui-panel__bd">
-            <div class="weui-cells" style="display: none;">
-                <div class="weui-medical-record">
-                  <a class="weui-cell weui-cell_access" href="javascript:;">
-                    <div class="weui-cell__bd">
-                        <p>2016-10-9 的病例</p>
-                    </div>
-                    <div class="weui-cell__ft">
-                    </div>
-                  </a>
-                  <div class="weui-medical-record-detail hidden">
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">姓名</h4>
-                        <p class="weui-media__desc">段访</p>
-                    </div>
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">手机号码</h4>
-                        <p class="weui-media__desc">15618903080</p>
-                    </div>
-
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">血型</h4>
-                        <p class="weui-media__desc">AB型 阴性</p>
-                    </div>
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">BMI指数</h4>
-                        <p class="weui-media__desc">20.52 （体质指数：18.5-25）/ 正常</p>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="weui-medical-record">
-                  <a class="weui-cell weui-cell_access" href="javascript:;">
-                    <div class="weui-cell__bd">
-                        <p>2013-2-9 的病例</p>
-                    </div>
-                    <div class="weui-cell__ft">
-                    </div>
-                  </a>
-                  <div class="weui-medical-record-detail hidden">
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">姓名</h4>
-                        <p class="weui-media__desc">段访</p>
-                    </div>
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">手机号码</h4>
-                        <p class="weui-media__desc">15618903080</p>
-                    </div>
-
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">血型</h4>
-                        <p class="weui-media__desc">AB型 阴性</p>
-                    </div>
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">BMI指数</h4>
-                        <p class="weui-media__desc">20.52 （体质指数：18.5-25）/ 正常</p>
-                    </div>
-                  </div>
-                </div>
-
-                <a href="#" class="weui-btn weui-btn_primary add-medical-record">添加病例</a>
-            </div>
-
+            <%= end %>
           </div>
       </div>
 
       <div class="weui-panel weui-panel__access">
           <div class="weui-panel__hd">
-            <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                <div class="weui-cell__bd">和我的预约</div>
+            <%= link_to my_doctors_patient_reservations_path(resource), class: "weui-cell weui-cell_access weui-cell_link"  do%>
+                <div class="weui-cell__bd">我所有的预约</div>
                 <span class="weui-cell__ft"></span>
-            </a>
-          </div>
-          <div class="weui-panel__bd">
-            <div class="weui-cells" style="display: none;">
-                <div class="weui-medical-record">
-                  <a class="weui-cell weui-cell_access" href="javascript:;">
-                    <div class="weui-cell__bd">
-                        <p>2016-10-9 的预约</p>
-                    </div>
-                    <div class="weui-cell__ft">
-                    </div>
-                  </a>
-                  <div class="weui-medical-record-detail hidden">
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">姓名</h4>
-                        <p class="weui-media__desc">段访</p>
-                    </div>
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">手机号码</h4>
-                        <p class="weui-media__desc">15618903080</p>
-                    </div>
-
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">血型</h4>
-                        <p class="weui-media__desc">AB型 阴性</p>
-                    </div>
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">BMI指数</h4>
-                        <p class="weui-media__desc">20.52 （体质指数：18.5-25）/ 正常</p>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="weui-medical-record">
-                  <a class="weui-cell weui-cell_access" href="javascript:;">
-                    <div class="weui-cell__bd">
-                        <p>2013-2-9 的预约</p>
-                    </div>
-                    <div class="weui-cell__ft">
-                    </div>
-                  </a>
-                  <div class="weui-medical-record-detail hidden">
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">姓名</h4>
-                        <p class="weui-media__desc">段访</p>
-                    </div>
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">手机号码</h4>
-                        <p class="weui-media__desc">15618903080</p>
-                    </div>
-
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">血型</h4>
-                        <p class="weui-media__desc">AB型 阴性</p>
-                    </div>
-                    <div class="weui-media-box weui-media-box__text" style="display: none;">
-                        <h4 class="weui-media__title">BMI指数</h4>
-                        <p class="weui-media__desc">20.52 （体质指数：18.5-25）/ 正常</p>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
+            <%= end %>
           </div>
       </div>
 
     </div>
 </div>
-
-
-
 
 <%- content_for :js do %>
 <script type="text/javascript">
@@ -233,7 +69,6 @@
     })
 
     $(document).on('click', '.weui-medical-record a.weui-cell', function(e){
-      console.log($(e.target))
       $(e.target).parents('.weui-medical-record').find('.weui-medical-record-detail').toggleClass('hidden')
     })
 

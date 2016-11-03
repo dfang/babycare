@@ -44,6 +44,8 @@ Rails.application.routes.draw do
       resources :patients do
         member do
           get 'profile'
+          resources :medical_records, as: :patient_medical_records
+          resources :reservations, as: :patient_reservations
         end
       end
       get 'status'

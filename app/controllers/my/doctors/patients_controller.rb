@@ -4,6 +4,7 @@ class My::Doctors::PatientsController < InheritedResources::Base
   before_action :check_is_verified_doctor
 
   def profile
+
   end
 
   private
