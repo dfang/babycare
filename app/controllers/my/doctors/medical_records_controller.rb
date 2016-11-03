@@ -13,6 +13,10 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
   end
 
   def update
+    resource.medical_record_images.delete_all
+    resource.laboratory_examination_images.delete_all
+    resource.imaging_examination_images.delete_all
+
     update! {
       if @reservation.present?
         my_doctors_reservation_path(@reservation)
@@ -47,6 +51,9 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
 
   def medical_record_params
     params.require(:medical_record).permit!
+    # params.require(:medical_record).permit(medical_record_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
+    # params.require(:medical_record).permit(laboratory_examination_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
+    # params.require(:medical_record).permit(imaging_examination_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
   end
 
   def check_is_verified_doctor

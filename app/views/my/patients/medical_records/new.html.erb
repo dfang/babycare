@@ -20,32 +20,13 @@
 </div>
 
 <%- content_for :js  do %>
-  <script type="text/javascript">
-    $(document).on("ready", function(){
-      $('.weui-navbar__item').on('click', function (e) {
-        $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-
-        index = $('.weui-navbar__item').index($(e.target))
-        console.log(index);
-        $('.tab-content').not('.tab'+ (index+1)).hide();
-        $('.tab'+ (index+1)).show()
-      });
-    })
-  </script>
-<% end %>
-
-<%- content_for :js  do %>
   <%= javascript_include_tag :uploader %>
+
   <script type="text/javascript">
     $(document).on("ready", function(){
-
-      // uploader1 = new uploader( 'picker1', '.weui_uploader1', '/global_images.js', 'multiple', 'medical_record_images')
-      // uploader2 = new uploader( 'picker2', '.weui_uploader2', '/global_images.js', 'multiple', 'laboratory_examination_images')
-      // uploader3 = new uploader( 'picker3', '.weui_uploader3', '/global_images.js', 'multiple', 'imaging_examination_images')
 
       console.log(isWeiXin())
       console.log(isAndroid())
-
 
       if( isWeiXin() && isAndroid() ){
 
@@ -54,12 +35,12 @@
         $(".weui-uploader__input-box").attr('z-index', 9999)
 
         wx.config({
-          debug: false,
-          appId: "<%= @appId %>",
-          timestamp: "<%= @timestamp %>",
-          nonceStr: "<%= @nonceStr %>",
-          signature: "<%= @signature %>",
-          jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          debug:      false,
+          appId:      "<%= @appId %>",
+          timestamp:  "<%= @timestamp %>",
+          nonceStr:   "<%= @nonceStr %>",
+          signature:  "<%= @signature %>",
+          jsApiList:  ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
 
         wx.ready(function(){
@@ -129,7 +110,6 @@
                     // var img = new mOxie.Image();
                     // img.load(localIds[i])
 
-
                     wx.uploadImage({
                       localId: localIds[i].toString(),
                       isShowProgressTips: 1,
@@ -160,7 +140,6 @@
               }
           });
         })
-
 
 
         // 提交之前 要重排图片的索引
@@ -213,4 +192,5 @@
 
     })
   </script>
+
 <% end %>

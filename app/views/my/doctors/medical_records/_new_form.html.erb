@@ -46,12 +46,12 @@
                         <label for="" class="weui-label">体重(kg)</label>
                     </div>
                     <div class="weui-cell__bd weui-cell_primary">
-                        <select class="weui-select" name="medical_record[height]">
+                        <select class="weui-select" name="medical_record[weight]">
                           <%= options_for_select MedicalRecord::WEIGHTS, 8 %>
                         </select>
                     </div>
                   </div>
-                  <%= f.input :onset_date, as: :string, wrapper: :weui_input, input_html: { class: 'datepicker' } %>
+                  <%= f.input :onset_date, wrapper: :weui_input %>
                   <%= f.input :chief_complaint, as: :text, wrapper: :weui_input %>
                   <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
                   <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
@@ -166,7 +166,7 @@
                     </div>
                     <div class="weui-cell__bd weui-cell_primary">
                         <select class="weui-select" name="medical_record[blood_pressure]">
-                          <%= options_for_select MedicalRecord::BLOOD_PRESSURES_, 80 %>
+                          <%= options_for_select MedicalRecord::BLOOD_PRESSURES, 80 %>
                         </select>
                     </div>
                   </div>
