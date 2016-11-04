@@ -1,9 +1,5 @@
 <script type="text/javascript">
   $(document).on("ready", function(){
-
-    console.log(isWeiXin())
-    console.log(isAndroid())
-
     if( isWeiXin() && isAndroid() ){
 
       // z-index可以遮住plupload生成的上传按钮, iOS的plupload选择框有拍照功能，所以用plupload
@@ -52,13 +48,13 @@
           uploadPhotosField = ""
           switch ($(e.target).attr('id')) {
             case 'picker1':
-              uploadPhotosField = "medical_record[medical_record_images_attributes][" + i + "][media_id]"
+              uploadPhotosField = "medical_record[medical_record_images_attributes][][media_id]"
               break;
             case 'picker2':
-              uploadPhotosField = "medical_record[laboratory_examination_images][" + i + "][media_id]"
+              uploadPhotosField = "medical_record[laboratory_examination_images][][media_id]"
               break;
             default:
-              uploadPhotosField = "medical_record[imaging_examination_images][" + i + "][media_id]"
+              uploadPhotosField = "medical_record[imaging_examination_images][][media_id]"
               break;
           }
           return uploadPhotosField
@@ -93,7 +89,6 @@
                       // alert('upload complete, serverId is ')
                       // alert(res.serverId)
 
-                      // $li = $(e.target).parents('.weui-uploader').find('.weui-uploader__files li').eq(i)
                       $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
                       $li.append($input)
 
@@ -121,17 +116,17 @@
       // 提交之前 要重排图片的索引
       $('form').submit(function(){
 
-        $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-          $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][" + index + "][media_id]")
-        })
-
-        $('.weui_uploader2').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-          $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][" + index + "][media_id]")
-        })
-
-        $('.weui_uploader3').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-          $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][" + index + "][media_id]")
-        })
+        // $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
+        //   $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][][data]")
+        // })
+        //
+        // $('.weui_uploader2').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
+        //   $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][][data]")
+        // })
+        //
+        // $('.weui_uploader3').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
+        //   $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][][data]")
+        // })
 
       })
 
@@ -153,17 +148,17 @@
       $(e.target).parents('li').remove()
 
       // 删除之后要重排图片的索引
-      $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][" + index + "][media_id]")
-      })
-
-      $('.weui_uploader2').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][" + index + "][media_id]")
-      })
-
-      $('.weui_uploader3').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][" + index + "][media_id]")
-      })
+      // $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
+      //   $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][][data]")
+      // })
+      //
+      // $('.weui_uploader2').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
+      //   $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][][data]")
+      // })
+      //
+      // $('.weui_uploader3').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
+      //   $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][][data]")
+      // })
     })
 
   })

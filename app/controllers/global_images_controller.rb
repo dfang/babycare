@@ -5,7 +5,6 @@ class GlobalImagesController < ApplicationController
   respond_to :html, :json, :js
 
   def create
-    p request
 
 		p 'before saving picture'
 		p Time.now

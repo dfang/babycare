@@ -71,7 +71,7 @@
                                     <% if resource.medical_record_images.any? %>
                                       <%  resource.medical_record_images.each_with_index do |image, index| %>
                                         <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                          <input type="hidden" name="reservation[medical_record_images_attributes][<%= index %>]" value="<%= image.data_url%>">
+                                          <input type="hidden" name="medical_record[medical_record_images_attributes][][data]" value="<%= image.data_url%>">
                                           <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
                                         </li>
                                       <% end %>
@@ -100,7 +100,7 @@
                                     <% if resource.laboratory_examination_images.any? %>
                                       <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
                                         <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                          <input type="hidden" name="reservation[laboratory_examination_images_attributes][<%= index %>]" value="<%= image.data_url%>">
+                                          <input type="hidden" name="medical_record[laboratory_examination_images_attributes][][data]" value="<%= image.data_url%>">
                                           <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
                                         </li>
                                       <% end %>
@@ -125,7 +125,7 @@
                                   <% if resource.imaging_examination_images.any? %>
                                     <%  resource.imaging_examination_images.each_with_index do |image, index| %>
                                       <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                        <input type="hidden" name="reservation[imaging_examination_images_attributes][<%= index %>]" value="<%= image.data_url%>">
+                                        <input type="hidden" name="medical_record[imaging_examination_images_attributes][][data]" value="<%= image.data_url%>">
                                         <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
                                       </li>
                                     <% end %>
