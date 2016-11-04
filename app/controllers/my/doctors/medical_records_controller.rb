@@ -2,7 +2,8 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
   before_action :check_is_verified_doctor
   before_action :find_reservation
-  skip_before_action :find_reservation, except: [:create, :update]
+  skip_before_action :find_reservation, except: [:create, :update ]
+  skip_before_action :find_reservation, only: [:index ]
 
   def create
     create! {
@@ -36,7 +37,14 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
     @medical_record ||= MedicalRecord.new
   end
 
+  # def index
+  # end
+
   private
+
+  def begin_of_association_chain
+    @user ||= User.find_by(id: params[:id])
+  end
 
   def find_reservation
     reservation_id ||= params[:reservation_id] || medical_record_params[:reservation_id]

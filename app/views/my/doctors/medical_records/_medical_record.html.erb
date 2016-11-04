@@ -1,0 +1,17 @@
+<%= link_to my_doctors_medical_record_path(medical_record), data: { turbolinks: false} do %>
+  <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text">
+          <h4 class="weui-media-box__title"> <%= medical_record.created_at.strftime('%Y-%m-%d')%>的病历</h4>
+          <p class="weui-media-box__desc"> <%=  %></p>
+          <ul class="weui-media-box__info">
+            <li class="weui-media-box__info__meta"><%=  %></li>
+            <li class="weui-media-box__info__meta">创建于<%= medical_record.created_at.strftime('%Y.%m.%d %H:%M') %></li>
+            <li class="weui-media-box__info__meta weui-media-box__info__meta__extra"><%=  %></li>
+          </ul>
+      </div>
+			<div class="weui_media_status">
+				<span>
+				</span>
+			</div>
+  </div>
+<% end %>

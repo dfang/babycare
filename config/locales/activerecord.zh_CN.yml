@@ -38,7 +38,8 @@ zh-CN:
         gender:
           male: 男
           female: 女
-
+          0: 男
+          1: 女
     models:
       person: 登记
       user: 用户

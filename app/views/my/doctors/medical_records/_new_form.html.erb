@@ -16,7 +16,11 @@
               <%= simple_nested_form_for resource, url: url, method: method do |f| %>
 
                 <div class="tab1 tab-content">
-                  <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+
+                  <% if params.key?(:user_id)  %>
+                    <%= f.input :user_id, as: :hidden, input_html: { value: params[:user_id] } %>
+                  <% end %>
+
                   <%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
                   <%= f.input :birthdate, wrapper: :weui_input %>
                   <div class="weui-cell weui-cell_select weui-cell_select-after">

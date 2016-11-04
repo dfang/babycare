@@ -1,0 +1,19 @@
+<div class="tabbar">
+  <div class="weui-tab">
+      <div class="weui-tab__panel">
+
+          <div class="panel">
+            <div class="bd">
+							<%- if @medical_records.any? %>
+								<%= render partial: 'medical_record', collection: @medical_records %>
+							<% end %>
+
+            </div>
+          </div>
+
+      </div>
+
+      <%= render 'tab_bar' %>
+
+  </div>
+</div>
