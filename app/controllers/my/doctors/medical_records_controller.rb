@@ -4,7 +4,7 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
   before_action :find_reservation
   skip_before_action :find_reservation, except: [:create, :update ]
   skip_before_action :find_reservation, only: [:index ]
-  before_action :config_wx_jssdk
+  before_action :config_wx_jssdk, only: [:new, :edit]
 
 
   def create
