@@ -3,7 +3,7 @@ class My::PatientsController < InheritedResources::Base
 
   before_action :check_is_verified_doctor
   skip_before_action :check_is_verified_doctor, only: [ :status ]
-  custom_actions :collection => [ :reservations, :status ]
+  custom_actions :collection => [ :reservations, :status, :profile ]
 
   def reservations
     @reservations = current_user.reservations
@@ -16,7 +16,6 @@ class My::PatientsController < InheritedResources::Base
   end
 
   def profile
-    @resource = current_user.medical_records.first
   end
 
   private
