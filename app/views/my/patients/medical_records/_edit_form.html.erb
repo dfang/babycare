@@ -69,12 +69,7 @@
                               <div class="weui-uploader__bd">
                                   <ul class="weui-uploader__files" id="uploaderFiles">
                                     <% if resource.medical_record_images.any? %>
-                                      <%  resource.medical_record_images.each_with_index do |image, index| %>
-                                        <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                          <input type="hidden" name="medical_record[medical_record_images_attributes][][data]" value="<%= image.data_url%>">
-                                          <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
-                                        </li>
-                                      <% end %>
+                                      <%= f.simple_fields_for :medical_record_images %>
                                     <% end %>
                                   </ul>
                                   <div class="weui-uploader__input-box" id='picker1'>
@@ -98,12 +93,7 @@
                               <div class="weui-uploader__bd">
                                   <ul class="weui-uploader__files" id="uploaderFiles">
                                     <% if resource.laboratory_examination_images.any? %>
-                                      <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
-                                        <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                          <input type="hidden" name="medical_record[laboratory_examination_images_attributes][][data]" value="<%= image.data_url%>">
-                                          <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
-                                        </li>
-                                      <% end %>
+                                      <%= f.simple_fields_for :laboratory_examination_images %>
                                     <% end %>
                                   </ul>
                                   <div class="weui-uploader__input-box" id='picker2'>
@@ -123,12 +113,7 @@
                               <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="uploaderFiles">
                                   <% if resource.imaging_examination_images.any? %>
-                                    <%  resource.imaging_examination_images.each_with_index do |image, index| %>
-                                      <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                        <input type="hidden" name="medical_record[imaging_examination_images_attributes][][data]" value="<%= image.data_url%>">
-                                        <i class="weui-icon-delete weui-icon_gallery-delete" style="float: right;margin-top: 2px;"></i>
-                                      </li>
-                                    <% end %>
+                                    <%= f.simple_fields_for :imaging_examination_images %>
                                   <% end %>
                                 </ul>
                                 <div class="weui-uploader__input-box" id='picker3'>

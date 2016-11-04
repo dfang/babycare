@@ -19,9 +19,9 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   end
 
   def update
-    resource.medical_record_images.delete_all
-    resource.laboratory_examination_images.delete_all
-    resource.imaging_examination_images.delete_all
+    # resource.medical_record_images.delete_all
+    # resource.laboratory_examination_images.delete_all
+    # resource.imaging_examination_images.delete_all
 
     p medical_record_params
     # binding.pry
