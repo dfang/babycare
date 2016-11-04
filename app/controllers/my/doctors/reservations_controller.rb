@@ -8,12 +8,25 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   end
 
   def index
+    p params
     if params.key?(:id)
+      # /my/doctors/patients/22/reservations
+      # {"controller"=>"my/doctors/reservations", "action"=>"index", "id"=>"22"}
+      # 医生查看某病人和自己的所有的预约页面
+      @user = User.find_by(id: params[:id])
       @reservations = @user.reservations.order("updated_at DESC")
     else
+      # /my/doctors/reservations
+      # {"controller"=>"my/doctors/reservations", "action"=>"index"}
       # 医生的所有预约页面
       @reservations = current_user.reservations.order("updated_at DESC")
     end
+  end
+
+  def show
+    # /my/doctors/reservations/106
+    # {"controller"=>"my/doctors/reservations", "action"=>"show", "id"=>"106"}
+    super
   end
 
   def status
@@ -48,9 +61,10 @@ class My::Doctors::ReservationsController < InheritedResources::Base
 
   private
 
-  def begin_of_association_chain
-    @user ||= User.find_by(id: params[:id]) || current_user
-  end
+  # def begin_of_association_chain
+  #   p params
+  #   @user ||= User.find_by(id: params[:id]) || current_user
+  # end
 
   def reservation_params
     params.require(:reservation).permit!
