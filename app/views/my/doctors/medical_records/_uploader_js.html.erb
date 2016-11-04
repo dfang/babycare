@@ -52,13 +52,13 @@
           uploadPhotosField = ""
           switch ($(e.target).attr('id')) {
             case 'picker1':
-              uploadPhotosField = "medical_record[medical_record_images_attributes][][media_id]"
+              uploadPhotosField = "medical_record[medical_record_images_attributes][" + i + "][media_id]"
               break;
             case 'picker2':
-              uploadPhotosField = "medical_record[laboratory_examination_images][][media_id]"
+              uploadPhotosField = "medical_record[laboratory_examination_images][" + i + "][media_id]"
               break;
             default:
-              uploadPhotosField = "medical_record[imaging_examination_images][][media_id]"
+              uploadPhotosField = "medical_record[imaging_examination_images][" + i + "][media_id]"
               break;
           }
           return uploadPhotosField
