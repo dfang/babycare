@@ -93,7 +93,7 @@
                       // alert('upload complete, serverId is ')
                       // alert(res.serverId)
 
-                      $input = $('<input type="hidden">').attr('class', "media-id").attr("name", uploadPhotosField($files.find('.weui-uploader__file').length)).attr('value', res.serverId)
+                      $input = $('<input type="hidden">').attr('class', "media-id").attr("name", uploadPhotosField($files.find('.weui-uploader__file').length + 1)).attr('value', res.serverId)
                       $li.append($input)
 
                       // alert('input field name is')
