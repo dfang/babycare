@@ -24,7 +24,7 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
     # resource.imaging_examination_images.delete_all
 
     p medical_record_params
-    binding.remote_pry
+    # binding.remote_pry
 
     update! {
       if @reservation.present?

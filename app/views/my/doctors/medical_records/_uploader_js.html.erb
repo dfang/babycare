@@ -77,7 +77,7 @@
                   $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
                   $files.find('.weui-uploader__file.holder').remove()
                   $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
-                  $i = $("i.weui-icon-delete.weui-icon_gallery-delete").css("float", "right").css("margin-top", "2px")
+                  $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px")
                   $li.append($i)
                   $files.append($li)
 
