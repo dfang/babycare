@@ -1,5 +1,9 @@
 <script type="text/javascript">
   $(document).on("ready", function(){
+
+    console.log(isWeiXin())
+    console.log(isAndroid())
+
     if( true ){
 
       // z-index可以遮住plupload生成的上传按钮, iOS的plupload选择框有拍照功能，所以用plupload
@@ -89,6 +93,7 @@
                       // alert('upload complete, serverId is ')
                       // alert(res.serverId)
 
+                      // $li = $(e.target).parents('.weui-uploader').find('.weui-uploader__files li').eq(i)
                       $input = $('<input type="hidden">').attr("name", uploadPhotosField(i)).attr('value', res.serverId)
                       $li.append($input)
 
@@ -117,15 +122,15 @@
       $('form').submit(function(){
 
         // $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        //   $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][][data]")
+        //   $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][" + index + "][media_id]")
         // })
         //
         // $('.weui_uploader2').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        //   $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][][data]")
+        //   $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][" + index + "][media_id]")
         // })
         //
         // $('.weui_uploader3').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        //   $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][][data]")
+        //   $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][" + index + "][media_id]")
         // })
 
       })
@@ -149,15 +154,15 @@
 
       // 删除之后要重排图片的索引
       // $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-      //   $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][][data]")
+      //   $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][" + index + "][media_id]")
       // })
       //
       // $('.weui_uploader2').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-      //   $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][][data]")
+      //   $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][" + index + "][media_id]")
       // })
       //
       // $('.weui_uploader3').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-      //   $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][][data]")
+      //   $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][" + index + "][media_id]")
       // })
     })
 

@@ -9,7 +9,7 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
 
   def create
     p medical_record_params
-    binding.remote_pry
+    # binding.remote_pry
 
     create! {
       if @reservation.present?
@@ -20,7 +20,7 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
 
   def update
     p medical_record_params
-    binding.remote_pry
+    # binding.remote_pry
 
     resource.medical_record_images.delete_all
     resource.laboratory_examination_images.delete_all
