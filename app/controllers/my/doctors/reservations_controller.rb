@@ -8,7 +8,12 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   end
 
   def index
-    @reservations = current_user.reservations.order("updated_at DESC")
+    if params.key?(:id)
+      @reservations = @user.reservations.order("updated_at DESC")
+    else
+      # 医生的所有预约页面
+      @reservations = current_user.reservations.order("updated_at DESC")
+    end
   end
 
   def status
@@ -42,6 +47,10 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   end
 
   private
+
+  def begin_of_association_chain
+    @user ||= User.find_by(id: params[:id]) || current_user
+  end
 
   def reservation_params
     params.require(:reservation).permit!
