@@ -2,6 +2,7 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
   before_action :find_reservation, only: [:create, :update]
   skip_before_action :find_reservation, except: [:create, :update]
+  before_action :config_wx_jssdk, only: [:new, :edit]
 
   def index
     @medical_records = current_user.medical_records.order('created_at DESC')
@@ -40,16 +41,6 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   end
 
   def new
-
-    @appId = Settings.wx_pay.app_id
-    @nonceStr = SecureRandom.hex
-    @timestamp =  DateTime.now.to_i
-    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
-                        "#{k}=#{v}" if v != "" && !v.nil?
-                      end.compact.join('&')
-    @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
-
-
     @medical_record ||= MedicalRecord.new
     @medical_record.blood_type = current_user.settings.first.try(:blood_type)
     @medical_record.birthdate = current_user.settings.first.try(:birthdate)
@@ -81,5 +72,15 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
 
   def medical_record_params
     params.require(:medical_record).permit!
+  end
+
+  def config_wx_jssdk
+    @appId = Settings.wx_pay.app_id
+    @nonceStr = SecureRandom.hex
+    @timestamp =  DateTime.now.to_i
+    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
+                        "#{k}=#{v}" if v != "" && !v.nil?
+                      end.compact.join('&')
+    @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
   end
 end
