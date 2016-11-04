@@ -6,6 +6,8 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
   skip_before_action :find_reservation, only: [:index ]
 
   def create
+    binding.pry
+    
     create! {
       if @reservation.present?
         my_doctors_reservation_path(@reservation)
