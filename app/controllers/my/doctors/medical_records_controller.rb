@@ -6,8 +6,9 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
   skip_before_action :find_reservation, only: [:index ]
 
   def create
-    binding.pry
-    
+    p medical_record_params
+    binding.remote_pry
+
     create! {
       if @reservation.present?
         my_doctors_reservation_path(@reservation)
@@ -16,6 +17,9 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
   end
 
   def update
+    p medical_record_params
+    binding.remote_pry
+
     resource.medical_record_images.delete_all
     resource.laboratory_examination_images.delete_all
     resource.imaging_examination_images.delete_all
