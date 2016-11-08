@@ -80,18 +80,18 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.middleware.use ExceptionNotification::Rack,
-    :email => {
-      :email_prefix => "[Call Me A Doctor]",
-      :sender_address => 'call_me_a_doctor@yhuan.cc',
-      :exception_recipients => %w(dfang@yhuan.cc),
-      :smtp_settings => {
-        address:        'smtp.exmail.qq.com',
-        user_name:      'call_me_a_doctor@yhuan.cc',
-        password:       '1Qaz2wsx',
-        authentication: :login,
-        enable_starttls_auto: true
-      }
-    },
-    :ignore_crawlers => %w(Googlebot bingbot AhrefsBot Baiduspider Site\ Scanner\ Bot Sogou HaosouSpider)
+  # config.middleware.use ExceptionNotification::Rack,
+  #   :email => {
+  #     :email_prefix => "[Call Me A Doctor]",
+  #     :sender_address => 'call_me_a_doctor@yhuan.cc',
+  #     :exception_recipients => %w(dfang@yhuan.cc),
+  #     :smtp_settings => {
+  #       address:        'smtp.exmail.qq.com',
+  #       user_name:      'call_me_a_doctor@yhuan.cc',
+  #       password:       '1Qaz2wsx',
+  #       authentication: :login,
+  #       enable_starttls_auto: true
+  #     }
+  #   },
+  #   :ignore_crawlers => %w(Googlebot bingbot AhrefsBot Baiduspider Site\ Scanner\ Bot Sogou HaosouSpider)
 end
