@@ -1,8 +1,8 @@
 <div class="weui-msg">
     <div class="weui-msg__icon-area">
-      <a href="/my/patients/index">
+      <%= link_to doctor_path(resource) do %>
         <%= image_tag resource.user.try(:avatar) %>
-      </a>
+      <% end %>
     </div>
     <div class="weui-msg__text-area">
         <h2 class="weui-msg__title"><%= resource.name %></h2>
@@ -28,6 +28,11 @@
             </div>
 
             <div class="weui-media-box weui-media-box_text">
+              <p class="weui-media-box__desc left">职称</p>
+              <p class="weui-media-box__desc right">主任医师</p>
+            </div>
+
+            <div class="weui-media-box weui-media-box_text">
               <p class="weui-media-box__desc left">毕业院校</p>
               <p class="weui-media-box__desc right">首都医科院</p>
             </div>
@@ -40,12 +45,60 @@
         </div>
       </div>
 
-      <div class="weui-panel weui-panel__access">
+      <div class="weui-panel weui-panel__access evaluate_panel">
         <div class="weui-panel__hd">用户评价</div>
         <div class="weui-panel__bd">
+
             <div class="weui-media-box weui-media-box_text">
-              <p class="weui-media-box__desc">问诊详细认真</p>
+              <div class="title_cell">
+                <div class="weui-media-box_title">曈曈</div>
+                <div class="score_star"></div>
+                <div class="date">2016-09-07 20:39</div>
+              </div>
+              <div class="tag_cell">
+                  <span>问诊详细认真</span>
+              </div>
+              <p class="weui-media-box__desc">好评</p>
             </div>
+
+
+            <div class="weui-media-box weui-media-box_text">
+              <div class="title_cell">
+                <div class="weui-media-box_title">荆悦琳</div>
+                <div class="score_star"></div>
+                <div class="date">2016-09-07 20:39</div>
+              </div>
+              <div class="tag_cell">
+                  <span>细心幽默</span><span>线上好医生</span>
+              </div>
+              <p class="weui-media-box__desc">好评</p>
+            </div>
+
+
+            <div class="weui-media-box weui-media-box_text">
+              <div class="title_cell">
+                <div class="weui-media-box_title">李承元</div>
+                <div class="score_star"></div>
+                <div class="date">2016-09-07 20:39</div>
+              </div>
+              <div class="tag_cell">
+                  <span>细致有责任心</span>
+              </div>
+              <p class="weui-media-box__desc">好评</p>
+            </div>
+
+            <div class="weui-media-box weui-media-box_text">
+              <div class="title_cell">
+                <div class="weui-media-box_title">朵朵</div>
+                <div class="score_star"></div>
+                <div class="date">2016-09-07 20:39</div>
+              </div>
+              <div class="tag_cell">
+                  <span>感觉有点啰嗦</span>
+              </div>
+              <p class="weui-media-box__desc">好评</p>
+            </div>
+
         </div>
       </div>
     </div>

@@ -34,4 +34,28 @@
       }
     }
   }
+
+  .evaluate_panel {
+    .title_cell {
+      overflow: hidden;
+      .weui-media-box_title{
+        float: left;
+        margin-bottom: 0;
+        font-size: 14px;
+      }
+      .score_star{
+        float: left;
+        padding-left: 12px;
+        margin-top: -2px;
+      }
+      .date{
+        float: right;
+        color: #999;
+        font-size: 12px;
+      }
+    }
+    p{
+      margin: 5px;
+    }
+  }
 }
