@@ -17,37 +17,25 @@
         <label class="weui-label">身份证号码</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <!-- <input class="weui-input" name="doctor[id_card_num]" type="text" value=""> -->
-        <%= f.text_field :id_card_num, class: 'weui-input', data: { "parsley-required": "true", "parsley-pattern": /[d{18}|d{17}x]/ } %>
+        <%= f.text_field :id_card_num, class: 'weui-input', data: { "parsley-required": "true", "parsley-pattern": /[(d{18})|(d{17}x)]/ } %>
       </div>
     </div>
 
     <div class="weui-cell">
-        <div class="weui-cell__bd weui-cell_primary">
-            <div class="weui_uploader weui_uploader1">
-                <div class="weui_uploader_hd weui-cell">
-                    <div class="weui-cell__bd weui-cell_primary">身份证正面照片</div>
-                    <!-- <div class="weui-cell__ft">
-                      <% if @doctor.id_card_front.present? %>
-                        1/1
-                      <% else %>
-                        0/1
-                      <% end %>
-                    </div> -->
+        <div class="weui-cell__bd">
+            <div class="weui-uploader weui_uploader1">
+                <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">身份证正面照片</p>
                 </div>
-                <div class="weui_uploader_bd">
-                    <ul class="weui_uploader_files">
-                      <li class="weui_uploader_file">
-                        <!-- <% if @doctor.id_card_front.present? %>
-                          <%= image_tag @doctor.id_card_front%>
-                        <% else %>
-                          <img data-src="holder.js/79x79"/>
-                        <% end %> -->
-                        <%= show_holder_or_image @doctor, :id_card_front, "79x79" %>
-                        <%= f.hidden_field :id_card_front, class: 'file_field' %>
-                      </li>
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files" id="uploaderFiles">
+                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)">
+                          <%= show_holder_or_image @doctor, :id_card_front, "79x79" %>
+                          <%= f.hidden_field :id_card_front, class: 'file_field' %>
+                        </li>
                     </ul>
-                    <div class="weui_uploader_input_wrp" id='picker1'>
+                    <div class="weui-uploader__input-box" id='picker1'>
+                        <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
                     </div>
                 </div>
             </div>
@@ -55,27 +43,20 @@
     </div>
 
     <div class="weui-cell">
-        <div class="weui-cell__bd weui-cell_primary">
-            <div class="weui_uploader weui_uploader2">
-                <div class="weui_uploader_hd weui-cell">
-                    <div class="weui-cell__bd weui-cell_primary">身份证反面照片</div>
-                    <!-- <div class="weui-cell__ft">
-                      <% if @doctor.id_card_back.present? %>
-                        1/1
-                      <% else %>
-                        0/1
-                      <% end %>
-                    </div> -->
+        <div class="weui-cell__bd">
+            <div class="weui-uploader weui_uploader2">
+                <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">身份证反面照片</p>
                 </div>
-                <div class="weui_uploader_bd">
-                    <ul class="weui_uploader_files">
-                      <li class="weui_uploader_file" style="background-image:url()">
-                        <%= show_holder_or_image @doctor, :id_card_back, "79x79" %>
-                        <%= f.hidden_field :id_card_back, class: 'file_field' %>
-                      </li>
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files" id="uploaderFiles">
+                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)">
+                          <%= show_holder_or_image @doctor, :id_card_back, "79x79" %>
+                          <%= f.hidden_field :id_card_back, class: 'file_field' %>
+                        </li>
                     </ul>
-                    <div class="weui_uploader_input_wrp" id='picker2'>
-                        <!-- <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""> -->
+                    <div class="weui-uploader__input-box" id='picker2'>
+                        <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
                     </div>
                 </div>
             </div>
@@ -83,61 +64,47 @@
     </div>
 
     <div class="weui-cell">
-        <div class="weui-cell__bd weui-cell_primary">
-            <div class="weui_uploader weui_uploader3">
-                <div class="weui_uploader_hd weui-cell">
-                    <div class="weui-cell__bd weui-cell_primary">医生执照正页</div>
-                    <!-- <div class="weui-cell__ft">
-                      <% if @doctor.license_front.present? %>
-                        1/1
-                      <% else %>
-                        0/1
-                      <% end %>
-                    </div> -->
+        <div class="weui-cell__bd">
+            <div class="weui-uploader weui_uploader3">
+                <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">医生执照正页</p>
                 </div>
-                <div class="weui_uploader_bd">
-                    <ul class="weui_uploader_files">
-                      <li class="weui_uploader_file">
-                        <%= show_holder_or_image @doctor, :license_front, "79x79" %>
-                        <%= f.hidden_field :license_front, class: 'file_field' %>
-                      </li>
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files" id="uploaderFiles">
+                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)">
+                          <%= show_holder_or_image @doctor, :license_front, "79x79" %>
+                          <%= f.hidden_field :license_front, class: 'file_field' %>
+                        </li>
                     </ul>
-                    <div class="weui_uploader_input_wrp" id='picker3'>
-                        <!-- <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""> -->
+                    <div class="weui-uploader__input-box" id='picker3'>
+                        <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="weui-cell">
-        <div class="weui-cell__bd weui-cell_primary">
-            <div class="weui_uploader weui_uploader4">
-                <div class="weui_uploader_hd weui-cell">
-                    <div class="weui-cell__bd weui-cell_primary">医生执照副页</div>
-                    <!-- <div class="weui-cell__ft">
-                      <% if @doctor.license_back.present? %>
-                        1/1
-                      <% else %>
-                        0/1
-                      <% end %>
-                    </div> -->
+        <div class="weui-cell__bd">
+            <div class="weui-uploader weui_uploader4">
+                <div class="weui-uploader__hd">
+                  <p class="weui-uploader__title">医生执照副页</p>
                 </div>
-                <div class="weui_uploader_bd">
-                    <ul class="weui_uploader_files">
-                      <li class="weui_uploader_file">
-                        <%= show_holder_or_image @doctor, :license_back, "79x79" %>
-                        <%= f.hidden_field :license_back, class: 'file_field' %>
-                      </li>
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files" id="uploaderFiles">
+                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)">
+                          <%= show_holder_or_image @doctor, :license_back, "79x79" %>
+                          <%= f.hidden_field :license_back, class: 'file_field' %>
+                        </li>
                     </ul>
-                    <div class="weui_uploader_input_wrp" id='picker4'>
-                        <!-- <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""> -->
+                    <div class="weui-uploader__input-box" id='picker4'>
+                        <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div class="weui-cell weui-cell_select weui-cell_select-after">
         <div class="weui-cell__hd">
