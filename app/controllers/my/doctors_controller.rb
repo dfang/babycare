@@ -1,5 +1,5 @@
 class My::DoctorsController < InheritedResources::Base
-  before_filter ->{ authenticate_user!( force: true ) } 
+  before_filter ->{ authenticate_user!( force: true ) }
 
   before_action :check_is_verified_doctor, only: [ :reservations, :index ]
   # skip_before_action :verify_is_doctor, only: :status
@@ -15,6 +15,9 @@ class My::DoctorsController < InheritedResources::Base
   def status
   end
 
+  def profile
+  end
+
   private
 
   def check_is_verified_doctor
@@ -22,7 +25,7 @@ class My::DoctorsController < InheritedResources::Base
       flash[:error] = "你还没提交资料申请我们的签约医生"
       redirect_to global_denied_path and return
     end
-    
+
     unless current_user.is_verified_doctor?
       redirect_to my_doctors_status_path and return
     end

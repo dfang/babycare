@@ -7,14 +7,14 @@
 <% end %>
 
 <%= simple_form_for @doctor, as: :doctor, url: url, html: { method: method } do |f| %>
-  <!-- <div class="weui-cells__title">申请成为医生</div>
-  <p class="weui-cells__tips">顶部说明文字</p> -->
+  <div class="weui-cells__title">申请成为医生</div>
+  <p class="weui-cells__tips">你需要上传资料并通过我们的审核</p>
 
   <div class="weui-cells__title">从业信息</div>
   <div class="weui-cells weui-cells_form">
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui-label" for="">身份证号码</label>
+        <label class="weui-label">身份证号码</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
         <!-- <input class="weui-input" name="doctor[id_card_num]" type="text" value=""> -->
@@ -149,6 +149,17 @@
             </select>
         </div>
     </div>
+
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
+        <label class="weui-label" for="">擅长</label>
+      </div>
+      <div class="weui-cell__hd">
+        <!-- <input class="weui-input" name="doctor[hospital]" type="text" value=""> -->
+        <%= f.text_field :good_at, class: 'weui-input', data: { "parsley-required": "true" } %>
+      </div>
+    </div>
+
 
     <div class="weui-cell">
       <div class="weui-cell__hd">

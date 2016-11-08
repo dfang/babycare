@@ -1,0 +1,40 @@
+<div class="weui-msg">
+    <div class="weui-msg__icon-area">
+      <a href="/my/patients/index">
+        <%= image_tag resource.user.try(:avatar) %>
+      </a>
+    </div>
+    <div class="weui-msg__text-area">
+        <h2 class="weui-msg__title"><%= resource.name %></h2>
+    </div>
+    <div class="weui-msg__opr-area">
+
+      <div class="weui-panel weui-panel__access">
+        <div class="weui-panel__hd">擅长医治</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+              <p class="weui-media-box__desc">孕妇保健 儿童保健</p>
+            </div>
+        </div>
+      </div>
+
+      <div class="weui-panel weui-panel__access">
+        <div class="weui-panel__hd">个人资料</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+              <p class="weui-media-box__desc">毕业院校：首都医科院</p>
+              <p class="weui-media-box__desc">成就: xxxxx</p>
+            </div>
+        </div>
+      </div>
+
+      <div class="weui-panel weui-panel__access">
+        <div class="weui-panel__hd">用户评价</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+              <p class="weui-media-box__desc">问诊详细认真</p>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
