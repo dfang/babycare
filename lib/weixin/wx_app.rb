@@ -31,7 +31,7 @@ module WxApp
       jsapi_ticket = Rails.cache.fetch("weixin_jsapi_ticket")
       return jsapi_ticket unless jsapi_ticket.nil?
 
-      url = "/cgi-bin/ticket/getticket?access_token=#{get_access_token}&type=jsapi"
+      url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
       conn = get_conn
       response = conn.get url
       jsapi_ticket = JSON.parse(response.body)["ticket"]
@@ -55,7 +55,7 @@ module WxApp
       p "#{build_menus}"
       p "syncing menus to remote"
       conn.post do |req|
-        req.url "/cgi-bin/menu/create?access_token=#{get_access_token}"
+        req.url "/cgi-bin/menu/create?access_token=#{WxApp::WxCommon.get_access_token}"
         req.headers['Content-Type'] = 'application/json'
         # req.body =
         #           {
@@ -131,7 +131,7 @@ module WxApp
     end
 
     def get_user_info openid, options={}
-      url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=#{get_access_token}&openid=#{openid}&lang=zh_CN"
+      url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=#{WxApp::WxCommon.get_access_token}&openid=#{openid}&lang=zh_CN"
       response = Faraday.get url
       body = JSON.parse response.body
       if body['errcode'].blank? && options[:update]
@@ -157,7 +157,7 @@ module WxApp
     def send_template_message message_json
       conn = get_conn
       resp = conn.post do |req|
-        req.url "/cgi-bin/message/template/send?access_token=#{get_access_token}"
+        req.url "/cgi-bin/message/template/send?access_token=#{WxApp::WxCommon.get_access_token}"
         req.headers['Content-Type'] = 'application/json'
         req.body = message_json
       end
@@ -166,14 +166,14 @@ module WxApp
     def send_cs_message message_json
       conn = get_conn
       resp = conn.post do |req|
-        req.url "/cgi-bin/message/custom/send?access_token=#{get_access_token}"
+        req.url "/cgi-bin/message/custom/send?access_token=#{WxApp::WxCommon.get_access_token}"
         req.headers['Content-Type'] = 'application/json'
         req.body = message_json
       end
     end
 
     def get_current_menus
-      url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=#{get_access_token}"
+      url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=#{WxApp::WxCommon.get_access_token}"
       response = Faraday.get url
       body = JSON.parse response.body
     end
@@ -208,7 +208,7 @@ module WxApp
       scene_id = user.id
       conn = get_conn
       resp = conn.post do |req|
-        req.url "/cgi-bin/qrcode/create?access_token=#{get_access_token}"
+        req.url "/cgi-bin/qrcode/create?access_token=#{WxApp::WxCommon.get_access_token}"
         req.headers['Content-Type'] = 'application/json'
         req.body = {action_name: "QR_LIMIT_SCENE", action_info: {scene: {scene_id: scene_id}}}.to_json
       end
@@ -216,13 +216,13 @@ module WxApp
 
 
     # def create_group
-    #   # url = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token=#{get_access_token}"
+    #   # url = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token=#{WxApp::WxCommon.get_access_token}"
     #   conn = get_conn
 
     #   p "#{create group}"
 
     #   conn.post do |req|
-    #     req.url = "/cgi-bin/groups/create?access_token=#{get_access_token}"
+    #     req.url = "/cgi-bin/groups/create?access_token=#{WxApp::WxCommon.get_access_token}"
     #     req.headers['Content-Type'] = 'application/json'
     #     req.body = {"group":{"name":"test"}}
     #   end
