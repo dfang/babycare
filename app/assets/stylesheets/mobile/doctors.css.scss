@@ -13,3 +13,25 @@
   }
 
 }
+
+
+.doctors_show {
+  .weui-panel__access{
+    text-align: left;
+    .weui-panel__hd{
+      color: #000000;
+      font-size: 15px;
+    }
+    .weui-panel__bd{
+      .weui-media-box__desc.left {
+        width: 30%;
+        float: left;
+      }
+      .weui-media-box__desc.right {
+        width: 70%;
+        overflow: visible;
+        text-overflow: inherit;
+      }
+    }
+  }
+}

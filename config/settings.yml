@@ -37,3 +37,17 @@ sms_templates:
   notify_doctor_when_prepaid: 121706
   notify_user_when_diagnosed: 121709
   notify_doctor_when_paid: 121710
+
+
+doctors:
+  good_ats:
+    - 儿童外科
+    - 儿童耳鼻喉
+    - 儿童眼科
+    - 儿童神经
+    - 儿童心血管
+    - 儿童内分泌
+    - 儿童血液
+    - 儿童消化
+    - 儿童呼吸
+    - 儿童保健
