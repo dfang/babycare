@@ -5,4 +5,5 @@
 *= require ./custom
 *= require ./star-rating.min
 *= require ./doctors
+*= require ./tags
 */

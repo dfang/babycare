@@ -12,9 +12,15 @@
       <div class="weui-panel weui-panel__access">
         <div class="weui-panel__hd">擅长医治</div>
         <div class="weui-panel__bd">
-            <div class="weui-media-box weui-media-box_text">
-              <p class="weui-media-box__desc">孕妇保健 儿童保健</p>
-            </div>
+          <div class="weui-media-box weui-media-box_text">
+            <!-- <p class="weui-media-box__desc left">擅长医治</p> -->
+            <p class="weui-media-box__desc right good_at">
+              <span class="hidden">孕妇保健</span>
+              <span class="hidden">儿童保健</span>
+            </p>
+          </div>
+
+            
         </div>
       </div>
 
@@ -56,7 +62,7 @@
                 <div class="date">2016-09-07 20:39</div>
               </div>
               <div class="tag_cell">
-                  <span>问诊详细认真</span>
+                  <span class="hidden">问诊详细认真</span>
               </div>
               <p class="weui-media-box__desc">好评</p>
             </div>
@@ -69,7 +75,7 @@
                 <div class="date">2016-09-07 20:39</div>
               </div>
               <div class="tag_cell">
-                  <span>细心幽默</span><span>线上好医生</span>
+                  <span class="hidden">细心幽默</span><span class="hidden">线上好医生</span>
               </div>
               <p class="weui-media-box__desc">好评</p>
             </div>
@@ -82,7 +88,7 @@
                 <div class="date">2016-09-07 20:39</div>
               </div>
               <div class="tag_cell">
-                  <span>细致有责任心</span>
+                <span class="hidden">细致有责任心</span>
               </div>
               <p class="weui-media-box__desc">好评</p>
             </div>
@@ -94,7 +100,7 @@
                 <div class="date">2016-09-07 20:39</div>
               </div>
               <div class="tag_cell">
-                  <span>感觉有点啰嗦</span>
+                  <span class="hidden">感觉有点啰嗦</span>
               </div>
               <p class="weui-media-box__desc">好评</p>
             </div>
@@ -103,3 +109,50 @@
       </div>
     </div>
 </div>
+
+<%= content_for :css do %>
+	<%= stylesheet_link_tag :bootstrap_fontawesome %>
+<% end %>
+
+
+<%= content_for :js do %>
+  <%= javascript_tag do %>
+    $(function(){
+
+      $('.good_at').map(function(i,e){
+        values = []
+
+        $(e).find('span').map(function(){
+          values.push($(this).text())
+        })
+
+        $(e).tags({
+          values: values,
+          can_add: false,
+          can_delete: false
+        })
+
+
+      })
+
+      $('.tag_cell').each(function(i, e){
+
+        values = []
+
+        $(e).find('span').map(function(){
+          values.push($(this).text())
+        })
+
+        console.log(values);
+
+        $(e).tags({
+          values: values,
+          can_add: false,
+          can_delete: false
+        })
+
+      })
+
+    })
+  <% end %>
+<% end %>
