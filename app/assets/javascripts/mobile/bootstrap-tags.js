@@ -295,7 +295,7 @@
     Tags.prototype.removeTag = function(tag) {
         var $self = this;
         var $tag = $(tag).closest('[data-tag-id]');
-        
+
         if($self.options.onBeforeRemove($tag) === false) {
             return;
         }
@@ -328,3 +328,5 @@ if(!String.prototype.format) {
     };
 }
 ;
+
+// https://github.com/Serhioromano/bootstrap-tags
