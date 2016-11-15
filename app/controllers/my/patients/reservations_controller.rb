@@ -44,58 +44,20 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     if resource.reserved? || resource.diagnosed?
 
-        test_params = {
-          body: body_text,
-          out_trade_no: out_trade_no,
-          total_fee: 1,
-          spbill_create_ip: '60.205.110.67',
-          notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
-          trade_type: 'JSAPI',
-          openid: current_wechat_authentication.uid
-        }
-
-        options = {
-                    appid: Settings.wx_pay.app_id,
-                    mch_id: Settings.wx_pay.mch_id,
-                    key: Settings.wx_pay.key,
-                    noncestr: SecureRandom.hex,
-                    timestamp: DateTime.now.to_i
-                  }
-
-        result = WxPay::Service.invoke_unifiedorder(test_params, options)
-
-        p 'invoke_unifiedorder result is .......... '
-        p result
-
-        # binding.remote_pry
-
-        # js_request_params = WxPay::Service.generate_js_pay_req(test_params.merge({
-        #             noncestr: options[:noncestr],
-        #             package: "prepay_id=#{result['prepay_id']}",
-        #             prepayid: result['prepay_id']
-        #           }), appid: Settings.wx_pay.app_id )
-        # p 'generate_js_pay_req is '
+        payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, Settings.wx_pay.prepay_amount, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
+        result = WxPay::Service.invoke_unifiedorder(payment_params, WxApp::WxPay.generate_payment_options)
+        p   'invoke_unifiedorder result: payment_params is .......... '
+        p   result
 
         # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-        js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |k,v|
-                            "#{k}=#{v}" if v != "" && !v.nil?
-                          end.compact.join('&')
+        js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(request.url)
+        p   'js_sdk_signature string ..........'
+        p   js_sdk_signature_str
 
-        p 'js_sdk_signature string ..........'
-        p js_sdk_signature_str
 
-        pay_sign_str = {
-                      appId: Settings.wx_pay.app_id,
-                      nonceStr: options[:noncestr],
-                      timeStamp: options[:timestamp],
-                      package: "prepay_id=#{result['prepay_id']}",
-                      signType: 'MD5'
-                  }.sort.map do |k,v|
-                            "#{k}=#{v}" if v != "" && !v.nil?
-                          end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
-
-        p  'pay_sign is .....'
-        p  pay_sign_str
+        pay_sign_str = WxApp::WxPay.generate_pay_sign_str(result['prepay_id'])
+        p   'pay_sign_str is .....'
+        p   pay_sign_str
 
 
 
@@ -106,8 +68,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
           nonceStr:  options[:noncestr],
           signType:  "MD5",
           package:   "prepay_id=#{result['prepay_id']}",
-          sign:      Digest::SHA1.hexdigest(js_sdk_signature_str),
-          paySign:   Digest::MD5.hexdigest(pay_sign_str).upcase()
+          sign:      WxApp::WxPay.generate_js_sdk_signature_str(request.url),
+          paySign:   WxApp::WxPay.generate_pay_sign_str
         }
 
         p '@order_params is .........'
@@ -144,21 +106,14 @@ class My::Patients::ReservationsController < InheritedResources::Base
       body: "支付咨询费用",
       out_trade_no: out_trade_no,
       total_fee: reservation.total_fee,
-      spbill_create_ip: '60.205.110.67',
+      spbill_create_ip: request.ip,
       notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
       trade_type: 'JSAPI',
       openid: current_wechat_authentication.uid
     }
 
-    options = {
-                appid:      Settings.wx_pay.app_id,
-                mch_id:     Settings.wx_pay.mch_id,
-                key:        Settings.wx_pay.key,
-                noncestr:   SecureRandom.hex,
-                timestamp:  DateTime.now.to_i
-              }
 
-    result = WxPay::Service.invoke_unifiedorder(payment_params, options)
+    result = WxPay::Service.invoke_unifiedorder(payment_params, WxApp::WxPay.generate_payment_options)
 
     p 'invoke_unifiedorder result is .......... '
     p result

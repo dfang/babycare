@@ -4,10 +4,11 @@
         <div class="weui_text_area">
             <h2 class="weui-msg__title">支付定金</h2>
             <p class="weui-msg__desc">请支付定金以确定你真的需要预约医生! 这样好让医生尽快给你安排时间.</p>
+            <p class="weui-msg__desc"></p>
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-              <a href="javascript:void(0)" class="weui-btn weui-btn__primary" id="wechatPaymentBtn">支付定金</a>
+              <a href="javascript:void(0)" class="weui-btn weui-btn__primary" id="wechatPaymentBtn">支付定金 30元</a>
             </p>
         </div>
         <div class="weui-msg__extra-area">
@@ -28,10 +29,9 @@
       }.to_json;
 
   		wx.config({
-        <!-- debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。 -->
-  			appId: "<%= @order_params[:appId] %>", // 必填，公众号的唯一标识
+  			appId:     "<%= @order_params[:appId] %>", // 必填，公众号的唯一标识
         timestamp: "<%= @order_params[:timeStamp] %>", // 必填，生成签名的时间戳
-        nonceStr: "<%= @order_params[:nonceStr] %>", // 必填，生成签名的随机串
+        nonceStr:  "<%= @order_params[:nonceStr] %>", // 必填，生成签名的随机串
         signature: "<%= @order_params[:sign] %>", // 必填，签名，见附录1
         jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });

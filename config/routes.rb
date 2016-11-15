@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'wxjssdk/config'
+
   get 'payment/pay'
 
   devise_for :users, controllers: {

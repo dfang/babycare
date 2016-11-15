@@ -229,3 +229,63 @@ module WxApp
     # end
   end
 end
+
+
+module WxApp
+  module WxPay
+    extend self
+
+    def generate_payment_params(body_text, out_trade_no, total_fee, ip, notify_url, openid)
+      payment_params = {
+        body: body_text,
+        out_trade_no: out_trade_no,
+        total_fee: total_fee,
+        spbill_create_ip: ip,
+        notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
+        trade_type: 'JSAPI',
+        openid: openid
+      }
+
+      payment_params
+    end
+
+    def generate_payment_options
+      options = {
+                  appid:     Settings.wx_pay.app_id,
+                  mch_id:    Settings.wx_pay.mch_id,
+                  key:       Settings.wx_pay.key,
+                  noncestr:  SecureRandom.hex,
+                  timestamp: DateTime.now.to_i
+                }
+      options
+    end
+
+    def generate_js_sdk_signature_str(url)
+      options = generate_payment_options
+      js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: url }.sort.map do |k,v|
+                          "#{k}=#{v}" if v != "" && !v.nil?
+                        end.compact.join('&')
+      Digest::SHA1.hexdigest(js_sdk_signature_str)
+    end
+
+    # generate paysign sort, and encrypt
+    def generate_pay_sign_str(prepay_id)
+      options = generate_payment_options
+      pay_sign_str =  {
+                          appId:      options[:appid],
+                          nonceStr:   options[:noncestr],
+                          timeStamp:  options[:timestamp],
+                          package:    "prepay_id=#{prepay_id}",
+                          signType:   "MD5"
+                      }.sort.map do |k,v|
+                                "#{k}=#{v}" if v != "" && !v.nil?
+                             end.compact.join('&').concat("&key=#{options[:key]}")
+
+      Digest::MD5.hexdigest(pay_sign_str).upcase()
+    end
+
+
+
+
+  end
+end
