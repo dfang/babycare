@@ -143,7 +143,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     payment_params = {
       body: "支付咨询费用",
       out_trade_no: out_trade_no,
-      total_fee: resource.total_fee,
+      total_fee: reservation.total_fee,
       spbill_create_ip: '60.205.110.67',
       notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
       trade_type: 'JSAPI',
