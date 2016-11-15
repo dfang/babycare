@@ -25,7 +25,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     if resource.reserved?
       body_text = '预约定金'
     elsif resource.diagnosed?
-      body_text = '支付余款'
+      body_text = '支付咨询费用'
     end
 
     # 预约定金
@@ -52,12 +52,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
         p   result
 
         # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-        js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(request.url)
+        js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options, request.url)
         p   'js_sdk_signature string ..........'
         p   js_sdk_signature_str
 
 
-        pay_sign_str = WxApp::WxPay.generate_pay_sign_str(result['prepay_id'])
+        pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
         p   'pay_sign_str is .....'
         p   pay_sign_str
 
