@@ -62,11 +62,6 @@ class My::Doctors::ReservationsController < InheritedResources::Base
 
   private
 
-  # def begin_of_association_chain
-  #   p params
-  #   @user ||= User.find_by(id: params[:id]) || current_user
-  # end
-
   def reservation_params
     params.require(:reservation).permit!
   end

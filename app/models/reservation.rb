@@ -18,7 +18,7 @@ class Reservation < ActiveRecord::Base
     state :reserved, :prepaid, :diagnosed, :paid, :rated, :archived, :overdued, :cancelled
 
     event :reserve, after_transaction: :after_reserved! do
-      transitions from: :pending, to: :reserved
+      transitions from: :pending, to: :reserved, :guard => :can_be_reserved?
     end
 
     event :prepay, after_transaction: :after_prepaid! do
@@ -141,6 +141,15 @@ class Reservation < ActiveRecord::Base
     doctor.hospital
   end
 
+  # aasm guards
+  def can_be_reserved?
+    self.user_b.present?
+        && self.reservation_location.present?
+        && self.reservation_time.present?
+        && self.reservation_phone.present?
+  end
+
+  # aasm transaction callbacks
   def after_reserved!
     params = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
     SmsNotifyUserWhenReservedJob.perform_now(self.patient_user_phone, params)
