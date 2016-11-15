@@ -32,6 +32,7 @@ wx_pay:
   # 单位 分
   payment_notify_url: "http://wx.yhuan.cc/my/patients/reservations/payment_notify"
   prepay_amount: 1
+  pay_amount: 1
   pay_amount: 25
 
 sms_templates:

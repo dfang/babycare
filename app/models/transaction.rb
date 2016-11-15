@@ -9,11 +9,14 @@ class Transaction < ActiveRecord::Base
   validates :reservation_id, presence: true, if: :income?
   validates :withdraw_target, presence: true, if: :withdraw?
 
+  belongs_to :user
+
   def income?
-    operation.income? 
+    operation.income?
   end
 
   def withdraw?
     operation.withdraw?
   end
+
 end

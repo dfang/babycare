@@ -143,10 +143,7 @@ class Reservation < ActiveRecord::Base
 
   # aasm guards
   def can_be_reserved?
-    self.user_b.present?
-        && self.reservation_location.present?
-        && self.reservation_time.present?
-        && self.reservation_phone.present?
+    self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
   end
 
   # aasm transaction callbacks
@@ -170,6 +167,9 @@ class Reservation < ActiveRecord::Base
   def after_paid!
     params = [self.patient_user_name]
     SmsNotifyDoctorWhenPaidJob.perform_now(self.doctor_user_phone, params)
+
+    # todo increase doctor's income
+
   end
 
 end

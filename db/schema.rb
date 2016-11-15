@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115080938) do
+ActiveRecord::Schema.define(version: 20161115124700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -309,6 +309,8 @@ ActiveRecord::Schema.define(version: 20161115080938) do
     t.string   "out_trade_pay_no"
     t.string   "out_trade_prepay_no"
     t.integer  "total_fee"
+    t.integer  "prepay_fee"
+    t.integer  "pay_fee"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -369,7 +371,10 @@ ActiveRecord::Schema.define(version: 20161115080938) do
     t.string   "operation"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "user_id"
   end
+
+  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
 
   create_table "transcations", force: :cascade do |t|
     t.string   "reservation_id"
@@ -445,5 +450,6 @@ ActiveRecord::Schema.define(version: 20161115080938) do
   add_foreign_key "ratings", "reservations"
   add_foreign_key "ratings", "users"
   add_foreign_key "sms_histories", "reservations"
+  add_foreign_key "transactions", "users"
   add_foreign_key "wx_sub_menus", "wx_menus"
 end

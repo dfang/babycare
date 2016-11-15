@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   # has_many :reservations, :foreign_key => 'user_a'
   has_many :medical_records
   has_many :settings
+  has_many :transactions
+  has_one :wallet
   has_many :ratings, :dependent => :destroy
 
   def wechat_authentication
@@ -66,4 +68,20 @@ class User < ActiveRecord::Base
     # end
   end
 
+
+  def increase_income(amount, source, reservation_id)
+    transactions.create({
+      operation: "income",
+      amount: amount,
+      reservation_id: reservation_id,
+      source: source
+    })
+  end
+
+  def withdraw_cash(amount, withdraw_target)
+    transactions.create({
+      operation: "withdraw",
+      amount: amount
+    })
+  end
 end

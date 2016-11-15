@@ -21,11 +21,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
   end
 
   def show
-
     if resource.reserved?
       body_text = '预约定金'
+      fee = Settings.wx_pay.prepay_amount
     elsif resource.diagnosed?
       body_text = '支付咨询费用'
+      fee = Settings.wx_pay.pay_amount
     end
 
     # 预约定金
@@ -44,8 +45,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     if resource.reserved? || resource.diagnosed?
 
-        payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, Settings.wx_pay.prepay_amount, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
+        payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
         options = WxApp::WxPay.generate_payment_options
+
+        resource.prepay_fee = Settings.wx_pay.prepay_amount
+        resource.save!
 
         result = WxPay::Service.invoke_unifiedorder(payment_params, options)
         p   'invoke_unifiedorder result: payment_params is .......... '
@@ -60,7 +64,6 @@ class My::Patients::ReservationsController < InheritedResources::Base
         pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
         p   'pay_sign_str is .....'
         p   pay_sign_str
-
 
 
         # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
@@ -92,7 +95,6 @@ class My::Patients::ReservationsController < InheritedResources::Base
   end
 
   def wxpay
-
     reservation = Reservation.find_by(id: params[:reservation_id])
     body_text = "支付咨询费用"
     if reservation.blank?
@@ -138,7 +140,6 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
   def payment_notify
     # 改变订单状态
-    # binding.remote_pry
     # // 示例报文
     # // String xml = "<xml><appid><![CDATA[wxb4dc385f953b356e]]></appid><bank_type><![CDATA[CCB_CREDIT]]></bank_type><cash_fee><![CDATA[1]]></cash_fee><fee_type><![CDATA[CNY]]></fee_type><is_subscribe><![CDATA[Y]]></is_subscribe><mch_id><![CDATA[1228442802]]></mch_id><nonce_str><![CDATA[1002477130]]></nonce_str><openid><![CDATA[o-HREuJzRr3moMvv990VdfnQ8x4k]]></openid><out_trade_no><![CDATA[1000000000051249]]></out_trade_no><result_code><![CDATA[SUCCESS]]></result_code><return_code><![CDATA[SUCCESS]]></return_code><sign><![CDATA[1269E03E43F2B8C388A414EDAE185CEE]]></sign><time_end><![CDATA[20150324100405]]></time_end><total_fee>1</total_fee><trade_type><![CDATA[JSAPI]]></trade_type><transaction_id><![CDATA[1009530574201503240036299496]]></transaction_id></xml>";
     response_obj = Hash.from_xml(request.body.read)
@@ -162,28 +163,6 @@ class My::Patients::ReservationsController < InheritedResources::Base
     p order_query_result
     p order_query_result["out_trade_no"]
     if order_query_result["return_code"] == "SUCCESS"
-      # order_query_result
-      # {
-      #   "return_code"=>"SUCCESS",
-      #   "return_msg"=>"OK",
-      #   "appid"=>"wxa887ef8490361f68",
-      #   "mch_id"=>"1368072702",
-      #   "nonce_str"=>"PbbsrwpIR9P6ViZp",
-      #   "sign"=>"C81ECDA67B84AC9D1A222F5CAD2C050A",
-      #   "result_code"=>"SUCCESS",
-      #   "openid"=>"ox-t3s08e-Av2rUlE2a2i2ITR0XY",
-      #   "is_subscribe"=>"Y",
-      #   "trade_type"=>"JSAPI",
-      #   "bank_type"=>"CFT",
-      #   "total_fee"=>"1",
-      #   "fee_type"=>"CNY",
-      #   "transaction_id"=>"4007612001201608111132486401",
-      #   "out_trade_no"=>"prepay56471",
-      #   "attach"=>"",
-      #   "time_end"=>"20160811225354",
-      #   "trade_state"=>"SUCCESS",
-      #   "cash_fee"=>"1"
-      #  }
 
       p 'find reservation'
       reservation = Reservation.where("out_trade_pay_no = ? OR out_trade_prepay_no = ?", order_query_result["out_trade_no"], order_query_result["out_trade_no"]).first
