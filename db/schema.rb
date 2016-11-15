@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115010328) do
+ActiveRecord::Schema.define(version: 20161115080938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -361,6 +361,26 @@ ActiveRecord::Schema.define(version: 20161115010328) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
+  create_table "transactions", force: :cascade do |t|
+    t.string   "reservation_id"
+    t.float    "amount"
+    t.string   "source"
+    t.string   "withdraw_target"
+    t.string   "operation"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "transcations", force: :cascade do |t|
+    t.string   "reservation_id"
+    t.float    "amount"
+    t.string   "source"
+    t.string   "withdraw_target"
+    t.string   "operation"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -384,6 +404,13 @@ ActiveRecord::Schema.define(version: 20161115010328) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "wallets", force: :cascade do |t|
+    t.float    "balance_withdrawable"
+    t.float    "balance_unwithdrawable"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "wx_menus", force: :cascade do |t|
     t.string   "menu_type"
