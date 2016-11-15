@@ -7,7 +7,9 @@
         </div>
         <div class="weui-msg__opr-area">
           <p class="weui-btn-area">
-						<%= link_to "确认服务完成", complete_my_doctors_reservation_path(resource), method: 'PUT', class: "weui-btn weui-btn__primary" %>
+						<%= link_to "确认线下咨询服务完成", complete_offline_consult_my_doctors_reservation_path(resource), method: 'PUT', class: "weui-btn weui-btn__primary" %>
+
+            <%= link_to "确认电话咨询服务完成", complete_online_consult_my_doctors_reservation_path(resource), method: 'PUT', class: "weui-btn weui-btn__primary" %>
 
             <%- if resource.medical_record.present?  %>
 							<%= link_to "修改病例", edit_my_doctors_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>

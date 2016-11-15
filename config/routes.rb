@@ -43,7 +43,8 @@ Rails.application.routes.draw do
       resources :reservations do
         get 'claim', on: :member
         put 'claim', on: :member
-        put 'complete', on: :member
+        put 'complete_offline_consult', on: :member
+        put 'complete_online_consult', on: :member
       end
       resources :patients do
         member do
