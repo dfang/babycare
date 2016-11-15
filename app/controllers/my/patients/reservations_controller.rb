@@ -70,8 +70,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
           nonceStr:  options[:noncestr],
           signType:  "MD5",
           package:   "prepay_id=#{result['prepay_id']}",
-          sign:      Digest::SHA1.hexdigest(js_sdk_signature_str),
-          paySign:   Digest::MD5.hexdigest(pay_sign_str).upcase()
+          sign:      js_sdk_signature_str,
+          paySign:   pay_sign_str
         }
 
         p '@order_params is .........'
