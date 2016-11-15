@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'payment/pay'
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -58,7 +60,9 @@ Rails.application.routes.draw do
       resource :settings
 
       resources :reservations do
-        get 'payment_test', on: :collection
+        get 'payment', on: :member
+        put 'payment', on: :member
+        get 'pay', on: :member
         post 'payment_notify', on: :collection
       end
       get 'profile'

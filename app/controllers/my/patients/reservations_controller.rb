@@ -28,11 +28,13 @@ class My::Patients::ReservationsController < InheritedResources::Base
       body_text = '支付余款'
     end
 
+    # 预约定金
     if resource.out_trade_prepay_no.blank? && resource.reserved?
       resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
       resource.save
     end
 
+    # 支付余款
     if resource.out_trade_pay_no.blank? && resource.diagnosed?
       resource.out_trade_pay_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
       resource.save
@@ -112,6 +114,80 @@ class My::Patients::ReservationsController < InheritedResources::Base
         p @order_params
     end
 
+  end
+
+  def payment
+    if request.put?
+
+      @total_fee = params[:reservation][:total_fee]
+      resource.total_fee = @total_fee.to_f
+      resource.save!
+
+      redirect_to pay_my_patients_reservation_path(resource) and return
+    end
+  end
+
+  def pay
+
+    if resource.total_fee.blank?
+      redirect_to my_patients_reservation_path(resource) and return
+    end
+
+    out_trade_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
+    payment_params = {
+      body: "支付咨询费用",
+      out_trade_no: out_trade_no,
+      total_fee: resource.total_fee,
+      spbill_create_ip: '60.205.110.67',
+      notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
+      trade_type: 'JSAPI',
+      openid: current_wechat_authentication.uid
+    }
+
+    options = {
+                appid:      Settings.wx_pay.app_id,
+                mch_id:     Settings.wx_pay.mch_id,
+                key:        Settings.wx_pay.key,
+                noncestr:   SecureRandom.hex,
+                timestamp:  DateTime.now.to_i
+              }
+
+    result = WxPay::Service.invoke_unifiedorder(payment_params, options)
+
+    p 'invoke_unifiedorder result is .......... '
+    p result
+
+    # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
+    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: request.url }.sort.map do |k,v|
+                        "#{k}=#{v}" if v != "" && !v.nil?
+                      end.compact.join('&')
+
+    p 'js_sdk_signature string ..........'
+    p js_sdk_signature_str
+
+    pay_sign_str =  {
+                      appId:      Settings.wx_pay.app_id,
+                      nonceStr:   options[:noncestr],
+                      timeStamp:  options[:timestamp],
+                      package:    "prepay_id=#{result['prepay_id']}",
+                      signType:   "MD5"
+                    }.sort.map do |k,v|
+                        "#{k}=#{v}" if v != "" && !v.nil?
+                      end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
+
+    p  'pay_sign is .....'
+    p  pay_sign_str
+
+    # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
+    @order_params = {
+      appId:     result['appid'] || Settings.wx_pay.app_id,
+      timeStamp: options[:timestamp],
+      nonceStr:  options[:noncestr],
+      signType:  "MD5",
+      package:   "prepay_id=#{result['prepay_id']}",
+      sign:      Digest::SHA1.hexdigest(js_sdk_signature_str),
+      paySign:   Digest::MD5.hexdigest(pay_sign_str).upcase()
+    }
   end
 
   def payment_test

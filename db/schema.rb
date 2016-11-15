@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161108014408) do
+ActiveRecord::Schema.define(version: 20161115005005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -308,6 +308,7 @@ ActiveRecord::Schema.define(version: 20161108014408) do
     t.string   "child_gender"
     t.string   "out_trade_pay_no"
     t.string   "out_trade_prepay_no"
+    t.float    "total_fee"
   end
 
   create_table "settings", force: :cascade do |t|

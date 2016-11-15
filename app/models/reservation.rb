@@ -11,6 +11,8 @@ class Reservation < ActiveRecord::Base
   validates :reservation_phone, format: /(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}/
   validates_presence_of :name, :remark
 
+  # attr_accessor :total_fee
+
   aasm do
     state :pending, initial: true
     state :reserved, :prepaid, :diagnosed, :paid, :rated, :archived, :overdued, :cancelled
