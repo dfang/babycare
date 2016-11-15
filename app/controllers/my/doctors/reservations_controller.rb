@@ -2,7 +2,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   before_filter ->{ authenticate_user!( force: true ) }
   before_action :check_is_verified_doctor
   # skip_before_action :check_is_verified_doctor, only: [ :status ]
-  custom_actions :collection => [ :reservations, :status ], :member => [ :claim ]
+  custom_actions :collection => [ :reservations, :status ], :member => [ :claim, :complete_offline_consult, :complete_online_consult ]
 
   def reservations
   end
@@ -51,7 +51,7 @@ class My::Doctors::ReservationsController < InheritedResources::Base
   end
 
   # 医生完成线下咨询服务
-  def complete
+  def complete_offline_consult
     resource.diagnose! do
       # doctor diagnosed and send sms to notify user to pay
       SmsNotifyUserWhenDiagnosedJob.perform_now(resource.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
