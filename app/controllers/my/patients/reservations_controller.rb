@@ -120,7 +120,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
     if request.put?
 
       @total_fee = params[:reservation][:total_fee]
-      resource.total_fee = @total_fee.to_f
+      # 微信支付的单位是分，不接受小数点，所以这里乘以100
+      resource.total_fee = @total_fee * 100
       resource.save!
 
       redirect_to pay_my_patients_reservation_path(resource) and return
