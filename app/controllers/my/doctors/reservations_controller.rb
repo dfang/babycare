@@ -64,13 +64,15 @@ class My::Doctors::ReservationsController < InheritedResources::Base
     resource.diagnose! do
       # doctor diagnosed and send sms to notify user to pay
       SmsNotifyUserWhenDiagnosedJob.perform_now(resource.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
+
+      resource.pay! do
+        # user paid and send sms to doctors
+        params = [resource.patient_user_name]
+        SmsNotifyDoctorWhenPaidJob.perform_now(resource.doctor_user_phone, params)
+      end
+
     end
 
-    resource.pay! do
-      # user paid and send sms to doctors
-      params = [resource.patient_user_name]
-      SmsNotifyDoctorWhenPaidJob.perform_now(reservation.doctor_user_phone, params)
-    end
 
     redirect_to my_doctors_reservation_path(resource) and return
   end
