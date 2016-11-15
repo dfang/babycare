@@ -62,6 +62,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
         p   pay_sign_str
 
 
+
         # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
         @order_params = {
           appId:     result['appid'] || Settings.wx_pay.app_id,
@@ -69,8 +70,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
           nonceStr:  options[:noncestr],
           signType:  "MD5",
           package:   "prepay_id=#{result['prepay_id']}",
-          sign:      js_sdk_signature_str,
-          paySign:   pay_sign_str
+          sign:      Digest::SHA1.hexdigest(js_sdk_signature_str),
+          paySign:   Digest::MD5.hexdigest(pay_sign_str).upcase()
         }
 
         p '@order_params is .........'
@@ -93,7 +94,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   def wxpay
 
     reservation = Reservation.find_by(id: params[:reservation_id])
-
+    body_text = "支付咨询费用"
     if reservation.blank?
       redirect_to my_patients_reservations_path and return
     end
@@ -103,16 +104,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     end
 
     out_trade_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
-    payment_params = {
-      body: "支付咨询费用",
-      out_trade_no: out_trade_no,
-      total_fee: reservation.total_fee,
-      spbill_create_ip: request.ip,
-      notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
-      trade_type: 'JSAPI',
-      openid: current_wechat_authentication.uid
-    }
-
+    payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, reservation.total_fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
 
     options = WxApp::WxPay.generate_payment_options
     result = WxPay::Service.invoke_unifiedorder(payment_params, options)
@@ -121,12 +113,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
     p result
 
     # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-    js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(request.url)
+    js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options, request.url)
     p   'js_sdk_signature string ..........'
     p   js_sdk_signature_str
 
-
-    pay_sign_str = WxApp::WxPay.generate_pay_sign_str(result['prepay_id'])
+    pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
     p   'pay_sign_str is .....'
     p   pay_sign_str
 
