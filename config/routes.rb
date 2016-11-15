@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         get 'payment', on: :member
         put 'payment', on: :member
         get 'pay', on: :member
+        get 'wxpay', on: :collection
         post 'payment_notify', on: :collection
       end
       get 'profile'

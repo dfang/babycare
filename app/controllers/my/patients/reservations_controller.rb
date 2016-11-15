@@ -123,14 +123,20 @@ class My::Patients::ReservationsController < InheritedResources::Base
       resource.total_fee = (@total_fee * 100).to_i
       resource.save!
 
-      redirect_to pay_my_patients_reservation_path(resource) and return
+      redirect_to wxpay_my_patients_reservations_path(reservation_id: resource.id) and return
     end
   end
 
-  def pay
+  def wxpay
 
-    if resource.total_fee.blank?
-      redirect_to my_patients_reservation_path(resource) and return
+    reservation = Reservation.find_by(id: params[:reservation_id])
+
+    if reservation.blank?
+      redirect_to my_patients_reservations_path and return
+    end
+
+    if reservation.present? && reservation.total_fee.blank?
+      redirect_to my_patients_reservation_path(reservation) and return
     end
 
     out_trade_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
