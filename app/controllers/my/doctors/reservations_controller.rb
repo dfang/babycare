@@ -38,41 +38,24 @@ class My::Doctors::ReservationsController < InheritedResources::Base
       resource.update(reservation_params)
       resource.user_b = current_user.id
 
-      resource.reserve! do
-        # reserve and send sms to notify patients to prepay
-        params = [ resource.doctor_user_name, resource.reserved_time, resource.reserved_location ]
-        SmsNotifyUserWhenReservedJob.perform_now(resource.patient_user_phone, params)
-      end
+      resource.reserve!
 
-      # 发送短信， 记录短信
-      # IM::Ronglian.send_templated_sms
       redirect_to my_doctors_reservation_path(resource) and return
     end
   end
 
   # 医生完成线下咨询服务
   def complete_offline_consult
-    resource.diagnose! do
-      # doctor diagnosed and send sms to notify user to pay
-      SmsNotifyUserWhenDiagnosedJob.perform_now(resource.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
-    end
+    resource.diagnose!
+
     redirect_to my_doctors_reservation_path(resource) and return
   end
 
   # 电话咨询，用户不用再支付了, 系统自动改状态
   def complete_online_consult
     resource.diagnose! do
-      # doctor diagnosed and send sms to notify user to pay
-      SmsNotifyUserWhenDiagnosedJob.perform_now(resource.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
-
-      resource.pay! do
-        # user paid and send sms to doctors
-        params = [resource.patient_user_name]
-        SmsNotifyDoctorWhenPaidJob.perform_now(resource.doctor_user_phone, params)
-      end
-
+      resource.pay!
     end
-
 
     redirect_to my_doctors_reservation_path(resource) and return
   end

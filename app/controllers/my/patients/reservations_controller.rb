@@ -193,21 +193,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
       if reservation.reserved?
 
-        reservation.prepay! do
-          # user prepay and send sms to notify doctor prepaid
-          params1 = [ reservation.doctor_user_name, reservation.reserved_time, reservation.reserved_location ]
-          params2 = [ reservation.patient_user_name, reservation.reserved_time, reservation.reserved_location]
-          SmsNotifyUserWhenPrepaidJob.perform_now(reservation.patient_user_phone, params1)
-          SmsNotifyDoctorWhenPrepaidJob.perform_now(reservation.doctor_user_phone, params2)
-        end
+        reservation.prepay!
 
       elsif reservation.diagnosed?
 
-        reservation.pay! do
-          # user paid and send sms to doctors
-          params = [reservation.patient_user_name]
-          SmsNotifyDoctorWhenPaidJob.perform_now(reservation.doctor_user_phone, params)
-        end
+        reservation.pay!
 
       end
     end

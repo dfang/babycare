@@ -17,19 +17,19 @@ class Reservation < ActiveRecord::Base
     state :pending, initial: true
     state :reserved, :prepaid, :diagnosed, :paid, :rated, :archived, :overdued, :cancelled
 
-    event :reserve do
+    event :reserve, after_transaction: :after_reserved! do
       transitions from: :pending, to: :reserved
     end
 
-    event :prepay do
+    event :prepay, after_transaction: :after_prepaid! do
       transitions from: :reserved, to: :prepaid
     end
 
-    event :diagnose do
+    event :diagnose, after_transaction: :after_diagnosed! do
       transitions from: :prepaid, to: :diagnosed
     end
 
-    event :pay do
+    event :pay, after_transaction: :after_paid! do
       transitions from: :diagnosed, to: :paid
     end
 
@@ -140,4 +140,27 @@ class Reservation < ActiveRecord::Base
   def hospital
     doctor.hospital
   end
+
+  def after_reserved!
+    params = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
+    SmsNotifyUserWhenReservedJob.perform_now(self.patient_user_phone, params)
+  end
+
+  def after_prepaid!
+    # user prepay and send sms to notify doctor prepaid
+    params1 = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
+    params2 = [ self.patient_user_name, self.reserved_time, self.reserved_location]
+    SmsNotifyUserWhenPrepaidJob.perform_now(self.patient_user_phone, params1)
+    SmsNotifyDoctorWhenPrepaidJob.perform_now(self.doctor_user_phone, params2)
+  end
+
+  def after_diagnosed!
+    SmsNotifyUserWhenDiagnosedJob.perform_now(self.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
+  end
+
+  def after_paid!
+    params = [self.patient_user_name]
+    SmsNotifyDoctorWhenPaidJob.perform_now(self.doctor_user_phone, params)
+  end
+
 end
