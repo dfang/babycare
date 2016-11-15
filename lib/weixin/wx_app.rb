@@ -271,15 +271,17 @@ module WxApp
     # generate paysign sort, and encrypt
     def generate_pay_sign_str(options, prepay_id)
       # options = generate_payment_options 这样会出错， 需要共用options
+
+      # 这里不能用options[:app_id]和 options[:key], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
       pay_sign_str =  {
-                          appId:      options[:appid],
+                          appId:      Settings.wx_pay.app_id,
                           nonceStr:   options[:noncestr],
                           timeStamp:  options[:timestamp],
                           package:    "prepay_id=#{prepay_id}",
                           signType:   "MD5"
                       }.sort.map do |k,v|
                                 "#{k}=#{v}" if v != "" && !v.nil?
-                             end.compact.join('&').concat("&key=#{options[:key]}")
+                             end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
 
       Digest::MD5.hexdigest(pay_sign_str).upcase()
     end
