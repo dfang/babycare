@@ -230,3 +230,16 @@ a.add-medical-record{
   text-align: justify;
   direction:rtl;
 }
+
+
+.reservations_new{
+  .weui-cell-remark{
+    .weui-cell__hd{
+      margin-right: 32px;
+    }
+    ::-webkit-input-placeholder {
+      line-height: 3;
+    }
+  }
+
+}

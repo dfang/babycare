@@ -42,16 +42,16 @@
             <label class="weui-label">您的位置</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" name="reservation[location]" data-parsley-required="true" type="text" placeholder="方便为你就近预约" value="">
+          <textarea class="weui-textarea" name="reservation[location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你"></textarea>
         </div>
         <div class="weui-cell__ft">
-            <a href="javascript:void(0)" class="weui-vcode-btn">获取位置</a>
+            <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
         </div>
     </div>
 
-    <div class="weui-cell">
+    <div class="weui-cell weui-cell-remark">
       <div class="weui-cell__hd">
-        <label class="weui-label" for="">症状</label>
+        <label class="weui-label">症状</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
         <textarea class="weui-textarea" name="reservation[remark]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
