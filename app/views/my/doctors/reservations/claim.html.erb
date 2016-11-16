@@ -12,13 +12,16 @@
     </div>
   </div>
 
-  <div class="weui-cell">
-    <div class="weui-cell__hd">
-        <label for="" class="weui-label">地点</label>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" name="reservation[reservation_location]" placeholder="你们商量好的位置" type="text" value="<%= current_user.doctor.location %>">
-    </div>
+  <div class="weui-cell weui-cell_vcode">
+      <div class="weui-cell__hd">
+        <label class="weui-label">地点</label>
+      </div>
+      <div class="weui-cell__bd">
+        <textarea class="weui-textarea" name="reservation[reservation_location]" data-parsley-required="true" placeholder="你们商量好的位置"></textarea>
+      </div>
+      <div class="weui-cell__ft">
+          <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
+      </div>
   </div>
 
 </div>
@@ -31,30 +34,85 @@
 
 <% end %>
 
-
 <%- content_for :js  do %>
 <script type="text/javascript">
   $(function(){
-    if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(onSuccess,onError);
-  } else {
-    alert("Geolocation is not supported by this browser.");
-  }
 
-  function onSuccess(e){
-    console.log('on geoLocation success, center and zoom current position')
-    // var mk = new BMap.Marker(e.coords.longitude, e.coords.latitude);    //基于定位的这个点的点位创建marker
-    // map.addOverlay(mk);    //将marker作为覆盖物添加到map地图上
-    // map.panTo(e.coords);   //将地图中心点移动到定位的这个点位置。注意是r.point而不是r对象。
-    // map.centerAndZoom(new BMap.Point(e.coords.longitude, e.coords.latitude), 12);
-    console.log(e.coords.longitude, e.coords.latitude);
+    wx.config({
+      debug: false,
+      appId: "<%= @appId %>",
+      timestamp: "<%= @timestamp %>",
+      nonceStr: "<%= @nonceStr %>",
+      signature: "<%= @signature %>",
+      jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
 
-  }
+    wx.ready(function(){
+      // alert('config is ready, checking js api available');
+      wx.checkJsApi({
+         jsApiList: [
+           'chooseWXPay',
+           'previewImage',
+           'chooseImage',
+           'uploadImage',
+           'downloadImage',
+           'openLocation',
+           'getLocation'
+         ],
+         success: function (res) {
+           console.log(JSON.stringify(res));
+         }
+       });
+    });
 
-  function onError(e){
-    console.log('on geoLocation failed')
-  }
+    $(document).on('click', '.weui-vcode-btn', function(e){
+      console.log('click get Location');
+      wx.getLocation({
+        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        success: function (res) {
+          var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+          var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+          var speed = res.speed; // 速度，以米/每秒计
+          var accuracy = res.accuracy; // 位置精度
 
+          var data= {
+          　　　　　　location: latitude + "," + longitude,
+          　　　　　　key: "GHPBZ-BCE3X-GPT4A-7EJHJ-G2TPQ-PTFBQ",
+          　　　　　　get_poi:0,
+                    output: "jsonp"
+          　　　　}
+
+          var url= "http://apis.map.qq.com/ws/geocoder/v1/?";
+          console.log('convert latitude and longitude to address');
+          $.ajax({
+              type: "get",
+              dataType:'jsonp',
+              data: data,
+              jsonp:  "callback",
+              jsonpCallback:"QQmap",
+              url:url,
+              success:function(json){
+                  // var toStr = JSON.stringify(json);
+                  console.log(json.result.address)
+                  if(json.status == 0){
+                    $('input[name="reservation[location]"]').val(json.result.address)
+                  }
+              },
+              error : function(err){
+                alert("服务端错误，请刷新浏览器后重试")
+              }
+          })
+        },
+        cancel: function (res) {
+            alert('你拒绝了授权获取地理位置');
+        }
+      });
+
+    })
+
+    wx.error(function(){
+      alert('config is error');
+    })
   })
 </script>
 <% end %>
