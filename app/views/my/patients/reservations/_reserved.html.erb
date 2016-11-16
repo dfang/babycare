@@ -27,13 +27,19 @@
         signType:  "<%= @order_params[:signType] %>"
       }.to_json;
 
-  		wx.config({
-  			appId:     "<%= @order_params[:appId] %>", // 必填，公众号的唯一标识
-        timestamp: "<%= @order_params[:timeStamp] %>", // 必填，生成签名的时间戳
-        nonceStr:  "<%= @order_params[:nonceStr] %>", // 必填，生成签名的随机串
-        signature: "<%= @order_params[:sign] %>", // 必填，签名，见附录1
-        jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-      });
+      url = location.href.split('#')[0]
+      $.get("/wxpay/config?url=" + url).done(function(data){
+
+        wx.config({
+          appId:     data.appId,
+          timestamp: data.timestamp,
+          nonceStr:  data.nonceStr,
+          signature: data.signature,
+          jsApiList: data.jsApiList
+        });
+
+      })
+
 
       wx.ready(function(){
         console.log('wx ready, click to pay')

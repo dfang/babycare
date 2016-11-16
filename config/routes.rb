@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'wxpay/config'
+
   namespace :my do
     namespace :doctors do
       resources :transactions, only: [:index, :show]
