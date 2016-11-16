@@ -29,10 +29,12 @@
 
       url = location.href.split('#')[0]
       $.ajax({
-        url:      "/wxpay/config?url=" + url,
-        global:   false
+        url:        "/wxpay/config.json?url=" + url,
+        beforeSend: function(){},
+        global:     false
       })
       .done(function(data){
+
         wx.config({
           appId:     data.appId,
           timestamp: data.timestamp,
