@@ -90,14 +90,16 @@
     $.get("/wxpay/config.json?url=" + url).done(function(data){
       console.log(data.jsApiList)
 
-      // wx.config({
-      //   debug:      true,
-      //   appId:     data.appId,
-      //   timestamp: data.timestamp,
-      //   nonceStr:  data.nonceStr,
-      //   signature: "<%= @signature %>",
-      //   jsApiList: ["checkJsApi", "chooseWXPay", "chooseImage", "uploadImage", "downloadImage", "previewImage", "openLocation", "getLocation"]
-      // });
+      wx.config({
+        debug:     true,
+        appId:     data.appId,
+        timestamp: data.timestamp,
+        nonceStr:  data.nonceStr,
+        signature: data.signature,
+        jsApiList: data.jsApiList
+      });
+
+      console.log(data.signature  == "<%= @signature %>")
 
       wx.config({
         debug:      true,
