@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116025440) do
+ActiveRecord::Schema.define(version: 20161116032216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -416,7 +416,10 @@ ActiveRecord::Schema.define(version: 20161116025440) do
     t.float    "balance_unwithdrawable"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "user_id"
   end
+
+  add_index "wallets", ["user_id"], name: "index_wallets_on_user_id", using: :btree
 
   create_table "wx_menus", force: :cascade do |t|
     t.string   "menu_type"
@@ -452,5 +455,6 @@ ActiveRecord::Schema.define(version: 20161116025440) do
   add_foreign_key "ratings", "users"
   add_foreign_key "sms_histories", "reservations"
   add_foreign_key "transactions", "users"
+  add_foreign_key "wallets", "users"
   add_foreign_key "wx_sub_menus", "wx_menus"
 end
