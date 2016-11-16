@@ -12,12 +12,12 @@
     </div>
   </div>
 
-  <div class="weui-cell weui-cell-vcode">
+  <div class="weui-cell weui-cell-remark">
       <div class="weui-cell__hd">
         <label class="weui-label">地点</label>
       </div>
       <div class="weui-cell__bd">
-        <textarea class="weui-textarea" name="reservation[reservation_location]" data-parsley-required="true" placeholder="你们商量好的位置"></textarea>
+        <textarea class="weui-textarea" name="reservation[reservation_location]" data-parsley-required="true" placeholder="你们商量好的位置" value="<%= current_user.doctor.location %>"></textarea>
       </div>
       <div class="weui-cell__ft">
           <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
@@ -26,13 +26,10 @@
 
   <div class="weui-cell weui-cell-remark">
       <div class="weui-cell__hd">
-        <label class="weui-label">地点</label>
+        <label class="weui-label">备注</label>
       </div>
       <div class="weui-cell__bd">
         <textarea class="weui-textarea" name="reservation[reservation_remark]" data-parsley-required="true" placeholder="你们商量好的位置"></textarea>
-      </div>
-      <div class="weui-cell__ft">
-          <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
       </div>
   </div>
 
