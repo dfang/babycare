@@ -131,7 +131,7 @@
                   // var toStr = JSON.stringify(json);
                   console.log(json.result.address)
                   if(json.status == 0){
-                    $('input[name="reservation[location]"]').val(json.result.address)
+                    $('textarea[name="reservation[location]"]').val(json.result.address)
                   }
               },
               error : function(err){
