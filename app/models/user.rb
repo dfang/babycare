@@ -94,12 +94,16 @@ class User < ActiveRecord::Base
   private
 
   def increase_balance_unwithdrawable(amount)
+    build_wallet if wallet.blank?
     wallet.balance_unwithdrawable += amount
     wallet.save!
   end
 
   def decrease_balance_withdrawable(amount)
-    wallet.balance_unwithdrawable -= amount
-    wallet.save!
+    build_wallet if wallet.blank?
+    if wallet.balance_unwithdrawable > amount
+      wallet.balance_unwithdrawable -= amount
+      wallet.save!
+    end
   end
 end
