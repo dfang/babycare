@@ -14,7 +14,7 @@ class Transaction < ActiveRecord::Base
   def income?
     operation.income?
   end
-
+  
   def withdraw?
     operation.withdraw?
   end
