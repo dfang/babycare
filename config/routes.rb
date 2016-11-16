@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :my do
+    namespace :doctors do
+      get 'wallet', to: 'wallets#index'
+    end
+  end
 
   get 'wxjssdk/config'
 
