@@ -74,35 +74,59 @@
 <script type="text/javascript">
   $(function(){
 
+    // wx.config({
+    //   debug:      true,
+    //   appId:      "<%= @appId %>",
+    //   timestamp:  "<%= @timestamp %>",
+    //   nonceStr:   "<%= @nonceStr %>",
+    //   signature:  "<%= @signature %>",
+    //   jsApiList:  ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    // });
+
+
+
+
     url = location.href.split('#')[0]
     $.get("/wxpay/config.json?url=" + url).done(function(data){
       console.log(data.jsApiList)
+
+      // wx.config({
+      //   debug:      true,
+      //   appId:     data.appId,
+      //   timestamp: data.timestamp,
+      //   nonceStr:  data.nonceStr,
+      //   signature: "<%= @signature %>",
+      //   jsApiList: ["checkJsApi", "chooseWXPay", "chooseImage", "uploadImage", "downloadImage", "previewImage", "openLocation", "getLocation"]
+      // });
+
       wx.config({
-        appId:     data.appId,
-        timestamp: data.timestamp,
-        nonceStr:  data.nonceStr,
-        signature: data.signature,
-        jsApiList: data.jsApiList
+        debug:      true,
+        appId:      "<%= @appId %>",
+        timestamp:  "<%= @timestamp %>",
+        nonceStr:   "<%= @nonceStr %>",
+        signature:  "<%= @signature %>",
+        jsApiList:  ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
+
+
+
+
+      wx.ready(function(){
+        console.log('config is ready, checking js api available');
+        wx.checkJsApi({
+           jsApiList: data.jsApiList,
+           success: function (res) {
+             console.log(JSON.stringify(res));
+           }
+         });
+      });
+
+      wx.error(function(){
+        alert('config is error');
+      })
     })
 
-    wx.ready(function(){
-      // alert('config is ready, checking js api available');
-      wx.checkJsApi({
-         jsApiList: [
-           'chooseWXPay',
-           'previewImage',
-           'chooseImage',
-           'uploadImage',
-           'downloadImage',
-           'openLocation',
-           'getLocation'
-         ],
-         success: function (res) {
-           console.log(JSON.stringify(res));
-         }
-       });
-    });
+
 
     $(document).on('click', '.weui-vcode-btn', function(e){
       console.log('click get Location');
@@ -159,9 +183,7 @@
 
     })
 
-    wx.error(function(){
-      alert('config is error');
-    })
+
 
 
     $('.simple_form.new_reservation').parsley({
