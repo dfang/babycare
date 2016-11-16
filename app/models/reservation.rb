@@ -168,8 +168,12 @@ class Reservation < ActiveRecord::Base
     params = [self.patient_user_name]
     SmsNotifyDoctorWhenPaidJob.perform_now(self.doctor_user_phone, params)
 
-    # todo increase doctor's income
+    # increase doctor's income
+    amount = self.prepay_amount + self.pay_amount
+    source = self.pay_amount == 0 ? :online_consult : :offline_consult
 
+    # increase doctor's wallet unwithdrawable amount
+    doctor_user.increase_income(amount, source, self.id)
   end
 
 end

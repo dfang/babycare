@@ -76,6 +76,7 @@ class User < ActiveRecord::Base
       reservation_id: reservation_id,
       source: source
     })
+    increase_balance_unwithdrawable(amount)
   end
 
   def withdraw_cash(amount, withdraw_target)
@@ -83,5 +84,18 @@ class User < ActiveRecord::Base
       operation: "withdraw",
       amount: amount
     })
+    decrease_balance_withdrawable(amount)
+  end
+
+  private
+
+  def increase_balance_unwithdrawable(amount)
+    wallet.balance_unwithdrawable += amount
+    wallet.save!
+  end
+
+  def decrease_balance_withdrawable(amount)
+    wallet.balance_unwithdrawable -= amount
+    wallet.save!
   end
 end
