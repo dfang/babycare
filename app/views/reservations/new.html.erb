@@ -75,7 +75,11 @@
   $(function(){
 
     url = location.href.split('#')[0]
-    $.get("/wxpay/config.json?url=" + url).done(function(data){
+    $.ajax({
+      url: "/wxpay/config.json?url=" + url,
+      global: false
+    })
+    .done(function(data){
       console.log(data.jsApiList)
 
       wx.config({

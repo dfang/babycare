@@ -28,8 +28,11 @@
       }.to_json;
 
       url = location.href.split('#')[0]
-      $.get("/wxpay/config?url=" + url).done(function(data){
-
+      $.ajax({
+        url:      "/wxpay/config?url=" + url,
+        global:   false
+      })
+      .done(function(data){
         wx.config({
           appId:     data.appId,
           timestamp: data.timestamp,
@@ -37,9 +40,7 @@
           signature: data.signature,
           jsApiList: data.jsApiList
         });
-
       })
-
 
       wx.ready(function(){
         console.log('wx ready, click to pay')
