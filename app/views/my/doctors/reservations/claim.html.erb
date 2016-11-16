@@ -46,80 +46,81 @@
 <%- content_for :js do %>
 <script type="text/javascript">
   $(function(){
+    url = location.href.split('#')[0]
+    $.ajax({
+      url:        "/wxpay/config.json?url=" + url,
+      beforeSend: function(){},
+      global:     false
+    })
+    .done(function(data){
 
-    wx.config({
-      debug: false,
-      appId: "<%= @appId %>",
-      timestamp: "<%= @timestamp %>",
-      nonceStr: "<%= @nonceStr %>",
-      signature: "<%= @signature %>",
-      jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-    });
-
-    wx.ready(function(){
-      // alert('config is ready, checking js api available');
-      wx.checkJsApi({
-         jsApiList: [
-           'chooseWXPay',
-           'previewImage',
-           'chooseImage',
-           'uploadImage',
-           'downloadImage',
-           'openLocation',
-           'getLocation'
-         ],
-         success: function (res) {
-           console.log(JSON.stringify(res));
-         }
-       });
-    });
-
-    $(document).on('click', '.weui-vcode-btn', function(e){
-      console.log('click get Location');
-      wx.getLocation({
-        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        success: function (res) {
-          var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-          var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-          var speed = res.speed; // 速度，以米/每秒计
-          var accuracy = res.accuracy; // 位置精度
-
-          var data= {
-          　　　　　　location: latitude + "," + longitude,
-          　　　　　　key: "GHPBZ-BCE3X-GPT4A-7EJHJ-G2TPQ-PTFBQ",
-          　　　　　　get_poi:0,
-                    output: "jsonp"
-          　　　　}
-
-          var url= "http://apis.map.qq.com/ws/geocoder/v1/?";
-          console.log('convert latitude and longitude to address');
-          $.ajax({
-              type: "get",
-              dataType:'jsonp',
-              data: data,
-              jsonp:  "callback",
-              jsonpCallback:"QQmap",
-              url:url,
-              success:function(json){
-                  // var toStr = JSON.stringify(json);
-                  console.log(json.result.address)
-                  if(json.status == 0){
-                    $('textarea[name="reservation[reservation_location]"]').val(json.result.address)
-                  }
-              },
-              error : function(err){
-                alert("服务端错误，请刷新浏览器后重试")
-              }
-          })
-        },
-        cancel: function (res) {
-            alert('你拒绝了授权获取地理位置');
-        }
+      wx.config({
+        appId:     data.appId,
+        timestamp: data.timestamp,
+        nonceStr:  data.nonceStr,
+        signature: data.signature,
+        jsApiList: data.jsApiList
       });
+
+      wx.ready(function(){
+        console.log('config is ready, checking js api available');
+        wx.checkJsApi({
+           jsApiList: data.jsApiList,
+           success: function (res) {
+             console.log(JSON.stringify(res));
+           }
+         });
+      });
+
+      wx.error(function(res){
+        alert("初始化微信js sdk出错，请联系我们");
+      })
     })
 
-    wx.error(function(){
-      alert('config is error');
+    wx.ready(function(){
+      $(document).on('click', '.weui-vcode-btn', function(e){
+        console.log('click get Location');
+        wx.getLocation({
+          type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+          success: function (res) {
+            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+            var speed = res.speed; // 速度，以米/每秒计
+            var accuracy = res.accuracy; // 位置精度
+
+            var data= {
+            　　　　　　location: latitude + "," + longitude,
+            　　　　　　key: "GHPBZ-BCE3X-GPT4A-7EJHJ-G2TPQ-PTFBQ",
+            　　　　　　get_poi:0,
+                      output: "jsonp"
+            　　　　}
+
+            var url= "http://apis.map.qq.com/ws/geocoder/v1/?";
+            console.log('convert latitude and longitude to address');
+            $.ajax({
+                type: "get",
+                dataType:'jsonp',
+                data: data,
+                jsonp:  "callback",
+                jsonpCallback:"QQmap",
+                url:url,
+                success:function(json){
+                    // var toStr = JSON.stringify(json);
+                    console.log(json.result.address)
+                    if(json.status == 0){
+                      $('textarea[name="reservation[reservation_location]"]').val(json.result.address)
+                    }
+                },
+                error : function(err){
+                  alert("服务端错误，请刷新浏览器后重试")
+                }
+            })
+          },
+          cancel: function (res) {
+              alert('你拒绝了授权获取地理位置');
+          }
+        });
+      })
     })
   })
 </script>

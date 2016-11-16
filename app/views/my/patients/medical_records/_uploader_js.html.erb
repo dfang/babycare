@@ -10,34 +10,35 @@
       // android 用 wx js sdk, 设置z-index 把plupload上传按钮遮住
       $(".weui-uploader__input-box").attr('z-index', 9999)
 
-      wx.config({
-        debug:      false,
-        appId:      "<%= @appId %>",
-        timestamp:  "<%= @timestamp %>",
-        nonceStr:   "<%= @nonceStr %>",
-        signature:  "<%= @signature %>",
-        jsApiList:  ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-      });
+      url = location.href.split('#')[0]
+      $.ajax({
+        url:        "/wxpay/config.json?url=" + url,
+        beforeSend: function(){},
+        global:     false
+      })
+      .done(function(data){
 
-      wx.ready(function(){
-        // alert('config is ready, checking js api available');
-        wx.checkJsApi({
-           jsApiList: [
-             'chooseWXPay',
-             'previewImage',
-             'chooseImage',
-             'uploadImage',
-             'downloadImage'
-           ],
-           success: function (res) {
-             console.log(JSON.stringify(res));
-           }
-         });
+        wx.config({
+          appId:     data.appId,
+          timestamp: data.timestamp,
+          nonceStr:  data.nonceStr,
+          signature: data.signature,
+          jsApiList: data.jsApiList
+        });
 
-      });
+        wx.ready(function(){
+          console.log('config is ready, checking js api available');
+          wx.checkJsApi({
+             jsApiList: data.jsApiList,
+             success: function (res) {
+               console.log(JSON.stringify(res));
+             }
+           });
+        });
 
-      wx.error(function(){
-        alert('config is error');
+        wx.error(function(){
+          console.log('config is error');
+        })
       })
 
       $(document).on('click', '#picker1, #picker2, #picker3', function(e){

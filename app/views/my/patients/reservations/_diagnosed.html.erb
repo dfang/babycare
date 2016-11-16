@@ -29,14 +29,36 @@
         signType:  "<%= @order_params[:signType] %>"
       }.to_json;
 
-  		wx.config({
-        <!-- debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。 -->
-  			appId: "<%= @order_params[:appId] %>", // 必填，公众号的唯一标识
-        timestamp: "<%= @order_params[:timeStamp] %>", // 必填，生成签名的时间戳
-        nonceStr: "<%= @order_params[:nonceStr] %>", // 必填，生成签名的随机串
-        signature: "<%= @order_params[:sign] %>", // 必填，签名，见附录1
-        jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-      });
+      url = location.href.split('#')[0]
+      $.ajax({
+        url:        "/wxpay/config.json?url=" + url,
+        beforeSend: function(){},
+        global:     false
+      })
+      .done(function(data){
+
+        wx.config({
+          appId:     data.appId,
+          timestamp: data.timestamp,
+          nonceStr:  data.nonceStr,
+          signature: data.signature,
+          jsApiList: data.jsApiList
+        });
+
+        wx.ready(function(){
+          console.log('config is ready, checking js api available');
+          wx.checkJsApi({
+             jsApiList: data.jsApiList,
+             success: function (res) {
+               console.log(JSON.stringify(res));
+             }
+           });
+        });
+
+        wx.error(function(res){
+          alert("初始化微信js sdk出错，请联系我们");
+        })
+      })
 
       wx.ready(function(){
         console.log('wx ready, click to pay')
@@ -63,11 +85,6 @@
   						}
           });
         });
-
-      })
-
-      wx.error(function(res){
-        console.log(res);
       })
   <% end %>
 
