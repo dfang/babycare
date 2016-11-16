@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="weui-cell weui-cell_vcode">
+  <div class="weui-cell weui-cell-vcode">
       <div class="weui-cell__hd">
         <label class="weui-label">地点</label>
       </div>
@@ -24,9 +24,21 @@
       </div>
   </div>
 
+  <div class="weui-cell weui-cell-remark">
+      <div class="weui-cell__hd">
+        <label class="weui-label">地点</label>
+      </div>
+      <div class="weui-cell__bd">
+        <textarea class="weui-textarea" name="reservation[reservation_remark]" data-parsley-required="true" placeholder="你们商量好的位置"></textarea>
+      </div>
+      <div class="weui-cell__ft">
+          <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
+      </div>
+  </div>
+
 </div>
 
-<div class="weui-cells__tips">底部说明文字底部说明文字</div>
+<!-- <div class="weui-cells__tips">底部说明文字底部说明文字</div> -->
 
 <div class="weui-btn-area">
   <button class="weui-btn weui-btn__primary">确定</button>
@@ -34,7 +46,7 @@
 
 <% end %>
 
-<%- content_for :js  do %>
+<%- content_for :js do %>
 <script type="text/javascript">
   $(function(){
 
@@ -107,7 +119,6 @@
             alert('你拒绝了授权获取地理位置');
         }
       });
-
     })
 
     wx.error(function(){
