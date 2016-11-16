@@ -70,21 +70,25 @@ class User < ActiveRecord::Base
 
 
   def increase_income(amount, source, reservation_id)
-    transactions.create({
-      operation: "income",
-      amount: amount,
-      reservation_id: reservation_id,
-      source: source
-    })
-    increase_balance_unwithdrawable(amount)
+    ActiveRecord::Base.transaction do
+      transactions.create({
+        operation: "income",
+        amount: amount,
+        reservation_id: reservation_id,
+        source: source
+      })
+      increase_balance_unwithdrawable(amount)
+    end
   end
 
   def withdraw_cash(amount, withdraw_target)
-    transactions.create({
-      operation: "withdraw",
-      amount: amount
-    })
-    decrease_balance_withdrawable(amount)
+    ActiveRecord::Base.transaction do
+      transactions.create({
+        operation: "withdraw",
+        amount: amount
+      })
+      decrease_balance_withdrawable(amount)
+    end
   end
 
   private
