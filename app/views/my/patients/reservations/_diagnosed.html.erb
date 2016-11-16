@@ -66,22 +66,21 @@
         $('#wechatPaymentBtn').on('click', function() {
 
           wx.chooseWXPay({
-              timestamp: "<%= @order_params[:timeStamp] %>", // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-              nonceStr:  "<%= @order_params[:nonceStr] %>", // 支付签名随机串，不长于 32 位
-              package:   "<%= @order_params[:package]  %>", // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-              signType:  "<%= @order_params[:signType] %>", // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-              paySign:   "<%= @order_params[:paySign] %>", // 支付签名
+              timestamp: orderParams.timeStamp,
+              nonceStr:  orderParams.nonceStr,
+              package:   orderParams.package,
+              signType:  orderParams.signType,
+              paySign:   orderParams.paySign,
               success: function (res) {
   							console.log(JSON.stringify(res));
-                // 支付成功后的回调函数
   							if(res["errMsg"] == "chooseWXPay:ok"){
-  								// check payments and change aasm_state
-  								location.href = "/my/patients/reservations"
+                  // check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
+                  location.reload()
   							}
               },
   						fail: function(res){
   							console.log(JSON.stringify(res));
-  							console.log('支付请求失败, 请联系我们');
+  							alert('支付请求失败, 请联系我们');
   						}
           });
         });
