@@ -56,7 +56,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
         p   result
 
         # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-        js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options, request.url)
+        js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
         p   'js_sdk_signature string ..........'
         p   js_sdk_signature_str
 
@@ -116,7 +116,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   #   p result
   #
   #   # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-  #   js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options, request.url)
+  #   js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
   #   p   'js_sdk_signature string ..........'
   #   p   js_sdk_signature_str
   #

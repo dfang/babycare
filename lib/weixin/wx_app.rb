@@ -260,21 +260,13 @@ module WxApp
       options
     end
 
-    def generate_js_sdk_signature_str(options, url)
-      # options = generate_payment_options 这样会出错， 需要共用options
-      js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: options[:noncestr], timestamp: options[:timestamp], url: url }.sort.map do |k,v|
-                          "#{k}=#{v}" if v != "" && !v.nil?
-                        end.compact.join('&')
-      Digest::SHA1.hexdigest(js_sdk_signature_str)
-    end
-
-
     def generate_js_sdk_signature_str(noncestr, timestamp, url)
       js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k,v|
                           "#{k}=#{v}" if v != "" && !v.nil?
                         end.compact.join('&')
       Digest::SHA1.hexdigest(js_sdk_signature_str)
     end
+
     # generate paysign sort, and encrypt
     def generate_pay_sign_str(options, prepay_id)
       # options = generate_payment_options 这样会出错， 需要共用options
@@ -292,9 +284,6 @@ module WxApp
 
       Digest::MD5.hexdigest(pay_sign_str).upcase()
     end
-
-
-
 
   end
 end
