@@ -5,3 +5,24 @@
     }
   }
 }
+
+
+.my_doctors_wallets_index{
+  .weui-msg__icon-area{
+    span{
+      position: absolute;
+      left: 44%;
+    }
+  }
+  .weui-msg__text-area.left{
+    float: left;
+  }
+  .weui-msg__text-area.right{
+    float: right;
+  }
+
+  .weui-msg__opr-area{
+    margin-top: 100px;
+  }
+
+}

@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   namespace :my do
     namespace :doctors do
+      resources :transactions, only: [:index, :show]
+      get 'transactions', to: 'transactions#index'
       get 'wallet', to: 'wallets#index'
     end
   end
