@@ -93,10 +93,32 @@ class User < ActiveRecord::Base
 
   private
 
+
+
+
+  # 用户支付的时候
+  # increase_balance_unwithdrawable
+
+  # 结算transaction的时候
+  # decrease_balance_unwithdrawable
+  # increase_balance_withdrawable
+
+  # 医生提现的时候
+  # decrease_balance_withdrawable
+
+
   def increase_balance_unwithdrawable(amount)
     build_wallet if wallet.blank?
     wallet.balance_unwithdrawable += amount
     wallet.save!
+  end
+
+  def decrease_balance_unwithdrawable(amount)
+    build_wallet if wallet.blank?
+    if wallet.balance_unwithdrawable > amount
+      wallet.balance_unwithdrawable -= amount
+      wallet.save!
+    end
   end
 
   def decrease_balance_withdrawable(amount)
@@ -105,5 +127,11 @@ class User < ActiveRecord::Base
       wallet.balance_unwithdrawable -= amount
       wallet.save!
     end
+  end
+
+  def increase_balance_withdrawable(amount)
+    build_wallet if wallet.blank?
+    wallet.balance_withdrawable += amount
+    wallet.save!
   end
 end
