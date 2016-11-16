@@ -24,32 +24,32 @@ class My::Patients::ReservationsController < InheritedResources::Base
     if resource.reserved?
       body_text = '预约定金'
       fee = Settings.wx_pay.prepay_amount
+      resource.prepay_fee = fee
     elsif resource.diagnosed?
       body_text = '支付咨询费用'
       fee = Settings.wx_pay.pay_amount
+      resource.pay_fee = fee
     end
 
     # 预约定金
     if resource.out_trade_prepay_no.blank? && resource.reserved?
       resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
-      resource.save
     end
 
     # 支付余款
     if resource.out_trade_pay_no.blank? && resource.diagnosed?
       resource.out_trade_pay_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
-      resource.save
     end
 
     out_trade_no = resource.out_trade_pay_no || resource.out_trade_prepay_no
+
+    resource.save!
 
     if resource.reserved? || resource.diagnosed?
 
         payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
         options = WxApp::WxPay.generate_payment_options
 
-        resource.prepay_fee = Settings.wx_pay.prepay_amount
-        resource.save!
 
         result = WxPay::Service.invoke_unifiedorder(payment_params, options)
         p   'invoke_unifiedorder result: payment_params is .......... '
@@ -83,60 +83,61 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
   end
 
-  def payment
-    if request.put?
-      @total_fee = params[:reservation][:total_fee].to_f
-      # 微信支付的单位是分，不接受小数点，所以这里乘以100
-      resource.total_fee = (@total_fee * 100).to_i
-      resource.save!
+  # def payment
+  #   if request.put?
+  #     @total_fee = params[:reservation][:total_fee].to_f
+  #     # 微信支付的单位是分，不接受小数点，所以这里乘以100
+  #     resource.total_fee = (@total_fee * 100).to_i
+  #     resource.save!
+  #
+  #     redirect_to wxpay_my_patients_reservations_path(reservation_id: resource.id) and return
+  #   end
+  # end
 
-      redirect_to wxpay_my_patients_reservations_path(reservation_id: resource.id) and return
-    end
-  end
+  # 输入数字金额支付页面暂时用不上
+  # def wxpay
+  #   reservation = Reservation.find_by(id: params[:reservation_id])
+  #   body_text = "支付咨询费用"
+  #   if reservation.blank?
+  #     redirect_to my_patients_reservations_path and return
+  #   end
+  #
+  #   if reservation.present? && reservation.total_fee.blank?
+  #     redirect_to my_patients_reservation_path(reservation) and return
+  #   end
+  #
+  #   out_trade_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
+  #   payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, reservation.total_fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
+  #
+  #   options = WxApp::WxPay.generate_payment_options
+  #   result = WxPay::Service.invoke_unifiedorder(payment_params, options)
+  #
+  #   p 'invoke_unifiedorder result is .......... '
+  #   p result
+  #
+  #   # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
+  #   js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options, request.url)
+  #   p   'js_sdk_signature string ..........'
+  #   p   js_sdk_signature_str
+  #
+  #   pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
+  #   p   'pay_sign_str is .....'
+  #   p   pay_sign_str
+  #
+  #   # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
+  #   @order_params = {
+  #     appId:     result['appid'] || Settings.wx_pay.app_id,
+  #     timeStamp: options[:timestamp],
+  #     nonceStr:  options[:noncestr],
+  #     signType:  "MD5",
+  #     package:   "prepay_id=#{result['prepay_id']}",
+  #     sign:      js_sdk_signature_str,
+  #     paySign:   pay_sign_str
+  #   }
+  # end
 
-  def wxpay
-    reservation = Reservation.find_by(id: params[:reservation_id])
-    body_text = "支付咨询费用"
-    if reservation.blank?
-      redirect_to my_patients_reservations_path and return
-    end
-
-    if reservation.present? && reservation.total_fee.blank?
-      redirect_to my_patients_reservation_path(reservation) and return
-    end
-
-    out_trade_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
-    payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, reservation.total_fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
-
-    options = WxApp::WxPay.generate_payment_options
-    result = WxPay::Service.invoke_unifiedorder(payment_params, options)
-
-    p 'invoke_unifiedorder result is .......... '
-    p result
-
-    # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-    js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options, request.url)
-    p   'js_sdk_signature string ..........'
-    p   js_sdk_signature_str
-
-    pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
-    p   'pay_sign_str is .....'
-    p   pay_sign_str
-
-    # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
-    @order_params = {
-      appId:     result['appid'] || Settings.wx_pay.app_id,
-      timeStamp: options[:timestamp],
-      nonceStr:  options[:noncestr],
-      signType:  "MD5",
-      package:   "prepay_id=#{result['prepay_id']}",
-      sign:      js_sdk_signature_str,
-      paySign:   pay_sign_str
-    }
-  end
-
-  def payment_test
-  end
+  # def payment_test
+  # end
 
   def payment_notify
     # 改变订单状态

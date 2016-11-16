@@ -171,7 +171,8 @@ class Reservation < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       # increase doctor's income
       amount = self.prepay_fee.to_f + self.pay_fee.to_f
-      source = self.pay_fee == 0.0 ? :online_consult : :offline_consult
+
+      source = (pay_fee.nil? || pay_fee.zero?) ? :online_consult : :offline_consult
 
       # increase doctor's wallet unwithdrawable amount
       doctor_user.increase_income(amount, source, self.id)
