@@ -13,7 +13,7 @@
             <%- if res.withdraw? %>
               提现
             <% else %>
-              收入
+              预约
             <% end %>
             </p>
           <ul class="weui-media-box__info">
@@ -24,10 +24,10 @@
 				<span>
           <%- if res.pending? %>
             结算中
-          <% elsif if res.settled %>
-            已结算
-          <% else  %>
+          <% elsif res.settled? && res.operation.withdraw? %>
             已提现
+          <% else  %>
+            已结算
           <% end %>
 				</span>
 			</div>
