@@ -1,23 +1,23 @@
 <div class="weui-msg">
     <div class="weui-msg__icon-area">
       <span>总金额(元)</span>
-      <i class="weui-icon_msg">500.00</i>
+      <i class="weui-icon_msg"><%= current_user.wallet.total_balance %></i>
     </div>
     <div class="weui-msg__text-area left">
         <p class="weui-msg__desc">可提现金额</p>
-        <h2 class="weui-msg__title">200.00</h2>
+        <h2 class="weui-msg__title"><%= current_user.wallet.balance_withdrawable %></h2>
     </div>
 
     <div class="weui-msg__text-area right">
         <a href="/my/doctors/transactions">
           <p class="weui-msg__desc">结算中金额 ></p>
-          <h2 class="weui-msg__title">300.00</h2>
+          <h2 class="weui-msg__title"><%= current_user.wallet.balance_unwithdrawable %></h2>
         </a>
     </div>
 
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
-          <a href="javascript:void(0)" class="weui-btn weui-btn__primary">提现</a>
+          <a href="/my/doctors/wallet/withdraw" class="weui-btn weui-btn__primary">提现</a>
         </p>
     </div>
     <div class="weui-msg__extra-area">

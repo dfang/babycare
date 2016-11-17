@@ -27,5 +27,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  
+  def current_wechat_authentication
+    current_user.authentications.where(provider: 'wechat').first
+  end
+
 end

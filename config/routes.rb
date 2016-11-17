@@ -4,14 +4,14 @@ Rails.application.routes.draw do
 
   namespace :my do
     namespace :doctors do
-      resources :transactions, only: [:index, :show]
-      get 'transactions', to: 'transactions#index'
+      resources :transactions, only: [:index, :show, :create, :show]
+
       get 'wallet', to: 'wallets#index'
+      get 'wallet/withdraw', to: 'wallets#withdraw'
     end
   end
 
   get 'wxjssdk/config'
-
   get 'payment/pay'
 
   devise_for :users, controllers: {

@@ -1,15 +1,34 @@
 
   <div class="weui-panel__bd">
       <div class="weui-media-box weui-media-box_text">
-					<h4 class="weui-media-box__title">收入2元 </h4>
-          <p class="weui-media-box__desc">来自预约 </p>
+					<h4 class="weui-media-box__title">
+            <%- if res.withdraw? %>
+              提现
+            <% else %>
+              收入
+            <% end %>
+            <%= res.amount %>元
+          </h4>
+          <p class="weui-media-box__desc">来自
+            <%- if res.withdraw? %>
+              提现
+            <% else %>
+              收入
+            <% end %>
+            </p>
           <ul class="weui-media-box__info">
             <li class="weui-media-box__info__meta"><%= res.created_at.strftime('%Y.%m.%d %H:%M') %></li>
           </ul>
       </div>
 			<div class="weui_media_status">
 				<span>
-					结算中
+          <%- if res.pending? %>
+            结算中
+          <% elsif if res.settled %>
+            已结算
+          <% else  %>
+            已提现
+          <% end %>
 				</span>
 			</div>
   </div>

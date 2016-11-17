@@ -81,14 +81,16 @@ class User < ActiveRecord::Base
     end
   end
 
-  def withdraw_cash(amount, withdraw_target)
+  def withdraw_cash(amount)
     ActiveRecord::Base.transaction do
-      transactions.create({
+      transaction = Transaction.create({
         operation: "withdraw",
-        amount: amount
+        amount: amount,
+        withdraw_target: self.wechat_authentication.uid
       })
       decrease_balance_withdrawable(amount)
     end
+    transaction
   end
 
   private
@@ -121,10 +123,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  # 结算
   def decrease_balance_withdrawable(amount)
     build_wallet if wallet.blank?
-    if wallet.balance_unwithdrawable > amount
-      wallet.balance_unwithdrawable -= amount
+    if wallet.balance_withdrawable > amount
+      wallet.balance_withdrawable -= amount
       wallet.save!
     end
   end

@@ -53,10 +53,6 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
     end
   end
 
-  def current_wechat_authentication
-    current_user.authentications.where(provider: 'wechat').first
-  end
-
   def medical_record_params
     params.require(:medical_record).permit!
     # params.require(:medical_record).permit(medical_record_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
