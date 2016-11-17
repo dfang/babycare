@@ -45,32 +45,32 @@
         wx.error(function(res){
           alert("初始化微信js sdk出错，请联系我们");
         })
-      })
 
-      wx.ready(function(){
-        console.log('wx ready, click to pay')
+        wx.ready(function(){
+          console.log('wx ready, click to pay')
 
-        $('#wechatPaymentBtn').on('click', function() {
+          $('#wechatPaymentBtn').on('click', function() {
 
-          wx.chooseWXPay({
-              timestamp: orderParams.timeStamp,
-              nonceStr:  orderParams.nonceStr,
-              package:   orderParams.package,
-              signType:  orderParams.signType,
-              paySign:   orderParams.paySign,
-              success: function (res) {
-  							console.log(JSON.stringify(res));
-  							if(res["errMsg"] == "chooseWXPay:ok"){
-  								// check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
-                  location.reload()
-  							}
-              },
-  						fail: function(res){
-  							console.log(JSON.stringify(res));
-                alert('支付请求失败, 请联系我们');
-  						}
+            wx.chooseWXPay({
+                timestamp: orderParams.timeStamp,
+                nonceStr:  orderParams.nonceStr,
+                package:   orderParams.package,
+                signType:  orderParams.signType,
+                paySign:   orderParams.paySign,
+                success: function (res) {
+    							console.log(JSON.stringify(res));
+    							if(res["errMsg"] == "chooseWXPay:ok"){
+    								// check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
+                    location.reload()
+    							}
+                },
+    						fail: function(res){
+    							console.log(JSON.stringify(res));
+                  alert('支付请求失败, 请联系我们');
+    						}
+            });
           });
-        });
+        })
       })
     })
   <% end %>
