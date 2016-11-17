@@ -15,7 +15,7 @@ class Transaction < ActiveRecord::Base
   end
 
   scope :settleable, -> { where('CREATED_AT' <= Time.now - 7.days ) }
-  
+
   validates :amount, presence: true
   validates :reservation_id, presence: true, if: :income?
   validates :withdraw_target, presence: true, if: :withdraw?
@@ -27,6 +27,12 @@ class Transaction < ActiveRecord::Base
 
   def withdraw?
     operation.withdraw?
+  end
+
+  def reservation
+    if reservation_id.present?
+      reservation ||= Reservation.find_by(id: reservation_id)
+    end
   end
 
   private

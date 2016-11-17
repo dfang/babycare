@@ -141,6 +141,10 @@ class Reservation < ActiveRecord::Base
     doctor.hospital
   end
 
+  def reservation_title
+    "#{ self.name }的 #{ self.child_gender }"
+  end
+
   # aasm guards
   def can_be_reserved?
     self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
