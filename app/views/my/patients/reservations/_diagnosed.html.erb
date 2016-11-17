@@ -27,7 +27,7 @@
         package:   "<%= @order_params[:package] %>",
         paySign:   "<%= @order_params[:paySign] %>",
         signType:  "<%= @order_params[:signType] %>"
-      }.to_json;
+      };
 
       url = location.href.split('#')[0]
       $.ajax({
