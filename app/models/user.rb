@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
   end
 
   def withdraw_cash(amount)
+    transaction = Transaction.new
     ActiveRecord::Base.transaction do
       transaction = Transaction.create({
         operation: "withdraw",

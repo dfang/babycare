@@ -1,1 +1,7 @@
-提现
+<%- if resource.withdraw? %>
+  提现
+<% else %>
+  收入
+<% end %>
+
+<%= resource.amount %>元
