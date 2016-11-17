@@ -18,6 +18,7 @@
 
 <%= content_for :js do %>
   <%= javascript_tag do %>
+    $(function(){
       var orderParams = {
         appId:     "<%= @order_params[:appId] %>",
         timeStamp: "<%= @order_params[:timeStamp] %>",
@@ -71,5 +72,6 @@
           });
         });
       })
+    })
   <% end %>
 <% end %>
