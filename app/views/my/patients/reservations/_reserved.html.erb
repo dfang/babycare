@@ -19,22 +19,23 @@
 <%= content_for :js do %>
   <%= javascript_tag do %>
     $(function(){
-      var orderParams = {
-        appId:     "<%= @order_params[:appId] %>",
-        timeStamp: "<%= @order_params[:timeStamp] %>",
-        nonceStr:  "<%= @order_params[:nonceStr] %>",
-        package:   "<%= @order_params[:package] %>",
-        paySign:   "<%= @order_params[:paySign] %>",
-        signType:  "<%= @order_params[:signType] %>"
-      };
+      <% if @order_params.present? %>
+        var orderParams = {
+          appId:     "<%= @order_params[:appId] %>",
+          timeStamp: "<%= @order_params[:timeStamp] %>",
+          nonceStr:  "<%= @order_params[:nonceStr] %>",
+          package:   "<%= @order_params[:package] %>",
+          paySign:   "<%= @order_params[:paySign] %>",
+          signType:  "<%= @order_params[:signType] %>"
+        };
 
-      url = location.href.split('#')[0]
-      $.ajax({
-        url:        "/wxpay/config.json?url=" + url,
-        beforeSend: function(){},
-        global:     false
-      })
-      .done(function(data){
+        url = location.href.split('#')[0]
+        $.ajax({
+          url:        "/wxpay/config.json?url=" + url,
+          beforeSend: function(){},
+          global:     false
+        })
+        .done(function(data){
         wx.config({
           appId:     data.appId,
           timestamp: data.timestamp,
@@ -72,6 +73,7 @@
           });
         })
       })
+      <% end %>
     })
   <% end %>
 <% end %>

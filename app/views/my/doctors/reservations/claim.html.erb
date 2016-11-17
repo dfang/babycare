@@ -43,8 +43,8 @@
 
 <% end %>
 
-<%- content_for :js do %>
-<script type="text/javascript">
+<%= content_for :js do %>
+  <%= javascript_tag do %>
   $(function(){
     url = location.href.split('#')[0]
     $.ajax({
@@ -123,5 +123,5 @@
       })
     })
   })
-</script>
+  <% end %>
 <% end %>

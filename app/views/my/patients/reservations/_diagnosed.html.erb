@@ -18,73 +18,76 @@
 </div>
 
 
-<%= javascript_tag do %>
-  <% if @order_params.present? %>
-      var orderParams = {
-        appId:     "<%= @order_params[:appId] %>",
-        timeStamp: "<%= @order_params[:timeStamp] %>",
-        nonceStr:  "<%= @order_params[:nonceStr] %>",
-        package:   "<%= @order_params[:package] %>",
-        paySign:   "<%= @order_params[:paySign] %>",
-        signType:  "<%= @order_params[:signType] %>"
-      };
+<%= content_for :js do %>
+  <%= javascript_tag do %>
+    $(function(){
+      <% if @order_params.present? %>
+          var orderParams = {
+            appId:     "<%= @order_params[:appId] %>",
+            timeStamp: "<%= @order_params[:timeStamp] %>",
+            nonceStr:  "<%= @order_params[:nonceStr] %>",
+            package:   "<%= @order_params[:package] %>",
+            paySign:   "<%= @order_params[:paySign] %>",
+            signType:  "<%= @order_params[:signType] %>"
+          };
 
-      url = location.href.split('#')[0]
-      $.ajax({
-        url:        "/wxpay/config.json?url=" + url,
-        beforeSend: function(){},
-        global:     false
-      })
-      .done(function(data){
+          url = location.href.split('#')[0]
+          $.ajax({
+            url:        "/wxpay/config.json?url=" + url,
+            beforeSend: function(){},
+            global:     false
+          })
+          .done(function(data){
 
-        wx.config({
-          appId:     data.appId,
-          timestamp: data.timestamp,
-          nonceStr:  data.nonceStr,
-          signature: data.signature,
-          jsApiList: data.jsApiList
-        });
+            wx.config({
+              appId:     data.appId,
+              timestamp: data.timestamp,
+              nonceStr:  data.nonceStr,
+              signature: data.signature,
+              jsApiList: data.jsApiList
+            });
 
-        wx.ready(function(){
-          console.log('config is ready, checking js api available');
-          wx.checkJsApi({
-             jsApiList: data.jsApiList,
-             success: function (res) {
-               console.log(JSON.stringify(res));
-             }
-           });
-        });
+            wx.ready(function(){
+              console.log('config is ready, checking js api available');
+              wx.checkJsApi({
+                 jsApiList: data.jsApiList,
+                 success: function (res) {
+                   console.log(JSON.stringify(res));
+                 }
+               });
+            });
 
-        wx.error(function(res){
-          alert("初始化微信js sdk出错，请联系我们");
-        })
-      })
+            wx.error(function(res){
+              alert("初始化微信js sdk出错，请联系我们");
+            })
+          })
 
-      wx.ready(function(){
-        console.log('wx ready, click to pay')
+          wx.ready(function(){
+            console.log('wx ready, click to pay')
 
-        $('#wechatPaymentBtn').on('click', function() {
+            $('#wechatPaymentBtn').on('click', function() {
 
-          wx.chooseWXPay({
-              timestamp: orderParams.timeStamp,
-              nonceStr:  orderParams.nonceStr,
-              package:   orderParams.package,
-              signType:  orderParams.signType,
-              paySign:   orderParams.paySign,
-              success: function (res) {
-  							console.log(JSON.stringify(res));
-  							if(res["errMsg"] == "chooseWXPay:ok"){
-                  // check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
-                  location.reload()
-  							}
-              },
-  						fail: function(res){
-  							console.log(JSON.stringify(res));
-  							alert('支付请求失败, 请联系我们');
-  						}
-          });
-        });
-      })
+              wx.chooseWXPay({
+                  timestamp: orderParams.timeStamp,
+                  nonceStr:  orderParams.nonceStr,
+                  package:   orderParams.package,
+                  signType:  orderParams.signType,
+                  paySign:   orderParams.paySign,
+                  success: function (res) {
+      							console.log(JSON.stringify(res));
+      							if(res["errMsg"] == "chooseWXPay:ok"){
+                      // check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
+                      location.reload()
+      							}
+                  },
+      						fail: function(res){
+      							console.log(JSON.stringify(res));
+      							alert('支付请求失败, 请联系我们');
+      						}
+              });
+            });
+          })
+      <% end %>
+    })
   <% end %>
-
 <% end %>
