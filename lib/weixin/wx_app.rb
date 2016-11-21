@@ -285,5 +285,7 @@ module WxApp
       Digest::MD5.hexdigest(pay_sign_str).upcase()
     end
 
+    
+
   end
 end
