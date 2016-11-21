@@ -253,7 +253,7 @@ module WxApp
       options = {
                   appid:     Settings.wx_pay.app_id,
                   mch_id:    Settings.wx_pay.mch_id,
-                  key:       Settings.wx_pay.key,
+                  key:       Settings.wx_pay.api_key,
                   noncestr:  SecureRandom.hex,
                   timestamp: DateTime.now.to_i
                 }
@@ -285,7 +285,7 @@ module WxApp
       Digest::MD5.hexdigest(pay_sign_str).upcase()
     end
 
-    
+
 
   end
 end
