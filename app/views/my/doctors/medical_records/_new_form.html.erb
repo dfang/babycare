@@ -22,7 +22,7 @@
                   <% end %>
 
                   <%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
-                  <%= f.input :birthdate, wrapper: :weui_input %>
+                  <%= f.input :birthdate, start_year: Time.now.year - 99, end_year: Time.now.year, wrapper: :weui_input %>
                   <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label for="" class="weui-label">性别</label>
@@ -55,7 +55,7 @@
                         </select>
                     </div>
                   </div>
-                  <%= f.input :onset_date, wrapper: :weui_input %>
+                  <%= f.input :onset_date, start_year: Time.now.year - 99, end_year: Time.now.year, wrapper: :weui_input %>
                   <%= f.input :chief_complaint, as: :text, wrapper: :weui_input %>
                   <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
                   <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
