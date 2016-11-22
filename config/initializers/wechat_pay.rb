@@ -1,4 +1,4 @@
-WxPay.appid = Settings.wx_pay.appid
+WxPay.appid = Settings.wx_pay.app_id
 WxPay.key = Settings.wx_pay.api_key
 WxPay.mch_id = Settings.wx_pay.mch_id
 

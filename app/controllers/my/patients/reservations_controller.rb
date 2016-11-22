@@ -50,11 +50,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
         payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
         options = WxApp::WxPay.generate_payment_options({openid: current_wechat_authentication.uid})
 
+        payment_params.merge!({openid: current_wechat_authentication.uid})
         p payment_params
         p options
 
         result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-        p  "invoke_unifiedorder result: payment_params is .......... "
+        p  "invoke_unifiedorder result is .......... "
         p result
 
         # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
@@ -70,7 +71,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
         # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
         @order_params = {
-          appId:     js_pay_params.delete(:appId),
+          appId:     WxPay.appid
           timeStamp: js_pay_params.delete(:timeStamp),
           nonceStr:  js_pay_params.delete(:nonceStr),
           signType:  js_pay_params.delete(:signType),
