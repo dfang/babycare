@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
 
   def decrease_balance_unwithdrawable(amount)
     build_wallet if wallet.blank?
-    if wallet.balance_unwithdrawable > amount
+    if wallet.balance_unwithdrawable >= amount
       wallet.balance_unwithdrawable -= amount
       wallet.save!
     end
@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   # 结算
   def decrease_balance_withdrawable(amount)
     build_wallet if wallet.blank?
-    if wallet.balance_withdrawable > amount
+    if wallet.balance_withdrawable >= amount
       wallet.balance_withdrawable -= amount
       wallet.save!
     end
