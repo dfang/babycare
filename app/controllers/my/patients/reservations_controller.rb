@@ -151,19 +151,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
     response_obj = Hash.from_xml(request.body.read)
     p 'payment notify result'
     p response_obj
-    options_to_sign = {
-                        appid: Settings.wx_pay.app_id,
-                        mch_id: Settings.wx_pay.mch_id,
-                        transaction_id: response_obj["xml"]["transaction_id"],
-                        nonce_str: SecureRandom.hex,
-                        out_trade_no: response_obj["xml"]["out_trade_no"]
-                      }
-    strings_to_sign = options_to_sign.sort.map do |k,v|
-                          "#{k}=#{v}" if v != "" && !v.nil?
-                        end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
+    params =  {
+                transaction_id: response_obj["xml"]["transaction_id"],
+              }
 
-
-    order_query_result =  WxPay::Service.order_query(options_to_sign.merge(sign: Digest::MD5.hexdigest(strings_to_sign)))
+    options = WxApp::WxPay.generate_payment_options
+    order_query_result =  WxPay::Service.order_query(params, options)
 
     p 'order query result .......'
     p order_query_result
@@ -171,7 +164,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
     if order_query_result["return_code"] == "SUCCESS"
 
       p 'find reservation'
-      reservation = Reservation.where("out_trade_pay_no = ? OR out_trade_prepay_no = ?", order_query_result["out_trade_no"], order_query_result["out_trade_no"]).first
+      reservation = Reservation.where("out_trade_pay_no = ? OR out_trade_prepay_no = ?", order_query_result["out_trade_no"], order_query_result["out_trade_prepay_no"]).first
 
       p reservation
       p 'trigger prepay or pay event'
