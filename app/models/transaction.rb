@@ -9,7 +9,7 @@ class Transaction < ActiveRecord::Base
   aasm do
     state :pending, initial: true
     state :settled
-    event :settle, after_transaction: :after_settled! do
+    event :settle, after_commit: :after_settled! do
       transitions from: :pending, to: :settled
     end
   end
