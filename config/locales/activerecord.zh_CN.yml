@@ -69,6 +69,8 @@ zh-CN:
         wechat: 微信
       medical_record:
         <<: *common
+        name: 姓名
+        identity_card: 身份证
         onset_date: 发病日期
         chief_complaint: 主诉
         history_of_present_illness: 现病史
