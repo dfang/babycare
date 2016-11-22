@@ -283,7 +283,39 @@ module WxApp
       Digest::MD5.hexdigest(pay_sign_str).upcase()
     end
 
+    def pay_to_wechat_user
+      # check_required_options(params, GENERATE_APP_PAY_REQ_REQUIRED_FIELDS)
+      # partner_trade_no = "withdraw_#{Time.zone.now.strftime('%Y%m%d')}_#{SecureRandom.random_number(100000)}"
+      url               = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers"
+      openid            = "ox-t3s08e-Av2rUlE2a2i2ITR0XY"
+      amount            = 1
+      ip                = "127.0.0.1"
+      partner_trade_no  = "#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
+      body_text         = "提现"
+      re_user_name      = ""
+      
+      openid = "ox-t3s08e-Av2rUlE2a2i2ITR0XY"
+      amount = 1
+      ip     = '127.0.0.1'
+      partner_trade_no = "withdraw_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
 
+      transfer_params = {
+        mch_appid:           Settings.wx_pay.app_id,
+        partner_trade_no:    partner_trade_no,
+        openid:              openid,
+        check_name:          'NO_CHECK',
+        spbill_create_ip:    '127.0.0.1',
+        desc:                "提现",
+        amount:              amount
+      }
+      options = WxApp::WxPay.generate_payment_options
+
+      # WxPay::Service.send(:make_payload, transfer_params)
+      ::WxPay::Service.invoke_transfer(transfer_params, options)
+      # WxPay::Sign.generate(transfer_params)
+      # WxPay::Sign.verify?(transfer_params)
+
+    end
 
   end
 end

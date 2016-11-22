@@ -23,11 +23,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
   def show
     if resource.reserved?
       body_text = '预约定金'
-      fee = Settings.wx_pay.prepay_amount.to_i
+      fee = (Settings.wx_pay.prepay_amount * 100).to_i
       resource.prepay_fee = fee
     elsif resource.diagnosed?
       body_text = '支付咨询费用'
-      fee = Settings.wx_pay.pay_amount.to_i
+      fee = (Settings.wx_pay.pay_amount * 100).to_i
       resource.pay_fee = fee
     end
 
@@ -48,8 +48,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
     if resource.reserved? || resource.diagnosed?
 
         payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
-        options = WxApp::WxPay.generate_payment_options({openid: current_wechat_authentication.uid})
+        options = WxApp::WxPay.generate_payment_options
 
+        # 微信支付的坑
+        # total_fee 必须是整数的分，不能是float
+        # JSAPI支付必须传openid
         payment_params.merge!({openid: current_wechat_authentication.uid})
         p payment_params
         p options
