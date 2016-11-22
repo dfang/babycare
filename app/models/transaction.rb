@@ -4,13 +4,13 @@ class Transaction < ActiveRecord::Base
 
   enumerize :source, in: [:offline_consult, :online_consult], default: :offline_consult, predicates: true, scope: true
   enumerize :operation, in: [:income, :withdraw], default: :income, predicates: true, scope: true
-  enumerize :aasm_state, in: [ :pending, :settled ], default: :pending, predicates: true, scope: true
+  enumerize :aasm_state, in: [ :pending, :settled ], default: :pending, predicates: false, scope: true
 
   aasm do
     state :pending, initial: true
     state :settled
     event :settle, after_transaction: :after_settled! do
-      transitions from: :pending, to: :settle
+      transitions from: :pending, to: :settled
     end
   end
 
