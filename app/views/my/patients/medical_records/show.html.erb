@@ -126,9 +126,12 @@
                                 <%= show_medical_record_cell(resource, :preliminary_diagnosis) %>
                                 <%= show_medical_record_cell(resource, :treatment_recommendation) %>
                                 <%= show_medical_record_cell(resource, :remarks) %>
-
-                                
                               </div>
+
+                              <div class="weui-btn-area">
+                                <%= link_to "编辑", edit_my_patients_medical_record_path(resource), class: 'weui-btn weui-btn__primary' %>
+                              </div>
+
                             </div>
                           </div>
                     </div>
