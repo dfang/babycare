@@ -24,4 +24,12 @@ class MedicalRecord < ActiveRecord::Base
   PAIN_SCORES = (0..10).to_a.freeze
 
 
+  def medical_record_title
+    if name.blank?
+      "#{created_at.strftime('%Y-%m-%d')}的病历"
+    else
+      "#{name}的病历"
+    end
+  end
+
 end
