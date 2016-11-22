@@ -99,11 +99,6 @@ class User < ActiveRecord::Base
     transaction
   end
 
-  private
-
-
-
-
   # 用户支付的时候
   # increase_balance_unwithdrawable
 
