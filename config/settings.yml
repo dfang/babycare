@@ -31,8 +31,8 @@ wx_pay:
   mch_id: '1368072702'
   # 单位 分
   payment_notify_url: "http://wx.yhuan.cc/my/patients/reservations/payment_notify"
-  prepay_amount: 100
-  pay_amount: 100
+  prepay_amount: 1
+  pay_amount: 1
 
 sms_templates:
   notify_all_when_new_reservation: 121703

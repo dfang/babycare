@@ -61,14 +61,21 @@ class Reservation < ActiveRecord::Base
   # for testing, use claimed_by instead of res.reserve to debug in rails console
   def claimed_by(user_b, reservation_time, reservation_location, reservation_phone)
     self.user_b = user_b
-    self.reserve do
-      params = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
-      SmsNotifyUserWhenReservedJob.perform_now(self.patient_user_phone, params)
-    end
     self.reservation_time = reservation_time
     self.reservation_location = reservation_location
     self.reservation_phone = reservation_phone || doctor_user.mobile_phone
     self.save!
+
+    self.reserve! do
+      params = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
+      SmsNotifyUserWhenReservedJob.perform_now(self.patient_user_phone, params)
+    end
+
+  end
+
+  def dumb_claimed_by_first_doctor
+    b = Doctor.first
+    claimed_by(b.id, Time.now, "测试地址", b.mobile_phone)
   end
 
   def marked_phone_number
@@ -147,7 +154,8 @@ class Reservation < ActiveRecord::Base
 
   # aasm guards
   def can_be_reserved?
-    self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
+    # self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
+    true
   end
 
   # aasm transaction callbacks
