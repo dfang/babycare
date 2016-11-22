@@ -71,7 +71,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
         # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
         @order_params = {
-          appId:     WxPay.appid
+          appId:     WxPay.appid,
           timeStamp: js_pay_params.delete(:timeStamp),
           nonceStr:  js_pay_params.delete(:nonceStr),
           signType:  js_pay_params.delete(:signType),
