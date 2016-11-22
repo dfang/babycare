@@ -58,8 +58,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
         # p  "js_sdk_signature string ..........\n #{js_sdk_signature_str} "
 
         # pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
-        p   'pay_sign_str is .....'
-        p   pay_sign_str
+        # p   'pay_sign_str is .....'
+        # p   pay_sign_str
 
         js_pay_params = ::WxPay::Service.generate_js_pay_req({prepay_id: result['prepay_id'], noncestr: options[:noncestr]}, options)
 
