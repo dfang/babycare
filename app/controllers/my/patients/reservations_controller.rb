@@ -47,34 +47,31 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     if resource.reserved? || resource.diagnosed?
 
-        payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
+        payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
         options = WxApp::WxPay.generate_payment_options
 
-
-        result = WxPay::Service.invoke_unifiedorder(payment_params, options)
-        p   'invoke_unifiedorder result: payment_params is .......... '
-        p   result
+        result = WxPay::Service.invoke_unifiedorder(payment_params)
+        p  "invoke_unifiedorder result: payment_params is .......... \n #{result}"
 
         # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-        js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
-        p   'js_sdk_signature string ..........'
-        p   js_sdk_signature_str
+        # js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
+        # p  "js_sdk_signature string ..........\n #{js_sdk_signature_str} "
 
-
-        pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
+        # pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
         p   'pay_sign_str is .....'
         p   pay_sign_str
+
+        js_pay_params = WxPay::Service.generate_js_pay_req({prepay_id: result['prepay_id'], noncestr: options[:noncestr]})
 
 
         # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
         @order_params = {
-          appId:     result['appid'] || Settings.wx_pay.app_id,
-          timeStamp: options[:timestamp],
-          nonceStr:  options[:noncestr],
-          signType:  "MD5",
-          package:   "prepay_id=#{result['prepay_id']}",
-          sign:      js_sdk_signature_str,
-          paySign:   pay_sign_str
+          appId:     js_pay_params.delete(:appId),
+          timeStamp: js_pay_params.delete(:timeStamp),
+          nonceStr:  js_pay_params.delete(:nonceStr),
+          signType:  js_pay_params.delete(:signType),
+          package:   js_pay_params.delete(:package),
+          paySign:   js_pay_params.delete(:paySign)
         }
 
         p '@order_params is .........'

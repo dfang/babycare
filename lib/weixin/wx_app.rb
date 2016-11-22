@@ -235,17 +235,15 @@ module WxApp
   module WxPay
     extend self
 
-    def generate_payment_params(body_text, out_trade_no, fee, ip, notify_url, openid)
+    def generate_payment_params(body_text, out_trade_no, fee, ip, notify_url, trade_type)
       payment_params = {
         body: body_text,
         out_trade_no: out_trade_no,
         total_fee: fee,
         spbill_create_ip: ip,
-        notify_url: 'http://wx.yhuan.cc/my/patients/reservations/payment_notify',
-        trade_type: 'JSAPI',
-        openid: openid
+        notify_url: notify_url,
+        trade_type: trade_type
       }
-
       payment_params
     end
 
