@@ -138,4 +138,12 @@ class User < ActiveRecord::Base
     wallet.balance_withdrawable += amount
     wallet.save!
   end
+
+  private
+  # method for testing
+  def settle_all_transactions_right_now!
+    transactions.pending.find_each do |tran|
+      tran.settle!
+    end
+  end
 end
