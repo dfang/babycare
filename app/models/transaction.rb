@@ -35,6 +35,10 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def amount_cny
+    amount / 100.0
+  end
+
   private
 
   # # 结算transaction的时候
