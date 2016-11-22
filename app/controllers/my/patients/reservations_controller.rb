@@ -23,11 +23,11 @@ class My::Patients::ReservationsController < InheritedResources::Base
   def show
     if resource.reserved?
       body_text = '预约定金'
-      fee = Settings.wx_pay.prepay_amount
+      fee = Settings.wx_pay.prepay_amount.to_i
       resource.prepay_fee = fee
     elsif resource.diagnosed?
       body_text = '支付咨询费用'
-      fee = Settings.wx_pay.pay_amount
+      fee = Settings.wx_pay.pay_amount.to_i
       resource.pay_fee = fee
     end
 
