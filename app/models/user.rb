@@ -81,15 +81,20 @@ class User < ActiveRecord::Base
     end
   end
 
-  def withdraw_cash(amount)
+  def withdraw_cash(amount, ip)
     transaction = Transaction.new
     ActiveRecord::Base.transaction do
+
       transaction = Transaction.create({
         operation: "withdraw",
         amount: amount,
         withdraw_target: self.wechat_authentication.uid
       })
+
       decrease_balance_withdrawable(amount)
+
+      # pay_to_wechat_user
+      WxApp::WxPay.pay_to_wechat_user(self.wechat_authentication.uid, amount, ip)
     end
     transaction
   end

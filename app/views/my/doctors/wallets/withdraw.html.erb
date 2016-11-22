@@ -3,7 +3,7 @@
     <div class="weui-msg__icon-area">
       <span>可提现金额(元)</span>
       <i class="weui-icon_msg">
-        <%= current_user.wallet.balance_withdrawable.to_f %>
+        <%= current_user.wallet.balance_withdrawable.to_f / 100.0 %>
       </i>
     </div>
     <div class="weui-msg__text-area left">

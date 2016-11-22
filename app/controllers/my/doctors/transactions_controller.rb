@@ -1,9 +1,10 @@
 class My::Doctors::TransactionsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
 
+  # 提现 wallet/withdraw
   def create
-    if current_user.wallet.balance_withdrawable >= transaction_params[:amount].to_f
-      transaction = current_user.withdraw_cash(transaction_params[:amount].to_f)
+    if current_user.wallet.balance_withdrawable >= transaction_params[:amount].to_f * 100
+      transaction = current_user.withdraw_cash(transaction_params[:amount].to_f * 100, request.ip)
       redirect_to my_doctors_transaction_path(transaction)
     end
 
