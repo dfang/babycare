@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116134448) do
+ActiveRecord::Schema.define(version: 20161122070104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,6 +213,8 @@ ActiveRecord::Schema.define(version: 20161116134448) do
     t.boolean  "gender"
     t.date     "birthdate"
     t.string   "blood_type"
+    t.string   "name"
+    t.string   "identity_card"
   end
 
   add_index "medical_records", ["reservation_id"], name: "index_medical_records_on_reservation_id", using: :btree
@@ -312,6 +314,7 @@ ActiveRecord::Schema.define(version: 20161116134448) do
     t.integer  "prepay_fee"
     t.integer  "pay_fee"
     t.text     "reservation_remark"
+    t.string   "reservation_name"
   end
 
   create_table "settings", force: :cascade do |t|

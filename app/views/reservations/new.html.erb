@@ -18,12 +18,21 @@
 
     <div class="weui-cell weui-cell_select weui-cell_select-after">
       <div class="weui-cell__hd">
-          <label class="weui-label">男孩还是女孩</label>
+          <label class="weui-label">为谁预约</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
           <select class="weui-select" name="reservation[child_gender]" data-parsley-required="true">
             <%= options_for_select Reservation::GENDERS, "儿子" %>
           </select>
+      </div>
+    </div>
+
+    <div class="weui-cell weui-cell-name">
+      <div class="weui-cell__hd">
+          <label class="weui-label">名字</label>
+      </div>
+      <div class="weui-cell__bd weui-cell_primary">
+          <input class="weui-input" name="reservation[reservation_name]" placeholder="孩子的名字" type="text" data-parsley-required="true">
       </div>
     </div>
 

@@ -18,6 +18,10 @@
                 <div class="tab1 tab-content">
                   <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
                   <%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
+
+                  <%= f.input :name, as: :text, wrapper: :weui_input %>
+                  <%= f.input :identity_card, as: :text, wrapper: :weui_input %>
+
                   <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label for="" class="weui-label">性别</label>

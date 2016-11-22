@@ -43,6 +43,11 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
 
   def new
     @medical_record ||= MedicalRecord.new
+    if params.key?(reservation_id)
+      reservation = Reservation.find_by(id: params[:reservation_id])
+      @medical_record.name = reservation.reservation_phone
+    end
+
     @medical_record.blood_type = current_user.settings.first.try(:blood_type)
     @medical_record.birthdate = current_user.settings.first.try(:birthdate)
     @medical_record.gender = current_user.settings.first.try(:gender)
