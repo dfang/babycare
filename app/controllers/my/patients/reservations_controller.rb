@@ -48,7 +48,10 @@ class My::Patients::ReservationsController < InheritedResources::Base
     if resource.reserved? || resource.diagnosed?
 
         payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
-        options = WxApp::WxPay.generate_payment_options
+        options = WxApp::WxPay.generate_payment_options({openid: current_wechat_authentication.uid})
+
+        p payment_params
+        p options
 
         result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
         p  "invoke_unifiedorder result: payment_params is .......... "

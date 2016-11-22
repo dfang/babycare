@@ -247,14 +247,14 @@ module WxApp
       payment_params
     end
 
-    def generate_payment_options
+    def generate_payment_options(options = {})
       options = {
                   appid:     Settings.wx_pay.app_id,
                   mch_id:    Settings.wx_pay.mch_id,
                   key:       Settings.wx_pay.api_key,
                   noncestr:  SecureRandom.hex,
                   timestamp: DateTime.now.to_i
-                }
+                }.merge(options)
       options
     end
 
