@@ -43,7 +43,7 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
 
   def new
     @medical_record ||= MedicalRecord.new
-    if params.key?(reservation_id)
+    if params.key?(:reservation_id)
       reservation = Reservation.find_by(id: params[:reservation_id])
       @medical_record.name = reservation.reservation_phone
     end
