@@ -2,7 +2,10 @@ require 'rqrcode'
 
 class UserObserver < ActiveRecord::Observer
 
-  # def after_save(user)
+  def after_create(user)
+    user.build_wallet
+    user.save!
+
   #   # todo: delay job to create qrcode
   #   qrcode = RQRCode::QRCode.new("http://github.com/")
   #   png = qrcode.as_png(
@@ -18,5 +21,5 @@ class UserObserver < ActiveRecord::Observer
   #
   #   user.qrcode_data_uri = png.to_data_url
   #   user.save!
-  # end
+  end
 end
