@@ -51,7 +51,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
         options = WxApp::WxPay.generate_payment_options
 
         result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-        p  "invoke_unifiedorder result: payment_params is .......... \n #{result}"
+        p  "invoke_unifiedorder result: payment_params is .......... "
+        p result
 
         # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
         # js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
@@ -61,7 +62,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
         # p   'pay_sign_str is .....'
         # p   pay_sign_str
 
-        js_pay_params = ::WxPay::Service.generate_js_pay_req({prepay_id: result['prepay_id'], noncestr: options[:noncestr]}, options)
+        js_pay_params = ::WxPay::Service.generate_js_pay_req({prepayid: result['prepay_id'], noncestr: options[:noncestr]}, options)
 
 
         # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
