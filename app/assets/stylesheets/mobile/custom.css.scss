@@ -224,14 +224,8 @@ a.add-medical-record{
   input:-moz-placeholder { text-align:right; }
 }
 
-.simple_form.new_medical_record select.weui-input,
-.simple_form.edit_medical_record select.weui-input,
-.weui-cell_select-after select.weui-select {
-  text-align: justify;
-  direction:rtl;
-}
 
-
+// 对齐
 .reservations_new{
   .weui-cell-remark{
     .weui-cell__hd{
@@ -246,5 +240,23 @@ a.add-medical-record{
       margin-right: 34px;
     }
   }
+}
 
+.simple_form.new_medical_record select.weui-input,
+.simple_form.edit_medical_record select.weui-input,
+.weui-cell_select-after select.weui-select {
+  // text-align: justify;
+  // direction:rtl;
+}
+
+.weui-cell.medical_record_name:before{
+  display: none;
+}
+
+.my_patients_medical_records_new, .my_patients_medical_records_edit{
+  .weui-cell{
+    .weui-cell__hd{
+      width: 4em !important;
+    }
+  }
 }
