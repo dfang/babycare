@@ -5,7 +5,7 @@
       </a>
     </div>
     <div class="weui-msg__text-area">
-        <h2 class="weui-msg__title"><%= current_user.wechat_authentication.nickname %></h2>
+        <h2 class="weui-msg__title"><%= resource.wechat_authentication.nickname %></h2>
     </div>
     <div class="weui-msg__opr-area">
 
@@ -19,16 +19,16 @@
           <div class="weui-panel__bd">
               <div class="weui-media-box weui-media-box__text" style="display: none">
                   <h4 class="weui-media__title">姓名</h4>
-                  <p class="weui-media__desc"><%= current_user.name %></p>
+                  <p class="weui-media__desc"><%= resource.name %></p>
               </div>
               <div class="weui-media-box weui-media-box__text" style="display: none">
                   <h4 class="weui-media__title">手机号码</h4>
-                  <p class="weui-media__desc"><%= current_user.mobile_phone %></p>
+                  <p class="weui-media__desc"><%= resource.mobile_phone %></p>
               </div>
 
               <div class="weui-media-box weui-media-box__text" style="display: none">
                   <h4 class="weui-media__title">性别</h4>
-                  <p class="weui-media__desc"><%= current_user.gender %></p>
+                  <p class="weui-media__desc"><%= resource.gender %></p>
               </div>
 
               <!-- <div class="weui-media-box weui-media-box__text" style="display: none">

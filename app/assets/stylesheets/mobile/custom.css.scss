@@ -253,10 +253,13 @@ a.add-medical-record{
   display: none;
 }
 
-.my_patients_medical_records_new, .my_patients_medical_records_edit{
-  .weui-cell{
-    .weui-cell__hd{
-      width: 20%;
+.my_patients_medical_records_new, .my_patients_medical_records_edit,
+.my_doctors_medical_records_new, .my_doctors_medical_records_edit{
+  .tab1{
+    .weui-cell{
+      .weui-cell__hd{
+        width: 20%;
+      }
     }
   }
 }
