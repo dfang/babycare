@@ -68,7 +68,7 @@
       <div id="symptom-tags"></div>
     </div>
 
-    <div class="weui-cell">
+    <div class="weui-cell hide">
       <div id="symptom-tag-details"></div>
     </div>
 
@@ -188,6 +188,7 @@
           details = symptom_tag_details[i].values
         }
       }
+      $('#symptom-tag-details').parents('.weui-cell').removeClass('hide')
       $('#symptom-tag-details').empty()
       $('#symptom-tag-details').tags({
         values: details,
