@@ -1,0 +1,66 @@
+<div id="topbar">
+  <div class="topbar-left">
+    <ol class="breadcrumb">
+      <li class="crumb-active"><a href="/admin/posts">必读文章</a></li>
+      <li class="crumb-icon"><a href="dashboard.html"><span class="glyphicon glyphicon-home"></span></a></li>
+      <li class="crumb-link"><a href="/admin">Home</a></li>
+      <li class="crumb-trail">必读文章</li>
+    </ol>
+  </div>
+  <div class="topbar-right">
+    <div class="dashboard-widget-tray">
+      <a href='/admin/symptoms/new' class='btn btn-default'> 新建 </a>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-visible">
+        <div class="panel-heading">
+          <div class="panel-title hidden-xs"> <span class="glyphicon glyphicon-tasks"></span> 登记</div>
+        </div>
+        <div class="panel-body pbn">
+          <table class="table table-striped table-bordered table-hover" id="datatable">
+            <thead>
+              <tr>
+                <th>标题</th>
+                <th>症状</th>
+                <th>具体症状</th>
+                <th class="text-center hidden-xs">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @symptoms.each do |p| %>
+                <tr>
+                  <td><span class="xedit"><%= link_to admin_symptom_path(p) do %> <%= p.name %> <% end %></span></td>
+                  <td><span class="xedit"><%= p.name %></span></td>
+                  <td><span class="xedit"><%= p.detail %></span></td>
+                  <td class="hidden-xs text-center">
+                    <div class="btn-group">
+                      <%= link_to admin_symptom_path(p), class: 'btn bg-grey2 btn-gradient btn-sm' do %>
+                         <span class="glyphicons glyphicons-user"></span>
+                      <% end %>
+
+                      <%= link_to edit_admin_symptom_path(p), class: 'btn bg-grey2 btn-gradient btn-sm' do %>
+                         <span class="glyphicons glyphicons-cogwheel"></span>
+                      <% end %>
+
+                      <%= link_to admin_symptom_path(p), class: 'btn bg-grey2 btn-gradient btn-sm', data: { method: 'delete', confirm: '确定删除吗？' } do %>
+                         <span class="glyphicon glyphicon-trash"></span>
+                      <% end %>
+
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

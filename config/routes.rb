@@ -97,6 +97,7 @@ Rails.application.routes.draw do
   resources :global_images, only: :create
 
   namespace :admin do
+    resources :symptoms
     resources :wx_menus do
       collection do
         get 'sync'

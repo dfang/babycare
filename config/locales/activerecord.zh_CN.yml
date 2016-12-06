@@ -58,6 +58,10 @@ zh-CN:
         created_at: 创建时间
         updated_at: 更新时间
         blood_type: 血型
+      symptom:
+        <<: *common
+        name: 症状
+        detail: 具体症状
       person:
         <<: *common
         name: 姓名
