@@ -34,3 +34,41 @@
     }
   }
 }
+
+.reservations_new{
+  #symptom-tags{
+    .pills-list{
+      .badge{
+        line-height: 2.5;
+        height: 50px;
+        margin: 5px;
+        font-weight: normal;
+        border-radius: 25px;
+        font-size: 17px;
+        border: 1px solid #777;
+        background-color: #FFF;
+        color: #777;
+      }
+      .badge.active{
+        background-color: #000;
+        color: #FFF;
+      }
+    }
+  }
+  #symptom-tag-details{
+    .pills-list{
+      .badge{
+        font-weight: normal;
+        font-size: 15px;
+        border: 1px solid #777;
+        background-color: #FFF;
+        color: #777;
+        margin: 4px;
+      }
+      .badge.active{
+        background-color: #000;
+        color: #FFF;
+      }
+    }
+  }
+}

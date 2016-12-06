@@ -30,6 +30,8 @@ class ReservationsController < InheritedResources::Base
                       end.compact.join('&')
     @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
 
+    @symptoms = Symptom.all.group_by(&:name).map { |k, v| k }.to_json
+    @symptom_details = Symptom.all.group_by(&:name).map { |k, v| {name: k, values: v.map(&:detail) } }.to_json
     super
   end
 

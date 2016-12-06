@@ -58,10 +58,21 @@
         </div>
     </div>
 
-    <div class="weui-cell weui-cell-remark">
+    <div class="weui-cell">
       <div class="weui-cell__hd">
         <label class="weui-label">症状</label>
       </div>
+    </div>
+
+    <div class="weui-cell">
+      <div id="symptom-tags"></div>
+    </div>
+
+    <div class="weui-cell">
+      <div id="symptom-tag-details"></div>
+    </div>
+
+    <div class="weui-cell weui-cell-remark">
       <div class="weui-cell__bd weui-cell_primary">
         <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
       </div>
@@ -79,9 +90,15 @@
 <% end %>
 
 
+<%= content_for :css do %>
+	<%= stylesheet_link_tag :bootstrap_fontawesome %>
+<% end %>
+
 <%- content_for :js  do %>
 <script type="text/javascript">
   $(function(){
+
+    symptom_tag_details = <%= raw @symptom_details %>
 
     url = location.href.split('#')[0]
     $.ajax({
@@ -150,6 +167,55 @@
         });
       })
     });
+
+    $('#symptom-tags').tags({
+      values: <%= raw @symptoms %>,
+      templates: {
+        pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
+        number: '<sup><small>{0}</small></sup>'
+      },
+      input_name: "tag_list[]",
+      can_delete: false,
+      can_add: false
+    });
+
+    $(document).on('click', '#symptom-tags .pills-list .badge', function(e){
+      $(e.target).siblings().removeClass('active').end().toggleClass('active')
+      tag = $(e.target).text()
+      details = []
+      for (var i = 0, len = symptom_tag_details.length; i < len; i++) {
+        if(symptom_tag_details[i].name == tag){
+          details = symptom_tag_details[i].values
+        }
+      }
+      $('#symptom-tag-details').empty()
+      $('#symptom-tag-details').tags({
+        values: details,
+        templates: {
+          pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
+          number: '<sup><small>{0}</small></sup>'
+        },
+        input_name: "tag_list[]",
+        can_delete: false,
+        can_add: false
+      });
+    })
+
+    $(document).on('click', '#symptom-tag-details .pills-list .badge', function(e){
+      $(e.target).toggleClass('active')
+      details = []
+      $(e.target).parent('.pills-list').find('.badge.active').map(function(i,e){
+        details.push($(e).text())
+      })
+
+      text = "病请描述：大夫您好, 我的宝宝, "
+
+      console.log(text + details)
+      $('.weui-cell-remark .weui-textarea').val(text + details)
+
+
+
+    })
 
 
     $('.simple_form.new_reservation').parsley({
