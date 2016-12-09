@@ -33,8 +33,8 @@ wx_pay:
   # JSSDK 支付的时候单为分
   # 企业付款金额单位为分, 但是最小支付单位必须1元
   # 这里的单位是元
-  prepay_amount: 1
-  pay_amount: 1
+  prepay_amount: 0.01
+  pay_amount: 0.01
 
 sms_templates:
   notify_all_when_new_reservation: 121703
