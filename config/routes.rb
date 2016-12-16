@@ -127,6 +127,7 @@ Rails.application.routes.draw do
   end
 
   resources :reservations do
+    get 'choose_type', on: :collection
     get 'public', on: :collection
     get 'status', on: :member
     get 'restricted', on: :collection

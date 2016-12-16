@@ -55,6 +55,7 @@ class Reservation < ActiveRecord::Base
   end
 
   enumerize :aasm_state, in: [:pending, :reserved, :prepaid, :diagnosed, :paid, :archived, :rated, :overdued, :cancelled], default: :pending, predicates: true
+  enumerize :type, in: [:online, :offline], default: :offline, predicates: true
 
   GENDERS = %w(儿子 女儿).freeze
 
