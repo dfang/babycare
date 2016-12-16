@@ -21,8 +21,8 @@
                   <% end %>
 
                   <%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
-                  <%= f.input :name, as: :text, wrapper: :weui_input %>
-                  <%= f.input :identity_card, as: :text, wrapper: :weui_input %>
+                  <%= f.input :name, wrapper: :weui_input %>
+                  <%= f.input :identity_card, wrapper: :weui_input %>
 
                   <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
@@ -58,13 +58,13 @@
                   </div>
                   <%= f.input :birthdate, start_year: Time.now.year - 99, end_year: Time.now.year, wrapper: :weui_input %>
                   <%= f.input :onset_date, start_year: Time.now.year - 99, end_year: Time.now.year, wrapper: :weui_input %>
-                  <%= f.input :chief_complaint, as: :text, wrapper: :weui_input, label: "主    诉" %>
-                  <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
-                  <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
-                  <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
-                  <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
-                  <%= f.input :family_history, as: :text, wrapper: :weui_input %>
-                  <%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
+                  <%= f.input :chief_complaint, wrapper: :weui_input, label: "主    诉" %>
+                  <%= f.input :history_of_present_illness, wrapper: :weui_input %>
+                  <%= f.input :past_medical_history, wrapper: :weui_input %>
+                  <%= f.input :allergic_history, wrapper: :weui_input %>
+                  <%= f.input :personal_history, wrapper: :weui_input %>
+                  <%= f.input :family_history, wrapper: :weui_input %>
+                  <%= f.input :vaccination_history, wrapper: :weui_input %>
                   <div class="weui-cell">
                       <div class="weui-cell__bd">
                           <div class="weui-uploader weui_uploader1">
@@ -87,8 +87,8 @@
                 </div>
 
                 <div class="tab2 tab-content hidden">
-                  <%= f.input :physical_examination, as: :text, wrapper: :weui_input %>
-                  <%= f.input :laboratory_and_supplementary_examinations, as: :text, wrapper: :weui_input %>
+                  <%= f.input :physical_examination, wrapper: :weui_input %>
+                  <%= f.input :laboratory_and_supplementary_examinations, wrapper: :weui_input %>
                   <div class="weui-cell">
                       <div class="weui-cell__bd">
                           <div class="weui-uploader weui_uploader2">
@@ -108,7 +108,7 @@
                           </div>
                       </div>
                   </div>
-                  <%= f.input :imaging_examination, as: :text, wrapper: :weui_input %>
+                  <%= f.input :imaging_examination, wrapper: :weui_input %>
                   <div class="weui-cell">
                       <div class="weui-cell__bd">
                           <div class="weui-uploader weui_uploader3">
@@ -205,9 +205,9 @@
                 </div>
 
                 <div class="tab3 tab-content hidden">
-                  <%= f.input :preliminary_diagnosis, as: :text, wrapper: :weui_input %>
-                  <%= f.input :treatment_recommendation, as: :text, wrapper: :weui_input %>
-                  <%= f.input :remarks, as: :text, wrapper: :weui_input %>
+                  <%= f.input :preliminary_diagnosis, wrapper: :weui_input %>
+                  <%= f.input :treatment_recommendation, wrapper: :weui_input %>
+                  <%= f.input :remarks, wrapper: :weui_input %>
                 </div>
 
                 <div class="weui-btn-area">

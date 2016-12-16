@@ -10,3 +10,4 @@
 //= require mobile/bootstrap-tags
 
 //= require turbolinks
+//= require mobile/autosize
