@@ -2,6 +2,12 @@ class Reservation < ActiveRecord::Base
   include AASM
   extend Enumerize
   extend ActiveModel::Naming
+  # Column name 'type' is restricted in ActiveRecord. try renaming the column name to something else or if you can't try this:
+  # type is restricted word, you can't use it as a column name in ActiveRecord models (unless you're doing STI).
+  # otherwise raise this error: The single-table inheritance mechanism failed to locate the subclass
+  self.inheritance_column = :_type_disabled
+
+
 
   has_many :ratings, :dependent => :destroy
   has_one :medical_record, :dependent => :destroy
