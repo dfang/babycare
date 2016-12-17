@@ -1,7 +1,7 @@
 class ReservationsController < InheritedResources::Base
   before_filter ->{ authenticate_user!( force: true ) }
 
-  custom_actions :resource => :wxpay_test
+  # custom_actions :resource => :wxpay_test
   # before_action :rectrict_access
   skip_before_action :rectrict_access, only: [ :restricted ]
 
