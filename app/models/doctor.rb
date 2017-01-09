@@ -1,5 +1,7 @@
 class Doctor < ActiveRecord::Base
   belongs_to :user
+  belongs_to :hospital
+  
   has_many :reservations, through: :user
 
   validates :name, :mobile_phone, presence: true

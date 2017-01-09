@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216095518) do
+ActiveRecord::Schema.define(version: 20161227143217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,6 @@ ActiveRecord::Schema.define(version: 20161216095518) do
     t.string   "name"
     t.string   "gender"
     t.integer  "age"
-    t.string   "hospital"
     t.string   "location"
     t.float    "lat"
     t.float    "long"
@@ -129,6 +128,8 @@ ActiveRecord::Schema.define(version: 20161216095518) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "good_at"
+    t.integer  "hospital_id"
+    t.string   "avatar"
   end
 
   add_index "doctors", ["user_id"], name: "index_doctors_on_user_id", using: :btree
@@ -142,6 +143,20 @@ ActiveRecord::Schema.define(version: 20161216095518) do
   end
 
   add_index "global_images", ["user_id"], name: "index_global_images_on_user_id", using: :btree
+
+  create_table "hospitals", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "nature"
+    t.string   "type"
+    t.string   "quality"
+    t.integer  "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "hospitals", ["city_id"], name: "index_hospitals_on_city_id", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.string   "data"
@@ -448,6 +463,7 @@ ActiveRecord::Schema.define(version: 20161216095518) do
 
   add_foreign_key "doctors", "users"
   add_foreign_key "global_images", "users"
+  add_foreign_key "hospitals", "cities"
   add_foreign_key "imaging_examination_images", "medical_records"
   add_foreign_key "laboratory_examination_images", "medical_records"
   add_foreign_key "medical_record_images", "medical_records"

@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'home/index'
+  get 'home/cities'
+  get 'home/city'
+  get 'home/hospitals'
+  get 'home/doctors'
+  get 'home/hospital'
+
+
   get 'wxpay/config'
 
   namespace :my do
@@ -46,8 +54,10 @@ Rails.application.routes.draw do
      get '/wx_web_auth' => 'service#wx_web_auth'
   end
 
+
   namespace :my do
 
+    get '/', to: 'home#index'
     namespace :doctors do
       resources :reservations do
         get 'claim', on: :member

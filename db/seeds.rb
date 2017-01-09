@@ -15,3 +15,7 @@ require 'factory_girl_rails'
 25.times do
   FactoryGirl.create(:reservation)
 end
+
+
+
+# City.find_or_create_by(name: "武汉市", pinyin: "wuhan")
