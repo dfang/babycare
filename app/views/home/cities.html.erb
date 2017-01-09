@@ -1,0 +1,44 @@
+<div class="weui-cells__title">城市列表</div>
+<div class="weui-cells">
+  <%- @cities.each do |city| %>
+    <a class="weui-cell weui-cell_access" href="/home/hospitals?city=<%= city.pinyin %>">
+        <div class="weui-cell__bd">
+          <p><%= city.name %></p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+  <% end %>
+</div>
+
+
+<%- content_for :js  do %>
+  <script type="text/javascript">
+  $(function(){
+    var url = "http://apis.map.qq.com/ws/location/v1/ip"
+    $.ajax({
+        type: "get",
+        dataType: 'jsonp',
+        data: {
+          key: "GHPBZ-BCE3X-GPT4A-7EJHJ-G2TPQ-PTFBQ",
+          output: "jsonp"
+        },
+        jsonp:  "callback",
+        jsonpCallback:  "function1",
+        url:  url,
+        success:function(json){
+            console.log(json.result)
+            if(json.status == 0){
+
+            }
+
+            alert(json.result.ad_info.city);
+        },
+        error : function(err){
+          console.log(err)
+          alert("服务端错误，请刷新浏览器后重试")
+        }
+    })
+  })
+  </script>
+<% end %>

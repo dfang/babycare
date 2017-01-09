@@ -1,0 +1,12 @@
+<div class="weui-cells__title">医院列表</div>
+<div class="weui-cells">
+  <%- @hospitals.each do |hospital| %>
+    <a class="weui-cell weui-cell_access" href="/home/doctors?hospital=<%= hospital.id %>">
+        <div class="weui-cell__bd">
+          <p><%= hospital.name %></p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+  <% end %>
+</div>

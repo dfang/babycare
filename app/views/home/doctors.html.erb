@@ -1,0 +1,16 @@
+<div class="weui-cells__title">医生</div>
+
+<div class="weui-cells">
+  <%- @doctors.each do |doctor| %>
+    <div class="weui-cell">
+      <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <%= image_tag :avatar, size: '80' %>
+      </div>
+      <div class="weui-cell__bd">
+        <p><%= doctor.name %></p>
+        <p style="font-size: 13px;color: #888888;"><%= doctor.hospital.try(:name) %></p>
+        <p style="font-size: 13px;color: #888888;">摘要信息</p>
+      </div>
+    </div>
+  <% end %>
+</div>
