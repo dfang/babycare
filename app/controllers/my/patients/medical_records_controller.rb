@@ -4,6 +4,9 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   skip_before_action :find_reservation, except: [:create, :update]
   before_action :config_wx_jssdk, only: [:new, :edit]
 
+  skip_before_action :verify_authenticity_token
+  respond_to :html, :json, :js
+
   def index
     @medical_records = current_user.medical_records.order('created_at DESC')
   end
