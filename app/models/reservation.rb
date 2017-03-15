@@ -64,9 +64,9 @@ class Reservation < ActiveRecord::Base
   end
 
   enumerize :aasm_state, in: [:pending, :reserved, :prepaid, :diagnosed, :paid, :archived, :rated, :overdued, :cancelled], default: :pending, predicates: true
-  enumerize :type, in: [:online, :offline], default: :offline, predicates: true
+  enumerize :reservation_type, in: [:online, :offline], default: :offline, predicates: true
 
-  # GENDERS = %w(儿子 女儿).freeze
+  GENDERS = %w(儿子 女儿).freeze
 
   # for testing, use claimed_by instead of res.reserve to debug in rails console
   # def claimed_by(user_b, reservation_time, reservation_location, reservation_phone)
@@ -88,13 +88,13 @@ class Reservation < ActiveRecord::Base
   #   claimed_by(b.id, Time.now, "测试地址", b.mobile_phone)
   # end
   #
-  # def marked_phone_number
-  #   # http://stackoverflow.com/questions/26103394/regular-expression-to-mask-all-but-the-last-4-digits-of-a-social-security-number
-  #   # Simply extract the last four characters and append them to a string of five '*'
-  #   if reservation_phone.present?
-  #     '*' * 7 + reservation_phone[-4..-1]
-  #   end
-  # end
+  def marked_phone_number
+    # http://stackoverflow.com/questions/26103394/regular-expression-to-mask-all-but-the-last-4-digits-of-a-social-security-number
+    # Simply extract the last four characters and append them to a string of five '*'
+    if reservation_phone.present?
+      '*' * 7 + reservation_phone[-4..-1]
+    end
+  end
 
   # def rating_by_doctor
   #   self.ratings.where(rated_by: self.user_b).first
