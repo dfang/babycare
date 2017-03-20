@@ -1,9 +1,10 @@
 class Doctor < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :hospital
-  
-  has_many :reservations, through: :user
+  establish_connection "odoo_#{Rails.env}"
+  self.table_name = 'fa_doctor'
 
+  belongs_to :user
+  # belongs_to :hospital
+  has_many :reservations, through: :user
   validates :name, :mobile_phone, presence: true
 
   JOB_TITLES = [ "主任医师", "副主任医师", "主治医师", "住院医师" ]

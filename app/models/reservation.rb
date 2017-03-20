@@ -8,7 +8,7 @@ class Reservation < ActiveRecord::Base
   # otherwise raise this error: The single-table inheritance mechanism failed to locate the subclass
   self.inheritance_column = :_type_disabled
 
-  establish_connection :odoo_test
+  establish_connection "odoo_#{Rails.env}"
   self.table_name = 'fa_reservation'
 
 
@@ -96,77 +96,77 @@ class Reservation < ActiveRecord::Base
     end
   end
 
-  # def rating_by_doctor
-  #   self.ratings.where(rated_by: self.user_b).first
-  # end
-  #
-  # def rating_by_patient
-  #   self.ratings.where(rated_by: self.user_a).first
-  # end
-  #
-  # def doctor_has_rated?
-  #   rating_by_doctor.present?
-  # end
-  #
-  # def patient_has_rated?
-  #   rating_by_patient.present?
-  # end
-  #
-  # def rated?
-  #   doctor_has_rated? && patient_has_rated? && aasm_state == :rated
-  # end
-  #
-  # def patient_user
-  #   patient_user ||= User.find_by(id: self.user_a)
-  # end
-  #
-  # def doctor_user
-  #   doctor_user ||= User.find_by(id: self.user_b)
-  # end
-  #
-  # def patient_user_phone
-  #   patient_user_phone ||= reservation_phone || patient_user.mobile_phone
-  # end
-  #
-  # def patient_user_name
-  #   patient_user_name ||= name || patient_user.try(:name)
-  # end
-  #
-  # def doctor_user_name
-  #   doctor_user_name ||=  doctor_user.try(:name)
-  # end
-  #
-  # def doctor_user_phone
-  #   doctor_user_phone ||= doctor_user.try(:mobile_phone)
-  # end
-  #
-  # def reserved_location
-  #   reservation_location || doctor_user.doctor.try(:hospital)
-  # end
-  #
-  # def reserved_time
-  #   if reservation_time.present?
-  #     reservation_time.strftime("%Y-%m-%d %H:%M:%S")
-  #   end
-  # end
-  #
-  # def doctor
-  #   docotr ||= doctor_user.try(:doctor)
-  # end
-  #
-  # def hospital
-  #   doctor.hospital
-  # end
-  #
-  # def reservation_title
-  #   "#{ self.name }的 #{ self.child_gender }"
-  # end
-  #
-  # # aasm guards
-  # def can_be_reserved?
-  #   # self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
-  #   true
-  # end
+  def rating_by_doctor
+    self.ratings.where(rated_by: self.user_b).first
+  end
+
+  def rating_by_patient
+    self.ratings.where(rated_by: self.user_a).first
+  end
+
+  def doctor_has_rated?
+    rating_by_doctor.present?
+  end
+
+  def patient_has_rated?
+    rating_by_patient.present?
+  end
+
+  def rated?
+    doctor_has_rated? && patient_has_rated? && aasm_state == :rated
+  end
+
+  def patient_user
+    patient_user ||= User.find_by(id: self.user_a)
+  end
+
+  def doctor_user
+    doctor_user ||= User.find_by(id: self.user_b)
+  end
+
+  def patient_user_phone
+    patient_user_phone ||= reservation_phone || patient_user.mobile_phone
+  end
+
+  def patient_user_name
+    patient_user_name ||= name || patient_user.try(:name)
+  end
+
+  def doctor_user_name
+    doctor_user_name ||=  doctor_user.try(:name)
+  end
+
+  def doctor_user_phone
+    doctor_user_phone ||= doctor_user.try(:mobile_phone)
+  end
+
+  def reserved_location
+    reservation_location || doctor_user.doctor.try(:hospital)
+  end
+
+  def reserved_time
+    if reservation_time.present?
+      reservation_time.strftime("%Y-%m-%d %H:%M:%S")
+    end
+  end
+
+  def doctor
+    docotr ||= doctor_user.try(:doctor)
+  end
+
+  def hospital
+    doctor.hospital
+  end
+
+  def reservation_title
+    "#{ self.name }的 #{ self.child_gender }"
+  end
+
+  # aasm guards
+  def can_be_reserved?
+    # self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
+    true
+  end
   #
   # # aasm transaction callbacks
   # def after_reserved!
