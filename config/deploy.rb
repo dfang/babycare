@@ -18,7 +18,9 @@ set :ssh_options, {:forward_agent => true}
 set :default_run_options, {:pty => true}
 
 set :linked_files, %w{config/database.yml config/secrets.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads public/assets vendor/assets/bower_components }
+# http://stackoverflow.com/questions/26151443/capistrano-3-deployment-for-rails-4-binstubs-conflict
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads public/assets vendor/assets/bower_components }
+set :bundle_binstubs, nil
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
