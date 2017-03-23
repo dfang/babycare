@@ -31,8 +31,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       resource.pay_fee = fee
     end
 
-    Rails.logger.info "############# payment fee (unit: fen) is"
-    Rails.logger.info "#{fee}"
+    Rails.logger.info "############# payment fee (unit: fen) is #{fee}#############"
 
     # 预约定金
     if resource.out_trade_prepay_no.blank? && resource.reserved?
@@ -46,6 +45,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     out_trade_no = resource.out_trade_pay_no || resource.out_trade_prepay_no
 
+    Rails.logger.info "out_trade_no is #{out_trade_no}"
+
     resource.save!
 
     if resource.reserved? || resource.diagnosed?
@@ -57,12 +58,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
         # total_fee 必须是整数的分，不能是float
         # JSAPI支付必须传openid
         payment_params.merge!({openid: current_wechat_authentication.uid})
-        Rails.logger.info  payment_params
-        Rails.logger.info  options
+
+        Rails.logger.info  "payment_params is #{payment_params}"
+        Rails.logger.info  "options is #{options}"
 
         result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-        Rails.logger.info   "invoke_unifiedorder result is .......... "
-        Rails.logger.info  result
+        Rails.logger.info   "invoke_unifiedorder result is .......... #{result}"
 
         # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
         # js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
