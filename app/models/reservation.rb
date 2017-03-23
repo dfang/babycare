@@ -159,7 +159,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def reservation_title
-    "#{ self.name }的 #{ self.child_gender }"
+    "#{ self.name }的 #{ self.gender }"
   end
 
   # aasm guards

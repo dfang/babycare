@@ -1,7 +1,7 @@
 <%= link_to my_doctors_reservation_path(res) do %>
   <div class="weui-panel__bd">
       <div class="weui-media-box weui-media-box_text">
-          <h4 class="weui-media-box__title"> <%= res.name %>的<%= res.child_gender %> </h4>
+          <h4 class="weui-media-box__title"> <%= res.name %>的<%= res.gender %> </h4>
           <p class="weui-media-box__desc"> <%= res.chief_complains %></p>
           <ul class="weui-media-box__info">
             <%- if current_user && current_user.is_doctor? %>
