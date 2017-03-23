@@ -31,7 +31,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       resource.pay_fee = fee
     end
 
-    Rails.logger.info "############# payment fee (unit: fen) is\n"
+    Rails.logger.info "############# payment fee (unit: fen) is"
     Rails.logger.info "#{fee}"
 
     # 预约定金
@@ -57,12 +57,12 @@ class My::Patients::ReservationsController < InheritedResources::Base
         # total_fee 必须是整数的分，不能是float
         # JSAPI支付必须传openid
         payment_params.merge!({openid: current_wechat_authentication.uid})
-        p payment_params
-        p options
+        Rails.logger.info  payment_params
+        Rails.logger.info  options
 
         result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-        p  "invoke_unifiedorder result is .......... "
-        p result
+        Rails.logger.info   "invoke_unifiedorder result is .......... "
+        Rails.logger.info  result
 
         # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
         # js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
@@ -85,8 +85,8 @@ class My::Patients::ReservationsController < InheritedResources::Base
           paySign:   js_pay_params.delete(:paySign)
         }
 
-        p '@order_params is .........'
-        p @order_params
+        Rails.logger.info '@order_params is .........'
+        Rails.logger.info @order_params
     end
 
   end
