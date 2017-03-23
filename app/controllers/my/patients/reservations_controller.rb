@@ -33,13 +33,15 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
     Rails.logger.info "############# payment fee (unit: fen) is #{fee}#############"
 
-    # 预约定金
-    if resource.out_trade_prepay_no.blank? && resource.reserved?
+    # 预约定金 TO_BE_TESTED
+    # if resource.out_trade_prepay_no.blank? && resource.reserved?
+    if resource.reserved?
       resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
     end
 
-    # 支付余款
-    if resource.out_trade_pay_no.blank? && resource.diagnosed?
+    # 支付余款 TO_BE_TESTED
+    # if resource.out_trade_pay_no.blank? && resource.diagnosed?
+    if resource.diagnosed?
       resource.out_trade_pay_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
     end
 
