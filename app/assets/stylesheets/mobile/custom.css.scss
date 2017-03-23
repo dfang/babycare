@@ -265,6 +265,10 @@ a.add-medical-record{
 }
 
 
-button.weui-btn.weui-btn__primary{
+// button on reservations/new page
+input.weui-btn.weui-btn__primary{
+  line-height: 2.55555556;
   font-size: 18px;
+  padding: 0;
+  color: #FFFFFF;
 }
