@@ -21,8 +21,6 @@ class My::DoctorsController < InheritedResources::Base
   private
 
   def check_is_verified_doctor
-    binding.pry
-
     if current_user.doctor.nil?
       flash[:error] = "你还没提交资料申请我们的签约医生"
       redirect_to global_denied_path and return

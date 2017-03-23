@@ -31,6 +31,9 @@ class My::Patients::ReservationsController < InheritedResources::Base
       resource.pay_fee = fee
     end
 
+    Rails.logger.info "############# payment fee (unit: fen) is\n"
+    Rails.logger.info "#{fee}"
+
     # 预约定金
     if resource.out_trade_prepay_no.blank? && resource.reserved?
       resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
