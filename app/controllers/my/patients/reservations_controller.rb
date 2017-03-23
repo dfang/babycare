@@ -31,7 +31,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
       resource.pay_fee = fee
     end
 
-    Rails.logger.info "############# payment fee (unit: fen) is #{fee}#############"
+    Rails.logger.info "payment fee (unit: fen) is #{fee}"
 
     # 预约定金 TO_BE_TESTED
     # if resource.out_trade_prepay_no.blank? && resource.reserved?
