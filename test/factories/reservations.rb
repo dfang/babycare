@@ -12,6 +12,7 @@ FactoryGirl.define do
 		aasm_state :pending
 
     user_a { User.all.select { |x| x.doctor.nil? }.sample.id }
+    user_b { [2, nil].sample }
 
 		factory :reserved_reservations do
 			aasm_state :reserved
