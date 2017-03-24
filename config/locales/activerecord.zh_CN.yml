@@ -11,6 +11,13 @@ zh-CN:
       sex:
         male: "Male"
         female: "Female"
+      gender:
+        0: "男"
+        1: "女"
+        male: "男"
+        female: "女"
+        male: "儿子"
+        female: "女儿"
       aasm_state:
         pending: 待接单
         reserved: 已接单
@@ -22,6 +29,9 @@ zh-CN:
         overdued: 超时未支付定金
         rated: 已评价
     reservations:
+      gender:
+        male: "儿子"
+        female: "女儿"
       aasm_state:
         pending: 待接单
         reserved: 已接单

@@ -82,6 +82,7 @@ end
 gem 'ffaker'
 gem 'factory_girl_rails'
 gem 'rspec-rails'
+gem 'database_cleaner'
 
 gem 'pry-rails'
 gem 'pry-remote'

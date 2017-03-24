@@ -9,11 +9,24 @@
 # rake region:download
 # rake region:import
 require 'factory_girl_rails'
+require 'database_cleaner'
 
+p 'Cleaning database .......'
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean
+
+Reservation.delete_all
+Doctor.delete_all
+
+FactoryGirl.create(:authentication1)
+FactoryGirl.create(:authentication2)
+FactoryGirl.create(:doctor)
 
 25.times do
   FactoryGirl.create(:reservation)
 end
+
+p 'Done .....'
 
 
 
