@@ -11,12 +11,17 @@ FactoryGirl.define do
     chief_complains "我发烧了, 头好痛啊"
 		aasm_state :pending
 
-    user_a { User.all.select { |x| x.doctor.nil? }.sample.id }
-    user_b { [2, nil].sample }
+    factory :pending_reservations do
+      user_a { User.all.select { |x| x.doctor.nil? }.sample.id }
+      user_b nil
+      aasm_state :pending
+    end
 
-		factory :reserved_reservations do
-			aasm_state :reserved
-			user_b { User.all.select { |x| x.doctor.present? }.sample.id }
-		end
+    factory :reserved_reservations do
+      user_a { User.all.select { |x| x.doctor.nil? }.sample.id }
+      user_b { User.all.select { |x| x.doctor.present? }.sample.id }
+      aasm_state :reserved
+    end
   end
+
 end

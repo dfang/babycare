@@ -22,8 +22,12 @@ FactoryGirl.create(:authentication1)
 FactoryGirl.create(:authentication2)
 FactoryGirl.create(:doctor)
 
-25.times do
-  FactoryGirl.create(:reservation)
+20.times do
+  FactoryGirl.create(:pending_reservations)
+end
+
+5.times do
+  FactoryGirl.create(:reserved_reservations)
 end
 
 p 'Done .....'
