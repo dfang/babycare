@@ -19,12 +19,12 @@
 
 	<%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
 	<%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
-	<%= f.input :birthdate, wrapper: :weui_input %>
+	<%= f.input :date_of_birth, wrapper: :weui_input %>
 	<!-- <%= f.input :gender, wrapper: :weui_input %> -->
 	<!-- <div class="weui-cell">
     <div class="weui-cell__hd"><label for="" class="weui-label">生日</label></div>
     <div class="weui-cell__bd weui-cell_primary">
-      <%= f.input :birthdate %>
+      <%= f.input :date_of_birth %>
     </div>
   </div> -->
 	<div class="weui-cell weui-cell_select weui-cell_select-after">

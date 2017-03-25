@@ -59,6 +59,7 @@ zh-CN:
         email: 邮箱
         mobile_phone: 手机号
         birthdate: 生日
+        date_of_birth: 生日
         nationality: 民族
         province_id: 省
         city_id: 市
