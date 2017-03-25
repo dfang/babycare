@@ -52,7 +52,7 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
     end
 
     @medical_record.blood_type = current_user.settings.first.try(:blood_type)
-    @medical_record.birthdate = current_user.settings.first.try(:birthdate)
+    @medical_record.date_of_birth = current_user.settings.first.try(:date_of_birth)
     @medical_record.gender = current_user.settings.first.try(:gender)
     @medical_record.history_of_present_illness = current_user.settings.first.try(:history_of_present_illness)
     @medical_record.past_medical_history = current_user.settings.first.try(:past_medical_history)
