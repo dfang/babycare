@@ -9,7 +9,6 @@ class Users::SessionsController < Devise::SessionsController
 
   protected
 
-
   def wx_authenticate!
 
     p "authenticating user, session[:weixin_openid] is #{session[:weixin_openid]}"

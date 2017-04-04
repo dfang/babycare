@@ -1,6 +1,7 @@
 class ReservationsController < InheritedResources::Base
-  before_filter ->{ authenticate_user!( force: true ) }
+  before_filter -> { authenticate_user!( force: true ) }
 
+  before_filter -> { ensure_registerd_membership }
   # custom_actions :resource => :wxpay_test
   # before_action :rectrict_access
   skip_before_action :rectrict_access, only: [ :restricted ]
@@ -86,5 +87,10 @@ class ReservationsController < InheritedResources::Base
       flash[:error] = "你是医生不能访问该页面"
       redirect_to global_denied_path and return
     end
+  end
+
+  def ensure_registerd_membership
+    # 如果是非会员， 第二次预约就要邀请他加入会员了
+    # 如果是会员的， 第二次预约的判断资料是不是完善的，如果不是完善的话，就要提醒他完善了
   end
 end
