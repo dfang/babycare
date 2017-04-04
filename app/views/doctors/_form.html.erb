@@ -1,1 +1,5 @@
-<%= render "#{params[:part]}" %>
+<% if params.key?(:part) %>
+  <%= render "#{params[:part]}" %>
+<% else %>
+  <%= render "career" %>
+<% end %>
