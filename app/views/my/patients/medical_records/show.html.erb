@@ -67,8 +67,8 @@
                                                 <ul class="weui-uploader__files" id="uploaderFiles">
                                                   <% if resource.laboratory_examination_images.any? %>
                                                     <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
-                                                      <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                                        <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                                      <li class="weui-uploader__file" style="background-image:url(<%= image.data %>)">
+                                                        <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data%>">
                                                       </li>
                                                     <% end %>
                                                   <% end %>
@@ -89,8 +89,8 @@
                                                 <ul class="weui-uploader__files" id="uploaderFiles">
                                                   <% if resource.laboratory_examination_images.any? %>
                                                     <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
-                                                      <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                                        <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                                      <li class="weui-uploader__file" style="background-image:url(<%= image.data %>)">
+                                                        <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data%>">
                                                       </li>
                                                     <% end %>
                                                   <% end %>
@@ -110,8 +110,8 @@
                                               <ul class="weui-uploader__files" id="uploaderFiles">
                                                 <% if resource.medical_record_images.any? %>
                                                   <%  resource.medical_record_images.each_with_index do |image, index| %>
-                                                    <li class="weui-uploader__file" style="background-image:url(<%= image.data_url %>)">
-                                                      <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data_url%>">
+                                                    <li class="weui-uploader__file" style="background-image:url(<%= image.data %>)">
+                                                      <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data%>">
                                                     </li>
                                                   <% end %>
                                                 <% end %>
