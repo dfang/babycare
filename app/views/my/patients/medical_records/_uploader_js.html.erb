@@ -152,7 +152,7 @@
     // 删除图片按钮
     $(document).on('click', '.weui-icon-delete', function(e){
       $field = $(e.target).parents('li')
-      $destroyFlag = $field.find('input:hidden').clone.attr('name').replace('data', '_destroy').attr("value", "1")
+      $destroyFlag = $field.find('input:hidden').clone().attr('name').replace('data', '_destroy').attr("value", "1")
       $field.hide()
       $field.append($input)
       // 删除之后要重排图片的索引
