@@ -1,4 +1,4 @@
-class ProcessDoctorLicenceBackImageJob
+class ProcessDoctorLicenceBackImageJob < ActiveJob::Base
   queue_as :urgent
 
   def perform(doctor)

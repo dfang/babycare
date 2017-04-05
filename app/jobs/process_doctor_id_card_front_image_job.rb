@@ -1,4 +1,4 @@
-class ProcessDoctorIdCardFrontImageJob
+class ProcessDoctorIdCardFrontImageJob < ActiveJob::Base
   queue_as :urgent
 
   def perform(doctor)
