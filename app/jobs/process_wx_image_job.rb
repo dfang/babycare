@@ -14,6 +14,6 @@ class ProcessWxImageJob < ActiveJob::Base
     # image.save!
 
     # 经验: Job里最好用update_column 不触发ActiveRecord callback, 否则会引起observer的循环调用
-    image.update_column(:data, global_image.data)
+    image.update_column(:data, global_image.data_url)
   end
 end
