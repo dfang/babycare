@@ -150,8 +150,10 @@
 
     // 删除图片按钮
     $(document).on('click', '.weui-icon-delete', function(e){
-      $(e.target).parents('li').remove()
-
+      $field = $(e.target).parents('li')
+      $field.hide()
+      $input = $('<input type="hidden">').attr("name", "_destroy").attr("value", "true")
+      $field.append($input)
       // 删除之后要重排图片的索引
       // $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
       //   $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][" + index + "][media_id]")

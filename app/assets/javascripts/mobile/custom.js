@@ -76,9 +76,9 @@ var uploader =  (function() {
       }
 
       if(uploadType == 'multiple'){
-        console.log('uploading multiple images')
-        console.log('fuck')
-        console.log('you')
+        // console.log('uploading multiple images')
+        // console.log('fuck')
+        // console.log('you')
 
         if(!$(uploadTarget).find('.weui-uploader__file.holder').length > 0 ){
           console.log(' has not holder so append a holder ')
@@ -102,16 +102,16 @@ var uploader =  (function() {
     })
 
     webUploader.bind('FileUploaded', function(up, file, data){
-      console.log('FileUploaded')
+      // console.log('FileUploaded')
       eval(data.response)
-      console.log(up)
-      console.log(file)
-      console.log(data)
+      // console.log(up)
+      // console.log(file)
+      // console.log(data)
       $(uploadTarget).find('li.weui-uploader__file').removeClass('weui-uploader__file_status')
     })
 
     webUploader.bind('UploadComplete', function(up, files){
-      console.log('UploadComplete')
+      // console.log('UploadComplete')
       up.destroy();
     })
 
@@ -121,7 +121,7 @@ var uploader =  (function() {
     })
 
     webUploader.bind('Destroy', function(up, file){
-      console.log('Destroy');
+      // console.log('Destroy');
     })
 
     return webUploader;

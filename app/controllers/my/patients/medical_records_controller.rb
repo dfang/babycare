@@ -23,13 +23,13 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
 
   def update
     # trick， 否则要用nested_form 的 remove方法 标记_destroy, 有点麻烦
-    resource.medical_record_images.delete_all
-    resource.laboratory_examination_images.delete_all
-    resource.imaging_examination_images.delete_all
+    # resource.medical_record_images.delete_all
+    # resource.laboratory_examination_images.delete_all
+    # resource.imaging_examination_images.delete_all
 
-    p medical_record_params
+    Rails.logger.info medical_record_params
+
     # binding.remote_pry
-
     update! {
       if @reservation.present?
         my_patients_reservation_path(@reservation)
