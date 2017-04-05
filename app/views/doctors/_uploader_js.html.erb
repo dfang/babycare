@@ -53,16 +53,16 @@
           uploadField = ""
           switch ($(e.target).attr('id')) {
             case 'picker1':
-              uploadField = "doctor[id_card_front]"
+              uploadField = "doctor[id_card_front_media_id]"
               break;
             case 'picker2':
-              uploadField = "doctor[id_card_back]"
+              uploadField = "doctor[id_card_back_media_id]"
               break;
-            case 'picker2':
-              uploadField = "doctor[license_front]"
+            case 'picker3':
+              uploadField = "doctor[license_front_media_id]"
               break;
             default:
-              uploadField = "doctor[license_back]"
+              uploadField = "doctor[license_back_media_id]"
               break;
           }
           return uploadField
