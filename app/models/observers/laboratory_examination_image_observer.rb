@@ -1,7 +1,6 @@
 class LaboratoryExaminationImageObserver < ActiveRecord::Observer
   def after_save(image)
-    # binding.pry
-    if image.data.blank? && image.media_id.present?
+    if image.media_id.present? && image.media_id_changed?
       ProcessWxImageJob.perform_now(image)
     end
   end

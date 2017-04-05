@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323034242) do
+ActiveRecord::Schema.define(version: 20170405003427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,11 +125,15 @@ ActiveRecord::Schema.define(version: 20170323034242) do
     t.string   "license_back"
     t.string   "job_title"
     t.integer  "user_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "good_at"
     t.integer  "hospital_id"
     t.string   "avatar"
+    t.string   "id_card_front_media_id"
+    t.string   "id_card_back_media_id"
+    t.string   "license_front_media_id"
+    t.string   "license_back_media_id"
   end
 
   add_index "doctors", ["user_id"], name: "index_doctors_on_user_id", using: :btree

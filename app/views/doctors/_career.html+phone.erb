@@ -29,10 +29,10 @@
                 </div>
                 <div class="weui-uploader__bd">
                     <ul class="weui-uploader__files" id="uploaderFiles">
-                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)">
-                          <%= show_holder_or_image @doctor, :id_card_front, "79x79" %>
-                          <%= f.hidden_field :id_card_front, class: 'file_field' %>
-                        </li>
+                      <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
+                        <%= show_holder_or_image @doctor, :id_card_front, "79x79" %>
+                        <%= f.hidden_field :id_card_front_media_id, class: 'file_field' %>
+                      </li>
                     </ul>
                     <div class="weui-uploader__input-box" id='picker1'>
                     </div>
@@ -51,7 +51,7 @@
                     <ul class="weui-uploader__files" id="uploaderFiles">
                       <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
                         <%= show_holder_or_image @doctor, :id_card_back, "79x79" %>
-                        <%= f.hidden_field :id_card_back, class: 'file_field' %>
+                        <%= f.hidden_field :id_card_back_media_id, class: 'file_field' %>
                       </li>
                     </ul>
                     <div class="weui-uploader__input-box" id='picker2'>
@@ -71,7 +71,7 @@
                     <ul class="weui-uploader__files" id="uploaderFiles">
                         <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
                           <%= show_holder_or_image @doctor, :license_front, "79x79" %>
-                          <%= f.hidden_field :license_front, class: 'file_field' %>
+                          <%= f.hidden_field :license_front_media_id, class: 'file_field' %>
                         </li>
                     </ul>
                     <div class="weui-uploader__input-box" id='picker3'>
@@ -92,7 +92,7 @@
                     <ul class="weui-uploader__files" id="uploaderFiles">
                         <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
                           <%= show_holder_or_image @doctor, :license_back, "79x79" %>
-                          <%= f.hidden_field :license_back, class: 'file_field' %>
+                          <%= f.hidden_field :license_back_media_id, class: 'file_field' %>
                         </li>
                     </ul>
                     <div class="weui-uploader__input-box" id='picker4'>
