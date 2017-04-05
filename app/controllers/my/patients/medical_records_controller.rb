@@ -22,9 +22,10 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   end
 
   def update
-    # resource.medical_record_images.delete_all
-    # resource.laboratory_examination_images.delete_all
-    # resource.imaging_examination_images.delete_all
+    # trick， 否则要用nested_form 的 remove方法 标记_destroy, 有点麻烦
+    resource.medical_record_images.delete_all
+    resource.laboratory_examination_images.delete_all
+    resource.imaging_examination_images.delete_all
 
     p medical_record_params
     # binding.remote_pry
@@ -76,11 +77,17 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   end
 
   def medical_record_params
-    params.require(:medical_record).merge(
-      medical_record_images_attributes: [ :data, :_destroy],
-      laboratory_examination_images_attributes: [ :data, :_destroy],
-      imaging_examination_images_attributes: [ :data, :_destroy]
-    ).permit!
+    params.require(:medical_record).permit(
+      :create_date, :write_date, :weight, :laboratory_and_supplementary_examinations, :updated_at,
+      :pulse, :height, :blood_pressure, :chief_complaint, :vaccination_history, :personal_history,
+      :family_history, :user_id, :temperature, :pain_score, :bmi, :physical_examination, :respiratory_rate,
+      :onset_date, :remarks, :history_of_present_illness, :past_medical_history, :allergic_history,
+      :preliminary_diagnosis, :treatment_recommendation, :imaging_examination, :created_at,
+      :oxygen_saturation, :reservation_id, :blood_type, :date_of_birth, :name, :gender, :identity_card,
+      medical_record_images_attributes: [ :id, :data, :_destroy],
+      laboratory_examination_images_attributes: [ :id, :data, :_destroy],
+      imaging_examination_images_attributes: [ :id, :data, :_destroy]
+    )
   end
 
   def config_wx_jssdk
