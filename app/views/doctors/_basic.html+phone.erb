@@ -51,8 +51,11 @@
         <label class="weui-label" for="">手机号码</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui-input" name="doctor[mobile_phone]" type="text" data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]" value="">
-        <!-- f.text_field :mobile_phone, class: 'weui-input'  -->
+        <!-- <input class="weui-input" name="doctor[mobile_phone]" type="text" data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]" value=""> -->
+        <%= f.text_field :mobile_phone, class: 'weui-input', data: {
+                "parsley-required": true, "parsley-type": "integer", "parsley-length": "[11,11]",
+                "parsley-pattern": "/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+                } %>
       </div>
     </div>
 
