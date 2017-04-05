@@ -41,6 +41,7 @@
         })
       })
 
+
       $(document).on('click', '#picker1, #picker2, #picker3', function(e){
 
         // uploader1.disableBrowse()
@@ -151,8 +152,8 @@
     // 删除图片按钮
     $(document).on('click', '.weui-icon-delete', function(e){
       $field = $(e.target).parents('li')
+      $destroyFlag = $field.find('input:hidden').clone.attr('name').replace('data', '_destroy').attr("value", "1")
       $field.hide()
-      $input = $('<input type="hidden">').attr("name", "_destroy").attr("value", "true")
       $field.append($input)
       // 删除之后要重排图片的索引
       // $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
