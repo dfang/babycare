@@ -76,7 +76,11 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
   end
 
   def medical_record_params
-    params.require(:medical_record).permit!
+    params.require(:medical_record).merge(
+      medical_record_images_attributes: [ :data, :_destroy],
+      laboratory_examination_images_attributes: [ :data, :_destroy],
+      imaging_examination_images_attributes: [ :data, :_destroy]
+    ).permit!
   end
 
   def config_wx_jssdk
