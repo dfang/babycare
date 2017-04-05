@@ -10,9 +10,10 @@ class ProcessWxImageJob < ActiveJob::Base
     global_image = GlobalImage.create(remote_data_url: url)
     # MedicalRecordImage.data = global_image.data
     # model_name.classify.constantize.send(:data, image.data)
-    image.data = global_image.data
-    # 把wx.uploadImage 生成的 media_id 置空
-    # image.media_id = ""
-    image.save!
+    # image.data = global_image.data
+    # image.save!
+
+    # 经验: Job里最好用update_column 不触发ActiveRecord callback, 否则会引起observer的循环调用
+    image.update_column(:data, global_image.data)
   end
 end
