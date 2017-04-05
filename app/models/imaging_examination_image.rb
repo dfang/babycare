@@ -1,4 +1,4 @@
-class ImagingExaminationImage < ActiveRecord::Base
+class ImagingExaminationImage < Image
   establish_connection "odoo_#{Rails.env}"
   self.table_name = 'fa_imaging_examination_image'
 

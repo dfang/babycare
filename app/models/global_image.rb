@@ -1,4 +1,4 @@
-class GlobalImage < ActiveRecord::Base
+class GlobalImage < Image
   mount_uploader :data, MainUploader
   validates :data, presence: true
 
