@@ -84,9 +84,9 @@ class My::Patients::MedicalRecordsController < InheritedResources::Base
       :onset_date, :remarks, :history_of_present_illness, :past_medical_history, :allergic_history,
       :preliminary_diagnosis, :treatment_recommendation, :imaging_examination, :created_at,
       :oxygen_saturation, :reservation_id, :blood_type, :date_of_birth, :name, :gender, :identity_card,
-      medical_record_images_attributes: [ :id, :data, :_destroy],
-      laboratory_examination_images_attributes: [ :id, :data, :_destroy],
-      imaging_examination_images_attributes: [ :id, :data, :_destroy]
+      medical_record_images_attributes: [ :id, :data, :media_id, :_destroy],
+      laboratory_examination_images_attributes: [ :id, :data, :media_id, :_destroy],
+      imaging_examination_images_attributes: [ :id, :data, :media_id, :_destroy]
     )
   end
 
