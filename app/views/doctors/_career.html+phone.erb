@@ -49,10 +49,10 @@
                 </div>
                 <div class="weui-uploader__bd">
                     <ul class="weui-uploader__files" id="uploaderFiles">
-                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)">
-                          <%= show_holder_or_image @doctor, :id_card_back, "79x79" %>
-                          <%= f.hidden_field :id_card_back, class: 'file_field' %>
-                        </li>
+                      <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
+                        <%= show_holder_or_image @doctor, :id_card_back, "79x79" %>
+                        <%= f.hidden_field :id_card_back, class: 'file_field' %>
+                      </li>
                     </ul>
                     <div class="weui-uploader__input-box" id='picker2'>
                     </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="weui-uploader__bd">
                     <ul class="weui-uploader__files" id="uploaderFiles">
-                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)">
+                        <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
                           <%= show_holder_or_image @doctor, :license_front, "79x79" %>
                           <%= f.hidden_field :license_front, class: 'file_field' %>
                         </li>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="weui-uploader__bd">
                     <ul class="weui-uploader__files" id="uploaderFiles">
-                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)">
+                        <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
                           <%= show_holder_or_image @doctor, :license_back, "79x79" %>
                           <%= f.hidden_field :license_back, class: 'file_field' %>
                         </li>

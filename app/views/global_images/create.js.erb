@@ -21,7 +21,7 @@
     $files.append('<li class="weui-uploader__file" style="background-image:url(<%= @image.data_url %>)"></li>')
     $files.find('li').append($hidden_file_field)
     $hidden_file_field.val("<%= @image.data_url %>")
-    $('<%= params[:uploadTarget] %>').find('.weui_uploader_hd .weui-cell__ft').text('1/1')
+    // $('<%= params[:uploadTarget] %>').find('.weui_uploader_hd .weui-cell__ft').text('1/1')
 
     // $('<%= params[:target] %>').find('.weui_uploader_input_wrp').remove()
 
