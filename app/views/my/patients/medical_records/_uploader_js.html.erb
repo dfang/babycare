@@ -154,7 +154,7 @@
     $(document).on('click', '.weui-icon-delete', function(e){
       $field = $(e.target).parents('li')
       $destroyFlagField = $field.find('input:hidden').clone().attr("value", "1")
-      destroyFlagName = $destroyFlag.attr('name').replace('data', '_destroy')
+      destroyFlagName = $destroyFlagField.attr('name').replace('data', '_destroy')
       $destroyFlagField.attr('name', destroyFlagName)
       $field.hide()
       $field.append($destroyFlagField)
