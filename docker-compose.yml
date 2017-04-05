@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:9.4
+    container_name: db
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    # volumes:
+      # - odoo-db-data:/var/lib/postgresql/data/pgdata
+      # - ./config/pg_hba.conf:/var/lib/postgresql/data/pgdata/pg_hba.conf
+    ports:
+      - "5432:5432"
+  web:
+    build: .  
+    command: rails s
+    ports:
+      - "80:3000"
+    links:
+      - db
+    volumes:
+      - .:/fusion
