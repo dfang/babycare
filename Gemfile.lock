@@ -101,7 +101,6 @@ GEM
       activesupport
       httparty
     chunky_png (1.3.7)
-    cocoon (1.2.9)
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -195,7 +194,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
@@ -354,6 +352,8 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.6)
       rack (>= 1.0)
+    wicked (1.3.1)
+      railties (>= 3.0.7)
     wx_pay (0.13.0)
       activesupport (>= 3.2)
       rest-client (>= 1.7)
@@ -381,7 +381,6 @@ DEPENDENCIES
   carrierwave-data-uri
   carrierwave-qiniu (~> 0.2.3)
   china_region_fu
-  cocoon
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
@@ -400,7 +399,6 @@ DEPENDENCIES
   jquery-validation-rails
   kaminari
   mini_magick
-  nested_form
   nifty-generators!
   omniauth
   omniauth-wechat-oauth2
@@ -426,6 +424,7 @@ DEPENDENCIES
   turbolinks (~> 5.0.0)
   uglifier (>= 1.3.0)
   unicorn
+  wicked
   wx_pay
 
 BUNDLED WITH

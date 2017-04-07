@@ -1,6 +1,10 @@
 class DoctorsController < InheritedResources::Base
   before_filter ->{ authenticate_user!( force: true ) }
+  include Wicked::Wizard
+  steps :basic, :career, :finished
+
   # before_filter ->{ authenticate_user!( force: true ) }, except: [ :apply, :new, :create ]
+  # custom_actions :resource => :status
 
   before_action :set_doctor, only: [:show, :edit, :update, :destroy, :online, :offline]
 
@@ -11,17 +15,37 @@ class DoctorsController < InheritedResources::Base
     # @resource = current_user.medical_records.first
   end
 
+  def status
+    Rails.logger.info 'aaaa'
+  end
+
   def new
+    # jump_to(:basic)
+
     if current_user && current_user.doctor.present?
       @doctor = current_user.doctor
-      # unless @doctor.verified?
-      #   redirect_to status_doctor_path(@doctor)
-      # end
+      jump_to(:basic)
+      if @doctor.verified?
+        # redirect_to status_doctor_path(@doctor)
+        jump_to(:finish)
+      end
     else
-      @doctor = Doctor.new
+      jump_to(:basic)
+      # @doctor = Doctor.new
     end
   end
 
+  def show
+    # Rails.logger.info params[:action]
+    # Rails.logger.info 'aaaa'
+    # if params.key?(:action) && pa
+    # @user = current_user
+    # case step
+    # when :find_friends
+    #   @friends = @user.find_friends
+    # end
+    render_wizard
+  end
 
   # POST /doctors
   # POST /doctors.json
@@ -32,11 +56,11 @@ class DoctorsController < InheritedResources::Base
     respond_to do |format|
       if @doctor.save
         # format.html { redirect_to status_doctor_path(@doctor), notice: 'Doctor was successfully created.' }
-        format.html { redirect_to apply_doctors_path, notice: 'Doctor was successfully created.' }
-        format.json { render :status, status: :created, location: @doctor }
+        format.html { redirect_to next_wizard_path, notice: 'Doctor was successfully created.' }
+        # format.json { render :status, status: :created, location: @doctor }
       else
         format.html { render :new }
-        format.json { render json: @doctor.errors, status: :unprocessable_entity }
+        # format.json { render json: @doctor.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -46,23 +70,38 @@ class DoctorsController < InheritedResources::Base
   def update
     respond_to do |format|
       if @doctor.update(doctor_params)
+        case step
+        when :basic
+          format.html { redirect_to next_wizard_path }
+        when :career
+          format.html { redirect_to next_wizard_path }
+        when :finish
+          format.html
+        end
+
         # format.html { redirect_to @doctor, notice: 'Doctor was successfully updated.' }
-        format.html { redirect_to apply_doctors_path, notice: 'Doctor was successfully created.' }
-        format.json { render :show, status: :ok, location: @doctor }
+
+        # format.html { redirect_to apply_doctors_path, notice: 'Doctor was successfully created.' }
+        # format.json { render :show, status: :ok, location: @doctor }
       else
-        format.html { render :edit }
-        format.json { render json: @doctor.errors, status: :unprocessable_entity }
+        render_wizard
+        # format.html { render :edit }
+        # format.json { render json: @doctor.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def finish_wizard_path
+    status_doctor_path
   end
 
 
   private
     def set_doctor
-      if params.key?(:id)
-        @doctor = Doctor.find(params[:id])
-      elsif current_user.doctor.present?
+      if current_user.doctor.present?
         @doctor = current_user.doctor
+      # elsif params.key?(:id)
+      #   @doctor = Doctor.find(params[:id])
       else
         @doctor = Doctor.new
       end

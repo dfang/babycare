@@ -52,8 +52,8 @@ gem 'jquery-validation-rails'
 gem 'haml-rails'
 gem 'kaminari'
 gem 'simple_form'
-gem 'nested_form'
-gem 'cocoon'
+# gem 'nested_form'
+# gem 'cocoon'
 gem 'holder_rails'
 gem 'tinymce-rails', '~> 4.1.6'
 
@@ -68,6 +68,7 @@ gem 'smart_sms'
 
 gem 'browser'
 
+gem 'wicked'
 
 gem 'pundit'
 gem 'omniauth'
