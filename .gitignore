@@ -65,3 +65,5 @@ lib/generators
 db/*.sql
 db/*.sql.bz2
 .cache
+
+.swp

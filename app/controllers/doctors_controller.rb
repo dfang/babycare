@@ -9,6 +9,7 @@ class DoctorsController < InheritedResources::Base
   before_action :set_doctor, only: [:show, :edit, :update, :destroy, :online, :offline]
 
   def apply
+    redirect_to new_doctor_path
   end
 
   def profile
@@ -20,18 +21,16 @@ class DoctorsController < InheritedResources::Base
   end
 
   def new
-    # jump_to(:basic)
-
     if current_user && current_user.doctor.present?
       @doctor = current_user.doctor
-      jump_to(:basic)
       if @doctor.verified?
         # redirect_to status_doctor_path(@doctor)
-        jump_to(:finish)
+        redirect_to wizard_path(:finished) and return
       end
+      redirect_to wizard_path(:basic) and return
     else
-      jump_to(:basic)
-      # @doctor = Doctor.new
+      @doctor = Doctor.new
+      redirect_to wizard_path(:basic) and return
     end
   end
 
@@ -84,8 +83,9 @@ class DoctorsController < InheritedResources::Base
         # format.html { redirect_to apply_doctors_path, notice: 'Doctor was successfully created.' }
         # format.json { render :show, status: :ok, location: @doctor }
       else
-        render_wizard
-        # format.html { render :edit }
+        # render_wizard
+        Rails.logger.info @doctor.errors.messages
+        format.html { render_wizard }
         # format.json { render json: @doctor.errors, status: :unprocessable_entity }
       end
     end
