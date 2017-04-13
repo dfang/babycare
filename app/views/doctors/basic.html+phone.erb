@@ -6,7 +6,7 @@
   <% method = 'PUT' %>
 <% end %>
 
-<%= form_for @doctor, url: wizard_path, method: method do |f| %>
+<%= form_for @doctor, url: wizard_path, method: 'PUT' do |f| %>
 
   <div class="weui-cells__title">申请成为医生</div>
 
@@ -21,6 +21,7 @@
       <div class="weui-cell__bd weui-cell_primary">
         <!-- <input class="weui-input" name="doctor[name]" placeholder="请输入姓名" type="text" value=""> -->
         <%= f.text_field :name, class: 'weui-input', data: { "parsley-required": "true" } %>
+        <%= f.hidden_field :user_id, input_html: { valule: current_user.id } %>
       </div>
     </div>
 
@@ -58,7 +59,6 @@
                 } %>
       </div>
     </div>
-
   </div>
 
 
