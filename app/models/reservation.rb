@@ -67,7 +67,8 @@ class Reservation < ActiveRecord::Base
   enumerize :reservation_type, in: [:online, :offline], default: :offline, predicates: true
   enumerize :gender, in: [:male, :female], default: :male
 
-  GENDERS = %w(儿子 女儿).freeze
+  GENDERS = [('1', "男"), ('0', '女')].freeze
+
 
   # for testing, use claimed_by instead of res.reserve to debug in rails console
   # def claimed_by(user_b, reservation_time, reservation_location, reservation_phone)
