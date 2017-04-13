@@ -29,7 +29,7 @@ class DoctorsController < InheritedResources::Base
       end
       redirect_to wizard_path(:basic) and return
     else
-      @doctor = Doctor.new
+      @doctor = current_user.build_doctor
       redirect_to wizard_path(:basic) and return
     end
   end
