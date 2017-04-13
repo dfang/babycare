@@ -6,7 +6,7 @@
   <% method = 'PUT' %>
 <% end %>
 
-<%= form_for @doctor, url: wizard_path, method: 'PUT' do |f| %>
+<%= form_for @doctor, url: wizard_path, method: method do |f| %>
 
   <div class="weui-cells__title">申请成为医生</div>
 
