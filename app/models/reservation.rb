@@ -66,9 +66,7 @@ class Reservation < ActiveRecord::Base
   enumerize :aasm_state, in: [:pending, :reserved, :prepaid, :diagnosed, :paid, :archived, :rated, :overdued, :cancelled], default: :pending, predicates: true
   enumerize :reservation_type, in: [:online, :offline], default: :offline, predicates: true
   enumerize :gender, in: [:male, :female], default: :male
-
-  GENDERS = [('1', "男"), ('0', '女')].freeze
-
+  GENDERS = [['儿子', 'male'], ['女儿', 'female']].freeze
 
   # for testing, use claimed_by instead of res.reserve to debug in rails console
   # def claimed_by(user_b, reservation_time, reservation_location, reservation_phone)
