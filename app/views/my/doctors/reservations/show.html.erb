@@ -1,13 +1,24 @@
-<%- if resource.doctor_has_rated? %>
-  <%= render 'rated' %>
-<%- elsif resource.pending? %>
-  <%= render 'pending' %>
-<% elsif resource.reserved? %>
-  <%= render 'reserved' %>
-<% elsif resource.prepaid? %>
-  <%= render 'prepaid' %>
-<% elsif resource.diagnosed? %>
-  <%= render 'diagnosed' %>
-<% elsif resource.paid? %>
-  <%= render 'paid' %>
-<% end %>
+<div class="tabbar">
+  <div class="weui-tab">
+      <div class="weui-tab__panel">
+
+          <%- if resource.doctor_has_rated? %>
+            <%= render 'rated' %>
+          <%- elsif resource.pending? %>
+            <%= render 'pending' %>
+          <% elsif resource.reserved? %>
+            <%= render 'reserved' %>
+          <% elsif resource.prepaid? %>
+            <%= render 'prepaid' %>
+          <% elsif resource.diagnosed? %>
+            <%= render 'diagnosed' %>
+          <% elsif resource.paid? %>
+            <%= render 'paid' %>
+          <% end %>
+      </div>
+
+      <%= render 'tab_bar' %>
+
+    </div>
+  </div>
+</div>
