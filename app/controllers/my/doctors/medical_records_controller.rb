@@ -52,11 +52,25 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
   #   end
   # end
 
-  def medical_record_params
-    params.require(:medical_record).permit!
+  # def medical_record_params
+    # params.require(:medical_record).permit!
     # params.require(:medical_record).permit(medical_record_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
     # params.require(:medical_record).permit(laboratory_examination_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
     # params.require(:medical_record).permit(imaging_examination_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
+  # end
+
+  def medical_record_params
+    params.require(:medical_record).permit(
+      :create_date, :write_date, :weight, :laboratory_and_supplementary_examinations, :updated_at,
+      :pulse, :height, :blood_pressure, :chief_complaint, :vaccination_history, :personal_history,
+      :family_history, :user_id, :temperature, :pain_score, :bmi, :physical_examination, :respiratory_rate,
+      :onset_date, :remarks, :history_of_present_illness, :past_medical_history, :allergic_history,
+      :preliminary_diagnosis, :treatment_recommendation, :imaging_examination, :created_at,
+      :oxygen_saturation, :reservation_id, :blood_type, :date_of_birth, :name, :gender, :identity_card,
+      medical_record_images_attributes: [ :id, :data, :media_id, :_destroy],
+      laboratory_examination_images_attributes: [ :id, :data, :media_id, :_destroy],
+      imaging_examination_images_attributes: [ :id, :data, :media_id, :_destroy]
+    )
   end
 
   def check_is_verified_doctor
