@@ -44,12 +44,6 @@
 
       $(document).on('click', '#picker1, #picker2, #picker3', function(e){
 
-        // uploader1.disableBrowse()
-        // uploader2.disableBrowse()
-        // uploader3.disableBrowse()
-
-        // console.log('chooseImage')
-
         function uploadPhotosField(i){
           uploadField = ""
           switch ($(e.target).attr('id')) {
@@ -84,9 +78,6 @@
                   $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px")
                   $li.append($i)
                   $files.append($li)
-
-                  // var img = new mOxie.Image();
-                  // img.load(localIds[i])
 
                   wx.uploadImage({
                     localId: localIds[i].toString(),
