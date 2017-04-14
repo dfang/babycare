@@ -21,7 +21,9 @@
                     <%= f.input :user_id, as: :hidden, input_html: { value: params[:user_id] } %>
                   <% end %>
 
-                  <%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
+                  <% if params.key?(:reservation_id)  %>
+                    <%= f.input :reservation_id, as: :hidden, input_html: { value: params[:reservation_id] } %>
+                  <% end %>
 
                   <%= f.input :name, wrapper: :weui_input %>
                   <%= f.input :identity_card, wrapper: :weui_input %>
