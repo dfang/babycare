@@ -10,7 +10,7 @@
           <%= simple_form_for Rating.new, url: reservation_ratings_path(resource) do |f| %>
             <input id="rating-doctor" type="text" class="" value="5" name="rating[stars]" data-size="md" title="">
             <div id="tags-input"></div>
-            <%= f.input :body, label: false, input_html: { height: '100px' } %>
+            <%= f.input :body, as: :text, label: false, input_html: { height: '100px' } %>
             <%= f.input :tag_list, as: :hidden %>
             <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
             <%= f.input :user_id, as: :hidden, input_html: { value: resource.user_a } %>
