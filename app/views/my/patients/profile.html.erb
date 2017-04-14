@@ -1,4 +1,7 @@
-<div class="weui-msg">
+<div class="tabbar">
+  <div class="weui-tab">
+    <div class="weui-tab__panel">
+      <div class="weui-msg">
     <div class="weui-msg__icon-area">
       <a href="/my/patients/index">
         <%= image_tag current_user.avatar %>
@@ -53,6 +56,12 @@
       </div>
 
     </div>
+</div>
+
+    </div>
+
+    <%=  render 'tab_bar' %>
+  </div>
 </div>
 
 <%- content_for :js do %>
