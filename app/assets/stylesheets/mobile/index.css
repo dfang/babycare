@@ -1,10 +1,10 @@
 /*
 *= require ./weui
-*= require ./webuploader
-*= require ./bootstrap-tags
-*= require ./custom
+*= require bootstrap_fontawesome
 *= require ./star-rating.min
+*= require ./webuploader
 *= require ./doctors
 *= require ./reservations
 *= require ./tags
+*= require ./custom
 */

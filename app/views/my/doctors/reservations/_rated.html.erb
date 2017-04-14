@@ -7,8 +7,8 @@
       </div>
       <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
-					<input id="rating-doctor" type="text" class="" value="<%= resource.rating_by_doctor.try(:stars) %>" name="rating[stars]" data-size="md" title="">
-					<div id="tags-input"></div>
+  <input id="rating-doctor" type="text" class="" value="<%= resource.rating_by_doctor.try(:stars) %>" name="rating[stars]" data-size="md" title="">
+  <div id="tags-input"></div>
         </p>
       </div>
       <div class="weui-msg__extra-area">
@@ -18,20 +18,16 @@
 </div>
 
 
-<%= content_for :css do %>
-	<%= stylesheet_link_tag :bootstrap_fontawesome %>
-<% end %>
-
 <%= content_for :js do %>
   <%= javascript_tag do %>
     $(function(){
       $("#rating-doctor").rating({
         showClear: false,
-				showCaption: false,
-				readonly: true
+        showCaption: false,
+        readonly: true
       });
 
-			tag_list = "<%= resource.rating_by_doctor.tag_list %>".split(',')
+      tag_list = "<%= resource.rating_by_doctor.tag_list %>".split(',')
 
       $('#tags-input').tags({
         values: tag_list,
