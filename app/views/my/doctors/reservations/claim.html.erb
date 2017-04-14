@@ -48,7 +48,7 @@
   $(function(){
     url = location.href.split('#')[0]
     $.ajax({
-      url:        "/wxpay/config.json?url=" + url,
+      url:        "/wxpay/config.json?url=" + escape(url),
       beforeSend: function(){},
       global:     false
     })

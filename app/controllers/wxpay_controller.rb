@@ -1,3 +1,5 @@
+require 'uri'
+
 class WxpayController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? || request.format.xml? }
   respond_to :json, :js, :xml
@@ -6,7 +8,7 @@ class WxpayController < ApplicationController
     appId           =  Settings.wx_pay.app_id
     nonceStr        =  SecureRandom.hex
     timestamp       =  DateTime.now.to_i
-    signature       =  WxApp::WxPay.generate_js_sdk_signature_str(nonceStr, timestamp, params[:url])
+    signature       =  WxApp::WxPay.generate_js_sdk_signature_str(nonceStr, timestamp, URI.unescape(params[:url]))
 
     render json: {
         appId: appId,
