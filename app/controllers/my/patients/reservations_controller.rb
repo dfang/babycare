@@ -45,7 +45,6 @@ class My::Patients::ReservationsController < InheritedResources::Base
       resource.out_trade_pay_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
     end
 
-    binding.pry
     out_trade_no = resource.out_trade_pay_no || resource.out_trade_prepay_no
 
     Rails.logger.info "out_trade_no is #{out_trade_no}"
