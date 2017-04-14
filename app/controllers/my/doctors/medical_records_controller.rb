@@ -1,16 +1,14 @@
 class My::Doctors::MedicalRecordsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
   before_action :check_is_verified_doctor
-  before_action :find_reservation
-  skip_before_action :find_reservation, except: [:create, :update ]
-  skip_before_action :find_reservation, only: [:index ]
   before_action :config_wx_jssdk, only: [:new, :edit]
-
+  # before_action :find_reservation
+  # skip_before_action :find_reservation, except: [:create, :update ]
+  # skip_before_action :find_reservation, only: [:index ]
 
   def create
     p medical_record_params
     # binding.remote_pry
-
     create! {
       if @reservation.present?
         my_doctors_reservation_path(@reservation)
@@ -42,16 +40,17 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
 
   private
 
-  def begin_of_association_chain
-    @user ||= User.find_by(id: params[:id])
-  end
+  # def begin_of_association_chain
+  #   @user ||= User.find_by(id: params[:id])
+  # end
 
-  def find_reservation
-    reservation_id ||= params[:reservation_id] || medical_record_params[:reservation_id]
-    if reservation_id.present?
-      @reservation ||= Reservation.find(reservation_id)
-    end
-  end
+  # def find_reservation
+  #   Rails.logger.info "find_reservation"
+  #   reservation_id ||= params[:reservation_id] || medical_record_params[:reservation_id]
+  #   if reservation_id.present?
+  #     @reservation ||= Reservation.find(reservation_id)
+  #   end
+  # end
 
   def medical_record_params
     params.require(:medical_record).permit!

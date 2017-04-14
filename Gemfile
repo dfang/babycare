@@ -67,13 +67,12 @@ gem 'carrierwave-data-uri'
 gem 'smart_sms'
 
 gem 'browser'
-
+gem 'websocket-rails'
 gem 'wicked'
 
 gem 'pundit'
 gem 'omniauth'
 gem 'omniauth-wechat-oauth2'
-
 
 group :development, :test do
   # gem 'byebug'

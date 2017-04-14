@@ -126,3 +126,11 @@ namespace :deploy do
     invoke "unicorn:setup_initializer"
   end
 end
+
+
+namespace :db do
+  desc "pull_x"
+  task :pull_x do
+
+  end
+end

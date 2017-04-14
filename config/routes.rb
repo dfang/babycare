@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
 
   get 'wxpay/config'
+  get 'wxjssdk/config'
+  get 'payment/pay'
 
   namespace :my do
     namespace :doctors do
@@ -19,8 +21,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'wxjssdk/config'
-  get 'payment/pay'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -43,9 +43,6 @@ Rails.application.routes.draw do
   get 'global/denied'
   get 'global/switch'
 
-  # get 'posts/index'
-  # get 'posts/show'
-
   resources :posts, only: [:index, :show]
 
   namespace :wx do
@@ -65,7 +62,7 @@ Rails.application.routes.draw do
         put 'complete_offline_consult', on: :member
         put 'complete_online_consult', on: :member
       end
-      resources :patients do
+      resources :patients, as: :users do
         member do
           get 'profile'
           resources :medical_records, as: :patient_medical_records
