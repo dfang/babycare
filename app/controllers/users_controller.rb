@@ -5,7 +5,7 @@ class UsersController < InheritedResources::Base
 
   # /users/:id/scan_qrcode 用户打开这个页面让医生扫描
   def scan_qrcode
-    @qr = RQRCode::QRCode.new( qrcode_user_url(current_user), :size => 4, :level => :h )
+    @qr = RQRCode::QRCode.new( qrcode_user_url(current_user), :size => 6, :level => :h )
   end
 
 
