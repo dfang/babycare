@@ -18,6 +18,10 @@
 </div>
 
 
+<%= content_for :css do %>
+  <%= stylesheet_link_tag :bootstrap_fontawesome %>
+<% end %>
+
 <%= content_for :js do %>
   <%= javascript_tag do %>
     $(function(){
