@@ -3,7 +3,8 @@
 *= require ./star-rating.min
 *= require ./webuploader
 *= require ./doctors
-*= require ./reservations
 *= require ./tags
 *= require ./custom
+*= require ./reservations
+*= require ./qrcode
 */

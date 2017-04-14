@@ -1,5 +1,64 @@
+// Common rules
 .hidden{
   display: none;
+}
+
+.weui-cell{
+  padding: 12px 15px;
+}
+
+.weui-cell.validation_error{
+  border-bottom: 1px solid red;
+  color: red;
+}
+
+.weui-msg__icon-area{
+  img{
+    width: 93px;
+    height: 93px;
+    border-radius: 50px;
+  }
+}
+
+.weui-msg__icon-area{
+  margin-bottom: 10px;
+}
+
+.weui-msg__desc{
+  padding: 5px;
+}
+
+.weui-btn-area{
+  margin-bottom: 50px;
+  margin-top: 40px;
+}
+
+.weui-uploader__file{
+  margin-right: 7px;
+}
+
+.weui-uploader__input-box#picker1,.weui-uploader__input-box#picker2,.weui-uploader__input-box#picker3{
+  // 可以遮住plupload生成的上传按钮
+  z-index: 9999;
+}
+
+.weui-input{
+  /* webkit solution */
+  ::-webkit-input-placeholder { text-align:right; }
+  /* mozilla solution */
+  input:-moz-placeholder { text-align:right; }
+}
+
+li.weui-uploader__file{
+  border: 1px solid #D8D7D7;
+}
+
+// make input button like a.weui-btn, see reservations/new page
+input.weui-btn.weui-btn__primary{
+  line-height: 2.55555556;
+  font-size: 18px;
+  padding: 0;
+  color: #FFFFFF;
 }
 
 
@@ -10,10 +69,7 @@ html {
   overflow-x: hidden;
   background-color: #fbf9fe;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
-  .weui-cell.validation_error{
-    border-bottom: 1px solid red;
-    color: red;
-  }
+
   .wrapper {
     height: 100%;
     margin: 0;
@@ -58,18 +114,7 @@ html {
     }
   }
 }
-li.weui-uploader__file{
-  border: 1px solid #D8D7D7;
-}
 
-.reservations_show {
-  section {
-    padding: 10px 15px;
-    .weui-cell {
-      padding: 0 15px 10px 0;
-    }
-  }
-}
 .home_index {
   ul {
     li {
@@ -78,24 +123,6 @@ li.weui-uploader__file{
     }
   }
 }
-.reservations_public {
-  .weui-btn__primary {
-    float: right;
-    margin-top: -57px;
-  }
-  .weui-media-box__info{
-    text-decoration: none;
-  }
-}
-
-
-.my_doctors_reservations_index{
-  .container .weui-tab__panel .bd{
-    // margin-top: 15%;
-  }
-
-}
-
 
 .posts_show{
   .weui-tab__panel{
@@ -104,15 +131,6 @@ li.weui-uploader__file{
     }
     .weui_article{
       padding: 50px;
-    }
-  }
-}
-
-.my_patients_medical_records_index{
-  .weui-tab__panel{
-    a.weui-btn__primary{
-      margin-top: 20px;
-      width: 90%;
     }
   }
 }
@@ -130,76 +148,9 @@ li.weui-uploader__file{
   }
 }
 
-.my_patients_reservations_show{
-  .weui-msg .weui_text_area{
-    margin-bottom: 10px;
-  }
-}
-
-
-
-.users_scan_qrcode{
-  .container{
-    margin: 90px auto;
-    table {
-      border-width: 0;
-      border-style: none;
-      border-color: #0000ff;
-      border-collapse: collapse;
-      margin: 0 auto;
-    }
-
-    td {
-      border-left: solid 10px #000;
-      padding: 0;
-      margin: 0;
-      width: 0px;
-      height: 10px;
-    }
-
-    td.black { border-color: #000; }
-    td.white { border-color: #fff; }
-  }
-}
-
-.my_doctors_profile, .my_patients_profile, .my_doctors_patients_profile{
-
-  .weui-panel__access{
-    .weui-panel__hd{
-      .weui-cell_link{
-        font-size: 18px;
-        padding:10px 0;
-      }
-      .weui-cell:before{
-        border-top: 0;
-      }
-    }
-  }
-  .weui-panel__hd:after{
-    border-bottom: 0;
-  }
-  .weui-medical-record{
-    border-bottom: 1px solid #D9D9D9;
-  }
-
-
-}
 a.add-medical-record{
   color: #0921EA;
 }
-
-.weui-msg__icon-area{
-  img{
-    width: 93px;
-    height: 93px;
-    border-radius: 50px;
-  }
-}
-
-.weui-msg__icon-area{
-  margin-bottom: 10px;
-}
-
 
 .simple_form.new_medical_record, .simple_form.edit_medical_record{
   select.weui-input{
@@ -207,74 +158,6 @@ a.add-medical-record{
   }
 }
 
-.weui-uploader__file{
-  margin-right: 7px;
-}
-
-
-.weui-uploader__input-box#picker1,.weui-uploader__input-box#picker2,.weui-uploader__input-box#picker3{
-  // 可以遮住plupload生成的上传按钮
-  z-index: 9999;
-}
-
-
-.weui-input{
-  /* webkit solution */
-  ::-webkit-input-placeholder { text-align:right; }
-  /* mozilla solution */
-  input:-moz-placeholder { text-align:right; }
-}
-
-
-// 对齐
-.reservations_new{
-  .weui-cell-remark{
-    .weui-cell__hd{
-      margin-right: 32px;
-    }
-    ::-webkit-input-placeholder {
-      line-height: 3;
-    }
-  }
-  .weui-cell-name{
-    .weui-cell__hd{
-      margin-right: 34px;
-    }
-  }
-}
-
-.simple_form.new_medical_record select.weui-input,
-.simple_form.edit_medical_record select.weui-input,
-.weui-cell_select-after select.weui-select {
-  // text-align: justify;
-  // direction:rtl;
-}
-
 .weui-cell.medical_record_name:before{
   display: none;
-}
-
-.my_patients_medical_records_new, .my_patients_medical_records_edit,
-.my_doctors_medical_records_new, .my_doctors_medical_records_edit{
-  .tab1{
-    .weui-cell{
-      .weui-cell__hd{
-        width: 20%;
-      }
-    }
-  }
-}
-
-
-// button on reservations/new page
-input.weui-btn.weui-btn__primary{
-  line-height: 2.55555556;
-  font-size: 18px;
-  padding: 0;
-  color: #FFFFFF;
-}
-
-.weui-btn-area{
-  margin-bottom: 50px;
-  margin-top: 40px;
 }

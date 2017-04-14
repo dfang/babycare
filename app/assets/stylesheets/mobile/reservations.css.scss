@@ -1,37 +1,15 @@
-.my_patients_reservations_index{
-  .weui-media-box{
-    a{
-      display: block;
-    }
+.reservations_choose_type{
+  .weui-btn-area{
+    margin-top: 150px;
+  }
+  .weui-btn{
+    margin-bottom: 50px;
   }
 }
 
-
-.my_doctors_wallets_index{
-  .weui-msg__icon-area{
-    span{
-      position: absolute;
-      left: 44%;
-    }
-  }
-  .weui-msg__text-area.left{
-    float: left;
-  }
-  .weui-msg__text-area.right{
-    float: right;
-  }
-
-  .weui-msg__opr-area{
-    margin-top: 100px;
-  }
-
-}
-
-.my_doctors_wallets_index, .my_doctors_wallets_withdraw {
-  .weui-msg__icon-area{
-    i{
-      display: block;
-    }
+.reservations_public {
+  .weui-media-box__info{
+    text-decoration: none;
   }
 }
 
@@ -71,6 +49,72 @@
       }
     }
   }
+
+  .weui-cell-remark{
+    // .weui-cell__hd{
+    //   margin-right: 32px;
+    // }
+    // ::-webkit-input-placeholder {
+    //   line-height: 3;
+    // }
+  }
+  .weui-cell-name{
+    .weui-cell__hd{
+      margin-right: 34px;
+    }
+  }
+}
+
+.reservations_show {
+  section {
+    padding: 10px 15px;
+    .weui-cell {
+      padding: 0 15px 10px 0;
+    }
+  }
+}
+
+.my_patients_reservations_index{
+  .weui-media-box{
+    a{
+      display: block;
+    }
+  }
+}
+
+
+.my_doctors_reservations_index{
+  .container .weui-tab__panel .bd{
+    // margin-top: 15%;
+  }
+}
+
+.my_doctors_wallets_index{
+  .weui-msg__icon-area{
+    span{
+      position: absolute;
+      left: 44%;
+    }
+  }
+  .weui-msg__text-area.left{
+    float: left;
+  }
+  .weui-msg__text-area.right{
+    float: right;
+  }
+
+  .weui-msg__opr-area{
+    margin-top: 100px;
+  }
+
+}
+
+.my_doctors_wallets_index, .my_doctors_wallets_withdraw {
+  .weui-msg__icon-area{
+    i{
+      display: block;
+    }
+  }
 }
 
 .weui-cell-remark{
@@ -79,12 +123,53 @@
   }
 }
 
-
-.reservations_choose_type{
-  .weui-btn-area{
-    margin-top: 150px;
+.my_patients_medical_records_index{
+  .weui-tab__panel{
+    a.weui-btn__primary{
+      margin-top: 20px;
+      width: 90%;
+    }
   }
-  .weui-btn{
-    margin-bottom: 50px;
+}
+
+
+.my_doctors_profile, .my_patients_profile, .my_doctors_patients_profile{
+
+  .weui-panel__access{
+    .weui-panel__hd{
+      .weui-cell_link{
+        font-size: 18px;
+        padding:10px 0;
+      }
+      .weui-cell:before{
+        border-top: 0;
+      }
+    }
+  }
+  .weui-panel__hd:after{
+    border-bottom: 0;
+  }
+  .weui-medical-record{
+    border-bottom: 1px solid #D9D9D9;
+  }
+
+}
+
+.my_patients_medical_records_new, .my_patients_medical_records_edit,
+.my_doctors_medical_records_new, .my_doctors_medical_records_edit{
+  .tab1{
+    .weui-cell{
+      .weui-cell__hd{
+        width: 20%;
+      }
+    }
+  }
+}
+
+
+
+.my_patients_reservations_show{
+  .weui-msg .weui_text_area{
+    margin-bottom: 10px;
   }
 }
