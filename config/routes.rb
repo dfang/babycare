@@ -62,7 +62,7 @@ Rails.application.routes.draw do
         put 'complete_offline_consult', on: :member
         put 'complete_online_consult', on: :member
       end
-      resources :patients, as: :users do
+      resources :patients do
         member do
           get 'profile'
           resources :medical_records, as: :patient_medical_records

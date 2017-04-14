@@ -12,6 +12,8 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
     create! {
       if @reservation.present?
         my_doctors_reservation_path(@reservation)
+      else
+        my_doctors_medical_record_path(resource)
       end
     }
   end
@@ -27,6 +29,8 @@ class My::Doctors::MedicalRecordsController < InheritedResources::Base
     update! {
       if @reservation.present?
         my_doctors_reservation_path(@reservation)
+      else
+        my_doctors_medical_record_path(resource)
       end
     }
   end
