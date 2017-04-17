@@ -134,8 +134,6 @@ namespace :db do
   task :pull_odoo_db do
     on roles(:db) do
       require 'yaml'
-      database = YAML::load_file('config/database.yml')
-
       production_config  = capture "cat #{shared_path}/config/database.yml"
       odoo_production    = YAML::load(production_config)["odoo_production"]
       local_development  = YAML::load_file("config/database.yml")["odoo_development"]
