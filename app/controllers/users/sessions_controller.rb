@@ -7,6 +7,11 @@ class Users::SessionsController < Devise::SessionsController
     wx_authenticate!
   end
 
+  def wxapp_login
+    p request
+    Rails.logger.info request
+  end
+
   protected
 
   def wx_authenticate!

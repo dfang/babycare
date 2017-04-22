@@ -27,9 +27,12 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+
   devise_scope :user do
     get 'wechat_authorize' => 'users/sessions#wechat_authorize', as: :wechat_authorize
     get 'profile' => 'users/registrations#show', as: :profile
+
+    post 'wxapp_login' => 'users/sessions'
   end
 
   resources :users do
