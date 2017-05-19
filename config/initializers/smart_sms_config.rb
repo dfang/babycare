@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-SmartSMS.configure do |config|
-  config.api_key = "b00d88ae1994ca5863c297de58742c89"
+# SmartSMS.configure do |config|
+#   config.api_key = "b00d88ae1994ca5863c297de58742c89"
   # config.api_version = :v1
   # config.template_id = '2'
   # config.template_value = [:code, :company]
@@ -12,4 +12,4 @@ SmartSMS.configure do |config|
   # config.default_interval = 1.day
   # config.store_sms_in_local = false
   # config.verification_code_algorithm = :simple
-end
+# end
