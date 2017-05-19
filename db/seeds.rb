@@ -30,6 +30,8 @@ end
   FactoryGirl.create(:reserved_reservations)
 end
 
+require_relative './seeds/symptoms.rb'
+
 p 'Done .....'
 
 
