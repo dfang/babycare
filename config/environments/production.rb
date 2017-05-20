@@ -94,7 +94,7 @@ config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[Call Me A Doctor]",
     :sender_address => 'call_me_a_doctor@yhuan.cc',
-    :exception_recipients => %w(dfang@qq.com),
+    :exception_recipients => %w(df1228@dingtalk.com),
     :smtp_settings => {
       address:        'smtp.exmail.qq.com',
       user_name:      'call_me_a_doctor@yhuan.cc',
