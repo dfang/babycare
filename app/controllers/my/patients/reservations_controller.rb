@@ -97,7 +97,7 @@ class My::Patients::ReservationsController < InheritedResources::Base
   def latest
     latest_pending_reservation = current_user.reservations.pending
     if latest_pending_reservation.present?
-      redirect_to my_patients_reservation_path(reservation)
+      redirect_to my_patients_reservation_path(latest_pending_reservation)
     else
       redirect_to my_patients_reservations_path
     end
