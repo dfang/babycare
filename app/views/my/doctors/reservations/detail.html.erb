@@ -12,8 +12,12 @@
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-              <a href="<%= my_doctors_reservation_path(resource) %>" class="weui-btn weui-btn__primary">我要接受预约</a>
-              <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.patient_user_phone %>);" class="weui-btn weui-btn_default">拨打电话</a>
+              <a href="<%= my_doctors_reservation_path(resource) %>" class="weui-btn weui-btn__primary">这个时间OK, 我要接受预约</a>
+
+              我想和预约人协商下时间,
+              <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.patient_user_phone %>);" class="weui-btn weui-btn_default">
+                拨打预约人电话
+              </a>
             </p>
         </div>
         <div class="weui-msg__extra-area">
