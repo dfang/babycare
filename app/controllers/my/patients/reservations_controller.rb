@@ -94,6 +94,15 @@ class My::Patients::ReservationsController < InheritedResources::Base
 
   end
 
+  def latest
+    latest_pending_reservation = current_user.reservations.pending
+    if latest_pending_reservation.present?
+      redirect_to my_patients_reservation_path(reservation)
+    else
+      redirect_to my_patients_reservations_path
+    end
+  end
+
   # def payment
   #   if request.put?
   #     @total_fee = params[:reservation][:total_fee].to_f

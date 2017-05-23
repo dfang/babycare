@@ -85,6 +85,7 @@ Rails.application.routes.draw do
       resource :settings
 
       resources :reservations do
+        get 'latest', on: :collection
         get 'payment', on: :member
         put 'payment', on: :member
         get 'pay', on: :member
