@@ -29,6 +29,9 @@ class My::Doctors::ReservationsController < InheritedResources::Base
     super
   end
 
+  def detail
+  end
+
   def status
   end
 

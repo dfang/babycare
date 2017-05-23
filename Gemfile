@@ -89,7 +89,7 @@ gem 'pry-remote'
 
 group :development do
   # gem 'web-console', '~> 2.0'
-  gem 'nifty-generators', github: 'dfang/nifty-generators'
+  # gem 'nifty-generators', github: 'dfang/nifty-generators'
   gem 'annotate'
   gem 'capistrano', '3.5.0'
   gem 'capistrano-bundler'

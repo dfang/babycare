@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     get '/', to: 'home#index'
     namespace :doctors do
       resources :reservations do
+        get 'detail', on: :member
         get 'claim', on: :member
         put 'claim', on: :member
         put 'complete_offline_consult', on: :member
