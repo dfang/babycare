@@ -8,15 +8,6 @@
 
     <%= f.hidden_field :reservation_type, class: 'file_field' %>
 
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-        <label class="weui-label">怎么称呼您</label>
-      </div>
-      <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
-      </div>
-    </div>
-
     <div class="weui-cell weui-cell_select weui-cell_select-after">
       <div class="weui-cell__hd">
           <label class="weui-label">为谁预约</label>
@@ -28,12 +19,48 @@
       </div>
     </div>
 
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
+        <label class="weui-label">有什么症状</label>
+      </div>
+    </div>
+
+    <div class="weui-cell">
+      <div id="symptom-tags"></div>
+    </div>
+
+    <div class="weui-cell hide">
+      <div id="symptom-tag-details"></div>
+    </div>
+
     <div class="weui-cell weui-cell-name">
       <div class="weui-cell__hd">
           <label class="weui-label">想预约在</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
           <input class="weui-input" name="reservation[reservation_date]" type="datetime-local" data-parsley-required="true">
+      </div>
+    </div>
+
+    <div class="weui-cell weui-cell-vcode">
+        <div class="weui-cell__hd">
+            <label class="weui-label">您的位置</label>
+        </div>
+        <div class="weui-cell__bd">
+          <textarea class="weui-textarea" name="reservation[location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你"></textarea>
+        </div>
+        <div class="weui-cell__ft">
+            <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
+        </div>
+    </div>
+
+
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
+        <label class="weui-label">怎么称呼您</label>
+      </div>
+      <div class="weui-cell__bd weui-cell_primary">
+        <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
       </div>
     </div>
 
@@ -54,32 +81,6 @@
         <input class="weui-input" name="reservation[reservation_phone]" placeholder="医生可以看到您的电话并联系你" type="number"
           data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]" value="">
       </div>
-    </div>
-
-    <div class="weui-cell weui-cell-vcode">
-        <div class="weui-cell__hd">
-            <label class="weui-label">您的位置</label>
-        </div>
-        <div class="weui-cell__bd">
-          <textarea class="weui-textarea" name="reservation[location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你"></textarea>
-        </div>
-        <div class="weui-cell__ft">
-            <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
-        </div>
-    </div>
-
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-        <label class="weui-label">症状</label>
-      </div>
-    </div>
-
-    <div class="weui-cell">
-      <div id="symptom-tags"></div>
-    </div>
-
-    <div class="weui-cell hide">
-      <div id="symptom-tag-details"></div>
     </div>
 
     <div class="weui-cell weui-cell-remark">
