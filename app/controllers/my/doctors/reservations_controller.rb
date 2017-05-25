@@ -1,5 +1,5 @@
 class My::Doctors::ReservationsController < InheritedResources::Base
-  before_filter ->{ authenticate_user!( force: true ) }
+  before_action ->{ authenticate_user!( force: true ) }
   before_action :check_is_verified_doctor
   # skip_before_action :check_is_verified_doctor, only: [ :status ]
   custom_actions :collection => [ :reservations, :status ], :member => [ :claim, :complete_offline_consult, :complete_online_consult ]

@@ -8,7 +8,9 @@ class Wx::ServiceController < ApplicationController
   WEIXIN_TOKEN = Settings.weixin.token
 
   def verify
-    render text: params[:echostr]
+    p params[:echostr]
+
+    render plain: params[:echostr]
   end
 
   def create
@@ -24,7 +26,6 @@ class Wx::ServiceController < ApplicationController
   end
 
   def wx_web_auth
-
   end
 
 private
@@ -32,6 +33,7 @@ private
   def parse_xml
     # munger = defined?(Request::Utils) ? Request::Utils : request
     data = ActionDispatch::Request::Utils.deep_munge(Hash.from_xml(request.body.read) || {})
+
     request.body.rewind if request.body.respond_to?(:rewind)
     data.with_indifferent_access
 

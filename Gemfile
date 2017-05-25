@@ -7,7 +7,7 @@ end
 
 gem 'rails', '~> 5.1.1'
 gem 'pg', '~> 0.18'
-gem 'puma', '~> 3.7'
+# gem 'puma', '~> 3.7'
 
 gem 'webpacker', github: 'rails/webpacker'
 
@@ -17,7 +17,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+# gem 'jbuilder', '~> 2.5'
 
 # gem 'unicorn'
 

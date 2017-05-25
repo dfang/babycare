@@ -8,7 +8,7 @@ class Reservation < ActiveRecord::Base
   # otherwise raise this error: The single-table inheritance mechanism failed to locate the subclass
   self.inheritance_column = :_type_disabled
 
-  establish_connection "odoo_#{Rails.env}"
+  establish_connection("odoo_#{Rails.env}".to_sym)
   self.table_name = 'fa_reservation'
 
 

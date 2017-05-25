@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   get 'home/hospital'
 
 
-  get 'wxpay/config'
-  get 'wxjssdk/config'
+  get 'wxpay/config' => 'wxpay#config_jssdk'
   get 'payment/pay'
 
   namespace :my do

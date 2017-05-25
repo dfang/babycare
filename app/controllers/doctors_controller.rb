@@ -1,9 +1,9 @@
 class DoctorsController < InheritedResources::Base
-  before_filter ->{ authenticate_user!( force: true ) }
+  before_action ->{ authenticate_user!( force: true ) }
   include Wicked::Wizard
   steps :basic, :career, :finished
 
-  # before_filter ->{ authenticate_user!( force: true ) }, except: [ :apply, :new, :create ]
+  # before_action ->{ authenticate_user!( force: true ) }, except: [ :apply, :new, :create ]
   # custom_actions :resource => :status
 
   before_action :set_doctor, only: [:show, :edit, :update, :destroy, :online, :offline]

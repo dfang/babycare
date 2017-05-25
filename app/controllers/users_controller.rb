@@ -1,7 +1,7 @@
 require 'rqrcode'
 
 class UsersController < InheritedResources::Base
-  before_filter ->{ authenticate_user!( force: true ) }
+  before_action ->{ authenticate_user!( force: true ) }
 
   # /users/:id/scan_qrcode 用户打开这个页面让医生扫描
   def scan_qrcode

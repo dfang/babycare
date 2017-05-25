@@ -1,13 +1,12 @@
 class ReservationsController < InheritedResources::Base
-  before_filter -> { authenticate_user!( force: true ) }
-
-  before_filter -> { ensure_registerd_membership }
+  before_action -> { authenticate_user!( force: true ) }
+  before_action -> { ensure_registerd_membership }
   # custom_actions :resource => :wxpay_test
   # before_action :rectrict_access
-  skip_before_action :rectrict_access, only: [ :restricted ]
+  # skip_before_action :rectrict_access, only: [ :restricted ]
 
-  before_action :deny_doctors
-  skip_before_action :deny_doctors, only: [ :public, :show, :status ]
+  # before_action :deny_doctors
+  # skip_before_action :deny_doctors, only: [ :public, :show, :status ]
 
   def create
     @reservation = Reservation.new(reservation_params)
@@ -23,14 +22,6 @@ class ReservationsController < InheritedResources::Base
   end
 
   def new
-    @appId      = Settings.wx_pay.app_id
-    @nonceStr   = SecureRandom.hex
-    @timestamp  =  DateTime.now.to_i
-    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
-                        "#{k}=#{v}" if v != "" && !v.nil?
-                      end.compact.join('&')
-    @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
-
     @symptoms = Symptom.all.group_by(&:name).map { |k, v| k }.to_json
     @symptom_details = Symptom.all.group_by(&:name).map { |k, v| {name: k, values: v.map(&:detail) } }.to_json
     super
