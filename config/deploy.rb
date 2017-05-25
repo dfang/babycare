@@ -7,6 +7,8 @@ set :repo_url, 'git@git.coding.net:df1228/callmeadoctor.git'
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
+set :branch, "rails5"
+
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/home/deployer/apps/callmeadoctor'
 
