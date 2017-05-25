@@ -21,6 +21,9 @@ gem 'turbolinks', '~> 5'
 
 # gem 'unicorn'
 
+gem 'groupify'
+
+
 # http://stackoverflow.com/questions/15165260/rails-observer-alternatives-for-4-0
 gem 'rails-observers', github: 'rails/rails-observers'
 
@@ -45,7 +48,7 @@ gem 'enumerize'
 
 # gem 'paranoia'
 gem 'acts-as-taggable-on'
-# gem 'ancestry'
+gem 'ancestry'
 # gem 'awesome_nested_set'
 
 gem 'wx_pay'

@@ -3,6 +3,7 @@
 *= require ./star-rating.min
 *= require ./webuploader
 *= require ./doctors
+*= require ./family_members
 *= require ./tags
 *= require ./custom
 *= require ./reservations

@@ -17,4 +17,7 @@ class UsersController < InheritedResources::Base
       redirect_to profile_my_doctors_patient_path(user)
     end
   end
+
+  def children
+  end
 end

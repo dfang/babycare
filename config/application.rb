@@ -38,9 +38,12 @@ module FusionAdmin
 
     config.active_record.observers = Dir["#{Rails.root}/app/models/observers/*.rb"].map{|file| File.basename(file, '.rb').to_sym}
 
-
-
     # config.assets.paths << Rails.root.join("app", "assets", "fonts")
     # config.assets.paths << Rails.root.join("lib", "assets", "fonts")
+
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :erb
+    end
   end
 end

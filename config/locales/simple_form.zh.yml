@@ -34,6 +34,14 @@ zh-CN:
     #   defaults:
     #     age: 'Select your age'
     placeholders:
+      user:
+        chief_complaint: "描述下不适症状"
+        history_of_present_illness: "详细描述不适症状的过程,时间周期"
+        past_medical_history: "描述下以前发病的描述"
+        allergic_history: "描述下有无过敏症状"
+        personal_history: "描述下顺产还是剖腹产，是否母乳喂养或者吃奶粉..."
+        family_history: "描述下近亲有无遗传疾病"
+        vaccination_history: "描述下是否正常接种疫苗"
       medical_record:
         chief_complaint: "描述下不适症状"
         history_of_present_illness: "详细描述不适症状的过程,时间周期"

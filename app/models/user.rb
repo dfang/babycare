@@ -9,11 +9,11 @@ class User < ActiveRecord::Base
   # mount_image_version :qrcode
   mount_uploader :qrcode, SingleUploader
 
+  has_ancestry
 
   has_many :authentications, :dependent => :destroy
   has_one :doctor
 
-  # has_many :reservations, :foreign_key => 'user_a'
   has_many :medical_records
   has_many :settings
   has_many :transactions
@@ -67,7 +67,6 @@ class User < ActiveRecord::Base
     #   self.reservations
     # end
   end
-
 
   def increase_income(amount, source, reservation_id)
     ActiveRecord::Base.transaction do

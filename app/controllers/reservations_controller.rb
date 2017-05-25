@@ -1,6 +1,7 @@
 class ReservationsController < InheritedResources::Base
   before_action -> { authenticate_user!( force: true ) }
   before_action -> { ensure_registerd_membership }
+  before_action -> { has_children? }
   # custom_actions :resource => :wxpay_test
   # before_action :rectrict_access
   # skip_before_action :rectrict_access, only: [ :restricted ]
@@ -77,6 +78,13 @@ class ReservationsController < InheritedResources::Base
     if current_user.doctor.present? && current_user.doctor.verified?
       flash[:error] = "你是医生不能访问该页面"
       redirect_to global_denied_path and return
+    end
+  end
+
+  def has_children?
+    # 如果没有小孩，那就先去添加孩子的资料
+    if current_user.children.blank?
+      redirect_to my_patients_family_members_path, alert: "你还没有添加小孩" and return
     end
   end
 

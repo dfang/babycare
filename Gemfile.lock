@@ -66,6 +66,8 @@ GEM
       activerecord (>= 4.0)
     airbrussh (1.2.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    ancestry (3.0.0)
+      activerecord (>= 3.2.0)
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
@@ -167,6 +169,7 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    groupify (0.9.0)
     haml (5.0.1)
       temple (>= 0.8.0)
       tilt
@@ -412,6 +415,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   acts-as-taggable-on
+  ancestry
   annotate
   browser
   capistrano (= 3.5.0)
@@ -436,6 +440,7 @@ DEPENDENCIES
   factory_girl_rails
   ffaker
   friendly_id
+  groupify
   haml-rails
   has_scope
   holder_rails
