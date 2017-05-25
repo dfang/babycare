@@ -1,0 +1,11 @@
+<h1>服务介绍页面</h1>
+<%- if params[:type] == "offline" %>
+<p> 见面咨询 </p>
+
+<a class="weui-btn weui-btn__primary" href="/reservations/new?type=offline">立即预约</a>
+
+<% else %>
+<p> 电话咨询 </p>
+<a class="weui-btn weui-btn__primary" href="/reservations/new?type=online">立即预约</a>
+
+<% end %>
