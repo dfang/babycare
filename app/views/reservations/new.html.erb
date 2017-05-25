@@ -21,6 +21,15 @@
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
+          <label class="weui-label">想预约在</label>
+      </div>
+      <div class="weui-cell__bd weui-cell_primary">
+          <input class="weui-input" name="reservation[reservation_date]" placeholder="请选择一个大概的时间" type="datetime-local" data-parsley-required="true">
+      </div>
+    </div>
+
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
         <label class="weui-label">有什么症状</label>
       </div>
     </div>
@@ -33,12 +42,18 @@
       <div id="symptom-tag-details"></div>
     </div>
 
-    <div class="weui-cell weui-cell-name">
+    <div class="weui-cell weui-cell-remark">
+      <div class="weui-cell__bd weui-cell_primary">
+        <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
+      </div>
+    </div>
+
+    <div class="weui-cell">
       <div class="weui-cell__hd">
-          <label class="weui-label">想预约在</label>
+        <label class="weui-label">怎么称呼您</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-          <input class="weui-input" name="reservation[reservation_date]" type="datetime-local" data-parsley-required="true">
+        <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
       </div>
     </div>
 
@@ -53,7 +68,6 @@
             <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
         </div>
     </div>
-
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
@@ -109,7 +123,7 @@
 
     url = location.href.split('#')[0]
     $.ajax({
-      url:        "/wxpay/config.json?url=" + escape(url),
+      url:        "/config_jssdk.json?url=" + escape(url),
       beforeSend: function(){},
       global:     false
     })

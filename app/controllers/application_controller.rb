@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :detect_platform
+  before_action :complete_profile
+  # before_action :complete_profile
+
   layout proc { |controller| controller.request.xhr? ? false : 'application' }
   helper_method :body_class
 
@@ -31,4 +34,7 @@ class ApplicationController < ActionController::Base
     current_user.authentications.where(provider: 'wechat').first
   end
 
+  def complete_profile
+
+  end
 end

@@ -20,6 +20,17 @@
     </div>
   </div>
 
+  <div class="weui-cell weui-cell_select weui-cell_select-after">
+    <div class="weui-cell__hd">
+        <label for="" class="weui-label">血型</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+        <select class="weui-select" name="reservation[blood_type]">
+          <%= options_for_select Setting::BLOOD_TYPES, "A" %>
+        </select>
+    </div>
+  </div>
+
   <%= f.input :history_of_present_illness, as: :text, wrapper: :weui_input %>
   <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
   <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>

@@ -67,7 +67,5 @@ db/*.sql.bz2
 .cache
 
 *.swp
-
 node_modules
 public/packs
-

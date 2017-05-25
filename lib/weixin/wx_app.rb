@@ -29,14 +29,16 @@ module WxApp
 
     def get_jsapi_ticket
       jsapi_ticket = Rails.cache.fetch("weixin_jsapi_ticket")
-      return jsapi_ticket unless jsapi_ticket.nil?
-
-      url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
-      conn = get_conn
-      response = conn.get url
-      jsapi_ticket = JSON.parse(response.body)["ticket"]
-      Rails.cache.write("weixin_jsapi_ticket", jsapi_ticket, expires_in: 100.minutes)
-      return jsapi_ticket
+      if jsapi_ticket.present?
+        return jsapi_ticket
+      else
+        url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
+        conn = get_conn
+        response = conn.get url
+        jsapi_ticket = JSON.parse(response.body)["ticket"]
+        Rails.cache.write("weixin_jsapi_ticket", jsapi_ticket, expires_in: 7200.seconds)
+        jsapi_ticket
+      end
     end
 
   end
@@ -259,7 +261,7 @@ module WxApp
     end
 
     def generate_js_sdk_signature_str(noncestr, timestamp, url)
-      js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k,v|
+      js_sdk_signature_str = { jsapi_ticket: ::WxApp::WxCommon.get_jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k,v|
                           "#{k}=#{v}" if v != "" && !v.nil?
                         end.compact.join('&')
       Digest::SHA1.hexdigest(js_sdk_signature_str)

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  root 'home#index'
 
+  resources :products, only: [:index, :show]
+
+  root 'home#index'
   get 'home/index'
   get 'home/cities'
   get 'home/city'
@@ -10,31 +12,20 @@ Rails.application.routes.draw do
   get 'home/hospital'
 
 
-  get 'wxpay/config'
-  get 'wxjssdk/config'
+  get 'wxpay/config' => 'wxpay#config_jssdk'
   get 'payment/pay'
-
-  namespace :my do
-    namespace :doctors do
-      resources :transactions, only: [:index, :show, :create, :show]
-
-      get 'wallet', to: 'wallets#index'
-      get 'wallet/withdraw', to: 'wallets#withdraw'
-    end
-  end
-
+  get 'global/status'
+  get 'global/denied'
+  get 'global/switch'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
 
-
   devise_scope :user do
     get 'wechat_authorize' => 'users/sessions#wechat_authorize', as: :wechat_authorize
     get 'profile' => 'users/registrations#show', as: :profile
-
-    post 'wxapp_login' => 'users/sessions'
   end
 
   resources :users do
@@ -44,23 +35,24 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'global/status'
-  get 'global/denied'
-  get 'global/switch'
 
   resources :posts, only: [:index, :show]
+  resources :global_images, only: :create
 
   namespace :wx do
      get '/' => 'service#verify'
      post '/' => 'service#create', :defaults => { :format => 'xml' }
      get '/wx_web_auth' => 'service#wx_web_auth'
+     get '/config_jssdk' => 'service#config_jssdk'
   end
-
 
   namespace :my do
 
     get '/', to: 'home#index'
     namespace :doctors do
+      resources :transactions, only: [:index, :show, :create, :show]
+      get 'wallet', to: 'wallets#index'
+      get 'wallet/withdraw', to: 'wallets#withdraw'
       resources :reservations do
         get 'detail', on: :member
         get 'claim', on: :member
@@ -83,6 +75,7 @@ Rails.application.routes.draw do
 
     namespace :patients do
       resource :settings
+      resources :family_members
 
       resources :reservations do
         get 'latest', on: :collection
@@ -108,9 +101,37 @@ Rails.application.routes.draw do
     post :cancel_reservation, on: :collection
   end
 
-  resources :global_images, only: :create
+  resources :doctors do
+    collection do
+      get 'apply'
+    end
+    member do
+      get 'reservations'
+      get 'status'
+    end
+  end
+
+  resources :reservations do
+    get 'choose_type', on: :collection
+    get 'public', on: :collection
+    get 'status', on: :member
+    get 'restricted', on: :collection
+    get 'wxpay_test', on: :member
+    resources :ratings
+  end
+
+  devise_for :admin_users, controllers: {
+    sessions: 'admin/users/sessions'
+  }
 
   namespace :admin do
+    get 'images/create'
+
+    resources :people do
+      resources :medical_records
+    end
+    resources :medical_records
+    resources :checkins
     resources :symptoms
     resources :wx_menus do
       collection do
@@ -126,51 +147,6 @@ Rails.application.routes.draw do
     resources :posts do
       put :publish, on: :member
     end
-  end
-
-  resources :doctors do
-    collection do
-      get 'apply'
-    end
-    member do
-      get 'reservations'
-      get 'status'
-      put 'online'
-      put 'offline'
-    end
-  end
-
-  resources :reservations do
-    get 'choose_type', on: :collection
-    get 'public', on: :collection
-    get 'status', on: :member
-    get 'restricted', on: :collection
-    get 'wxpay_test', on: :member
-    resources :ratings
-  end
-
-  namespace :admin do
-    get 'images/create'
-
-    resources :people do
-      resources :medical_records
-    end
-    resources :medical_records
-  end
-
-  resources :people
-  namespace :admin do
-    resources :checkins
-  end
-
-  resources :checkins
-  resources :books
-
-  devise_for :admin_users, controllers: {
-    sessions: 'admin/users/sessions'
-  }
-
-  namespace :admin do
     resources :images, only: :create
     root 'dashboard#index'
     resources :users
@@ -178,4 +154,5 @@ Rails.application.routes.draw do
     get 'customizer' => 'dashboard#customizer'
   end
 
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

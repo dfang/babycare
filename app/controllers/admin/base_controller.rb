@@ -1,6 +1,6 @@
 class Admin::BaseController < InheritedResources::Base
   layout 'admin'
-  # before_filter :authenticate_admin_user!
+  # before_action :authenticate_admin_user!
 
   def create
     create! { collection_path }

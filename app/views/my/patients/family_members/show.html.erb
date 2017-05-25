@@ -1,0 +1,53 @@
+<%= simple_nested_form_for @member, url: my_patients_family_members_path, method: 'GET' do |f| %>
+
+  <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">名字</label></div>
+      <div class="weui-cell__bd">
+          <%= f.input_field :name, wrapper: :weui_input, class: 'weui-input' %>
+      </div>
+  </div>
+
+  <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">身份证</label></div>
+        <div class="weui-cell__bd">
+            <%= f.input_field :identity_card, wrapper: :weui_input, class: 'weui-input' %>
+        </div>
+    </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label for="" class="weui-label">生日</label></div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <%= f.input_field :birthdate, as: :date, wrapper: :weui_input, class: 'weui-input' %>
+    </div>
+  </div>
+
+  <div class="weui-cell weui-cell_select weui-cell_select-after">
+    <div class="weui-cell__hd">
+        <label for="" class="weui-label">性别</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <%= f.input_field :gender, wrapper: :weui_input, class: 'weui-input' %>
+    </div>
+  </div>
+
+  <div class="weui-cell weui-cell_select weui-cell_select-after">
+    <div class="weui-cell__hd">
+        <label for="" class="weui-label">血型</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <%= f.input_field :blood_type, wrapper: :weui_input, class: 'weui-input' %>
+    </div>
+  </div>
+
+  <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
+  <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
+  <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
+  <%= f.input :family_history, as: :text, wrapper: :weui_input %>
+  <%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
+
+
+  <div class="weui-btn-area">
+    <!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
+    <button class="weui-btn weui-btn__primary">编辑</button>
+  </div>
+<% end %>

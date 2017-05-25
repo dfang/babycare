@@ -1,14 +1,19 @@
+require 'uri'
+
 class Wx::ServiceController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_weixin_legality
   before_action :parse_xml, only: [:create]
+  respond_to :json, :js, :xml
 
   layout 'weixin'
 
   WEIXIN_TOKEN = Settings.weixin.token
 
   def verify
-    render text: params[:echostr]
+    p params[:echostr]
+
+    render plain: params[:echostr]
   end
 
   def create
@@ -23,8 +28,24 @@ class Wx::ServiceController < ApplicationController
     end
   end
 
-  def wx_web_auth
+  def config_jssdk
+    # 在rails 5 里面这里绝对不能叫config, 否则 SystemStackError (stack level too deep)
+    appId           =  Settings.wx_pay.app_id
+    nonceStr        =  SecureRandom.hex
+    timestamp       =  DateTime.now.to_i
 
+    js_sdk_signature_str       =  ::WxApp::WxPay.generate_js_sdk_signature_str(nonceStr, timestamp,  URI.unescape(params[:url]))
+    p js_sdk_signature_str
+
+    render json: {
+        appId: appId,
+        key: Settings.wx_pay.api_key,
+        mch_id: Settings.wx_pay.mch_id,
+        timestamp: timestamp.to_s,
+        nonceStr: nonceStr,
+        signature: js_sdk_signature_str,
+        jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation']
+      }
   end
 
 private
@@ -32,6 +53,7 @@ private
   def parse_xml
     # munger = defined?(Request::Utils) ? Request::Utils : request
     data = ActionDispatch::Request::Utils.deep_munge(Hash.from_xml(request.body.read) || {})
+
     request.body.rewind if request.body.respond_to?(:rewind)
     data.with_indifferent_access
 
