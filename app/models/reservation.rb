@@ -11,7 +11,6 @@ class Reservation < ActiveRecord::Base
   establish_connection("odoo_#{Rails.env}".to_sym)
   self.table_name = 'fa_reservation'
 
-
   has_many :ratings, :dependent => :destroy
   has_one :medical_record, :dependent => :destroy
   has_many :phone_call_histories, :dependent => :destroy
@@ -26,12 +25,12 @@ class Reservation < ActiveRecord::Base
     state :pending, initial: true
     state :reserved, :prepaid, :diagnosed, :paid, :rated, :archived, :overdued, :cancelled
 
-    event :reserve, after_transaction: :after_reserved! do
-      transitions from: :pending, to: :reserved, :guard => :can_be_reserved?
+    event :prepay, after_transaction: :after_prepaid! do
+      transitions from: :pending, to: :prepaid
     end
 
-    event :prepay, after_transaction: :after_prepaid! do
-      transitions from: :reserved, to: :prepaid
+    event :reserve, after_transaction: :after_reserved! do
+      transitions from: :prepaid, to: :reserved, :guard => :can_be_reserved?
     end
 
     event :diagnose, after_transaction: :after_diagnosed! do
@@ -165,6 +164,7 @@ class Reservation < ActiveRecord::Base
   # aasm guards
   def can_be_reserved?
     # self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
+    # must be prepaid
     true
   end
 
