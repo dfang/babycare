@@ -1,0 +1,93 @@
+<div class="msg">
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-info weui-icon_msg"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui-msg__title">医生已服务完成</h2>
+            <p class="weui-msg__desc">请向医生咨询需要支付的费用（测试阶段只需25元）, 然后对医生本次服务进行评价</p>
+        </div>
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
+							<a href="javascript:void(0)" class="weui-btn weui-btn__primary" id="wechatPaymentBtn">支付咨询服务费</a>
+              <!-- <%= link_to "支付咨询服务费", payment_patients_reservation_path, class: 'weui-btn weui-btn__primary'  %> -->
+            </p>
+        </div>
+        <div class="weui-msg__extra-area">
+            <a href="">帮助</a>
+        </div>
+    </div>
+</div>
+
+
+<%= content_for :js do %>
+  <%= javascript_tag do %>
+    $(function(){
+      <% if @order_params.present? %>
+          var orderParams = {
+            appId:     "<%= @order_params[:appId] %>",
+            timeStamp: "<%= @order_params[:timeStamp] %>",
+            nonceStr:  "<%= @order_params[:nonceStr] %>",
+            package:   "<%= @order_params[:package] %>",
+            paySign:   "<%= @order_params[:paySign] %>",
+            signType:  "<%= @order_params[:signType] %>"
+          };
+
+          url = location.href.split('#')[0]
+          $.ajax({
+            url:        "/wx/config_jssdk.json?url=" + escape(url),
+            beforeSend: function(){},
+            global:     false
+          })
+          .done(function(data){
+
+            wx.config({
+              appId:     data.appId,
+              timestamp: data.timestamp,
+              nonceStr:  data.nonceStr,
+              signature: data.signature,
+              jsApiList: data.jsApiList
+            });
+
+            wx.ready(function(){
+              console.log('config is ready, checking js api available');
+              wx.checkJsApi({
+                 jsApiList: data.jsApiList,
+                 success: function (res) {
+                   console.log(JSON.stringify(res));
+                 }
+               });
+            });
+
+            wx.error(function(res){
+              alert("初始化微信js sdk出错，请联系我们");
+            })
+          })
+
+          wx.ready(function(){
+            console.log('wx ready, click to pay')
+
+            $('#wechatPaymentBtn').on('click', function() {
+
+              wx.chooseWXPay({
+                  timestamp: orderParams.timeStamp,
+                  nonceStr:  orderParams.nonceStr,
+                  package:   orderParams.package,
+                  signType:  orderParams.signType,
+                  paySign:   orderParams.paySign,
+                  success: function (res) {
+      							console.log(JSON.stringify(res));
+      							if(res["errMsg"] == "chooseWXPay:ok"){
+                      // check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
+                      location.reload()
+      							}
+                  },
+      						fail: function(res){
+      							console.log(JSON.stringify(res));
+      							alert('支付请求失败, 请联系我们');
+      						}
+              });
+            });
+          })
+      <% end %>
+    })
+  <% end %>
+<% end %>

@@ -14,7 +14,7 @@ class UsersController < InheritedResources::Base
     user = User.find_by(id: params[:id])
     latest_reservation = user.reservations.where(user_b: current_user.id).order('created_at DESC').first
     if current_user.is_doctor?
-      redirect_to profile_my_doctors_patient_path(user)
+      redirect_to profile_doctors_patient_path(user)
     end
   end
 

@@ -4,6 +4,7 @@ class Wx::ServiceController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_weixin_legality
   before_action :parse_xml, only: [:create]
+  skip_before_action :check_weixin_legality, on: :config_jssdk
   respond_to :json, :js, :xml
 
   layout 'weixin'
@@ -52,7 +53,8 @@ private
 
   def parse_xml
     # munger = defined?(Request::Utils) ? Request::Utils : request
-    data = ActionDispatch::Request::Utils.deep_munge(Hash.from_xml(request.body.read) || {})
+    # data = ActionDispatch::Request::Utils.deep_munge(Hash.from_xml(request.body.read) || {})
+    data = Hash.from_xml(request.body.read) || {}
 
     request.body.rewind if request.body.respond_to?(:rewind)
     data.with_indifferent_access

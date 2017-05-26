@@ -74,7 +74,7 @@
   }
 }
 
-.my_patients_reservations_index{
+.patients_reservations_index{
   .weui-media-box{
     a{
       display: block;
@@ -83,13 +83,13 @@
 }
 
 
-.my_doctors_reservations_index{
+.doctors_reservations_index{
   .container .weui-tab__panel .bd{
     // margin-top: 15%;
   }
 }
 
-.my_doctors_wallets_index{
+.doctors_wallets_index{
   .weui-msg__icon-area{
     span{
       position: absolute;
@@ -109,7 +109,7 @@
 
 }
 
-.my_doctors_wallets_index, .my_doctors_wallets_withdraw {
+.doctors_wallets_index, .doctors_wallets_withdraw {
   .weui-msg__icon-area{
     i{
       display: block;
@@ -123,7 +123,7 @@
   }
 }
 
-.my_patients_medical_records_index{
+.patients_medical_records_index{
   .weui-tab__panel{
     a.weui-btn__primary{
       margin-top: 20px;
@@ -133,7 +133,7 @@
 }
 
 
-.my_doctors_profile, .my_patients_profile, .my_doctors_patients_profile{
+.doctors_profile, .patients_profile, .doctors_patients_profile{
 
   .weui-panel__access{
     .weui-panel__hd{
@@ -155,8 +155,8 @@
 
 }
 
-.my_patients_medical_records_new, .my_patients_medical_records_edit,
-.my_doctors_medical_records_new, .my_doctors_medical_records_edit{
+.patients_medical_records_new, .patients_medical_records_edit,
+.doctors_medical_records_new, .doctors_medical_records_edit{
   .tab1{
     .weui-cell{
       .weui-cell__hd{
@@ -168,7 +168,7 @@
 
 
 
-.my_patients_reservations_show{
+.patients_reservations_show{
   .weui-msg .weui_text_area{
     margin-bottom: 10px;
   }

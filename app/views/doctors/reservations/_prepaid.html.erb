@@ -1,0 +1,31 @@
+<div class="msg">
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-info weui-icon_msg"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui-msg__title">用户已经支付定金</h2>
+            <p class="weui-msg__desc">预约正式成立,请站在用户的角度进行咨询服务,保证服务质量还请在服务后完善添加病例资料,最后才能确认服务完成。服务完成了之后,可以对用户进行评价</p>
+        </div>
+        <div class="weui-msg__opr-area">
+          <p class="weui-btn-area">
+            <% if resource.reservation_type.offline? %>
+						  <%= link_to "确认线下咨询服务完成", complete_offline_consult_doctors_reservation_path(resource), method: 'PUT', class: "weui-btn weui-btn__primary" %>
+            <% else %>
+              <%= link_to "确认电话咨询服务完成", complete_online_consult_doctors_reservation_path(resource), method: 'PUT', class: "weui-btn weui-btn__primary" %>
+            <% end %>
+
+            <%- if resource.medical_record.present?  %>
+							<%= link_to "修改病例", edit_doctors_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+						<% else %>
+							<%= link_to "添加病例", new_doctors_medical_record_path(reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+						<% end  %>
+
+            <%= link_to "查看用户资料", profile_doctors_patient_path(resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+
+            <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.user_a %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.patient_user_phone %>);" class="weui-btn weui-btn_default">拨打电话</a>
+          </p>
+        </div>
+        <div class="weui-msg__extra-area">
+            <a href="">帮助</a>
+        </div>
+    </div>
+</div>

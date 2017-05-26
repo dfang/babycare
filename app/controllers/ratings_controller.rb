@@ -6,9 +6,9 @@ class RatingsController < InheritedResources::Base
 		ratings.destroy_all if ratings.present?
 		create! {
 			if current_user.is_verified_doctor?
-				my_doctors_reservation_path(parent)
+				doctors_reservation_path(parent)
 			else
-				my_patients_reservation_path(parent)
+				patients_reservation_path(parent)
 			end
 		}
 	end

@@ -68,7 +68,7 @@ module WxApp
         #                   "name"=>"用户",
         #                   "sub_button"=>
         #                     [ {"type"=>"view", "name"=>"预约医生", "url"=>"http://babycare.tunnel.qydev.com/reservations/new", "sub_button"=>[]},
-        #                       {"type"=>"view", "name"=>"用户后台", "url"=>"http://babycare.tunnel.qydev.com/my/patients", "sub_button"=>[]}
+        #                       {"type"=>"view", "name"=>"用户后台", "url"=>"http://babycare.tunnel.qydev.com/patients", "sub_button"=>[]}
         #                     ]
         #                 },
         #
@@ -78,12 +78,13 @@ module WxApp
         #                   "name"=>"医生",
         #                   "sub_button"=>
         #                     [ {"type"=>"view", "name"=>"注册医生", "url"=>"http://babycare.tunnel.qydev.com/doctors/new", "sub_button"=>[]},
-        #                       {"type"=>"view", "name"=>"医生后台", "url"=>"http://babycare.tunnel.qydev.com/my/doctors", "sub_button"=>[]}
+        #                       {"type"=>"view", "name"=>"医生后台", "url"=>"http://babycare.tunnel.qydev.com/doctors", "sub_button"=>[]}
         #                     ]
         #                 }
         #               ]
         #             }
         #           }.to_json
+        # binding.pry
         req.body = menus
       end
 

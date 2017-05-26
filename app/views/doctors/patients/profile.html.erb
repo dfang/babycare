@@ -1,0 +1,85 @@
+<div class="tabbar">
+  <div class="weui-tab">
+    <div class="weui-tab__panel">
+        <div class="weui-msg">
+            <div class="weui-msg__icon-area">
+              <a href="/patients/index">
+                <%= image_tag resource.avatar %>
+              </a>
+            </div>
+            <div class="weui-msg__text-area">
+                <h2 class="weui-msg__title"><%= resource.wechat_authentication.nickname %></h2>
+            </div>
+            <div class="weui-msg__opr-area">
+
+              <div class="weui-panel weui-panel__access">
+                  <div class="weui-panel__hd">
+                    <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+                        <div class="weui-cell__bd">ta的基本信息</div>
+                        <span class="weui-cell__ft"></span>
+                    </a>
+                  </div>
+                  <div class="weui-panel__bd">
+                      <div class="weui-media-box weui-media-box__text" style="display: none">
+                          <h4 class="weui-media__title">姓名</h4>
+                          <p class="weui-media__desc"><%= resource.name %></p>
+                      </div>
+                      <div class="weui-media-box weui-media-box__text" style="display: none">
+                          <h4 class="weui-media__title">手机号码</h4>
+                          <p class="weui-media__desc"><%= resource.mobile_phone %></p>
+                      </div>
+
+                      <div class="weui-media-box weui-media-box__text" style="display: none">
+                          <h4 class="weui-media__title">性别</h4>
+                          <p class="weui-media__desc"><%= resource.gender %></p>
+                      </div>
+
+                      <!-- <div class="weui-media-box weui-media-box__text" style="display: none">
+                          <h4 class="weui-media__title">常住地址</h4>
+                          <p class="weui-media__desc">南湖大道</p>
+                      </div> -->
+                  </div>
+              </div>
+
+
+              <div class="weui-panel weui-panel__access">
+                  <div class="weui-panel__hd">
+                    <%= link_to doctors_patient_medical_records_path(resource), class: "weui-cell weui-cell_access weui-cell_link" do %>
+                        <div class="weui-cell__bd">ta的病例信息</div>
+                        <span class="weui-cell__ft"></span>
+                    <% end %>
+                  </div>
+              </div>
+
+              <div class="weui-panel weui-panel__access">
+                  <div class="weui-panel__hd">
+                    <%= link_to doctors_patient_reservations_path(resource), class: "weui-cell weui-cell_access weui-cell_link"  do%>
+                        <div class="weui-cell__bd">ta和我之间所有的预约</div>
+                        <span class="weui-cell__ft"></span>
+                    <% end %>
+                  </div>
+              </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%= render 'tab_bar' %>
+  </div>
+</div>
+
+<%- content_for :js do %>
+<script type="text/javascript">
+  $(function(){
+
+    $(document).on('click', '.weui-panel__access .weui-panel__hd', function(e){
+      $(e.target).parents('.weui-panel__access').find('.weui-panel__bd .weui-media-box, .weui-cells').fadeToggle( "slow", "linear" );
+    })
+
+    $(document).on('click', '.weui-medical-record a.weui-cell', function(e){
+      $(e.target).parents('.weui-medical-record').find('.weui-medical-record-detail').toggleClass('hidden')
+    })
+
+  });
+</script>
+<% end %>

@@ -41,7 +41,7 @@ var IM = {
     $.post('/background_jobs/cancel_reservation.json', {
       reservation_id: reservation_id
     }, function(data){
-      window.location.href = '/my/patients/reservations'
+      window.location.href = '/patients/reservations'
     })
   }
 };

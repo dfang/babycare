@@ -1,0 +1,22 @@
+<%= link_to doctors_reservation_path(res) do %>
+  <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text">
+					<h4 class="weui-media-box__title"> <%= res.name %>的<%= res.gender_text %> </h4>
+          <p class="weui-media-box__desc"> <%= res.chief_complains %></p>
+          <ul class="weui-media-box__info">
+            <li class="weui-media-box__info__meta"><%= res.reservation_phone %></li>
+            <li class="weui-media-box__info__meta"><%= res.created_at.strftime('%Y.%m.%d %H:%M') %></li>
+            <li class="weui-media-box__info__meta weui-media-box__info__meta__extra"><%= res.location %></li>
+          </ul>
+      </div>
+			<div class="weui_media_status">
+				<span>
+					<%- if res.doctor_has_rated? %>
+					 	已评价
+					<% else %>
+						<%= res.aasm_state_text %>
+					<% end %>
+				</span>
+			</div>
+  </div>
+<% end %>

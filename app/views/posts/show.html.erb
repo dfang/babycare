@@ -23,7 +23,7 @@
 		<div class="weui-tabbar">
 
 			<% if current_user.is_verified_doctor? %>
-			<a href="/my/doctors/reservations" class="weui-tabbar__item">
+			<a href="/doctors/reservations" class="weui-tabbar__item">
 				<img src="/icon_nav_button.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我的预约</p>
 			</a>
@@ -31,12 +31,12 @@
 				<img src="/icon_nav_article.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">必读文章</p>
 			</a>
-			<a href="/my/doctors/" class="weui-tabbar__item">
+			<a href="/doctors/" class="weui-tabbar__item">
 				<img src="/icon_nav_cell.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我</p>
 			</a>
 		<% else %>
-			<a href="/my/patients/reservations" class="weui-tabbar__item">
+			<a href="/patients/reservations" class="weui-tabbar__item">
 				<img src="/icon_nav_button.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我的预约</p>
 			</a>
@@ -44,7 +44,7 @@
 				<img src="/icon_nav_article.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">必读文章</p>
 			</a>
-			<a href="/my/patients/" class="weui-tabbar__item">
+			<a href="/patients/" class="weui-tabbar__item">
 				<img src="/icon_nav_cell.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我</p>
 			</a>

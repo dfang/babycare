@@ -1,4 +1,4 @@
-<%= link_to detail_my_doctors_reservation_path(res) do %>
+<%= link_to detail_doctors_reservation_path(res) do %>
   <div class="weui-panel__bd">
       <div class="weui-media-box weui-media-box_text">
           <h4 class="weui-media-box__title"> <%= res.name %>的<%= res.gender_text %>(想预约在<%= res.created_at.strftime('%Y.%m.%d %H:%M') %>) </h4>

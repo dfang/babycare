@@ -22,7 +22,7 @@ class My::PatientsController < InheritedResources::Base
 
   def check_is_verified_doctor
     if current_user.is_verified_doctor?
-      redirect_to my_patients_status_path and return
+      redirect_to patients_status_path and return
     end
   end
 end

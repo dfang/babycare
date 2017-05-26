@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get 'home/hospital'
 
 
-  get 'wxpay/config' => 'wxpay#config_jssdk'
   get 'payment/pay'
   get 'global/status'
   get 'global/denied'
@@ -35,7 +34,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   resources :posts, only: [:index, :show]
   resources :global_images, only: :create
 
@@ -46,53 +44,52 @@ Rails.application.routes.draw do
      get '/config_jssdk' => 'service#config_jssdk'
   end
 
+  namespace :doctors do
+    resources :transactions, only: [:index, :show, :create, :show]
+    get 'wallet', to: 'wallets#index'
+    get 'wallet/withdraw', to: 'wallets#withdraw'
+    resources :reservations do
+      get 'detail', on: :member
+      get 'claim', on: :member
+      put 'claim', on: :member
+      put 'complete_offline_consult', on: :member
+      put 'complete_online_consult', on: :member
+    end
+    resources :patients do
+      member do
+        get 'profile'
+        resources :medical_records, as: :patient_medical_records
+        resources :reservations, as: :patient_reservations
+      end
+    end
+    get 'status'
+    get 'index'
+    get 'profile'
+    resources :medical_records
+  end
+
+  namespace :patients do
+    resource :settings
+    resources :family_members
+    resources :reservations do
+      get 'latest', on: :collection
+      get 'payment', on: :member
+      put 'payment', on: :member
+      get 'pay', on: :member
+      get 'wxpay', on: :collection
+      post 'payment_notify', on: :collection
+    end
+    get 'profile'
+    get 'status'
+    get '/', action: :index
+    get '/index', action: :index
+    resources :medical_records
+  end
+
   namespace :my do
-
     get '/', to: 'home#index'
-    namespace :doctors do
-      resources :transactions, only: [:index, :show, :create, :show]
-      get 'wallet', to: 'wallets#index'
-      get 'wallet/withdraw', to: 'wallets#withdraw'
-      resources :reservations do
-        get 'detail', on: :member
-        get 'claim', on: :member
-        put 'claim', on: :member
-        put 'complete_offline_consult', on: :member
-        put 'complete_online_consult', on: :member
-      end
-      resources :patients do
-        member do
-          get 'profile'
-          resources :medical_records, as: :patient_medical_records
-          resources :reservations, as: :patient_reservations
-        end
-      end
-      get 'status'
-      get 'index'
-      get 'profile'
-      resources :medical_records
-    end
-
-    namespace :patients do
-      resource :settings
-      resources :family_members
-
-      resources :reservations do
-        get 'latest', on: :collection
-        get 'payment', on: :member
-        put 'payment', on: :member
-        get 'pay', on: :member
-        get 'wxpay', on: :collection
-        post 'payment_notify', on: :collection
-      end
-      get 'profile'
-      get 'status'
-      get 'index'
-      resources :medical_records
-    end
     get '/doctors', to: 'doctors#index', as: :doctor_root
     get '/patients', to: 'patients#index', as: :patient_root
-
   end
 
   resources :background_jobs, only: [] do

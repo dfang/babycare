@@ -1,0 +1,22 @@
+<div class="tabbar">
+  <div class="weui-tab">
+      <div class="weui-tab__panel">
+
+          <div class="panel">
+            <div class="bd">
+              <% if @transactions.any? %>
+                <% @transactions.each do |re| %>
+                  <%= render 'entry', res: re %>
+                <% end  %>
+              <% else %>
+                你暂时没有进账或提现记录
+              <% end %>
+            </div>
+          </div>
+
+      </div>
+
+      <%= render 'doctors/tab_bar' %>
+
+    </div>
+</div>

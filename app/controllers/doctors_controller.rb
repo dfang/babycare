@@ -6,7 +6,8 @@ class DoctorsController < InheritedResources::Base
   # before_action ->{ authenticate_user!( force: true ) }, except: [ :apply, :new, :create ]
   # custom_actions :resource => :status
 
-  before_action :set_doctor, only: [:show, :edit, :update, :destroy, :online, :offline]
+  before_action :set_doctor, only: [:status, :show, :edit, :update, :destroy, :online, :offline]
+  before_action :check_is_verified_doctor, only: [ :reservations, :index ]
 
   def apply
     redirect_to new_doctor_path
@@ -17,7 +18,7 @@ class DoctorsController < InheritedResources::Base
   end
 
   def status
-    Rails.logger.info 'aaaa'
+    Rails.logger.info 'status'
   end
 
   def new
@@ -32,6 +33,10 @@ class DoctorsController < InheritedResources::Base
       @doctor = current_user.build_doctor
       redirect_to wizard_path(:basic) and return
     end
+  end
+
+  def index
+    p 'doctor index'
   end
 
   def show
@@ -95,8 +100,18 @@ class DoctorsController < InheritedResources::Base
     status_doctor_path
   end
 
-
   private
+    def check_is_verified_doctor
+      if current_user.doctor.nil?
+        flash[:error] = "你还没提交资料申请我们的签约医生"
+        redirect_to global_denied_path and return
+      end
+
+      unless current_user.is_verified_doctor?
+        redirect_to doctors_status_path and return
+      end
+    end
+
     def set_doctor
       if current_user.doctor.present?
         @doctor = current_user.doctor

@@ -84,7 +84,7 @@ class ReservationsController < InheritedResources::Base
   def has_children?
     # 如果没有小孩，那就先去添加孩子的资料
     if current_user.children.blank?
-      redirect_to my_patients_family_members_path, alert: "你还没有添加小孩" and return
+      redirect_to patients_family_members_path, alert: "你还没有添加小孩" and return
     end
   end
 
