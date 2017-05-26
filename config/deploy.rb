@@ -21,7 +21,7 @@ set :default_run_options, {:pty => true}
 
 set :linked_files, %w{config/database.yml config/secrets.yml}
 # http://stackoverflow.com/questions/26151443/capistrano-3-deployment-for-rails-4-binstubs-conflict
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads public/assets vendor/assets/bower_components }
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads public/assets vendor/assets/bower_components node_modules}
 set :bundle_binstubs, nil
 
 # Default value for default_env is {}
