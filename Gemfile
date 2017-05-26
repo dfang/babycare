@@ -111,6 +111,7 @@ group :development do
   gem 'capistrano-nginx-unicorn'
   # gem 'capistrano-db-tasks', github: 'dfang/capistrano-db-tasks', branch: 'master', require: false
   gem 'capistrano-db-tasks', require: false
+  gem 'capistrano-yarn', '~> 2.0', '>= 2.0.2'
 end
 
 # gem 'mocha', group: :test

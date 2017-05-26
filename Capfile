@@ -32,6 +32,7 @@ require 'capistrano/nginx_unicorn'
 require 'capistrano/safe_deploy_to'
 require 'capistrano/secrets_yml'
 require 'capistrano/postgresql'
+require 'capistrano/yarn'
 
 # set default stage to production
 Rake::Task[:production].invoke

@@ -102,6 +102,8 @@ GEM
     capistrano-secrets-yml (1.0.0)
       capistrano (>= 3.1)
       sshkit (>= 1.2.0)
+    capistrano-yarn (2.0.2)
+      capistrano (~> 3.0)
     carrierwave (1.1.0)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -430,6 +432,7 @@ DEPENDENCIES
   capistrano-rbenv
   capistrano-safe-deploy-to (~> 1.1.1)
   capistrano-secrets-yml
+  capistrano-yarn (~> 2.0, >= 2.0.2)
   carrierwave (~> 1.0)
   carrierwave-data-uri
   carrierwave-qiniu
