@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525140731) do
+ActiveRecord::Schema.define(version: 20170527094023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,6 +341,7 @@ ActiveRecord::Schema.define(version: 20170525140731) do
     t.text "reservation_remark"
     t.string "reservation_name"
     t.string "reservation_type"
+    t.integer "user_c"
   end
 
   create_table "settings", id: :serial, force: :cascade do |t|

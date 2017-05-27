@@ -1,53 +1,54 @@
-<%= simple_nested_form_for @member, url: patients_family_members_path, method: 'GET' do |f| %>
+<div class="tabbar">
+  <div class="weui-tab">
 
-  <div class="weui-cell">
-      <div class="weui-cell__hd"><label class="weui-label">名字</label></div>
-      <div class="weui-cell__bd">
-          <%= f.input_field :name, wrapper: :weui_input, class: 'weui-input' %>
-      </div>
-  </div>
-
-  <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">身份证</label></div>
-        <div class="weui-cell__bd">
-            <%= f.input_field :identity_card, wrapper: :weui_input, class: 'weui-input' %>
+    <div class="weui-tab__panel">
+      <div class="panel">
+        <div class="page__hd">
+          <h1 class="page__title">我的小孩<%= @member.name %></h1>
+          <p class="page__desc">这里是<%= @member.name %>所有的预约, 病历</p>
         </div>
+
+        <div class="page__bd">
+          <div class="weui-cells weui-cells__access">
+
+            <!-- <div class="weui-panel weui-panel__access"> -->
+            <a href="/patients/reservations" class="weui-cell weui-cell_access weui-cell_link">
+              <!-- <div class="weui-panel__hd"> -->
+              <div class="weui-cell__bd"><%= @member.name %>的预约</div>
+              <span class="weui-cell__ft"></span>
+              <!-- </div> -->
+            </a>
+            <!-- </div> -->
+
+            <a href="/patients/medical_records" class="weui-cell weui-cell_access weui-cell_link">
+              <!-- <div class="weui-panel__hd"> -->
+              <div class="weui-cell__bd"><%= @member.name %>的病例信息</div>
+              <span class="weui-cell__ft"></span>
+              <!-- </div> -->
+            </a>
+
+          </div>
+        </div>
+      </div>
     </div>
 
-  <div class="weui-cell">
-    <div class="weui-cell__hd"><label for="" class="weui-label">生日</label></div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <%= f.input_field :birthdate, as: :date, wrapper: :weui_input, class: 'weui-input' %>
-    </div>
+    <%=  render 'tab_bar' %>
+
   </div>
+</div>
 
-  <div class="weui-cell weui-cell_select weui-cell_select-after">
-    <div class="weui-cell__hd">
-        <label for="" class="weui-label">性别</label>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <%= f.input_field :gender, wrapper: :weui_input, class: 'weui-input' %>
-    </div>
-  </div>
+<%- content_for :js do %>
+<script type="text/javascript">
+  $(function () {
 
-  <div class="weui-cell weui-cell_select weui-cell_select-after">
-    <div class="weui-cell__hd">
-        <label for="" class="weui-label">血型</label>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <%= f.input_field :blood_type, wrapper: :weui_input, class: 'weui-input' %>
-    </div>
-  </div>
+    $(document).on('click', '.weui-panel__access .weui-panel__hd', function (e) {
+      $(e.target).parents('.weui-panel__access').find('.weui-panel__bd .weui-media-box, .weui-cells').fadeToggle("slow", "linear");
+    })
 
-  <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
-  <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
-  <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
-  <%= f.input :family_history, as: :text, wrapper: :weui_input %>
-  <%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
+    $(document).on('click', '.weui-medical-record a.weui-cell', function (e) {
+      $(e.target).parents('.weui-medical-record').find('.weui-medical-record-detail').toggleClass('hidden')
+    })
 
-
-  <div class="weui-btn-area">
-    <!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
-    <button class="weui-btn weui-btn__primary">编辑</button>
-  </div>
+  });
+</script>
 <% end %>
