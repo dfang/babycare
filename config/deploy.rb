@@ -1,13 +1,11 @@
 # config valid only for Capistrano 3.1
-lock '3.5.0'
+lock '3.7'
 
 set :application, 'callmeadoctor'
 set :repo_url, 'git@git.coding.net:df1228/callmeadoctor.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-
-# set :branch, :master
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/home/deployer/apps/callmeadoctor'
@@ -35,10 +33,19 @@ set :rbenv_ruby, '2.3.0'
 set :rbenv_custom_path, '/opt/rbenv'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
-set :unicorn_user, :deployer
-set :templates_path, "config/deploy/templates"
+
+# set :puma_nginx, :deployer
+set :puma_nginx, :web
+set :nginx_sites_available_path, "/etc/nginx/sites-available"
+set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
+set :nginx_config_name, "#{fetch(:application)}_#{fetch(:stage)}"
 set :nginx_server_name, "wx.yhuan.cc"
-set :unicorn_workers, 2
+
+
+# set :unicorn_user, :deployer
+# set :unicorn_workers, 2
+set :puma_user, :deployer
+set :templates_path, "config/deploy/templates"
 
 namespace :deploy do
   desc 'Restart application'
@@ -124,8 +131,8 @@ namespace :deploy do
     invoke "postgresql:setup"
     invoke "deploy:check"
     invoke "nginx:setup"
-    invoke "unicorn:setup_app_config"
-    invoke "unicorn:setup_initializer"
+    # invoke "unicorn:setup_app_config"
+    # invoke "unicorn:setup_initializer"
   end
 end
 

@@ -19,7 +19,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
-# gem 'unicorn'
+# gem ''
 
 gem 'groupify'
 
@@ -97,18 +97,21 @@ group :development do
 
   gem 'nifty-generators', github: 'dfang/nifty-generators'
   gem 'annotate'
-  gem 'capistrano', '3.5.0'
+  gem 'capistrano', '3.7.0'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   # gem 'capistrano3-puma', '~> 0.6.1'
 
-  gem 'capistrano-postgresql', '~> 4.2.0'
+  gem 'capistrano-postgresql'
   # gem 'capistrano-faster-assets'
-  gem 'capistrano-safe-deploy-to', '~> 1.1.1'
+  gem 'capistrano-safe-deploy-to'
   gem 'capistrano-secrets-yml'
 
-  gem 'capistrano-nginx-unicorn'
+  # gem 'capistrano-nginx-unicorn'
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
+
+
   # gem 'capistrano-db-tasks', github: 'dfang/capistrano-db-tasks', branch: 'master', require: false
   gem 'capistrano-db-tasks', require: false
   gem 'capistrano-yarn', '~> 2.0', '>= 2.0.2'

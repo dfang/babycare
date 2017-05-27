@@ -13,12 +13,21 @@ GIT
 
 GIT
   remote: https://github.com/rails/webpacker.git
-  revision: ebcc609c490e7fb5b416253e657b2d35d736a126
+  revision: a0c1e9a7f2f3c99226925dffae03f1ea04f902db
   specs:
-    webpacker (1.2)
+    webpacker (2.0)
       activesupport (>= 4.2)
       multi_json (~> 1.2)
       railties (>= 4.2)
+
+GIT
+  remote: https://github.com/seuros/capistrano-puma.git
+  revision: c4314255ebaf051956e58675a4a61273ca9f5b55
+  specs:
+    capistrano3-puma (3.1.0)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 3.4)
 
 GEM
   remote: https://rubygems.org/
@@ -62,8 +71,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    acts-as-taggable-on (4.0.0)
-      activerecord (>= 4.0)
+    acts-as-taggable-on (5.0.0)
+      activerecord (>= 4.2.8)
     airbrussh (1.2.0)
       sshkit (>= 1.6.1, != 1.7.0)
     ancestry (3.0.0)
@@ -75,7 +84,7 @@ GEM
     bcrypt (3.1.11)
     browser (2.4.0)
     builder (3.2.3)
-    capistrano (3.5.0)
+    capistrano (3.7.0)
       airbrussh (>= 1.0.0)
       capistrano-harrow
       i18n
@@ -87,8 +96,6 @@ GEM
     capistrano-db-tasks (0.6)
       capistrano (>= 3.0.0)
     capistrano-harrow (0.5.3)
-    capistrano-nginx-unicorn (0.1.0)
-      capistrano (~> 3.0)
     capistrano-postgresql (4.2.1)
       capistrano (>= 3.0)
     capistrano-rails (1.2.3)
@@ -120,21 +127,21 @@ GEM
       httparty
     chunky_png (1.3.8)
     coderay (1.1.1)
-    coffee-rails (4.2.1)
+    coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.2.x)
+      railties (>= 4.0.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    config (1.2.1)
+    config (1.4.0)
       activesupport (>= 3.0)
-      deep_merge (~> 1.0, >= 1.0.1)
+      deep_merge (~> 1.1.1)
     daemons (1.2.4)
     data_uri (0.1.0)
     database_cleaner (1.6.1)
-    deep_merge (1.0.1)
+    deep_merge (1.1.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -276,6 +283,7 @@ GEM
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
+    puma (3.8.2)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     qiniu (6.8.1)
@@ -358,7 +366,7 @@ GEM
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
     slop (3.6.0)
-    spring (2.0.1)
+    spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -382,7 +390,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.7)
-    tinymce-rails (4.6.1)
+    tinymce-rails (4.6.2)
       railties (>= 3.1.1)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
@@ -423,16 +431,16 @@ DEPENDENCIES
   ancestry
   annotate
   browser
-  capistrano (= 3.5.0)
+  capistrano (= 3.7.0)
   capistrano-bundler
   capistrano-db-tasks
-  capistrano-nginx-unicorn
-  capistrano-postgresql (~> 4.2.0)
+  capistrano-postgresql
   capistrano-rails
   capistrano-rbenv
-  capistrano-safe-deploy-to (~> 1.1.1)
+  capistrano-safe-deploy-to
   capistrano-secrets-yml
   capistrano-yarn (~> 2.0, >= 2.0.2)
+  capistrano3-puma!
   carrierwave (~> 1.0)
   carrierwave-data-uri
   carrierwave-qiniu
