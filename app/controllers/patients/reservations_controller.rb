@@ -208,8 +208,9 @@ class Patients::ReservationsController < InheritedResources::Base
   end
 
   def deny_doctors
-    unless resource.user_a == current_user.id
-      # todo: redirect_to page with permission denied message
+    if current_user.is_verified_doctor?
+    # unless resource.user_a == current_user.id
+    #   # todo: redirect_to page with permission denied message
       flash[:error] = "你是医生不能访问用户区域"
       redirect_to global_denied_path and return
     end
