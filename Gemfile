@@ -7,7 +7,6 @@ end
 
 gem 'rails', '~> 5.1.1'
 gem 'pg', '~> 0.18'
-# gem 'puma', '~> 3.7'
 
 gem 'webpacker', github: 'rails/webpacker'
 
@@ -89,6 +88,9 @@ gem 'database_cleaner'
 gem 'pry-rails'
 gem 'pry-remote'
 
+
+gem 'puma', '~> 3.7'
+
 group :development do
   # gem 'web-console', '~> 2.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -110,6 +112,7 @@ group :development do
 
   # gem 'capistrano-nginx-unicorn'
   gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
+  gem 'capistrano3-nginx', '~> 2.0'
 
 
   # gem 'capistrano-db-tasks', github: 'dfang/capistrano-db-tasks', branch: 'master', require: false

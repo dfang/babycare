@@ -28,11 +28,21 @@ set :bundle_binstubs, nil
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+
+###### config rbenv
 set :rbenv_type, :user
 set :rbenv_ruby, '2.3.0'
 set :rbenv_custom_path, '/opt/rbenv'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
+
+
+###### config puma and nginx
+
+# set :unicorn_user, :deployer
+# set :unicorn_workers, 2
+set :puma_user, :deployer
+set :templates_path, "config/deploy/templates"
 
 # set :puma_nginx, :deployer
 set :puma_nginx, :web
@@ -41,11 +51,13 @@ set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
 set :nginx_config_name, "#{fetch(:application)}_#{fetch(:stage)}"
 set :nginx_server_name, "wx.yhuan.cc"
 
+set :puma_conf, "#{shared_path}/config/puma.rb"
 
-# set :unicorn_user, :deployer
-# set :unicorn_workers, 2
-set :puma_user, :deployer
-set :templates_path, "config/deploy/templates"
+namespace :deploy do
+  before 'check:linked_files', 'puma:config'
+  before 'check:linked_files', 'puma:nginx_config'
+  after 'puma:smart_restart', 'nginx:restart'
+end
 
 namespace :deploy do
   desc 'Restart application'
