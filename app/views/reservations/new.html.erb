@@ -1,151 +1,127 @@
 <%= simple_form_for resource, url: reservations_path, method: 'POST' do |f| %>
 
-  <div class="weui-cells__title">预约</div>
+<div class="weui-cells__title">预约</div>
 
-  <!-- <p class="weui-cells__tips">准备预约医生提交预约医生完善姓名、小孩性别、您的联系方式、您的位置、不适症状描述</p> -->
+<!-- <p class="weui-cells__tips">准备预约医生提交预约医生完善姓名、小孩性别、您的联系方式、您的位置、不适症状描述</p> -->
 
-  <div class="weui-cells weui-cells_form">
+<div class="weui-cells weui-cells_form">
 
-    <%= f.hidden_field :reservation_type, class: 'file_field' %>
+  <%= f.hidden_field :reservation_type, class: 'file_field' %>
 
-    <div class="weui-cell weui-cell_select weui-cell_select-after">
-      <div class="weui-cell__hd">
-          <label class="weui-label">为谁预约</label>
-      </div>
-      <div class="weui-cell__bd weui-cell_primary">
-          <select class="weui-select" name="reservation[gender]" data-parsley-required="true">
-            <%= options_for_select Reservation::GENDERS, "儿子" %>
-          </select>
-      </div>
+  <div class="weui-cell weui-cell_select weui-cell_select-after">
+    <div class="weui-cell__hd">
+      <label class="weui-label">为谁预约</label>
     </div>
-
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-          <label class="weui-label">想预约在</label>
-      </div>
-      <div class="weui-cell__bd weui-cell_primary">
-          <input class="weui-input" name="reservation[reservation_date]" placeholder="请选择一个大概的时间" type="datetime-local" data-parsley-required="true">
-      </div>
-    </div>
-
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-        <label class="weui-label">有什么症状</label>
-      </div>
-    </div>
-
-    <div class="weui-cell">
-      <div id="symptom-tags"></div>
-    </div>
-
-    <div class="weui-cell hide">
-      <div id="symptom-tag-details"></div>
-    </div>
-
-    <div class="weui-cell weui-cell-remark">
-      <div class="weui-cell__bd weui-cell_primary">
-        <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
-      </div>
-    </div>
-
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-        <label class="weui-label">怎么称呼您</label>
-      </div>
-      <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
-      </div>
-    </div>
-
-    <div class="weui-cell weui-cell-vcode">
-        <div class="weui-cell__hd">
-            <label class="weui-label">您的位置</label>
-        </div>
-        <div class="weui-cell__bd">
-          <textarea class="weui-textarea" name="reservation[location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你"></textarea>
-        </div>
-        <div class="weui-cell__ft">
-            <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
-        </div>
-    </div>
-
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-        <label class="weui-label">怎么称呼您</label>
-      </div>
-      <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="这里写王先生或郑女士就可以了" type="text" value="">
-      </div>
-    </div>
-
-    <div class="weui-cell weui-cell-name">
-      <div class="weui-cell__hd">
-          <label class="weui-label">名字</label>
-      </div>
-      <div class="weui-cell__bd weui-cell_primary">
-          <input class="weui-input" name="reservation[reservation_name]" placeholder="孩子的名字" type="text" data-parsley-required="true">
-      </div>
-    </div>
-
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-        <label class="weui-label">您的电话</label>
-      </div>
-      <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui-input" name="reservation[reservation_phone]" placeholder="医生可以看到您的电话并联系你" type="number"
-          data-parsley-required="true" data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" data-parsley-type="integer" data-parsley-length="[11,11]" value="">
-      </div>
-    </div>
-
-    <div class="weui-cell weui-cell-remark">
-      <div class="weui-cell__bd weui-cell_primary">
-        <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
-      </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <select class="weui-select" name="reservation[gender]" data-parsley-required="true">
+        <%= options_for_select  current_user.children.map {|x| [x.name, x.id] } %>
+      </select>
     </div>
   </div>
 
-  <div class="weui-btn-area">
-    <%= f.button :submit, "确定", class: "weui-btn weui-btn__primary", data: { disable_with: '正在提交...' } %>
+  <div class="weui-cell">
+    <div class="weui-cell__hd">
+      <label class="weui-label">想预约在</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <input class="weui-input" name="reservation[reservation_date]" placeholder="请选择一个大概的时间" type="datetime-local" vaule="<%= Time.now + 1.day %>" data-parsley-required="true">
+    </div>
   </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__hd">
+      <label class="weui-label">有什么症状</label>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div id="symptom-tags"></div>
+  </div>
+
+  <div class="weui-cell hide">
+    <div id="symptom-tag-details"></div>
+  </div>
+
+  <div class="weui-cell weui-cell-remark">
+    <div class="weui-cell__bd weui-cell_primary">
+      <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
+    </div>
+  </div>
+
+  <div class="weui-cell weui-cell-vcode">
+    <div class="weui-cell__hd">
+      <label class="weui-label">您的位置</label>
+    </div>
+    <div class="weui-cell__bd">
+      <textarea class="weui-textarea" name="reservation[location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你">
+        <%= current_user.location %>
+      </textarea>
+    </div>
+    <div class="weui-cell__ft">
+      <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__hd">
+      <label class="weui-label">怎么称呼您</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="尊姓大名" type="text" value="<%= current_user.name %>">
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__hd">
+      <label class="weui-label">您的联系方式</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <input
+        class="weui-input"
+        name="reservation[reservation_phone]"
+        placeholder="医生可以看到您的电话并联系你"
+        type="number"
+        data-parsley-required="true"
+        data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+        data-parsley-type="integer"
+        data-parsley-length="[11,11]"
+        value="<%= current_user.mobile_phone %>">
+    </div>
+  </div>
+</div>
+
+<div class="weui-btn-area">
+  <%= f.button :submit, "确定", class: "weui-btn weui-btn__primary", data: { disable_with: '正在提交...' } %>
+</div>
 
 <% end %>
 
-
 <%= content_for :css do %>
-	<%= stylesheet_link_tag :bootstrap_fontawesome %>
+<%= stylesheet_link_tag :bootstrap_fontawesome %>
 <% end %>
 
 <%- content_for :js  do %>
 <script type="text/javascript">
-  $(function(){
+  $(function () {
 
     symptom_tag_details = <%= raw @symptom_details %>
 
     url = location.href.split('#')[0]
     $.ajax({
-      url:        "/wx/config_jssdk.json?url=" + escape(url),
-      beforeSend: function(){},
-      global:     false
-    })
-    .done(function(data){
+      url: "/wx/config_jssdk.json?url=" + escape(url),
+      beforeSend: function () {},
+      global: false
+    }).done(function (data) {
 
-      wx.config({
-        appId:     data.appId,
-        timestamp: data.timestamp,
-        nonceStr:  data.nonceStr,
-        signature: data.signature,
-        jsApiList: data.jsApiList
-      });
+      wx.config({appId: data.appId, timestamp: data.timestamp, nonceStr: data.nonceStr, signature: data.signature, jsApiList: data.jsApiList});
 
-      wx.error(function(res){
+      wx.error(function (res) {
         alert("初始化微信js sdk出错，请联系我们");
       })
     })
 
-
-
-    wx.ready(function(){
-      $(document).on('click', '.weui-vcode-btn', function(e){
+    wx.ready(function () {
+      $(document).on('click', '.weui-vcode-btn', function (e) {
         console.log('click get Location');
         wx.getLocation({
           type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -155,35 +131,35 @@
             var speed = res.speed; // 速度，以米/每秒计
             var accuracy = res.accuracy; // 位置精度
 
-            var data= {
-              　　　　　　location: latitude + "," + longitude,
-              　　　　　　key: "GHPBZ-BCE3X-GPT4A-7EJHJ-G2TPQ-PTFBQ",
-              　　　　　　get_poi:0,
-                        output: "jsonp"
-              　　　　 }
-            var url= "http://apis.map.qq.com/ws/geocoder/v1/?";
+            var data = {
+              location: latitude + "," + longitude,
+              key: "GHPBZ-BCE3X-GPT4A-7EJHJ-G2TPQ-PTFBQ",
+              get_poi: 0,
+              output: "jsonp"
+            }
+            var url = "http://apis.map.qq.com/ws/geocoder/v1/?";
             console.log('convert latitude and longitude to address');
             $.ajax({
-                type: "get",
-                dataType:'jsonp',
-                data: data,
-                jsonp:  "callback",
-                jsonpCallback:"QQmap",
-                url:url,
-                success:function(json){
-                    // var toStr = JSON.stringify(json);
-                    console.log(json.result.address)
-                    if(json.status == 0){
-                      $('textarea[name="reservation[location]"]').val(json.result.address)
-                    }
-                },
-                error : function(err){
-                  alert("服务端错误，请刷新浏览器后重试")
+              type: "get",
+              dataType: 'jsonp',
+              data: data,
+              jsonp: "callback",
+              jsonpCallback: "QQmap",
+              url: url,
+              success: function (json) {
+                // var toStr = JSON.stringify(json);
+                console.log(json.result.address)
+                if (json.status == 0) {
+                  $('textarea[name="reservation[location]"]').val(json.result.address)
                 }
+              },
+              error: function (err) {
+                alert("服务端错误，请刷新浏览器后重试")
+              }
             })
           },
           cancel: function (res) {
-              alert('你拒绝了授权获取地理位置');
+            alert('你拒绝了授权获取地理位置');
           }
         });
       })
@@ -200,12 +176,12 @@
       can_add: false
     });
 
-    $(document).on('click', '#symptom-tags .pills-list .badge', function(e){
+    $(document).on('click', '#symptom-tags .pills-list .badge', function (e) {
       $(e.target).siblings().removeClass('active').end().toggleClass('active')
       tag = $(e.target).text()
       details = []
       for (var i = 0, len = symptom_tag_details.length; i < len; i++) {
-        if(symptom_tag_details[i].name == tag){
+        if (symptom_tag_details[i].name == tag) {
           details = symptom_tag_details[i].values
         }
       }
@@ -223,10 +199,10 @@
       });
     })
 
-    $(document).on('click', '#symptom-tag-details .pills-list .badge', function(e){
+    $(document).on('click', '#symptom-tag-details .pills-list .badge', function (e) {
       $(e.target).toggleClass('active')
       details = []
-      $(e.target).parent('.pills-list').find('.badge.active').map(function(i,e){
+      $(e.target).parent('.pills-list').find('.badge.active').map(function (i, e) {
         details.push($(e).text())
       })
 
@@ -237,13 +213,9 @@
 
     })
 
-
-    $('.simple_form.new_reservation').parsley({
-      uiEnabled: true,
-      errorsWrapper: ''
-    }).on('field:error', function() {
+    $('.simple_form.new_reservation').parsley({uiEnabled: true, errorsWrapper: ''}).on('field:error', function () {
       $(this.$element).parents('.weui-cell').addClass('validation_error')
-    }).on('field:success', function() {
+    }).on('field:success', function () {
       $(this.$element).parents('.weui-cell').removeClass('validation_error')
     })
   })
