@@ -69,3 +69,5 @@ db/*.sql.bz2
 *.swp
 node_modules
 public/packs
+/public/packs
+/node_modules
