@@ -14,7 +14,7 @@
             <!-- <div class="weui-panel weui-panel__access"> -->
             <a href="/patients/reservations" class="weui-cell weui-cell_access weui-cell_link">
               <!-- <div class="weui-panel__hd"> -->
-              <div class="weui-cell__bd"><%= @member.name %>的预约</div>
+              <div class="weui-cell__bd">关于<%= @member.name %>的预约</div>
               <span class="weui-cell__ft"></span>
               <!-- </div> -->
             </a>
@@ -22,10 +22,15 @@
 
             <a href="/patients/medical_records" class="weui-cell weui-cell_access weui-cell_link">
               <!-- <div class="weui-panel__hd"> -->
-              <div class="weui-cell__bd"><%= @member.name %>的病例信息</div>
+              <div class="weui-cell__bd">关于<%= @member.name %>的病例信息</div>
               <span class="weui-cell__ft"></span>
               <!-- </div> -->
             </a>
+
+            <%= link_to edit_patients_family_member_path(@member), class: "weui-cell weui-cell_access weui-cell_link" do %>
+            <div class="weui-cell__bd">修改<%= @member.name %>的病例信息</div>
+            <span class="weui-cell__ft"></span>
+            <% end %>
 
           </div>
         </div>

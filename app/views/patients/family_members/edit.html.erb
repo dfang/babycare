@@ -1,2 +1,62 @@
-<h1>Patients::FamilyMembers#edit</h1>
-<p>Find me in app/views/patients/family_members/edit.html.erb</p>
+<%= simple_nested_form_for @member, url: patients_family_member_path(@member), method: 'PUT' do |f| %>
+
+<div class="weui-cell">
+  <div class="weui-cell__hd">
+    <label class="weui-label">名字</label>
+  </div>
+  <div class="weui-cell__bd">
+    <%= f.text_field :name, class: "weui-input", placeholder: "名字", "data-parsley-required": true %>
+  </div>
+</div>
+
+<div class="weui-cell">
+  <div class="weui-cell__hd">
+    <label class="weui-label">身份证</label>
+  </div>
+  <div class="weui-cell__bd">
+    <%= f.text_field :identity_card, class: "weui-input", pattern: "[0-9][a-z]*", placeholder: "身份证", "data-parsley-required": true %>
+  </div>
+</div>
+
+<div class="weui-cell">
+  <div class="weui-cell__hd">
+    <label for="" class="weui-label">生日</label>
+  </div>
+  <div class="weui-cell__bd weui-cell_primary">
+    <%= f.text_field :birthdate, class: "weui-input", type: "date", placeholder: "生日", "data-parsley-required": true %>
+  </div>
+</div>
+
+<div class="weui-cell weui-cell_select weui-cell_select-after">
+  <div class="weui-cell__hd">
+    <label for="" class="weui-label">性别</label>
+  </div>
+  <div class="weui-cell__bd weui-cell_primary">
+    <select class="weui-select" name="user[gender]">
+      <%= options_for_select MedicalRecord::GENDERS, @member.gender %>
+    </select>
+  </div>
+</div>
+
+<div class="weui-cell weui-cell_select weui-cell_select-after">
+  <div class="weui-cell__hd">
+    <label for="" class="weui-label">血型</label>
+  </div>
+  <div class="weui-cell__bd weui-cell_primary">
+    <select class="weui-select" name="user[blood_type]">
+      <%= options_for_select Setting::BLOOD_TYPES, @member.blood_type %>
+    </select>
+  </div>
+</div>
+
+<%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
+<%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
+<%= f.input :personal_history, as: :text, wrapper: :weui_input %>
+<%= f.input :family_history, as: :text, wrapper: :weui_input %>
+<%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
+
+<div class="weui-btn-area">
+  <!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
+  <button class="weui-btn weui-btn__primary">确定</button>
+</div>
+<% end %>

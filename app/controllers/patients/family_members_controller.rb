@@ -21,10 +21,21 @@ class Patients::FamilyMembersController < ApplicationController
   end
 
   def edit
+    @member = User.find(params[:id])
   end
 
   def show
     @member = User.find(params[:id])
+  end
+
+  def update
+    @member = User.find(params[:id])
+    @member.update_without_password(user_params)
+    if @member.errors.any?
+      render :edit
+    else
+      redirect_to patients_family_member_path(@member) and return
+    end
   end
 
   protected
