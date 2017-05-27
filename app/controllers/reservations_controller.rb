@@ -1,13 +1,20 @@
 class ReservationsController < InheritedResources::Base
   before_action -> { authenticate_user!( force: true ) }
+
+  before_action :deny_doctors
+  skip_before_action :deny_doctors, only: [ :public, :show, :status ]
+
+
   before_action -> { ensure_registerd_membership }
-  before_action -> { has_children? }
+  before_action -> { patient_and_has_children? }
   # custom_actions :resource => :wxpay_test
   # before_action :rectrict_access
   # skip_before_action :rectrict_access, only: [ :restricted ]
 
-  # before_action :deny_doctors
-  # skip_before_action :deny_doctors, only: [ :public, :show, :status ]
+  def public
+    @is_doctor = current_user.doctor.present?
+    @reservations = Reservation.pending.order("reservation_date ASC")
+  end
 
   def create
     @reservation = Reservation.new(reservation_params)
@@ -15,11 +22,6 @@ class ReservationsController < InheritedResources::Base
     create! {
       status_reservation_path(resource)
     }
-  end
-
-  def public
-    @is_doctor = current_user.doctor.present?
-    @reservations = Reservation.pending.order("reservation_date ASC")
   end
 
   def new
@@ -81,9 +83,9 @@ class ReservationsController < InheritedResources::Base
     end
   end
 
-  def has_children?
+  def patient_and_has_children?
     # 如果没有小孩，那就先去添加孩子的资料
-    if current_user.children.blank?
+    if current_user.is_patient? && current_user.children.blank?
       redirect_to patients_family_members_path, alert: "你还没有添加小孩" and return
     end
   end

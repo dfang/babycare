@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
     is_doctor? && self.doctor.verified?
   end
 
+  def is_patient?
+    !is_verified_doctor?
+  end
+
   def self_reservations
     # if self.is_doctor?
     #   self.doctor.reservations
