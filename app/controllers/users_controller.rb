@@ -8,7 +8,6 @@ class UsersController < InheritedResources::Base
     @qr = RQRCode::QRCode.new( qrcode_user_url(current_user), :size => 6, :level => :h )
   end
 
-
   # /users/:id/qrcode 医生扫描后进入这个页面
   def qrcode
     user = User.find_by(id: params[:id])
