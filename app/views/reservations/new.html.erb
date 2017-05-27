@@ -1,3 +1,5 @@
+<%= default_date = Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10).strftime("%Y-%m-%dT%H:%M") %>
+
 <%= simple_form_for resource, url: reservations_path, method: 'POST' do |f| %>
 
 <div class="weui-cells__title">预约</div>
@@ -6,14 +8,15 @@
 
 <div class="weui-cells weui-cells_form">
 
-  <%= f.hidden_field :reservation_type, class: 'file_field' %>
+  <%= f.hidden_field :reservation_type %>
+  <%= f.hidden_field :user_a, value: current_user.id %>
 
   <div class="weui-cell weui-cell_select weui-cell_select-after">
     <div class="weui-cell__hd">
       <label class="weui-label">为谁预约</label>
     </div>
     <div class="weui-cell__bd weui-cell_primary">
-      <select class="weui-select" name="reservation[gender]" data-parsley-required="true">
+      <select class="weui-select" name="reservation[user_c]" data-parsley-required="true">
         <%= options_for_select  current_user.children.map {|x| [x.name, x.id] } %>
       </select>
     </div>
@@ -24,7 +27,7 @@
       <label class="weui-label">想预约在</label>
     </div>
     <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" name="reservation[reservation_date]" placeholder="请选择一个大概的时间" type="datetime-local" vaule="<%= Time.now + 1.day %>" data-parsley-required="true">
+      <input class="weui-input" name="reservation[reservation_date]" placeholder="请选择一个大概的时间" type="datetime-local" value="<%= default_date %>" data-parsley-required="true">
     </div>
   </div>
 
