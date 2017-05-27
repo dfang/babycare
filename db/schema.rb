@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170527102615) do
+ActiveRecord::Schema.define(version: 20170527151800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -433,7 +433,7 @@ ActiveRecord::Schema.define(version: 20170527102615) do
     t.string "qrcode"
     t.string "ancestry"
     t.string "identity_card"
-    t.datetime "birthdate"
+    t.date "birthdate"
     t.string "blood_type"
     t.text "history_of_present_illness"
     t.text "past_medical_history"
