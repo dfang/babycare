@@ -112,7 +112,8 @@ group :development do
 
   # gem 'capistrano-nginx-unicorn'
   gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
-  gem 'capistrano3-nginx', '~> 2.0'
+  gem 'capistrano3-nginx', '~> 2.1', '>= 2.1.6'
+  # gem 'capistrano-nginx', '~> 1.0.0'
 
 
   # gem 'capistrano-db-tasks', github: 'dfang/capistrano-db-tasks', branch: 'master', require: false

@@ -437,7 +437,7 @@ DEPENDENCIES
   capistrano-safe-deploy-to
   capistrano-secrets-yml
   capistrano-yarn (~> 2.0, >= 2.0.2)
-  capistrano3-nginx (~> 2.0)
+  capistrano3-nginx (~> 2.1, >= 2.1.6)
   capistrano3-puma!
   carrierwave (~> 1.0)
   carrierwave-data-uri
