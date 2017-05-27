@@ -5,8 +5,8 @@ class ReservationsController < InheritedResources::Base
   skip_before_action :deny_doctors, only: [ :public, :show, :status ]
 
 
-  before_action -> { ensure_registerd_membership }
   before_action -> { patient_and_has_children? }
+  before_action -> { ensure_registerd_membership }
   # custom_actions :resource => :wxpay_test
   # before_action :rectrict_access
   # skip_before_action :rectrict_access, only: [ :restricted ]

@@ -11,10 +11,13 @@ class Patients::FamilyMembersController < ApplicationController
   def create
     fake_email = "#{SecureRandom.hex}@a-fake-email.com"
     fake_password = "#{SecureRandom.hex}"
-    user_params.merge!({
+    create_user_params = user_params.merge!({
       email: fake_email, password: fake_password
     })
-    current_user.children.create!(user_params)
+    child = current_user.children.create!(create_user_params)
+    if child.errors.empty?
+      redirect_to patients_family_members_path and return
+    end
   end
 
   def edit
