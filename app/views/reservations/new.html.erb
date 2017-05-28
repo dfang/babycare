@@ -1,4 +1,4 @@
-<%= default_date = Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10).strftime("%Y-%m-%dT%H:%M") %>
+<%- default_date = Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10).strftime("%Y-%m-%dT%H:%M") %>
 
 <%= simple_form_for resource, url: reservations_path, method: 'POST' do |f| %>
 
