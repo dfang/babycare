@@ -1,15 +1,15 @@
 <%- if resource.patient_has_rated? %>
-	<%= render 'rated' %>
-<%- elsif resource.prepaid? %>
-	<%= render 'prepaid' %>
-<% elsif resource.pending? %>
-	<%= render 'pending' %>
-<% elsif resource.reserved? %>
-	<%= render 'reserved' %>
-<% elsif resource.diagnosed? %>
-		<%= render 'diagnosed' %>
+  <%= render 'rated' %>
 <% elsif resource.paid? %>
-	<%= render 'paid' %>
+  <%= render 'paid' %>
+<% elsif resource.diagnosed? %>
+  <%= render 'diagnosed' %>
+<% elsif resource.reserved? %>
+  <%= render 'reserved' %>
+<%- elsif resource.prepaid? %>
+  <%= render 'prepaid' %>
+<% elsif resource.pending? %>
+  <%= render 'pending' %>
 <% elsif resource.cancelled? %>
-	<%= render 'cancelled' %>
+  <%= render 'cancelled' %>
 <% end %>

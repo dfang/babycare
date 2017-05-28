@@ -7,7 +7,18 @@
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-              <a href="javascript:void(0)" class="weui-btn weui-btn__primary" id="wechatPaymentBtn">支付定金 30元</a>
+              <%= link_to "完善基本信息", edit_patients_settings_path, class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+
+							<%- if resource.medical_record.present?  %>
+								<%= link_to "修改病例", edit_patients_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+							<% else %>
+              	<%= link_to "补充病例资料", new_patients_medical_record_path(reservation_id: resource, user_id: resource.user_a), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+							<% end %>
+
+              <%= link_to "查看个人资料", patients_profile_path, class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
+
+              <a href="javascript: IM.call(<%= current_user.id %>, <%= @reservation.user_b %>, <%= @reservation.id %>, <%= @reservation.reservation_phone %>, <%= @reservation.try(:doctor_user).try(:doctor).try(:mobile_phone) %>);" class="weui-btn weui-btn__primary">拨打医生电话</a>
+
             </p>
         </div>
         <div class="weui-msg__extra-area">
@@ -15,68 +26,3 @@
         </div>
     </div>
 </div>
-
-<%= content_for :js do %>
-  <%= javascript_tag do %>
-    $(function(){
-      <% if @order_params.present? %>
-        var orderParams = {
-          appId:     "<%= @order_params[:appId] %>",
-          timeStamp: "<%= @order_params[:timeStamp] %>",
-          nonceStr:  "<%= @order_params[:nonceStr] %>",
-          package:   "<%= @order_params[:package] %>",
-          paySign:   "<%= @order_params[:paySign] %>",
-          signType:  "<%= @order_params[:signType] %>"
-        };
-
-        url = location.href.split('#')[0]
-
-        $.ajax({
-          url:        "/wx/config_jssdk.json?url=" + escape(url),
-          beforeSend: function(){},
-          global:     false
-        })
-        .done(function(data){
-
-          wx.config({
-            appId:     data.appId,
-            timestamp: data.timestamp,
-            nonceStr:  data.nonceStr,
-            signature: data.signature,
-            jsApiList: data.jsApiList
-          });
-
-          wx.error(function(res){
-            alert("初始化微信js sdk出错，请联系我们");
-          })
-
-          wx.ready(function(){
-            console.log('wx ready, click to pay')
-
-            $('#wechatPaymentBtn').on('click', function() {
-
-              wx.chooseWXPay({
-                  timestamp: orderParams.timeStamp,
-                  nonceStr:  orderParams.nonceStr,
-                  package:   orderParams.package,
-                  signType:  orderParams.signType,
-                  paySign:   orderParams.paySign,
-                  success: function (res) {
-      							console.log(JSON.stringify(res));
-      							if(res["errMsg"] == "chooseWXPay:ok"){
-      								// check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
-                      location.reload()
-      							}
-                  },
-      						fail: function(res){
-      							console.log(JSON.stringify(res));
-                    alert('支付请求失败, 请联系我们');
-      						}
-              });
-            });
-          })
-      })
-      <% end %>
-    })
-  <% end %>
-<% end %>

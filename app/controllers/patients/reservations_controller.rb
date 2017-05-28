@@ -3,14 +3,14 @@ require "rexml/document"
 class Patients::ReservationsController < InheritedResources::Base
   before_action ->{ authenticate_user!( force: true ) }
   before_action :deny_doctors
+  before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
+  skip_before_action :verify_authenticity_token, only: :payment_notify
+  skip_before_action :authenticate_user!, only: :payment_notify
+  skip_before_action :check_is_verified_doctor, only: :payment_notify
 
-  # before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
   # before_action :check_is_verified_doctor
   # custom_actions :collection => [ :reservations, :status, :payment_notify, :payment_test ]
   #
-  # skip_before_action :verify_authenticity_token, only: :payment_notify
-  # skip_before_action :authenticate_user!, only: :payment_notify
-  # skip_before_action :check_is_verified_doctor, only: :payment_notify
 
   def reservations
   end
@@ -23,7 +23,7 @@ class Patients::ReservationsController < InheritedResources::Base
   end
 
   def show
-    if resource.reserved?
+    if resource.pending?
       body_text = '预约定金'
       fee = (Settings.wx_pay.prepay_amount * 100).to_i
       resource.prepay_fee = fee
@@ -37,7 +37,7 @@ class Patients::ReservationsController < InheritedResources::Base
 
     # 预约定金 TO_BE_TESTED
     # if resource.out_trade_prepay_no.blank? && resource.reserved?
-    if resource.reserved?
+    if resource.pending?
       resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
     end
 
@@ -53,7 +53,7 @@ class Patients::ReservationsController < InheritedResources::Base
 
     resource.save!
 
-    if resource.reserved? || resource.diagnosed?
+    if resource.pending? || resource.diagnosed?
 
         payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
         options = WxApp::WxPay.generate_payment_options
@@ -186,7 +186,7 @@ class Patients::ReservationsController < InheritedResources::Base
       p reservation
       p 'trigger prepay or pay event'
 
-      if reservation.reserved?
+      if reservation.pending?
 
         reservation.prepay!
 
