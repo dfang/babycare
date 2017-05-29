@@ -1,6 +1,5 @@
 class Wx::WxpayController < ApplicationController
-  protect_from_forgery unless: -> { request.format.json? || request.format.xml? }
-
+  # protect_from_forgery unless: -> { request.format.json? || request.format.xml? }
 
   def payment_notify
     # 改变订单状态
@@ -37,4 +36,5 @@ class Wx::WxpayController < ApplicationController
 
       end
     end
+  end
 end

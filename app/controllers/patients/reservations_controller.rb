@@ -163,8 +163,6 @@ class Patients::ReservationsController < InheritedResources::Base
   # end
 
 
-  end
-
   private
 
   # todo: fix_this
