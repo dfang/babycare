@@ -40,8 +40,8 @@ Rails.application.routes.draw do
   namespace :wx do
      get '/' => 'service#verify'
      post '/' => 'service#create', :defaults => { :format => 'xml' }
-     get '/wx_web_auth' => 'service#wx_web_auth'
      get '/config_jssdk' => 'service#config_jssdk'
+     post '/payment_notify' => 'wxpay#payment_notify'
   end
 
   namespace :doctors do
