@@ -3,6 +3,7 @@ require "rexml/document"
 class Patients::ReservationsController < InheritedResources::Base
   # before_action ->{ authenticate_user!( force: true ) }
   before_action :deny_doctors
+  skip_before_action :deny_doctors, only: :payment_notify
   before_action :authenticate_user!, :except => [:payment_notify]
   # before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
   skip_before_action :verify_authenticity_token, only: :payment_notify
