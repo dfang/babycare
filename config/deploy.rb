@@ -65,6 +65,23 @@ set :puma_init_active_record, true
 
 
 namespace :deploy do
+  # ensure_enough_memory for deploy:assets:precompile
+  before :starting, 'puma:stop'
+  before :starting, :ensure_enough_memory do
+    on roles(:app) do
+      execute 'sudo service redis-server stop'
+      execute 'sudo service postgresql stop'
+      execute 'sudo service nginx stop'
+    end
+  end
+  after 'deploy:assets:backup_manifest', :start_server_again do
+    on roles(:app) do
+      execute 'sudo service postgresql start'
+      execute 'sudo service redis-server start'
+      execute 'sudo service nginx start'
+    end
+  end
+
   before 'check:linked_files', 'puma:config'
   before 'check:linked_files', 'puma:nginx_config'
   after 'puma:smart_restart', 'nginx:restart'

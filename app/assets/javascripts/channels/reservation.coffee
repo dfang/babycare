@@ -13,7 +13,7 @@ App.reservation = App.cable.subscriptions.create "ReservationChannel",
 
     # just simply reload the pages
 
-    if $('.reservations_public') > 0
+    if $('.reservations_public').length > 0
       window.location.reload()
 
     if $('.patients_reservations_index, .patients_reservations_show') > 0

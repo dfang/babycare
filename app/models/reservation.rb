@@ -1,4 +1,6 @@
 class Reservation < ApplicationRecord
+  self.table_name = 'fa_reservation'
+
   include AASM
   extend Enumerize
   extend ActiveModel::Naming
@@ -7,9 +9,6 @@ class Reservation < ApplicationRecord
   # type is restricted word, you can't use it as a column name in ActiveRecord models (unless you're doing STI).
   # otherwise raise this error: The single-table inheritance mechanism failed to locate the subclass
   self.inheritance_column = :_type_disabled
-
-  establish_connection("odoo_#{Rails.env}".to_sym)
-  self.table_name = 'fa_reservation'
 
   after_create_commit { ReservationBroadcastJob.perform_later self }
 
