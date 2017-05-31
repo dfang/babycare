@@ -16,5 +16,5 @@ App.reservation = App.cable.subscriptions.create "ReservationChannel",
     if $('.reservations_public').length > 0
       window.location.reload()
 
-    if $('.patients_reservations_index, .patients_reservations_show') > 0
+    if $('.patients_reservations_index, .patients_reservations_show').length > 0
       window.location.reload()
