@@ -9,6 +9,7 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
+require 'action_cable/engine'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -45,5 +46,8 @@ module FusionAdmin
       g.orm             :active_record
       g.template_engine :erb
     end
+
+    # https://github.com/websocket-rails/websocket-rails/wiki/Installation-and-Setup
+    config.middleware.delete Rack::Lock
   end
 end

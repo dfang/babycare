@@ -1,4 +1,4 @@
-class Reservation < ActiveRecord::Base
+class Reservation < ApplicationRecord
   include AASM
   extend Enumerize
   extend ActiveModel::Naming
@@ -10,6 +10,8 @@ class Reservation < ActiveRecord::Base
 
   establish_connection("odoo_#{Rails.env}".to_sym)
   self.table_name = 'fa_reservation'
+
+  after_create_commit { ReservationBroadcastJob.perform_later self }
 
   has_many :ratings, :dependent => :destroy
   has_one :medical_record, :dependent => :destroy

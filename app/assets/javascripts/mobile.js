@@ -11,3 +11,5 @@
 
 //= require turbolinks
 //= require mobile/autosize
+
+//= require cable
