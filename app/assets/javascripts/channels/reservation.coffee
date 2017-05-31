@@ -10,5 +10,11 @@ App.reservation = App.cable.subscriptions.create "ReservationChannel",
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
     console.log(data.message)
-    # just simply reload the page
-    window.location.reload()
+
+    # just simply reload the pages
+
+    if $('.reservations_public') > 0
+      window.location.reload()
+
+    if $('.patients_reservations_index, .patients_reservations_show') > 0
+      window.location.reload()
