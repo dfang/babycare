@@ -4,6 +4,11 @@ module ClientStateMachine
 
     included do
       include AASM
+      include Wisper::Publisher
+
+      after_create_commit do
+        broadcast(:reservation_create_successful, self)
+      end
 
       aasm do
         state :pending, initial: true
@@ -33,16 +38,16 @@ module ClientStateMachine
           transitions from: [:pending, :reserved], to: :archived
         end
 
-        event :rate do
+        event :rate, after_commit: :after_rated! do
           transitions from: :paid, to: :rated
         end
 
-        event :cancel do
+        event :cancel, after_commit: :after_cancelled! do
           transitions from: [:reserved, :prepaid, :pending], to: :cancelled
         end
 
-        event :overdue do
-          transitions from: :reserved, to: :overdued
+        event :overdue, after_commit: :after_overdue! do
+          transitions from: :pending, to: :overdued
         end
       end
 
@@ -54,14 +59,9 @@ module ClientStateMachine
       end
 
       # # aasm transaction callbacks
-      def after_reserved!
-        # broadcast(:reservation_is_reserved, self.id)
-        params = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
-        SmsNotifyUserWhenReservedJob.perform_now(self.patient_user_phone, params)
-      end
-
       def after_prepaid!
-        # broadcast(:reservation_is_prepaid, self.id)
+        p 'broadcast reservation_prepay_successful'
+        broadcast(:reservation_prepay_successful, self)
 
         # user prepay and send sms to notify doctor prepaid
         # params1 = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
@@ -70,25 +70,21 @@ module ClientStateMachine
         # SmsNotifyDoctorWhenPrepaidJob.perform_now(self.doctor_user_phone, params2)
       end
 
+      def after_reserved!
+        broadcast(:reservation_reserve_successful, self)
+      end
+
       def after_diagnosed!
-        SmsNotifyUserWhenDiagnosedJob.perform_now(self.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
+        broadcast(:reservation_diagnose_successful, self)
       end
 
       def after_paid!
-        params = [self.patient_user_name]
-        SmsNotifyDoctorWhenPaidJob.perform_now(self.doctor_user_phone, params)
-
-        ActiveRecord::Base.transaction do
-          # increase doctor's income
-          amount = self.prepay_fee.to_f + self.pay_fee.to_f
-
-          source = (pay_fee.nil? || pay_fee.zero?) ? :online_consult : :offline_consult
-
-          # increase doctor's wallet unwithdrawable amount
-          doctor_user.increase_income(amount, source, self.id)
-        end
+        broadcast(:reservation_pay_successful, self)
       end
 
+      def after_rated!
+        broadcast(:reservation_rate_successful, self)
+      end
     end
   end
 end

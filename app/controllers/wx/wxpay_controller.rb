@@ -28,11 +28,13 @@ class Wx::WxpayController < ApplicationController
       p 'trigger prepay or pay event'
 
       if reservation.pending?
-
+        # Wisper.subscribe(ReservationSubscriber.new)
+        # already subscribed in initializer
+        # reservation.subscribe(ReservationSubscriber.new)
         reservation.prepay!
 
       elsif reservation.diagnosed?
-
+        # reservation.subscribe(ReservationSubscriber.new)
         reservation.pay!
 
       end

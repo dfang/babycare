@@ -6,12 +6,12 @@ class Reservation < ApplicationRecord
   extend Enumerize
   extend ActiveModel::Naming
 
+
   # Column name 'type' is restricted in ActiveRecord. try renaming the column name to something else or if you can't try this:
   # type is restricted word, you can't use it as a column name in ActiveRecord models (unless you're doing STI).
   # otherwise raise this error: The single-table inheritance mechanism failed to locate the subclass
   self.inheritance_column = :_type_disabled
 
-  after_create_commit { ReservationBroadcastJob.perform_later self }
 
   has_many :ratings, :dependent => :destroy
   has_one :medical_record, :dependent => :destroy
@@ -122,49 +122,5 @@ class Reservation < ApplicationRecord
   def reservation_title
     "#{ self.name }的 #{ self.gender }"
   end
-
-  # # aasm guards
-  # def can_be_reserved?
-  #   # self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
-  #   # must be prepaid
-  #   true
-  # end
-  #
-  # # # aasm transaction callbacks
-  # def after_reserved!
-  #   broadcast(:reservation_is_reserved, self.id)
-  #
-  #   # params = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
-  #   # SmsNotifyUserWhenReservedJob.perform_now(self.patient_user_phone, params)
-  # end
-  #
-  # def after_prepaid!
-  #   broadcast(:reservation_is_prepaid, self.id)
-  #
-  #   # user prepay and send sms to notify doctor prepaid
-  #   # params1 = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
-  #   # params2 = [ self.patient_user_name, self.reserved_time, self.reserved_location]
-  #   # SmsNotifyUserWhenPrepaidJob.perform_now(self.patient_user_phone, params1)
-  #   # SmsNotifyDoctorWhenPrepaidJob.perform_now(self.doctor_user_phone, params2)
-  # end
-  #
-  # def after_diagnosed!
-  #   SmsNotifyUserWhenDiagnosedJob.perform_now(self.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
-  # end
-  #
-  # def after_paid!
-  #   params = [self.patient_user_name]
-  #   SmsNotifyDoctorWhenPaidJob.perform_now(self.doctor_user_phone, params)
-  #
-  #   ActiveRecord::Base.transaction do
-  #     # increase doctor's income
-  #     amount = self.prepay_fee.to_f + self.pay_fee.to_f
-  #
-  #     source = (pay_fee.nil? || pay_fee.zero?) ? :online_consult : :offline_consult
-  #
-  #     # increase doctor's wallet unwithdrawable amount
-  #     doctor_user.increase_income(amount, source, self.id)
-  #   end
-  # end
 
 end

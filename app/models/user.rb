@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   # mount_image_version :qrcode
   mount_uploader :qrcode, SingleUploader
 
+  include Wisper.model
+
   has_ancestry
 
   has_many :authentications, :dependent => :destroy

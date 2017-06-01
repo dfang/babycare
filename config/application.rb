@@ -24,7 +24,7 @@ module FusionAdmin
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin #{Rails.root}/app/models/observers)
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin #{Rails.root}/app/models/subscribers)
     config.eager_load_paths += %W(#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin)
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -36,8 +36,6 @@ module FusionAdmin
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :'zh-CN'
-
-    config.active_record.observers = Dir["#{Rails.root}/app/models/observers/*.rb"].map{|file| File.basename(file, '.rb').to_sym}
 
     # config.assets.paths << Rails.root.join("app", "assets", "fonts")
     # config.assets.paths << Rails.root.join("lib", "assets", "fonts")

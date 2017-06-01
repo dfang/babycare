@@ -1,6 +1,6 @@
-class Doctor < ActiveRecord::Base
-  establish_connection("odoo_#{Rails.env}".to_sym)
+class Doctor < ApplicationRecord
   self.table_name = 'fa_doctor'
+  include Wisper.model
 
   belongs_to :user
   # belongs_to :hospital

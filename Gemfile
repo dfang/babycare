@@ -10,7 +10,9 @@ gem 'pg', '~> 0.18'
 gem 'redis'
 
 gem 'webpacker'
-# gem 'websocket-rails'
+
+gem 'wisper', '2.0.0'
+gem 'wisper-activerecord'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -23,9 +25,9 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'groupify'
 
-
+# removed because in favor of wisper
 # http://stackoverflow.com/questions/15165260/rails-observer-alternatives-for-4-0
-gem 'rails-observers', github: 'rails/rails-observers'
+# gem 'rails-observers', github: 'rails/rails-observers'
 
 gem 'rqrcode'
 # gem 'rqrcode_png'
