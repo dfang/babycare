@@ -13,7 +13,7 @@ class ReservationsController < InheritedResources::Base
 
   def public
     @is_doctor = current_user.doctor.present?
-    @reservations = Reservation.pending.order("reservation_date ASC")
+    @reservations = Reservation.prepaid.order("reservation_date ASC")
   end
 
   def create
