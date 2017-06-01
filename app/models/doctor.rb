@@ -10,8 +10,8 @@ class Doctor < ApplicationRecord
   JOB_TITLES = [ "主任医师", "副主任医师", "主治医师", "住院医师" ]
   scope :verified, -> { where(verified: true) }
 
-  def confirm!
-    self.verified = true
-    self.save!
+  def verify!
+    update_attribute(:verified, true)
+    broadcast(:doctor_verified_successful, self)
   end
 end

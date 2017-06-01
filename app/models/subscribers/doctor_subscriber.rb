@@ -17,10 +17,10 @@ class DoctorSubscriber
     if doctor.id_card_back_media_id.present? && doctor.id_card_back_media_id_changed?
       ProcessDoctorIdCardBackImageJob.perform_now(doctor)
     end
+  end
 
-    if doctor.verified && doctor.verified.changed?
-      # notify doctor verified
-      NotifyDoctorVerifiedJob.perform_later(doctor)
-    end
+  def doctor_verified_successful(doctor)
+    Rails.logger.info "notify doctor verified"
+    NotifyDoctorVerifiedJob.perform_later(doctor)
   end
 end
