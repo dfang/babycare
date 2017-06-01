@@ -99,7 +99,9 @@ class Users::SessionsController < Devise::SessionsController
           cookies[:weixin_openid] = openid
           sign_in(:user, authentication.user)
           # respond_with authentication.user, location: after_sign_in_path_for(authentication.user)
-          redirect_after_sign_in
+
+          # redirect_after_sign_in
+          redirect_to edit_patients_settings_path and return
         end
       rescue Exception => e
         Rails.logger.info e.inspect

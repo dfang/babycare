@@ -69,7 +69,7 @@ Rails.application.routes.draw do
   end
 
   namespace :patients do
-    resource :settings
+    resource :settings, only: :edit
     resources :family_members
     resources :reservations do
       get 'latest', on: :collection
