@@ -1,6 +1,6 @@
 <div class="weui-btn-area">
-  <a class="weui-btn weui-btn__primary" href="/reservations/new?type=online">电话咨询</a>
-  <a class="weui-btn weui-btn__primary" href="/reservations/new?type=offline">见面咨询</a>
+  <%= link_to "电话咨询", new_reservation_path(type: "online", user_c: params[:user_c]), class: "weui-btn weui-btn__primary" %>
+  <%= link_to "见面咨询", new_reservation_path(type: "offline", user_c: params[:user_c]), class: "weui-btn weui-btn__primary" %>
 </div>
 
 

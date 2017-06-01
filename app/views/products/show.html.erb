@@ -1,11 +1,31 @@
-<h1>服务介绍页面</h1>
-<%- if params[:type] == "offline" %>
-<p> 见面咨询 </p>
+<div class="tabbar">
+  <div class="weui-tab">
 
-<a class="weui-btn weui-btn__primary" href="/reservations/new?type=offline">立即预约</a>
+    <div class="weui-tab__panel">
+      <div class="panel">
+        <div class="page__hd">
+          <h1 class="page__title">服务介绍页面</h1>
+          <p class="page__desc">这里是服务介绍页面啊</p>
+        </div>
 
-<% else %>
-<p> 电话咨询 </p>
-<a class="weui-btn weui-btn__primary" href="/reservations/new?type=online">立即预约</a>
+        <div class="page__bd">
+          <%- if params[:type] == "offline" %>
+            <p> 见面咨询 </p>
+            <p> 描述下见面咨询 </p>
+            <a class="weui-btn weui-btn__primary" href="/reservations/new?type=offline">立即预约</a>
 
-<% end %>
+          <% else %>
+            <p> 电话咨询 </p>
+            <p> 描述下电话咨询
+            <a class="weui-btn weui-btn__primary" href="/reservations/new?type=online">立即预约</a>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    <%=  render 'tab_bar' %>
+
+  </div>
+</div>

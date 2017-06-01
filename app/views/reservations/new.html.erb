@@ -8,7 +8,7 @@
 
 <div class="weui-cells weui-cells_form">
 
-  <%= f.hidden_field :reservation_type %>
+  <%= f.hidden_field :reservation_type, value: params[:type] %>
   <%= f.hidden_field :user_a, value: current_user.id %>
 
   <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -17,7 +17,7 @@
     </div>
     <div class="weui-cell__bd weui-cell_primary">
       <select class="weui-select" name="reservation[user_c]" data-parsley-required="true">
-        <%= options_for_select  current_user.children.map {|x| [x.name, x.id] } %>
+        <%= options_for_select  current_user.children.map {|x| [x.name, x.id] }, params[:user_c] %>
       </select>
     </div>
   </div>

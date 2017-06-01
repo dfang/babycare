@@ -21,7 +21,8 @@ class Wx::ServiceController < ApplicationController
     case @xml.MsgType
     when 'event'
       p '事件(关注和取消关注等事件)'
-      event_message
+      # event_message
+      render plain: params[:echostr]
     when 'text'
       text_message
     when 'location' # 用户输入地理位置

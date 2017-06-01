@@ -1,6 +1,6 @@
 class UserSubscriber
   def create_user_successful(user)
-    user.build_wallet
-    user.save!
+    Rails.logger.info "build wallet"
+    user.create_wallet!
   end
 end

@@ -1,7 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   before_action :wechat_authorize
   # before_action :configure_sign_in_params, only: [:create]
-  prepend_before_action :authenticate_user!, :wechat_authorize
+  # prepend_before_action :authenticate_user!, :wechat_authorize
 
   def wechat_authorize
     wx_authenticate!
@@ -81,9 +81,8 @@ class Users::SessionsController < Devise::SessionsController
               # Transaction create wechat authentication and user
               Authentication.transaction do
                 p userinfo
-                p wechat_session
-
                 wechat_session = create_wechat_session(userinfo, userinfo)
+                p wechat_session
                 user = User.create_wechat_user(wechat_session)
                 p 'user created ###########################'
 

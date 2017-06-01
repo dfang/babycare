@@ -1,2 +1,2 @@
-class Symptom < ApplicationRecord
+class Symptom < ActiveRecord::Base
 end
