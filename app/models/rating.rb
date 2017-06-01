@@ -1,5 +1,4 @@
-class Rating < ActiveRecord::Base
-  establish_connection("odoo_#{Rails.env}".to_sym)
+class Rating < ApplicationRecord
   self.table_name = 'fa_rating'
 
   belongs_to :user
