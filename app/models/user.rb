@@ -13,14 +13,14 @@ class User < ActiveRecord::Base
 
   has_ancestry
 
-  has_many :authentications, :dependent => :destroy
-  has_one :doctor
-
-  has_many :medical_records
-  has_many :settings
-  has_many :transactions
-  has_one :wallet
-  has_many :ratings, :dependent => :destroy
+  with_options dependent: :destroy do |assoc|
+    assoc.has_many :authentications
+    assoc.has_one :doctor
+    assoc.has_one :wallet
+    assoc.has_many :medical_records
+    assoc.has_many :transactions
+    assoc.has_many :ratings
+  end
 
   def wechat_authentication
     wechat ||= authentications.where(provider: 'wechat').first
