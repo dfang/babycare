@@ -3,10 +3,5 @@
   <%= link_to "见面咨询", new_reservation_path(type: "offline", user_c: params[:user_c]), class: "weui-btn weui-btn__primary" %>
 </div>
 
-
-<%= content_for :css do %>
-	<%= stylesheet_link_tag :bootstrap_fontawesome %>
-<% end %>
-
 <%- content_for :js  do %>
 <% end %>

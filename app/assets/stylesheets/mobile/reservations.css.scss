@@ -1,3 +1,27 @@
+// comment out stylesheet_link_tag :bootstrap_fontawesome in reservations/new
+* {
+    box-sizing: border-box;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #777;
+  border-radius: 10px;
+}
+.badge:empty {
+  display: none;
+}
+
+
 .reservations_choose_type{
   .weui-btn-area{
     margin-top: 150px;
