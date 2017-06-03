@@ -1,6 +1,7 @@
-#encoding: utf-8
+# encoding: utf-8
+# frozen_string_literal: true
 
-require "base64"
+require 'base64'
 require 'digest/sha1'
 require 'httparty'
 require 'active_support/callbacks'
@@ -35,9 +36,7 @@ module IM
       p "callee_phone is #{callee_phone}"
 
       # callee can nil when call support
-      if caller.blank? || reservation.blank?
-        raise ActiveRecord::RecordNotFound
-      end
+      raise ActiveRecord::RecordNotFound if caller.blank? || reservation.blank?
 
       softversion = Settings.ronglian.SoftVersion
       accountsid = Settings.ronglian.AccountSid
@@ -46,9 +45,9 @@ module IM
       subaccountauthtoken = Settings.ronglian.subAccountAuthToken
 
       # timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-      timestamp = Time.now.strftime("%Y%m%d%H%M%S").to_str()
+      timestamp = Time.now.strftime('%Y%m%d%H%M%S').to_str
 
-      sigparameter = Digest::MD5.hexdigest("#{subaccountsid}"+"#{subaccountauthtoken}"+"#{timestamp}").upcase
+      sigparameter = Digest::MD5.hexdigest(subaccountsid.to_s + subaccountauthtoken.to_s + timestamp.to_s).upcase
       authorization = Base64.strict_encode64("#{subaccountsid}:#{timestamp}")
 
       url = "https://app.cloopen.com:8883/#{softversion}/SubAccounts/#{subaccountsid}/Calls/Callback?sig=#{sigparameter}"
@@ -58,21 +57,18 @@ module IM
       #   use Authorization => authorization instead of Authorization: authorization
       # }
       HTTParty.post(url,
-        body:
-          {
-            from: caller_phone,
-            to:  callee_phone
-          }.to_json,
-        headers: {
-          'Authorization' => authorization,
-          'Content-Type' => 'application/json',
-          'Accept' => 'application/json'
-        }
-      )
-
+                    body:
+                      {
+                        from: caller_phone,
+                        to:  callee_phone
+                      }.to_json,
+                    headers: {
+                      'Authorization' => authorization,
+                      'Content-Type' => 'application/json',
+                      'Accept' => 'application/json'
+                    })
 
       RecordPhoneCallHistoryJob.perform_later(caller_id, callee_id, reservation_id, caller_phone, callee_phone)
-
     end
 
     def send_templated_sms(to, templateId, *params)
@@ -82,9 +78,9 @@ module IM
       subaccountsid = Settings.ronglian.subAccountSid
       subaccountauthtoken = Settings.ronglian.subaccountauthtoken
       appid = Settings.ronglian.appid
-      timestamp = Time.now.strftime("%Y%m%d%H%M%S")
+      timestamp = Time.now.strftime('%Y%m%d%H%M%S')
 
-      sigparameter = Digest::MD5.hexdigest("#{accountsid}"+"#{accountauthtoken}"+"#{timestamp}").upcase
+      sigparameter = Digest::MD5.hexdigest(accountsid.to_s + accountauthtoken.to_s + timestamp.to_s).upcase
       authorization = Base64.strict_encode64("#{accountsid}:#{timestamp}")
 
       # Rails.logger.info "accountsid is #{accountsid} \n"
@@ -114,14 +110,12 @@ module IM
       # Rails.logger.info  "headers is #{headers} \n"
 
       HTTParty.post(url,
-        body: body,
-        headers: headers
-      )
+                    body: body,
+                    headers: headers)
 
       RecordSmsSendHistoryJob.perform_later(to, templateId)
       # RecordSmsSendHistoryJob.perform_later(sender_user_id, sendee_user_id, sender_phone, sendee_phone, templateId, reservation_id)
     end
-
   end
 end
 

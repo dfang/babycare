@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'carrierwave/processing/mini_magick'
 
 class BaseVersionUploader < BaseUploader
   DEFAULT_VERSION = nil
-  VERSIONS = {}
+  VERSIONS = {}.freeze
   THUMBNAIL_MODEL = 1
 
   # https://docs.qiniutek.com/v3/api/foimg/#imageView
@@ -15,7 +17,7 @@ class BaseVersionUploader < BaseUploader
       if opts.is_a?(Hash)
         version = opts[:version] if opts[:version].present?
         to_crop = opts[:to_crop] if opts[:to_crop].present?
-      elsif opts.is_a?(Symbol) or opts.is_a?(String)
+      elsif opts.is_a?(Symbol) || opts.is_a?(String)
         version = opts
       end
     end
@@ -37,9 +39,10 @@ class BaseVersionUploader < BaseUploader
   end
 
   protected
+
   # 因为override了url方法，default_url方法不能拼接version
   # https://<QINIU_DOMAIN>/default/covers/<GENRE>.jpg
-  def version_default_url(version)
+  def version_default_url(_version)
     nil
   end
 
@@ -47,7 +50,7 @@ class BaseVersionUploader < BaseUploader
     return '' if version.blank?
     size = defined_versions[version]
 
-    str = "?imageView/" << (size[:thumbnail_model].present? ? size[:thumbnail_model] : self.class::THUMBNAIL_MODEL).to_s
+    str = '?imageView/' << (size[:thumbnail_model].present? ? size[:thumbnail_model] : self.class::THUMBNAIL_MODEL).to_s
     str = [str, 'w', size[:width]].join('/') if size[:width]
     str = [str, 'h', size[:height]].join('/') if size[:height]
 
@@ -57,7 +60,7 @@ class BaseVersionUploader < BaseUploader
   end
 
   def defined_versions
-    @defined_versions ||= self.class::VERSIONS.inject({}){|memo,(k,v)| memo[k.to_s] = v; memo}
+    @defined_versions ||= self.class::VERSIONS.each_with_object({}) { |(k, v), memo| memo[k.to_s] = v; }
   end
 
   def replace_with_croped_filename(url)
@@ -67,5 +70,4 @@ class BaseVersionUploader < BaseUploader
     uri.path = paths.join('/')
     uri.to_s
   end
-
 end

@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class HomeController < ApplicationController
-  def index
-  end
+  def index; end
 
   def cities
     @cities = City.where(pinyin: 'wuhan')
@@ -8,15 +9,11 @@ class HomeController < ApplicationController
 
   def hospitals
     city = City.find_by(pinyin: params[:city])
-    if city.present?
-      @hospitals = Hospital.where(city: city)
-    end
+    @hospitals = Hospital.where(city: city) if city.present?
   end
 
   def doctors
     hospital = Hospital.find_by(id: params[:hospital])
-    if hospital.present?
-      @doctors = Doctor.where(hospital: hospital)
-    end
+    @doctors = Doctor.where(hospital: hospital) if hospital.present?
   end
 end

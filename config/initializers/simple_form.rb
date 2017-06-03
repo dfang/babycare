@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a
@@ -6,7 +8,7 @@ SimpleForm.setup do |config|
   # stack. The options given below are used to wrap the
   # whole input.
   config.wrappers :default, class: :input,
-    hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+                            hint_class: :field_with_hint, error_class: :field_with_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
     # given input by passing: `f.input EXTENSION_NAME => false`.
@@ -52,7 +54,7 @@ SimpleForm.setup do |config|
   end
 
   config.wrappers :fusion_input, class: :'form-group',
-    hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+                                 hint_class: :field_with_hint, error_class: :field_with_errors do |b|
 
     # Determines whether to use HTML5 (:email, :url, ...)
     # and required attributes
@@ -84,12 +86,10 @@ SimpleForm.setup do |config|
     b.use :label_input, class: 'string optional form-input'
     b.use :hint,  wrap_with: { tag: :span, class: :hint }
     b.use :error, wrap_with: { tag: :span, class: :error }
-
-
   end
 
   config.wrappers :weui_input, class: :'weui-cell',
-    hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+                               hint_class: :field_with_hint, error_class: :field_with_errors do |b|
 
     # Determines whether to use HTML5 (:email, :url, ...)
     # and required attributes
@@ -117,11 +117,11 @@ SimpleForm.setup do |config|
     # Calculates readonly automatically from readonly attributes
     b.optional :readonly
 
-    b.wrapper :tag => 'div', :class => 'weui-cell__hd' do |ba|
+    b.wrapper tag: 'div', class: 'weui-cell__hd' do |ba|
       ba.use :label, class: 'weui-label'
     end
 
-    b.wrapper :tag => 'div', :class => 'weui-cell__bd weui-cell_primary' do |ba|
+    b.wrapper tag: 'div', class: 'weui-cell__bd weui-cell_primary' do |ba|
       ba.use :input, class: 'weui-input'
     end
 
@@ -129,8 +129,6 @@ SimpleForm.setup do |config|
     # b.use :label_input, class: 'string optional form-input'
     b.use :hint,  wrap_with: { tag: :span, class: :hint }
     b.use :error, wrap_with: { tag: :span, class: :error }
-
-
   end
 
   # The default wrapper to be used by the FormBuilder.
@@ -181,7 +179,7 @@ SimpleForm.setup do |config|
 
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
-  config.label_text = lambda { |label, required, explicit_label| "* #{label}" }
+  config.label_text = ->(label, _required, _explicit_label) { "* #{label}" }
   # config.label_text = proc { |label, required| "#{label}" }
 
   # You can define the class to use on all labels. Default is nil.

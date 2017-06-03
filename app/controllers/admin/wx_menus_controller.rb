@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'wx_app'
 
 class Admin::WxMenusController < Admin::BaseController
-
   defaults resource_class: WxMenu, collection_name: 'wx_menus', instance_name: 'wx_menu'
 
   def create
@@ -27,7 +28,7 @@ class Admin::WxMenusController < Admin::BaseController
     response = WxApp::WxButton.create_remote_menus(WxApp::WxButton.build_menus)
     body = JSON.parse response.body
 
-    if body['errcode'] == 0
+    if body['errcode'].zero?
       flash[:notice] = '同步成功'
     else
       flash[:alert] = "#{body['errcode']}, #{body['errmsg']}"
@@ -35,8 +36,7 @@ class Admin::WxMenusController < Admin::BaseController
     redirect_to admin_wx_menus_path
   end
 
-
-protected
+  protected
 
   def wx_menu_params
     params.require(:wx_menu).permit!
@@ -45,5 +45,4 @@ protected
   def collection
     end_of_association_chain.page(params[:page])
   end
-
 end

@@ -1,10 +1,10 @@
+# frozen_string_literal: true
+
 class RecordPhoneCallHistoryJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
     # RecordPhoneCallHistoryJob.perform_later(caller_id, callee_id, reservation_id, caller_phone, callee_phone)
-    # p args
-
     reservation = Reservation.find_by(id: args[2].to_i)
     reservation_state_when_call = reservation.aasm_state.to_s if reservation.present?
 
@@ -16,6 +16,5 @@ class RecordPhoneCallHistoryJob < ActiveJob::Base
       callee_phone: args[4],
       reservation_state_when_call: reservation_state_when_call
     )
-
   end
 end

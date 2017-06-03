@@ -1,12 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe WxjssdkController, type: :controller do
-
-  describe "GET #config" do
-    it "returns http success" do
+  describe 'GET #config' do
+    it 'returns http success' do
       get :config
       expect(response).to have_http_status(:success)
     end
   end
-
 end

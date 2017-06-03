@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -52,7 +54,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -80,7 +82,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
@@ -89,19 +91,18 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-
-config.middleware.use ExceptionNotification::Rack,
-  :email => {
-    :email_prefix => "[Call Me A Doctor]",
-    :sender_address => 'call_me_a_doctor@yhuan.cc',
-    :exception_recipients => %w(df1228@dingtalk.com),
-    :smtp_settings => {
-      address:        'smtp.exmail.qq.com',
-      user_name:      'call_me_a_doctor@yhuan.cc',
-      password:       '1Qaz2wsx',
-      authentication: :login,
-      enable_starttls_auto: true
-    }
-  },
-  :ignore_crawlers => %w(Googlebot bingbot AhrefsBot Baiduspider Site\ Scanner\ Bot Sogou HaosouSpider)
+  config.middleware.use ExceptionNotification::Rack,
+                        email: {
+                          email_prefix: '[Call Me A Doctor]',
+                          sender_address: 'call_me_a_doctor@yhuan.cc',
+                          exception_recipients: %w[df1228@dingtalk.com],
+                          smtp_settings: {
+                            address:        'smtp.exmail.qq.com',
+                            user_name:      'call_me_a_doctor@yhuan.cc',
+                            password:       '1Qaz2wsx',
+                            authentication: :login,
+                            enable_starttls_auto: true
+                          }
+                        },
+                        ignore_crawlers: %w[Googlebot bingbot AhrefsBot Baiduspider Site\ Scanner\ Bot Sogou HaosouSpider]
 end

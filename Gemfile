@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
@@ -62,7 +62,7 @@ gem 'simple_form'
 gem 'nested_form'
 # gem 'cocoon'
 gem 'holder_rails'
-gem 'tinymce-rails'
+# gem 'tinymce-rails'
 
 gem 'qiniu'
 gem 'carrierwave', '~> 1.0'
@@ -121,6 +121,15 @@ group :development do
   # gem 'capistrano-db-tasks', github: 'dfang/capistrano-db-tasks', branch: 'master', require: false
   gem 'capistrano-db-tasks', require: false
   gem 'capistrano-yarn', '~> 2.0', '>= 2.0.2'
+
+  # just install, don't need to install with bundler
+  # gem 'fasterer', require: false
+  # gem 'rubocop', require: false
 end
+
+group :development, :test do
+  # gem 'active_mocker', '~> 2.5'
+end
+
 
 # gem 'mocha', group: :test

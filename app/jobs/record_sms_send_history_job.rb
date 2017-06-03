@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecordSmsSendHistoryJob < ActiveJob::Base
   queue_as :default
 

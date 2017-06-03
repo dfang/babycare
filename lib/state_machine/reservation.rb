@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClientStateMachine
   module Reservation
     extend ActiveSupport::Concern
@@ -35,7 +37,7 @@ module ClientStateMachine
         end
 
         event :archive do
-          transitions from: [:pending, :reserved], to: :archived
+          transitions from: %i[pending reserved], to: :archived
         end
 
         event :rate, after_commit: :after_rated! do
@@ -43,7 +45,7 @@ module ClientStateMachine
         end
 
         event :cancel, after_commit: :after_cancelled! do
-          transitions from: [:reserved, :prepaid, :pending], to: :cancelled
+          transitions from: %i[reserved prepaid pending], to: :cancelled
         end
 
         event :overdue, after_commit: :after_overdue! do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BackgroundJobsController < ApplicationController
   skip_before_action :verify_authenticity_token
   respond_to :html, :json, :js
@@ -17,17 +19,15 @@ class BackgroundJobsController < ApplicationController
 
     # IM::Ronglian.new().call(params["caller"], params["callee"], params["reservation_id"], params['caller_phone'], params['callee_phone'])
     # 受国家政策通讯政策影响, 云通讯暂停回拨电话的使用, 切换到网易云信
-    IM::Netease.call(params['caller_phone'], params['callee_phone'], params["caller"], params["callee"], params["reservation_id"])
-
+    IM::Netease.call(params['caller_phone'], params['callee_phone'], params['caller'], params['callee'], params['reservation_id'])
     render status: 200
   end
 
   def call_support
-    IM::Ronglian.new().call(params["caller"], params["callee"], params["reservation_id"], params['callee_phone'])
+    IM::Ronglian.new.call(params['caller'], params['callee'], params['reservation_id'], params['callee_phone'])
   end
 
-  def send_sms
-  end
+  def send_sms; end
 
   def cancel_reservation
     reservation = Reservation.find_by(id: params[:reservation_id])
@@ -37,7 +37,7 @@ class BackgroundJobsController < ApplicationController
     }
   end
 
-  private
+  # private
 
   # def record_phone_call
   #   p "after phone call record it"
@@ -56,5 +56,4 @@ class BackgroundJobsController < ApplicationController
   #     reservation_state_when_call: reservation_state_when_call
   #   )
   # end
-
 end

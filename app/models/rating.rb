@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rating < ApplicationRecord
   self.table_name = 'fa_rating'
 

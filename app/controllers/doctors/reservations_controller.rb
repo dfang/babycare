@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 class Doctors::ReservationsController < InheritedResources::Base
-  before_action ->{ authenticate_user!( force: true ) }
+  before_action -> { authenticate_user!(force: true) }
   before_action :check_is_verified_doctor
   # skip_before_action :check_is_verified_doctor, only: [ :status ]
-  custom_actions :collection => [ :reservations, :status ], :member => [ :claim, :complete_offline_consult, :complete_online_consult ]
+  custom_actions collection: %i[reservations status], member: %i[claim complete_offline_consult complete_online_consult]
 
-  def reservations
-  end
+  def reservations; end
 
   def index
     p params
@@ -14,12 +15,12 @@ class Doctors::ReservationsController < InheritedResources::Base
       # {"controller"=>"doctors/reservations", "action"=>"index", "id"=>"22"}
       # 医生查看某病人和自己的所有的预约页面
       @user = User.find_by(id: params[:id])
-      @reservations = @user.reservations.order("updated_at DESC")
+      @reservations = @user.reservations.order('updated_at DESC')
     else
       # /doctors/reservations
       # {"controller"=>"doctors/reservations", "action"=>"index"}
       # 医生的所有预约页面
-      @reservations = current_user.reservations.order("updated_at DESC")
+      @reservations = current_user.reservations.order('updated_at DESC')
     end
   end
 
@@ -29,11 +30,9 @@ class Doctors::ReservationsController < InheritedResources::Base
     super
   end
 
-  def detail
-  end
+  def detail; end
 
-  def status
-  end
+  def status; end
 
   # 医生认领用户的预约
   def claim
@@ -43,14 +42,14 @@ class Doctors::ReservationsController < InheritedResources::Base
 
       resource.reserve!
 
-      redirect_to doctors_reservation_path(resource) and return
+      redirect_to(doctors_reservation_path(resource)) && return
     else
       @appId = Settings.wx_pay.app_id
       @nonceStr = SecureRandom.hex
-      @timestamp =  DateTime.now.to_i
-      js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
-                          "#{k}=#{v}" if v != "" && !v.nil?
-                        end.compact.join('&')
+      @timestamp = DateTime.now.to_i
+      js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k, v|
+        "#{k}=#{v}" if v != '' && !v.nil?
+      end.compact.join('&')
       @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
 
     end
@@ -60,7 +59,7 @@ class Doctors::ReservationsController < InheritedResources::Base
   def complete_offline_consult
     resource.diagnose!
 
-    redirect_to doctors_reservation_path(resource) and return
+    redirect_to(doctors_reservation_path(resource)) && return
   end
 
   # 电话咨询，用户不用再支付了, 系统自动改状态
@@ -69,7 +68,7 @@ class Doctors::ReservationsController < InheritedResources::Base
       resource.pay!
     end
 
-    redirect_to doctors_reservation_path(resource) and return
+    redirect_to(doctors_reservation_path(resource)) && return
   end
 
   private
@@ -79,8 +78,8 @@ class Doctors::ReservationsController < InheritedResources::Base
   end
 
   def check_is_verified_doctor
-    unless current_user.is_verified_doctor?
-      redirect_to doctors_status_path and return
+    unless current_user.verified_doctor?
+      redirect_to(doctors_status_path) && return
     end
   end
 end

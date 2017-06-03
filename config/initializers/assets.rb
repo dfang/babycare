@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Be sure to restart your server when you modify this file.
 
 # Version of your assets, change this if you want to expire all your assets.
@@ -12,14 +14,11 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-Rails.application.config.assets.precompile += %w( admin.css admin.js )
-Rails.application.config.assets.precompile += %w( mobile.js mobile.css uploader.js)
-Rails.application.config.assets.precompile += %w( bootstrap_fontawesome )
-
+Rails.application.config.assets.precompile += %w[admin.css admin.js]
+Rails.application.config.assets.precompile += %w[mobile.js mobile.css uploader.js]
+Rails.application.config.assets.precompile += %w[bootstrap_fontawesome]
 
 # Adding Webfonts to the Asset Pipeline
-Rails.application.config.assets.precompile << Proc.new { |path|
-  if path =~ /\.(eot|svg|ttf|woff)\z/
-    true
-  end
-}
+Rails.application.config.assets.precompile << proc do |path|
+  true if path.match?(/\.(eot|svg|ttf|woff)\z/)
+end

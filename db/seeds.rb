@@ -34,6 +34,4 @@ require_relative './seeds/symptoms.rb'
 
 p 'Done .....'
 
-
-
 # City.find_or_create_by(name: "武汉市", pinyin: "wuhan")

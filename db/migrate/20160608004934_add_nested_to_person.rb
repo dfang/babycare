@@ -1,6 +1,5 @@
 class AddNestedToPerson < ActiveRecord::Migration
   def up
-
     add_column :people, :parent_id, :integer # Comment this line if your project already has this column
     # Category.where(parent_id: 0).update_all(parent_id: nil) # Uncomment this line if your project already has :parent_id
     add_column :people, :lft,       :integer
@@ -12,7 +11,6 @@ class AddNestedToPerson < ActiveRecord::Migration
 
     # This is necessary to update :lft and :rgt columns
     Person.rebuild!
-
   end
 
   def self.down
@@ -24,5 +22,4 @@ class AddNestedToPerson < ActiveRecord::Migration
     remove_column :people, :depth
     remove_column :people, :children_count
   end
-
 end

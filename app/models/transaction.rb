@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Transaction < ActiveRecord::Base
   include AASM
   extend Enumerize
 
-  enumerize :source, in: [:offline_consult, :online_consult], default: :offline_consult, predicates: true, scope: true
-  enumerize :operation, in: [:income, :withdraw], default: :income, predicates: true, scope: true
-  enumerize :aasm_state, in: [ :pending, :settled ], default: :pending, predicates: false, scope: true
+  enumerize :source, in: %i[offline_consult online_consult], default: :offline_consult, predicates: true, scope: true
+  enumerize :operation, in: %i[income withdraw], default: :income, predicates: true, scope: true
+  enumerize :aasm_state, in: %i[pending settled], default: :pending, predicates: false, scope: true
 
   aasm do
     state :pending, initial: true
@@ -14,25 +16,23 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  scope :settleable, -> { where('CREATED_AT' <= Time.now - 7.days ) }
+  scope :settleable, -> { where(Time.now - 7.days >= 'CREATED_AT') }
 
   validates :amount, presence: true
   validates :reservation_id, presence: true, if: :income?
   validates :withdraw_target, presence: true, if: :withdraw?
   belongs_to :user
 
-  def income?
-    operation.income?
-  end
-
-  def withdraw?
-    operation.withdraw?
-  end
+  # def income?
+  #   operation.income?
+  # end
+  #
+  # def withdraw?
+  #   operation.withdraw?
+  # end
 
   def reservation
-    if reservation_id.present?
-      reservation ||= Reservation.find_by(id: reservation_id)
-    end
+    Reservation.find_by(id: reservation_id) if reservation_id.present?
   end
 
   def amount_cny
@@ -46,8 +46,8 @@ class Transaction < ActiveRecord::Base
   # increase_balance_withdrawable
   def after_settled!
     ActiveRecord::Base.transaction do
-      user.decrease_balance_unwithdrawable(self.amount)
-      user.increase_balance_withdrawable(self.amount)
+      user.decrease_balance_unwithdrawable(amount)
+      user.increase_balance_withdrawable(amount)
     end
   end
 end

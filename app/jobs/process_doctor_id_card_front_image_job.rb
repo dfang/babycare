@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProcessDoctorIdCardFrontImageJob < ActiveJob::Base
   queue_as :urgent
 

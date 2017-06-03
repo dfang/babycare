@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -23,65 +25,69 @@ class User < ActiveRecord::Base
   end
 
   def wechat_authentication
-    wechat ||= authentications.where(provider: 'wechat').first
+    authentications.where(provider: 'wechat').first
   end
 
-  def self.create_wechat_user(wechat_session)
+  def create_wechat_user(wechat_session)
     Rails.logger.info "wechat_session:::: #{wechat_session}"
     wx_nickname = wechat_session.nickname
-    nickname = wx_nickname.strip.size > 0 ? wx_nickname : User.gen_name
-
+    nickname = !wx_nickname.strip.empty? ? wx_nickname : User.gen_name
     users_count = User.where(name: nickname).count
 
-    user = User.new
-    user.name = "#{nickname}#{users_count.zero? ? '' : users_count}"
-    user.email = "wx_user_#{SecureRandom.hex}@wx_email.com"
-    p user.name
-
-    user.gender = wechat_session.sex
-    user.avatar = wechat_session.headimgurl
+    user = User.new(
+      name: "#{nickname}#{users_count.zero? ? '' : users_count}",
+      email: "wx_user_#{SecureRandom.hex}@wx_email.com",
+      gender: wechat_session.sex,
+      avatar: wechat_session.headimgurl
+    )
     # user.gen_slug
     Rails.logger.info "user::: #{user.inspect}"
     user.save(validate: false)
-    return user
+    user
   end
 
   def reservations
-    if self.is_verified_doctor?
-      Reservation.where(user_b: self.id)
+    if verified_doctor?
+      Reservation.where(user_b: id)
     else
-      Reservation.where(user_a: self.id)
+      Reservation.where(user_a: id)
     end
   end
 
-  def is_doctor?
-    self.doctor.present?
+  def doctor?
+    doctor.present?
   end
 
-  def is_verified_doctor?
-    is_doctor? && self.doctor.verified?
+  def verified_doctor?
+    doctor? && doctor.verified?
   end
 
-  def is_patient?
-    !is_verified_doctor?
+  def patient?
+    !verified_doctor?
+  end
+
+  def patient_and_has_children?
+    patient? && children.any?
+  end
+
+  def patient_and_has_no_children?
+    patient? && children.blank?
   end
 
   def self_reservations
-    # if self.is_doctor?
-    #   self.doctor.reservations
+    # if doctor?
+    #   doctor.reservations
     # else
-    #   self.reservations
+    #   reservations
     # end
   end
 
   def increase_income(amount, source, reservation_id)
     ActiveRecord::Base.transaction do
-      transactions.create({
-        operation: "income",
-        amount: amount,
-        reservation_id: reservation_id,
-        source: source
-      })
+      transactions.create(operation: 'income',
+                          amount: amount,
+                          reservation_id: reservation_id,
+                          source: source)
       increase_balance_unwithdrawable(amount)
     end
   end
@@ -89,17 +95,14 @@ class User < ActiveRecord::Base
   def withdraw_cash(amount, ip)
     transaction = Transaction.new
     ActiveRecord::Base.transaction do
-
-      transaction = Transaction.create({
-        operation: "withdraw",
-        amount: amount,
-        withdraw_target: self.wechat_authentication.uid
-      })
+      transaction = Transaction.create(operation: 'withdraw',
+                                       amount: amount,
+                                       withdraw_target: wechat_authentication.uid)
 
       decrease_balance_withdrawable(amount)
 
       # pay_to_wechat_user
-      WxApp::WxPay.pay_to_wechat_user(self.wechat_authentication.uid, amount, ip)
+      WxApp::WxPay.pay_to_wechat_user(wechat_authentication.uid, amount, ip)
     end
     transaction
   end
@@ -113,7 +116,6 @@ class User < ActiveRecord::Base
 
   # 医生提现的时候
   # decrease_balance_withdrawable
-
 
   def increase_balance_unwithdrawable(amount)
     build_wallet if wallet.blank?
@@ -132,10 +134,7 @@ class User < ActiveRecord::Base
   # 结算
   def decrease_balance_withdrawable(amount)
     build_wallet if wallet.blank?
-    if wallet.balance_withdrawable >= amount
-      wallet.balance_withdrawable -= amount
-      wallet.save!
-    end
+    wallet.update_attribute(balance_withdrawable: balance_withdrawable - amount) if can_withdraw?(amount)
   end
 
   def increase_balance_withdrawable(amount)
@@ -144,11 +143,14 @@ class User < ActiveRecord::Base
     wallet.save!
   end
 
+  def can_withdraw?(amount)
+    wallet.balance_withdrawable >= amount
+  end
+
   private
+
   # method for testing
   def settle_all_transactions_right_now!
-    transactions.pending.find_each do |tran|
-      tran.settle!
-    end
+    transactions.pending.find_each(&:settle!)
   end
 end

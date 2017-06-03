@@ -8,12 +8,12 @@ class CreateChinaRegionTables < ActiveRecord::Migration
         t.string :pinyin_abbr
         t.timestamps
       end
-      
+
       add_index :provinces, :name
       add_index :provinces, :pinyin
       add_index :provinces, :pinyin_abbr
     end
-    
+
     unless table_exists? 'cities'
       create_table :cities do |t|
         t.string :name
@@ -31,7 +31,7 @@ class CreateChinaRegionTables < ActiveRecord::Migration
       add_index :cities, :pinyin
       add_index :cities, :pinyin_abbr
     end
-    
+
     unless table_exists? 'districts'
       create_table :districts do |t|
         t.string :name

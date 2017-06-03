@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 module WxApp
   module WxCommon
@@ -8,42 +9,40 @@ module WxApp
     WEIXIN_SECRET = Settings.weixin.app_secret
 
     def get_conn
-      conn = Faraday.new(:url => "https://api.weixin.qq.com/") do |faraday|
+      conn = Faraday.new(url: 'https://api.weixin.qq.com/') do |faraday|
         faraday.request  :url_encoded             # form-encode POST params
         faraday.response :logger                  # log requests to STDOUT
         faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
       end
     end
 
-    def get_access_token options={}
-      access_token = Rails.cache.fetch("weixin_access_token")
+    def get_access_token(options = {})
+      access_token = Rails.cache.fetch('weixin_access_token')
       return access_token unless access_token.nil? || options[:force]
 
       url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
       conn = get_conn
       response = conn.get url
-      access_token = JSON.parse(response.body)["access_token"]
-      Rails.cache.write("weixin_access_token", access_token, expires_in: 100.minutes)
-      return access_token
+      access_token = JSON.parse(response.body)['access_token']
+      Rails.cache.write('weixin_access_token', access_token, expires_in: 100.minutes)
+      access_token
     end
 
     def get_jsapi_ticket
-      jsapi_ticket = Rails.cache.fetch("weixin_jsapi_ticket")
+      jsapi_ticket = Rails.cache.fetch('weixin_jsapi_ticket')
       if jsapi_ticket.present?
         return jsapi_ticket
       else
         url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
         conn = get_conn
         response = conn.get url
-        jsapi_ticket = JSON.parse(response.body)["ticket"]
-        Rails.cache.write("weixin_jsapi_ticket", jsapi_ticket, expires_in: 7200.seconds)
+        jsapi_ticket = JSON.parse(response.body)['ticket']
+        Rails.cache.write('weixin_jsapi_ticket', jsapi_ticket, expires_in: 7200.seconds)
         jsapi_ticket
       end
     end
-
   end
 end
-
 
 module WxApp
   module WxButton
@@ -54,8 +53,8 @@ module WxApp
     def create_remote_menus(menus)
       conn = get_conn
 
-      p "#{build_menus}"
-      p "syncing menus to remote"
+      p build_menus.to_s
+      p 'syncing menus to remote'
       conn.post do |req|
         req.url "/cgi-bin/menu/create?access_token=#{WxApp::WxCommon.get_access_token}"
         req.headers['Content-Type'] = 'application/json'
@@ -87,7 +86,6 @@ module WxApp
         # binding.pry
         req.body = menus
       end
-
     end
 
     def build_menus
@@ -102,7 +100,7 @@ module WxApp
                   json.name sub_menu.name
                   json.type sub_menu.menu_type
                   if sub_menu.menu_type == 'click'
-                    json.key  sub_menu.key
+                    json.key sub_menu.key
                   else
                     json.url WxApp::WxButton.process_url(sub_menu.url)
                     # json.url sub_menu.url
@@ -112,7 +110,7 @@ module WxApp
             else
               json.type menu.menu_type
               if menu.menu_type == 'click'
-                json.key  menu.key
+                json.key menu.key
               else
                 # json.url menu.url
                 json.url WxApp::WxButton.process_url(menu.url)
@@ -120,20 +118,19 @@ module WxApp
             end
           end
         end
-
       end
     end
 
     def process_url(url)
       uri = URI.parse(url)
       if Rails.env.development?
-        url.gsub!("#{uri.scheme + "://" + uri.host}", Settings.rails_server_url.development)
+        url.gsub!((uri.scheme + '://' + uri.host).to_s, Settings.rails_server_url.development)
       else
-        url.gsub!("#{uri.scheme + "://" + uri.host}", Settings.rails_server_url.production)
+        url.gsub!((uri.scheme + '://' + uri.host).to_s, Settings.rails_server_url.production)
       end
     end
 
-    def get_user_info openid, options={}
+    def get_user_info(openid, options = {})
       url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=#{WxApp::WxCommon.get_access_token}&openid=#{openid}&lang=zh_CN"
       response = Faraday.get url
       body = JSON.parse response.body
@@ -144,7 +141,7 @@ module WxApp
           if wx_user = authentication.user
             begin
               name = body['nickname'].gsub(User::EMOJI_REGEX, '')
-              wx_user.update_columns name: (name.size > 0 ? name : User.gen_name),
+              wx_user.update_columns name: (!name.empty? ? name : User.gen_name),
                                      # gender:   body['sex'],
                                      avatar:   body['headimgurl']
             rescue
@@ -154,10 +151,10 @@ module WxApp
           end
         end
       end
-      return body
+      body
     end
 
-    def send_template_message message_json
+    def send_template_message(message_json)
       conn = get_conn
       resp = conn.post do |req|
         req.url "/cgi-bin/message/template/send?access_token=#{WxApp::WxCommon.get_access_token}"
@@ -166,7 +163,7 @@ module WxApp
       end
     end
 
-    def send_cs_message message_json
+    def send_cs_message(message_json)
       conn = get_conn
       resp = conn.post do |req|
         req.url "/cgi-bin/message/custom/send?access_token=#{WxApp::WxCommon.get_access_token}"
@@ -189,7 +186,6 @@ module WxApp
 
       WxMenu.destroy_all if menu_arr.present?
       menu_arr.each_with_index do |butn, index|
-
         if butn['sub_button'].present?
           menu = WxMenu.create butn.except('sub_button').merge(sequence: index)
           butn['sub_button'].each_with_index do |sub_menu, index|
@@ -201,22 +197,21 @@ module WxApp
       end
     end
 
-    def get_qrcode_url user
+    def get_qrcode_url(user)
       resp = qr_limit_scene_ticket user
       ticket = JSON.parse(resp.body)['ticket']
       url = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=#{URI.encode(ticket)}"
     end
 
-    def qr_limit_scene_ticket user
+    def qr_limit_scene_ticket(user)
       scene_id = user.id
       conn = get_conn
       resp = conn.post do |req|
         req.url "/cgi-bin/qrcode/create?access_token=#{WxApp::WxCommon.get_access_token}"
         req.headers['Content-Type'] = 'application/json'
-        req.body = {action_name: "QR_LIMIT_SCENE", action_info: {scene: {scene_id: scene_id}}}.to_json
+        req.body = { action_name: 'QR_LIMIT_SCENE', action_info: { scene: { scene_id: scene_id } } }.to_json
       end
     end
-
 
     # def create_group
     #   # url = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token=#{WxApp::WxCommon.get_access_token}"
@@ -232,7 +227,6 @@ module WxApp
     # end
   end
 end
-
 
 module WxApp
   module WxPay
@@ -252,19 +246,19 @@ module WxApp
 
     def generate_payment_options(options = {})
       options = {
-                  appid:     Settings.wx_pay.app_id,
-                  mch_id:    Settings.wx_pay.mch_id,
-                  key:       Settings.wx_pay.api_key,
-                  noncestr:  SecureRandom.hex,
-                  timestamp: DateTime.now.to_i
-                }.merge(options)
+        appid:     Settings.wx_pay.app_id,
+        mch_id:    Settings.wx_pay.mch_id,
+        key:       Settings.wx_pay.api_key,
+        noncestr:  SecureRandom.hex,
+        timestamp: DateTime.now.to_i
+      }.merge(options)
       options
     end
 
     def generate_js_sdk_signature_str(noncestr, timestamp, url)
-      js_sdk_signature_str = { jsapi_ticket: ::WxApp::WxCommon.get_jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k,v|
-                          "#{k}=#{v}" if v != "" && !v.nil?
-                        end.compact.join('&')
+      js_sdk_signature_str = { jsapi_ticket: ::WxApp::WxCommon.get_jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k, v|
+        "#{k}=#{v}" if v != '' && !v.nil?
+      end.compact.join('&')
       Digest::SHA1.hexdigest(js_sdk_signature_str)
     end
 
@@ -273,28 +267,28 @@ module WxApp
       # options = generate_payment_options 这样会出错， 需要共用options
 
       # 这里不能用options[:app_id]和 options[:key], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
-      pay_sign_str =  {
-                          appId:      Settings.wx_pay.app_id,
-                          nonceStr:   options[:noncestr],
-                          timeStamp:  options[:timestamp],
-                          package:    "prepay_id=#{prepay_id}",
-                          signType:   "MD5"
-                      }.sort.map do |k,v|
-                                "#{k}=#{v}" if v != "" && !v.nil?
-                             end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
+      pay_sign_str = {
+        appId:      Settings.wx_pay.app_id,
+        nonceStr:   options[:noncestr],
+        timeStamp:  options[:timestamp],
+        package:    "prepay_id=#{prepay_id}",
+        signType:   'MD5'
+      }.sort.map do |k, v|
+        "#{k}=#{v}" if v != '' && !v.nil?
+      end.compact.join('&').concat("&key=#{Settings.wx_pay.key}")
 
-      Digest::MD5.hexdigest(pay_sign_str).upcase()
+      Digest::MD5.hexdigest(pay_sign_str).upcase
     end
 
-    def pay_to_wechat_user(openid, amount, ip)
+    def pay_to_wechat_user(openid, amount, _ip)
       # check_required_options(params, GENERATE_APP_PAY_REQ_REQUIRED_FIELDS)
       # partner_trade_no = "withdraw_#{Time.zone.now.strftime('%Y%m%d')}_#{SecureRandom.random_number(100000)}"
 
       # ip                = "127.0.0.1"
       # openid = "ox-t3s08e-Av2rUlE2a2i2ITR0XY"
       # amount = 100
-      partner_trade_no  = "withdraw_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
-      re_user_name      = ""
+      partner_trade_no  = "withdraw_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100_000)}"
+      re_user_name      = ''
 
       transfer_params = {
         mch_appid:           Settings.wx_pay.app_id,
@@ -302,7 +296,7 @@ module WxApp
         openid:              openid,
         check_name:          'NO_CHECK',
         spbill_create_ip:    '127.0.0.1',
-        desc:                "提现",
+        desc:                '提现',
         amount:              amount
       }
       options = WxApp::WxPay.generate_payment_options
@@ -311,8 +305,6 @@ module WxApp
       # WxPay::Service.send(:make_payload, transfer_params)
       # WxPay::Sign.generate(transfer_params)
       # WxPay::Sign.verify?(transfer_params)
-
     end
-
   end
 end

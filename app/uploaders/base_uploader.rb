@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 class BaseUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
@@ -16,8 +16,8 @@ class BaseUploader < CarrierWave::Uploader::Base
   # http://docs.qiniutek.com/v3/api/io/#uploadToken-asyncOps
   def qiniu_async_ops
     commands = []
-    %W(small little middle large).each do |style|
-      commands << "http://#{self.qiniu_bucket_domain}/#{self.store_dir}/#{self.filename}/#{style}"
+    %w[small little middle large].each do |style|
+      commands << "http://#{qiniu_bucket_domain}/#{store_dir}/#{filename}/#{style}"
     end
     commands
   end
@@ -57,13 +57,12 @@ class BaseUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    if super.present?
-      # current_path 是 Carrierwave 上传过程临时创建的一个文件，有时间标记，所以它将是唯一的
-      @name ||= ::SecureRandom.uuid
-      @extname ||= File.extname(current_path).downcase
-
-      "#{@name}#{@extname}"
-    end
+    return if super.blank?
+    # if super.present?
+    # current_path 是 Carrierwave 上传过程临时创建的一个文件，有时间标记，所以它将是唯一的
+    @name ||= ::SecureRandom.uuid
+    @extname ||= File.extname(current_path).downcase
+    "#{@name}#{@extname}"
+    # end
   end
-
 end

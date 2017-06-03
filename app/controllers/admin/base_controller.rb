@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::BaseController < InheritedResources::Base
   layout 'admin'
   # before_action :authenticate_admin_user!
@@ -10,7 +12,7 @@ class Admin::BaseController < InheritedResources::Base
     # avoid bugs in admin/events
     if params.key?(:event) && !params[:controller].include?('event')
       resource.send("#{params[:event]}!")
-      redirect_to :back and return
+      redirect_to(:back) && return
     else
       update! { collection_path }
     end

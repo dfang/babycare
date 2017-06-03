@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class DoctorsController < InheritedResources::Base
-  before_action ->{ authenticate_user!( force: true ) }
+  before_action -> { authenticate_user!(force: true) }
   include Wicked::Wizard
   steps :basic, :career, :finished
 
   # before_action ->{ authenticate_user!( force: true ) }, except: [ :apply, :new, :create ]
   # custom_actions :resource => :status
 
-  before_action :set_doctor, only: [:status, :show, :edit, :update, :destroy, :online, :offline]
-  before_action :check_is_verified_doctor, only: [ :reservations, :index ]
+  before_action :set_doctor, only: %i[status show edit update destroy online offline]
+  before_action :check_is_verified_doctor, only: %i[reservations index]
 
   def apply
     redirect_to new_doctor_path
@@ -26,12 +28,12 @@ class DoctorsController < InheritedResources::Base
       @doctor = current_user.doctor
       if @doctor.verified?
         # redirect_to status_doctor_path(@doctor)
-        redirect_to wizard_path(:finished) and return
+        redirect_to(wizard_path(:finished)) && return
       end
-      redirect_to wizard_path(:basic) and return
+      redirect_to(wizard_path(:basic)) && return
     else
       @doctor = current_user.build_doctor
-      redirect_to wizard_path(:basic) and return
+      redirect_to(wizard_path(:basic)) && return
     end
   end
 
@@ -101,30 +103,31 @@ class DoctorsController < InheritedResources::Base
   end
 
   private
-    def check_is_verified_doctor
-      if current_user.doctor.nil?
-        flash[:error] = "你还没提交资料申请我们的签约医生"
-        redirect_to global_denied_path and return
-      end
 
-      unless current_user.is_verified_doctor?
-        redirect_to doctors_status_path and return
-      end
+  def check_is_verified_doctor
+    if current_user.doctor.nil?
+      flash[:error] = '你还没提交资料申请我们的签约医生'
+      redirect_to(global_denied_path) && return
     end
 
-    def set_doctor
-      if current_user.doctor.present?
-        @doctor = current_user.doctor
-      # elsif params.key?(:id)
-      #   @doctor = Doctor.find(params[:id])
-      else
-        @doctor = Doctor.new
-      end
+    unless current_user.verified_doctor?
+      redirect_to(doctors_status_path) && return
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def doctor_params
-      # params.require(:doctor).permit(:name, :gender, :age, :hospital, :location, :lat, :long, :verified, :date_of_birth, :mobile_phone, :remark, :id_card_num, :id_card_front, :id_card_back, :license, :job_title)
-      params.require(:doctor).permit!
-    end
+  def set_doctor
+    @doctor = if current_user.doctor.present?
+                current_user.doctor
+              # elsif params.key?(:id)
+              #   @doctor = Doctor.find(params[:id])
+              else
+                Doctor.new
+              end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def doctor_params
+    # params.require(:doctor).permit(:name, :gender, :age, :hospital, :location, :lat, :long, :verified, :date_of_birth, :mobile_phone, :remark, :id_card_num, :id_card_front, :id_card_back, :license, :job_title)
+    params.require(:doctor).permit!
+  end
 end

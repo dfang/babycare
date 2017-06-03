@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Doctor < ApplicationRecord
   self.table_name = 'fa_doctor'
   include Wisper.model
@@ -6,8 +8,8 @@ class Doctor < ApplicationRecord
   # belongs_to :hospital
   has_many :reservations, through: :user
   validates :name, :mobile_phone, presence: true
+  JOB_TITLES = %w[主任医师 副主任医师 主治医师 住院医师].freeze
 
-  JOB_TITLES = [ "主任医师", "副主任医师", "主治医师", "住院医师" ]
   scope :verified, -> { where(verified: true) }
 
   def verify!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # browser gem hack
 module Browser
   class Wechat < Base
@@ -6,7 +8,7 @@ module Browser
     end
 
     def name
-      "Wechat"
+      'Wechat'
     end
 
     def match?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::SessionsController < Devise::SessionsController
   before_action :wechat_authorize
   # before_action :configure_sign_in_params, only: [:create]
@@ -43,7 +45,7 @@ class Users::SessionsController < Devise::SessionsController
         Rails.logger.debug '正常情况下，用户点击授权按钮就会去申请code参数，如果曾经授权过，此时静默授权，用户无感知'
         Rails.logger.debug "redirect_uri is #{redirect_uri}"
 
-        redirect_to get_code_uri(redirect_uri) and return
+        redirect_to(get_code_uri(redirect_uri)) && return
       end
 
       # 如果code参数不为空，则认证到第二步，通过code获取openid，并保存到session中
@@ -100,9 +102,9 @@ class Users::SessionsController < Devise::SessionsController
           # respond_with authentication.user, location: after_sign_in_path_for(authentication.user)
 
           # redirect_after_sign_in
-          redirect_to edit_patients_settings_path and return
+          redirect_to(edit_patients_settings_path) && return
         end
-      rescue Exception => e
+      rescue StandardError => e
         Rails.logger.info e.inspect
         redirect_to root_path
       end

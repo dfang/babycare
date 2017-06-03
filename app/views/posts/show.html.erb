@@ -22,7 +22,7 @@
 
 		<div class="weui-tabbar">
 
-			<% if current_user.is_verified_doctor? %>
+			<% if current_user.verified_doctor? %>
 			<a href="/doctors/reservations" class="weui-tabbar__item">
 				<img src="/icon_nav_button.png" alt="" class="weui-tabbar__icon">
 				<p class="weui-tabbar__label">我的预约</p>

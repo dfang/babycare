@@ -1,3 +1,6 @@
+# coding: utf-8
+# frozen_string_literal: true
+
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary server in each group
@@ -8,8 +11,7 @@
 # role :web, %w{deploy@example.com}
 # role :db,  %w{deploy@example.com}
 set :rails_env, 'production'
-server '119.29.178.236', user: 'deployer', roles: %w{web app db}
-
+server '119.29.178.236', user: 'deployer', roles: %w[web app db]
 
 # Extended Server Syntax
 # ======================
@@ -18,7 +20,6 @@ server '119.29.178.236', user: 'deployer', roles: %w{web app db}
 # used to set extended properties on the server.
 
 # server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
-
 
 # Custom SSH Options
 # ==================

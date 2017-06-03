@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DoctorsHelper
   def show_holder_or_image(obj, prop, size)
     if obj.present? && obj.send(prop.to_sym).present?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'uri'
 
 class Wx::ServiceController < ApplicationController
@@ -32,25 +34,24 @@ class Wx::ServiceController < ApplicationController
 
   def config_jssdk
     # 在rails 5 里面这里绝对不能叫config, 否则 SystemStackError (stack level too deep)
-    appId           =  Settings.wx_pay.app_id
-    nonceStr        =  SecureRandom.hex
-    timestamp       =  DateTime.now.to_i
-
-    js_sdk_signature_str       =  ::WxApp::WxPay.generate_js_sdk_signature_str(nonceStr, timestamp,  URI.unescape(params[:url]))
+    app_id               =  Settings.wx_pay.app_id
+    noncestr             =  SecureRandom.hex
+    timestamp            =  DateTime.now.to_i
+    js_sdk_signature_str = ::WxApp::WxPay.generate_js_sdk_signature_str(noncestr, timestamp, URI.unescape(params[:url]))
     p js_sdk_signature_str
 
     render json: {
-        appId: appId,
-        key: Settings.wx_pay.api_key,
-        mch_id: Settings.wx_pay.mch_id,
-        timestamp: timestamp.to_s,
-        nonceStr: nonceStr,
-        signature: js_sdk_signature_str,
-        jsApiList: ['checkJsApi', 'chooseWXPay', 'chooseImage', 'uploadImage', 'downloadImage', 'previewImage', 'openLocation', 'getLocation']
-      }
+      appId: app_id,
+      key: Settings.wx_pay.api_key,
+      mch_id: Settings.wx_pay.mch_id,
+      timestamp: timestamp.to_s,
+      nonceStr: SecureRandom.hex,
+      signature: js_sdk_signature_str,
+      jsApiList: %w[checkJsApi chooseWXPay chooseImage uploadImage downloadImage previewImage openLocation getLocation]
+    }
   end
 
-private
+  private
 
   def parse_xml
     # munger = defined?(Request::Utils) ? Request::Utils : request
@@ -68,7 +69,7 @@ private
     end
   end
 
-  #事件处理
+  # 事件处理
   def event_message
     case @xml.Event
     when 'subscribe' # 新关注用户
@@ -92,20 +93,20 @@ private
     end
   end
 
-  #自定义菜单事件
+  # 自定义菜单事件
   def click_event
     event_key = @xml.EventKey
     case event_key
     when 'contact_us'
-      render "wx/service/events/contact_us"
+      render 'wx/service/events/contact_us'
     when 'feature'
       @items = WxPost.feature.limit(5)
-      render "wx/service/events/posts"
+      render 'wx/service/events/posts'
     when 'activity'
       @items = WxPost.activity.limit(5)
-      render "wx/service/events/posts"
+      render 'wx/service/events/posts'
     when 'about'
-      render "wx/service/events/subscribe"
+      render 'wx/service/events/subscribe'
     end
   end
 
@@ -113,11 +114,11 @@ private
     new_user
     case @xml.Content.strip
     when '1'
-      render "wx/service/events/1"
+      render 'wx/service/events/1'
     when '2'
-      render "wx/service/events/2"
+      render 'wx/service/events/2'
     else
-      render "wx/service/events/subscribe"
+      render 'wx/service/events/subscribe'
     end
 
     # reply = WxReply.find_by keyword: @xml.Content
@@ -129,9 +130,9 @@ private
 
   # 根据参数校验请求是否合法，如果非法返回错误页面
   def check_weixin_legality
-    render :text => "Forbidden", :status => 403 and return unless params[:timestamp] && params[:nonce] && params[:signature]
+    render(text: 'Forbidden', status: 403) && return unless params[:timestamp] && params[:nonce] && params[:signature]
     array = [WEIXIN_TOKEN, params[:timestamp], params[:nonce]].sort
-    render :text => "Forbidden", :status => 403 and return if Digest::SHA1.hexdigest(array.join) != params[:signature]
+    render(text: 'Forbidden', status: 403) && return if Digest::SHA1.hexdigest(array.join) != params[:signature]
   end
 
   def new_user
@@ -143,7 +144,7 @@ private
       user_info = WxApp::WxCommon.get_user_info @openid
       Rails.logger.info "user_info:::::::::::#{user_info}"
       name = user_info['nickname'].gsub(User::EMOJI_REGEX, '')
-      @user = User.new name: (name.strip.size > 0 ? name : User.gen_name),
+      @user = User.new name: (!name.strip.empty? ? name : User.gen_name),
                        # gender:   user_info['sex'],
                        avatar:   user_info['headimgurl'],
                        password: SecureRandom.hex(4)
@@ -154,6 +155,6 @@ private
       authentication.save(validate: false)
     end
 
-    return @user
+    @user
   end
 end

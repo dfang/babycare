@@ -1,0 +1,30 @@
+inherit_from:                      .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'db/**/*'
+    - 'Gemfile'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+
+Documentation:
+  Enabled:                         false
+
+Metrics/LineLength:
+  Enabled:                         false
+  # Max:                           100
+
+# Style/FrozenStringLiteralComment:
+#   Exclude:
+#     - 'node_modules/**/*'
+
+Style/AsciiComments:
+  Enabled:                         false
+
+Style/ClassAndModuleChildren:
+    Enabled:                       false
+    # EnforcedStyle:               compact
+
+Metrics/MethodLength:
+    Max:                           22

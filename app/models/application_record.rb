@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationRecord < ActiveRecord::Base
   establish_connection("odoo_#{Rails.env}".to_sym)
 

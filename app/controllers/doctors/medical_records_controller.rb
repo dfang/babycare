@@ -1,21 +1,21 @@
+# frozen_string_literal: true
+
 class Doctors::MedicalRecordsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
   before_action :check_is_verified_doctor
-  before_action :config_wx_jssdk, only: [:new, :edit]
   # before_action :find_reservation
   # skip_before_action :find_reservation, except: [:create, :update ]
   # skip_before_action :find_reservation, only: [:index ]
 
   def create
     p medical_record_params
-    # binding.remote_pry
-    create! {
+    create! do
       if @reservation.present?
         doctors_reservation_path(@reservation)
       else
         doctors_medical_record_path(resource)
       end
-    }
+    end
   end
 
   def update
@@ -26,13 +26,13 @@ class Doctors::MedicalRecordsController < InheritedResources::Base
     # resource.laboratory_examination_images.delete_all
     # resource.imaging_examination_images.delete_all
 
-    update! {
+    update! do
       if @reservation.present?
         doctors_reservation_path(@reservation)
       else
         doctors_medical_record_path(resource)
       end
-    }
+    end
   end
 
   def new
@@ -57,10 +57,10 @@ class Doctors::MedicalRecordsController < InheritedResources::Base
   # end
 
   # def medical_record_params
-    # params.require(:medical_record).permit!
-    # params.require(:medical_record).permit(medical_record_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
-    # params.require(:medical_record).permit(laboratory_examination_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
-    # params.require(:medical_record).permit(imaging_examination_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
+  # params.require(:medical_record).permit!
+  # params.require(:medical_record).permit(medical_record_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
+  # params.require(:medical_record).permit(laboratory_examination_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
+  # params.require(:medical_record).permit(imaging_examination_images_attributes: [:id, :data, :is_cover, :medica_id, :medical_record_id, :_destroy])
   # end
 
   def medical_record_params
@@ -71,25 +71,13 @@ class Doctors::MedicalRecordsController < InheritedResources::Base
       :onset_date, :remarks, :history_of_present_illness, :past_medical_history, :allergic_history,
       :preliminary_diagnosis, :treatment_recommendation, :imaging_examination, :created_at,
       :oxygen_saturation, :reservation_id, :blood_type, :date_of_birth, :name, :gender, :identity_card,
-      medical_record_images_attributes: [ :id, :data, :media_id, :_destroy],
-      laboratory_examination_images_attributes: [ :id, :data, :media_id, :_destroy],
-      imaging_examination_images_attributes: [ :id, :data, :media_id, :_destroy]
+      medical_record_images_attributes: %i[id data media_id _destroy],
+      laboratory_examination_images_attributes: %i[id data media_id _destroy],
+      imaging_examination_images_attributes: %i[id data media_id _destroy]
     )
   end
 
   def check_is_verified_doctor
-    unless current_user.is_verified_doctor?
-      redirect_to doctors_status_path and return
-    end
-  end
-
-  def config_wx_jssdk
-    @appId = Settings.wx_pay.app_id
-    @nonceStr = SecureRandom.hex
-    @timestamp =  DateTime.now.to_i
-    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
-                        "#{k}=#{v}" if v != "" && !v.nil?
-                      end.compact.join('&')
-    @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
+    redirect_to(doctors_status_path) unless current_user.verified_doctor?
   end
 end

@@ -1,12 +1,11 @@
-class Patients::SettingsController < InheritedResources::Base
+# frozen_string_literal: true
 
-  def edit
-  end
+class Patients::SettingsController < InheritedResources::Base
+  def edit; end
 
   protected
 
   def setting_params
     params.require(:setting).permit!
   end
-
 end

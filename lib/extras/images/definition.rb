@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Images
   module Definition
     VERSIONS = {
       'size_22_22'                              => { width: 22, height: 22 },
       'size_28_28'                              => { width: 28, height: 28 },
       'size_32_32'                              => { width: 32, height: 32 },
-      'size_42_42'                              => { width: 42, height: 42  },
+      'size_42_42'                              => { width: 42, height: 42 },
       'size_50_50'                              => { width: 50, height: 50 },
       'size_64_64'                              => { width: 64, height: 64 },
       'size_66_66'                              => { width: 66, height: 66 },
@@ -36,6 +38,6 @@ module Images
       'size_459_290'                            => { width: 459, height: 290 },
       'size_800_400'                            => { width: 800, height: 400 },
       'size_1280_1280'                          => { width: 1280, height: 1280, mode: 2 }
-    }
+    }.freeze
   end
 end

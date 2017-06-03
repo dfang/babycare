@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Wisper.subscribe(ReservationSubscriber.new)
 Wisper.subscribe(UserSubscriber.new)
 Wisper.subscribe(DoctorSubscriber.new)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # 处理多张的用ProcessWxImageJob, 目前用于病历中图片的上传
 # 单张使用的是process_doctor_xxx_job.rb, 目前用于医生执照身份证的上传
 class ProcessWxImageJob < ActiveJob::Base

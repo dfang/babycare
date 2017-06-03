@@ -1,32 +1,32 @@
+# frozen_string_literal: true
+
 class GlobalController < ApplicationController
-  def status
-  end
+  def status; end
 
   def denied
     @warning = flash[:error]
   end
 
   def switch
-    if current_user.doctor.present?
-      doctor ||= current_user.doctor.reload
-    else
-      doctor ||= Doctor.first
-    end
+    doctor ||= if current_user.doctor.present?
+                 current_user.doctor.reload
+               else
+                 Doctor.first
+               end
 
     doctor.reload
     doctor.user_id = current_user.id
-    if doctor.verified?
-      doctor.verified = false
-    else
-      doctor.verified = true
-    end
+    doctor.verified = if doctor.verified?
+                        false
+                      else
+                        true
+                      end
     doctor.save!
 
     if current_user.doctor && current_user.doctor.verified?
-      redirect_to my_doctor_root_path and return
+      redirect_to(my_doctor_root_path) && return
     else
-      redirect_to my_patient_root_path and return
+      redirect_to(my_patient_root_path) && return
     end
-
   end
 end

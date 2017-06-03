@@ -18,7 +18,6 @@ class CreatePeople < ActiveRecord::Migration
       t.string :qq
       t.text :remark
 
-
       t.timestamps null: false
     end
   end

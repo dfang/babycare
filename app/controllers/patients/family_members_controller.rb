@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Patients::FamilyMembersController < ApplicationController
   before_action -> { authenticate_user! }
 
@@ -5,19 +7,14 @@ class Patients::FamilyMembersController < ApplicationController
     @members = current_user.children
   end
 
-  def new
-  end
+  def new; end
 
   def create
     fake_email = "#{SecureRandom.hex}@a-fake-email.com"
-    fake_password = "#{SecureRandom.hex}"
-    create_user_params = user_params.merge!({
-      email: fake_email, password: fake_password
-    })
+    fake_password = SecureRandom.hex.to_s
+    create_user_params = user_params.merge!(email: fake_email, password: fake_password)
     child = current_user.children.create!(create_user_params)
-    if child.errors.empty?
-      redirect_to patients_family_members_path and return
-    end
+    redirect_to(patients_family_members_path) && return if child.errors.empty?
   end
 
   def edit
@@ -34,11 +31,12 @@ class Patients::FamilyMembersController < ApplicationController
     if @member.errors.any?
       render :edit
     else
-      redirect_to patients_family_member_path(@member) and return
+      redirect_to(patients_family_member_path(@member)) && return
     end
   end
 
   protected
+
   def user_params
     params.require(:user).permit(:name, :identity_card, :birthdate, :gender, :blood_type, :past_medical_history, :allergic_history, :personal_history, :family_history, :vaccination_history)
   end

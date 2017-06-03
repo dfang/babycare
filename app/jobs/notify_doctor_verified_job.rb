@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NotifyDoctorVerifiedJob < ActiveJob::Base
   queue_as :default
 

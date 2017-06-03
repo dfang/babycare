@@ -1,4 +1,6 @@
-require "rexml/document"
+# frozen_string_literal: true
+
+require 'rexml/document'
 
 class Patients::ReservationsController < InheritedResources::Base
   # before_action ->{ authenticate_user!( force: true ) }
@@ -11,7 +13,7 @@ class Patients::ReservationsController < InheritedResources::Base
   # skip_before_action :authenticate_user!, only: :payment_notify
   # skip_before_action :check_is_verified_doctor, only: :payment_notify
   # custom_actions :collection => [ :payment_notify, :payment_test ], :member => [ :status ]
-  custom_actions :member => [ :status ]
+  custom_actions member: [:status]
 
   # def reservations
   # end
@@ -20,8 +22,7 @@ class Patients::ReservationsController < InheritedResources::Base
     @reservations = current_user.reservations.order('created_at DESC')
   end
 
-  def status
-  end
+  def status; end
 
   def show
     if resource.pending?
@@ -39,13 +40,13 @@ class Patients::ReservationsController < InheritedResources::Base
     # 预约定金 TO_BE_TESTED
     # if resource.out_trade_prepay_no.blank? && resource.reserved?
     if resource.pending?
-      resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
+      resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100_000)}"
     end
 
     # 支付余款 TO_BE_TESTED
     # if resource.out_trade_pay_no.blank? && resource.diagnosed?
     if resource.diagnosed?
-      resource.out_trade_pay_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
+      resource.out_trade_pay_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100_000)}"
     end
 
     out_trade_no = resource.out_trade_pay_no || resource.out_trade_prepay_no
@@ -56,49 +57,47 @@ class Patients::ReservationsController < InheritedResources::Base
 
     if resource.pending? || resource.diagnosed?
 
-        payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
-        options = WxApp::WxPay.generate_payment_options
+      payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
+      options = WxApp::WxPay.generate_payment_options
 
-        # 微信支付的坑
-        # total_fee 必须是整数的分，不能是float
-        # JSAPI支付必须传openid
-        payment_params.merge!({openid: current_wechat_authentication.uid})
+      # 微信支付的坑
+      # total_fee 必须是整数的分，不能是float
+      # JSAPI支付必须传openid
+      payment_params[:openid] = current_wechat_authentication.uid
 
-        Rails.logger.info  "payment_params is #{payment_params}"
-        Rails.logger.info  "options is #{options}"
+      Rails.logger.info  "payment_params is #{payment_params}"
+      Rails.logger.info  "options is #{options}"
 
-        result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-        Rails.logger.info   "invoke_unifiedorder result is .......... #{result}"
+      result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
+      Rails.logger.info "invoke_unifiedorder result is .......... #{result}"
 
-        # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-        # js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
-        # p  "js_sdk_signature string ..........\n #{js_sdk_signature_str} "
+      # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
+      # js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
+      # p  "js_sdk_signature string ..........\n #{js_sdk_signature_str} "
 
-        # pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
-        # p   'pay_sign_str is .....'
-        # p   pay_sign_str
+      # pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
+      # p   'pay_sign_str is .....'
+      # p   pay_sign_str
 
-        js_pay_params = ::WxPay::Service.generate_js_pay_req({prepayid: result['prepay_id'], noncestr: options[:noncestr]}, options)
+      js_pay_params = ::WxPay::Service.generate_js_pay_req({ prepayid: result['prepay_id'], noncestr: options[:noncestr] }, options)
 
+      # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
+      @order_params = {
+        appId:     WxPay.appid,
+        timeStamp: js_pay_params.delete(:timeStamp),
+        nonceStr:  js_pay_params.delete(:nonceStr),
+        signType:  js_pay_params.delete(:signType),
+        package:   js_pay_params.delete(:package),
+        paySign:   js_pay_params.delete(:paySign)
+      }
 
-        # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
-        @order_params = {
-          appId:     WxPay.appid,
-          timeStamp: js_pay_params.delete(:timeStamp),
-          nonceStr:  js_pay_params.delete(:nonceStr),
-          signType:  js_pay_params.delete(:signType),
-          package:   js_pay_params.delete(:package),
-          paySign:   js_pay_params.delete(:paySign)
-        }
-
-        Rails.logger.info '@order_params is .........'
-        Rails.logger.info @order_params
+      Rails.logger.info '@order_params is .........'
+      Rails.logger.info @order_params
     end
-
   end
 
   def latest
-    latest_pending_reservation = current_user.reservations.pending.order("CREATED_AT DESC").first
+    latest_pending_reservation = current_user.reservations.pending.order('CREATED_AT DESC').first
     if latest_pending_reservation.present?
       redirect_to patients_reservation_path(latest_pending_reservation)
     else
@@ -162,22 +161,19 @@ class Patients::ReservationsController < InheritedResources::Base
   # def payment_test
   # end
 
-
   private
 
-  # todo: fix_this
+  # TODO: fix_this
   def check_is_verified_doctor
-    if current_user.is_verified_doctor?
-      redirect_to patients_status_path and return
-    end
+    redirect_to(patients_status_path) && return if current_user.verified_doctor?
   end
 
   def deny_doctors
-    if current_user.is_verified_doctor?
-    # unless resource.user_a == current_user.id
-    #   # todo: redirect_to page with permission denied message
-      flash[:error] = "你是医生不能访问用户区域"
-      redirect_to global_denied_path and return
+    if current_user.verified_doctor?
+      # unless resource.user_a == current_user.id
+      #   # todo: redirect_to page with permission denied message
+      flash[:error] = '你是医生不能访问用户区域'
+      redirect_to(global_denied_path) && return
     end
   end
 

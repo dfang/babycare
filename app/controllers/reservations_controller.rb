@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class ReservationsController < InheritedResources::Base
-  before_action -> { authenticate_user!( force: true ) }
+  before_action -> { authenticate_user!(force: true) }
 
   before_action :deny_doctors
-  skip_before_action :deny_doctors, only: [ :public, :show, :status ]
-
+  skip_before_action :deny_doctors, only: %i[public show status]
 
   before_action -> { patient_and_has_children? }
   before_action -> { ensure_registerd_membership }
@@ -13,63 +14,58 @@ class ReservationsController < InheritedResources::Base
 
   def public
     @is_doctor = current_user.doctor.present?
-    @reservations = Reservation.prepaid.order("reservation_date ASC")
+    @reservations = Reservation.prepaid.order('reservation_date ASC')
   end
 
   def create
     @reservation = Reservation.new(reservation_params)
-    # binding.pry
-    create! {
+    create! do
       status_reservation_path(resource)
-    }
+    end
   end
 
   def new
-    @symptoms = Symptom.all.group_by(&:name).map { |k, v| k }.to_json
-    @symptom_details = Symptom.all.group_by(&:name).map { |k, v| {name: k, values: v.map(&:detail) } }.to_json
+    @symptoms = Symptom.all.group_by(&:name).map { |k, _v| k }.to_json
+    @symptom_details = Symptom.all.group_by(&:name).map { |k, v| { name: k, values: v.map(&:detail) } }.to_json
     super
   end
 
-  def restricted
-  end
+  def restricted; end
 
-  def status
-  end
+  def status; end
 
-  def wxpay_test
-    params = {
-      body: '测试商品',
-      out_trade_no: 'test003',
-      total_fee: 1,
-      spbill_create_ip: '127.0.0.1',
-      notify_url: 'http://wx.yhuan.cc/wcpay/notify',
-      trade_type: 'JSAPI',
-      openid: 'ox-t3s_BIGA0KgFWzwNrnFE-pE28'
-    }
-    result = WxPay::Service.invoke_unifiedorder params
-
-    @order_params = {
-      appId: Settings.wx_pay.appid,
-      timeStamp: DateTime.now.utc.to_i,
-      nonceStr:  SecureRandom.hex,
-      signType:  "MD5",
-      package:   "prepay_id=#{result[:prepay]}",
-      paySign:   "#{result[:sign]}"
-    }
-
-    # WxPay::Service::generate_js_pay_req
-
-    p '@order_params'
-    p @order_params
-  end
+  # def wxpay_test
+  #   params = {
+  #     body: '测试商品',
+  #     out_trade_no: 'test003',
+  #     total_fee: 1,
+  #     spbill_create_ip: '127.0.0.1',
+  #     notify_url: 'http://wx.yhuan.cc/wcpay/notify',
+  #     trade_type: 'JSAPI',
+  #     openid: 'ox-t3s_BIGA0KgFWzwNrnFE-pE28'
+  #   }
+  #   result = WxPay::Service.invoke_unifiedorder params
+  #
+  #   @order_params = {
+  #     appId: Settings.wx_pay.appid,
+  #     timeStamp: DateTime.now.utc.to_i,
+  #     nonceStr:  SecureRandom.hex,
+  #     signType:  'MD5',
+  #     package:   "prepay_id=#{result[:prepay]}",
+  #     paySign:   (result[:sign]).to_s
+  #   }
+  #
+  #   # WxPay::Service::generate_js_pay_req
+  #
+  #   p '@order_params'
+  #   p @order_params
+  # end
 
   private
 
   def rectrict_access
     access = AccessWhitelist.find_by(uid: current_user.wechat_authentication.try(:uid))
-    if access.blank?
-      redirect_to restricted_reservations_path and return
-    end
+    redirect_to(restricted_reservations_path) && return if access.blank?
   end
 
   def reservation_params
@@ -77,17 +73,18 @@ class ReservationsController < InheritedResources::Base
   end
 
   def deny_doctors
-    if current_user.doctor.present? && current_user.doctor.verified?
-      flash[:error] = "你是医生不能访问该页面"
-      redirect_to global_denied_path and return
-    end
+    flash[:error] = '你是医生不能访问该页面'
+    redirect_to(global_denied_path) if current_user.verified_doctor?
+    # if current_user.doctor.present? && current_user.doctor.verified?
+    #   flash[:error] = '你是医生不能访问该页面'
+    #   redirect_to(global_denied_path) && return
+    # end
   end
 
   def patient_and_has_children?
     # 如果没有小孩，那就先去添加孩子的资料
-    if current_user.is_patient? && current_user.children.blank?
-      redirect_to patients_family_members_path, alert: "你还没有添加小孩" and return
-    end
+    flash[:alert] = '你还没有添加小孩'
+    redirect_to(patients_family_members_path) if current_user.patient_and_has_no_children?
   end
 
   def ensure_registerd_membership

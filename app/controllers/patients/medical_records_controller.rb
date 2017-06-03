@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class Patients::MedicalRecordsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
-  before_action :find_reservation, only: [:create, :update]
-  skip_before_action :find_reservation, except: [:create, :update]
-  before_action :config_wx_jssdk, only: [:new, :edit]
+  before_action :find_reservation, only: %i[create update]
+  skip_before_action :find_reservation, except: %i[create update]
 
   skip_before_action :verify_authenticity_token
   respond_to :html, :json, :js
@@ -12,13 +13,13 @@ class Patients::MedicalRecordsController < InheritedResources::Base
   end
 
   def create
-    create! {
+    create! do
       if @reservation.present?
         patients_reservation_path(@reservation)
       else
         patients_profile_path
       end
-    }
+    end
   end
 
   def update
@@ -30,20 +31,18 @@ class Patients::MedicalRecordsController < InheritedResources::Base
     Rails.logger.info medical_record_params
 
     # binding.remote_pry
-    update! {
+    update! do
       if @reservation.present?
         patients_reservation_path(@reservation)
       else
         patients_profile_path
       end
-    }
+    end
   end
 
-  def status
-  end
+  def status; end
 
-  def show
-  end
+  def show; end
 
   def new
     @medical_record ||= MedicalRecord.new
@@ -71,9 +70,7 @@ class Patients::MedicalRecordsController < InheritedResources::Base
 
   def find_reservation
     reservation_id ||= params[:reservation_id] || medical_record_params[:reservation_id]
-    if reservation_id.present?
-      @reservation ||= Reservation.find(reservation_id)
-    end
+    @reservation ||= Reservation.find(reservation_id) if reservation_id.present?
   end
 
   def medical_record_params
@@ -84,19 +81,9 @@ class Patients::MedicalRecordsController < InheritedResources::Base
       :onset_date, :remarks, :history_of_present_illness, :past_medical_history, :allergic_history,
       :preliminary_diagnosis, :treatment_recommendation, :imaging_examination, :created_at,
       :oxygen_saturation, :reservation_id, :blood_type, :date_of_birth, :name, :gender, :identity_card,
-      medical_record_images_attributes: [ :id, :data, :media_id, :_destroy],
-      laboratory_examination_images_attributes: [ :id, :data, :media_id, :_destroy],
-      imaging_examination_images_attributes: [ :id, :data, :media_id, :_destroy]
+      medical_record_images_attributes: %i[id data media_id _destroy],
+      laboratory_examination_images_attributes: %i[id data media_id _destroy],
+      imaging_examination_images_attributes: %i[id data media_id _destroy]
     )
-  end
-
-  def config_wx_jssdk
-    @appId = Settings.wx_pay.app_id
-    @nonceStr = SecureRandom.hex
-    @timestamp =  DateTime.now.to_i
-    js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k,v|
-                        "#{k}=#{v}" if v != "" && !v.nil?
-                      end.compact.join('&')
-    @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
   end
 end

@@ -1,7 +1,8 @@
+# coding: utf-8
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-
-
-  resources :products, only: [:index, :show]
+  resources :products, only: %i[index show]
 
   root 'home#index'
   get 'home/index'
@@ -10,7 +11,6 @@ Rails.application.routes.draw do
   get 'home/hospitals'
   get 'home/doctors'
   get 'home/hospital'
-
 
   get 'payment/pay'
   get 'global/status'
@@ -34,18 +34,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, only: [:index, :show]
+  resources :posts, only: %i[index show]
   resources :global_images, only: :create
 
   namespace :wx do
-     get '/' => 'service#verify'
-     post '/' => 'service#create', :defaults => { :format => 'xml' }
-     get '/config_jssdk' => 'service#config_jssdk'
-     post '/payment_notify' => 'wxpay#payment_notify'
+    get '/' => 'service#verify'
+    post '/' => 'service#create', :defaults => { format: 'xml' }
+    get '/config_jssdk' => 'service#config_jssdk'
+    post '/payment_notify' => 'wxpay#payment_notify'
   end
 
   namespace :doctors do
-    resources :transactions, only: [:index, :show, :create, :show]
+    resources :transactions, only: %i[index show create show]
     get 'wallet', to: 'wallets#index'
     get 'wallet/withdraw', to: 'wallets#withdraw'
     resources :reservations do

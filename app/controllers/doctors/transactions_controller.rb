@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Doctors::TransactionsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }, except: []
 
@@ -7,17 +9,14 @@ class Doctors::TransactionsController < InheritedResources::Base
       transaction = current_user.withdraw_cash(transaction_params[:amount].to_f * 100, request.ip)
       redirect_to doctors_transaction_path(transaction)
     end
-
   end
 
-  def success
-  end
+  def success; end
 
-  def show
-  end
+  def show; end
 
   def index
-    @transactions = current_user.transactions.order("CREATED_AT DESC")
+    @transactions = current_user.transactions.order('CREATED_AT DESC')
   end
 
   private

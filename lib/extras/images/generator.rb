@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Images
   class Generator
     # 图片定义在 lib/extras/images/definition

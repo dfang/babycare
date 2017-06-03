@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'browser'
 require "#{Rails.root}/lib/extras/browser"
 
@@ -12,7 +14,6 @@ class ApplicationController < ActionController::Base
   layout proc { |controller| controller.request.xhr? ? false : 'application' }
   helper_method :body_class
 
-
   def body_class
     @body_class || "#{params[:controller]}-#{params[:action]}"
   end
@@ -22,7 +23,6 @@ class ApplicationController < ActionController::Base
     if browser.platform.mac? || browser.platform.linux? || browser.platform.windows?
       @is_desktop = true
       @is_mobile = false
-      request.variant = :phone
     else
       @is_mobile = true
       @is_desktop = false
@@ -34,7 +34,5 @@ class ApplicationController < ActionController::Base
     current_user.authentications.where(provider: 'wechat').first
   end
 
-  def complete_profile
-
-  end
+  def complete_profile; end
 end

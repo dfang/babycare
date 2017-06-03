@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wx_menus
@@ -13,8 +15,8 @@
 #
 
 class WxMenu < ActiveRecord::Base
-  validates_presence_of :key, if: -> { menu_type == 'click' }
-  validates_presence_of :url, if: -> { menu_type == 'view' }
+  validates :key, presence: true, if: -> { menu_type == 'click' }
+  validates :url, presence: true, if: -> { menu_type == 'view' }
 
   has_many :wx_sub_menus, dependent: :destroy
   accepts_nested_attributes_for :wx_sub_menus, allow_destroy: true
@@ -23,11 +25,11 @@ class WxMenu < ActiveRecord::Base
   MENU_TYPES = {
     click: '事件触发',
     view:  '链接跳转'
-  }
+  }.freeze
 
   KEYS = {
     contact_us: '联系我们'
-  }
+  }.freeze
 
   def human_type
     menu_type.present? ? MENU_TYPES[menu_type.to_sym] : ''

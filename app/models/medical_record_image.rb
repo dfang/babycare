@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MedicalRecordImage < Image
   establish_connection("odoo_#{Rails.env}".to_sym)
   self.table_name = 'fa_medical_record_image'
