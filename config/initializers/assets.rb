@@ -19,11 +19,12 @@ Rails.application.config.assets.precompile += %w[mobile.js mobile.css uploader.j
 Rails.application.config.assets.precompile += %w[bootstrap_fontawesome]
 
 # Adding Webfonts to the Asset Pipeline
-# this one failed
+# this one failed, because ruby version on server is 2.3.0
 # https://stackoverflow.com/questions/41792348/nomethoderror-undefined-method-match-for-rubystring
 # Rails.application.config.assets.precompile << proc do |path|
 #   true if path.match?(/\.(eot|svg|ttf|woff)\z/)
 # end
+# String#match? and Regexp#match? are Ruby 2.4 new methods
 
 Rails.application.config.assets.precompile << proc { |path|
   true if path =~ /\.(eot|svg|ttf|woff)\z/
