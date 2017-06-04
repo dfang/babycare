@@ -80,18 +80,16 @@ gem 'pundit'
 gem 'omniauth'
 gem 'omniauth-wechat-oauth2'
 
-
-# create test data on server, tempary moved out of development group
-gem 'ffaker'
-gem 'factory_girl_rails'
-gem 'rspec-rails'
-gem 'database_cleaner'
-
-gem 'pry-rails'
-gem 'pry-remote'
-
-
 gem 'puma', '~> 3.7'
+
+group :development, :teset do
+  gem 'ffaker'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'pry-rails'
+  gem 'pry-remote'
+end
 
 group :development do
   # gem 'web-console', '~> 2.0'
