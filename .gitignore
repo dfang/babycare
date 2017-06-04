@@ -71,3 +71,5 @@ node_modules
 public/packs
 /public/packs
 /node_modules
+
+public/assets/

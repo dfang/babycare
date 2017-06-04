@@ -14,7 +14,7 @@
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 set :rails_env, 'production'
-server '119.29.178.236', user: 'deployer', roles: %w[web app db]
+server '119.29.178.236', user: 'deployer', roles: %w(web app db)
 
 # Extended Server Syntax
 # ======================
