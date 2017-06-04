@@ -1,5 +1,7 @@
 == README[![Build Status](https://travis-ci.org/dfang/babycare.svg?branch=master)](https://travis-ci.org/dfang/babycare)
 
+{<img src="https://api.codacy.com/project/badge/Grade/85746e4fddbe4538933b607272a9aa01" alt="Codacy Badge">}[https://www.codacy.com/app/dfang/babycare?utm_source=github.com&utm_medium=referral&utm_content=dfang/babycare&utm_campaign=badger]
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
