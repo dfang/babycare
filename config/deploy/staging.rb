@@ -10,6 +10,9 @@
 # role :app, %w{deploy@example.com}
 # role :web, %w{deploy@example.com}
 # role :db,  %w{deploy@example.com}
+
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+
 set :rails_env, 'production'
 server '119.29.178.236', user: 'deployer', roles: %w[web app db]
 
