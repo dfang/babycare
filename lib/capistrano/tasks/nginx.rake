@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # nginx
 # namespace :nginx do
 #   desc 'restart nginx server'

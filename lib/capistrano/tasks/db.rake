@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Hacking.....
 namespace :db do
   desc 'pull odoo database after cap db:pull, because there are two databases'

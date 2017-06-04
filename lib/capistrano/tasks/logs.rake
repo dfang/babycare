@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :logs do
   desc "tail log, in zsh, you need to quote your task, eg cap staging 'logs:tail[production]', replace production to unicorn or nginx.access or nginx.error"
   task :tail, :file do |_t, args|
