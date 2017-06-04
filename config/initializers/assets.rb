@@ -19,6 +19,11 @@ Rails.application.config.assets.precompile += %w[mobile.js mobile.css uploader.j
 Rails.application.config.assets.precompile += %w[bootstrap_fontawesome]
 
 # Adding Webfonts to the Asset Pipeline
-Rails.application.config.assets.precompile << proc do |path|
+# this one failed
+# Rails.application.config.assets.precompile << proc do |path|
+#   true if path.match?(/\.(eot|svg|ttf|woff)\z/)
+# end
+
+Rails.application.config.assets.precompile << proc { |path|
   true if path.match?(/\.(eot|svg|ttf|woff)\z/)
-end
+}
