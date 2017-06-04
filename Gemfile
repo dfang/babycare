@@ -131,5 +131,7 @@ group :development, :test do
   # gem 'active_mocker', '~> 2.5'
 end
 
+# gem 'codacy-coverage', :require => false
+# gem 'simplecov', :require => false, :group => :test
 
 # gem 'mocha', group: :test
