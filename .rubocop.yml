@@ -1,6 +1,7 @@
-inherit_from:                      .rubocop_todo.yml
+inherit_from:                  .rubocop_todo.yml
 
 AllCops:
+  TargetRubyVersion:           2.4
   Exclude:
     - 'bin/*'
     - 'db/**/*'
@@ -9,22 +10,22 @@ AllCops:
     - 'tmp/**/*'
 
 Documentation:
-  Enabled:                         false
+  Enabled:                     false
 
 Metrics/LineLength:
-  Enabled:                         false
-  # Max:                           100
+  Enabled:                     false
+  # Max:                       100
 
 # Style/FrozenStringLiteralComment:
 #   Exclude:
 #     - 'node_modules/**/*'
 
 Style/AsciiComments:
-  Enabled:                         false
+  Enabled:                     false
 
 Style/ClassAndModuleChildren:
-    Enabled:                       false
-    # EnforcedStyle:               compact
+    Enabled:                   false
+    # EnforcedStyle:           compact
 
 Metrics/MethodLength:
-    Max:                           22
+    Max:                       22
