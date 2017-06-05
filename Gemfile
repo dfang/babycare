@@ -40,7 +40,10 @@ gem 'friendly_id'
 gem 'config'
 
 gem 'has_scope'
+
 gem 'exception_notification'
+gem 'slack-notifier'
+
 gem 'china_region_fu'
 gem 'stringex'
 # gem 'public_activity'

@@ -46,8 +46,5 @@ module Babycare
       g.orm             :active_record
       g.template_engine :erb
     end
-
-    # https://github.com/websocket-rails/websocket-rails/wiki/Installation-and-Setup
-    config.middleware.delete Rack::Lock
   end
 end
