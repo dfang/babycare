@@ -5,7 +5,8 @@
 lock '3.7'
 
 set :application, 'callmeadoctor'
-set :repo_url, 'git@git.coding.net:df1228/callmeadoctor.git'
+# set :repo_url, 'git@git.coding.net:df1228/callmeadoctor.git'
+set :repo_url, 'git@github.com:dfang/babycare.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
