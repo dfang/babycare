@@ -18,21 +18,22 @@ ExceptionNotification.configure do |config|
   # Notifiers =================================================================
 
   # Email notifier sends notifications by email.
-  config.add_notifier :email, email_prefix: '[ERROR](Call Me A Doctor)',
-                              sender_address:        %("Notifier" <call_me_a_doctor@yhuan.cc>),
-                              exception_recipients: %w[df1228@dingtalk.com],
-                              smtp_settings: {
-                                address:        'smtp.exmail.qq.com',
-                                user_name:      'call_me_a_doctor@yhuan.cc',
-                                password:       '1Qaz2wsx',
-                                authentication: :login,
-                                enable_starttls_auto: true
-                              },
-                              ignore_crawlers: %w[Googlebot bingbot AhrefsBot Baiduspider Site\ Scanner\ Bot Sogou HaosouSpider]
+  # config.add_notifier :email, email_prefix: '[ERROR](Call Me A Doctor)',
+  #                             sender_address:        %("Notifier" <call_me_a_doctor@yhuan.cc>),
+  #                             exception_recipients: %w[df1228@dingtalk.com],
+  #                             smtp_settings: {
+  #                               address:        'smtp.exmail.qq.com',
+  #                               user_name:      'call_me_a_doctor@yhuan.cc',
+  #                               password:       '1Qaz2wsx',
+  #                               authentication: :login,
+  #                               enable_starttls_auto: true
+  #                             },
+  #                             ignore_crawlers: %w[Googlebot bingbot AhrefsBot Baiduspider Site\ Scanner\ Bot Sogou HaosouSpider]
 
   config.add_notifier :slack, webhook_url: 'https://hooks.slack.com/services/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',
                               channel: '#exceptions',
-                              username: 'exceptions_notifier'
+                              username: 'exceptions_notifier',
+                              ignore_exceptions: []
 
   # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.
   # config.add_notifier :campfire, {
