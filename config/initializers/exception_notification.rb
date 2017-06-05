@@ -33,7 +33,10 @@ ExceptionNotification.configure do |config|
   config.add_notifier :slack, webhook_url: 'https://hooks.slack.com/services/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',
                               channel: '#exceptions',
                               username: 'exceptions_notifier',
-                              ignore_exceptions: []
+                              additional_parameters: {
+                                icon_emoji: ':red_circle:', # RED CIRCLE icon to distinguish Production Exceptions in channel
+                                mrkdwn: true
+                              }
 
   # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.
   # config.add_notifier :campfire, {

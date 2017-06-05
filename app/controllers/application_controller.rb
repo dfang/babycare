@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_action :detect_platform
   before_action :complete_profile
   # before_action :complete_profile
+  before_action :prepare_exception_notifier
 
   layout proc { |controller| controller.request.xhr? ? false : 'application' }
   helper_method :body_class
@@ -35,4 +36,10 @@ class ApplicationController < ActionController::Base
   end
 
   def complete_profile; end
+
+  def prepare_exception_notifier
+    request.env['exception_notifier.exception_data'] = {
+      current_user: current_user
+    }
+  end
 end
