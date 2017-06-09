@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'browser'
-require "#{Rails.root}/lib/extras/browser"
+require Rails.root.join('lib', 'extras', 'browser')
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.

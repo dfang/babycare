@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SmsNotifyDoctorWhenPaidJob < ActiveJob::Base
+class SmsNotifyDoctorWhenPaidJob < ApplicationJob
   queue_as :urgent
 
   def perform(to, *args)

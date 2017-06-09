@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RecordPhoneCallHistoryJob < ActiveJob::Base
+class RecordPhoneCallHistoryJob < ApplicationJob
   queue_as :default
 
   def perform(*args)

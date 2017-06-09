@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NotifyDoctorVerifiedJob < ActiveJob::Base
+class NotifyDoctorVerifiedJob < ApplicationJob
   queue_as :default
 
   def perform(*args)

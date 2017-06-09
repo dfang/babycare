@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SmsNotifyAllWhenNewReservationJob < ActiveJob::Base
+class SmsNotifyAllWhenNewReservationJob < ApplicationJob
   queue_as :urgent
 
   def perform(to, *args)

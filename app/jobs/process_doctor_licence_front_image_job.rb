@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProcessDoctorLicenceFrontImageJob < ActiveJob::Base
+class ProcessDoctorLicenceFrontImageJob < ApplicationJob
   queue_as :urgent
 
   def perform(doctor)

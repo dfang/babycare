@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProcessDoctorIdCardBackImageJob < ActiveJob::Base
+class ProcessDoctorIdCardBackImageJob < ApplicationJob
   queue_as :urgent
 
   def perform(doctor)
@@ -10,5 +10,6 @@ class ProcessDoctorIdCardBackImageJob < ActiveJob::Base
     # 把wx.uploadImage 生成的 media_id 置空
     # image.media_id = ""
     doctor.update_column(:id_card_back, global_image.data_url)
+    # doctor.update(id_card_back: global_image.data_url)
   end
 end

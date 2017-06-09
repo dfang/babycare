@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RecordSmsSendHistoryJob < ActiveJob::Base
+class RecordSmsSendHistoryJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
