@@ -126,7 +126,7 @@ group :development do
 
   # just install, don't need to install with bundler
   # gem 'fasterer', require: false
-  # gem 'rubocop', require: false
+  gem 'rubocop', '0.49.1', require: false
   # gem 'rubycritic', require: false
 end
 
