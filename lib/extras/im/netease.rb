@@ -10,6 +10,8 @@ module IM
   class Netease
     include HTTParty
 
+    # FIXME
+    # rubocop:disable Metrics/MethodLength
     # 文档地址 http://dev.netease.im/docs?doc=server_call
     def self.call(caller_phone, callee_phone, _caller_id, _callee_id, _reservation_id)
       url = 'https://api.netease.im/call/ecp/startcall.action'

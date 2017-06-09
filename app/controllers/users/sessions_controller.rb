@@ -16,6 +16,8 @@ class Users::SessionsController < Devise::SessionsController
 
   protected
 
+  # FIXME
+  # rubocop:disable Metrics/MethodLength
   def wx_authenticate!
     # 微信网页授权文档
     # https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842&token=&lang=zh_CN

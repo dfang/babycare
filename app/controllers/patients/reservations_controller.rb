@@ -24,6 +24,8 @@ class Patients::ReservationsController < InheritedResources::Base
 
   def status; end
 
+  # FIXME
+  # rubocop:disable Metrics/MethodLength
   def show
     if resource.pending?
       body_text = '预约定金'

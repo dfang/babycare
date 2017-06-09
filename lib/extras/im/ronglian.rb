@@ -25,6 +25,8 @@ module IM
     #     RecordSmsSendHistoryJob.perform_now
     # end
 
+    # FIXME
+    # rubocop:disable Metrics/MethodLength
     # 预约的时候可以填别的号码
     def call(caller_id, callee_id, reservation_id, caller_phone, callee_phone)
       caller = User.find_by(id: caller_id)

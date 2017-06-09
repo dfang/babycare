@@ -88,6 +88,8 @@ module WxApp
       end
     end
 
+    # FIXME
+    # rubocop:disable Metrics/MethodLength
     def build_menus
       Jbuilder.encode do |json|
         json.set! :button do
