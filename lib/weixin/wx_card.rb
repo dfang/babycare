@@ -13,7 +13,7 @@ module WxApp
       conn = get_conn
     end
 
-    def get_membership_card_approval_status
+    def membership_card_approval_status
       url = '/card/get?access_token=TOKEN'
       conn = get_conn
       resp = conn.post do |req|
@@ -22,7 +22,7 @@ module WxApp
       end
     end
 
-    def get_membership_card_detail(card_id)
+    def membership_card_detail(card_id)
       url = '/card/get?access_token=TOKEN'
       conn = get_conn
       resp = conn.post do |req|
@@ -48,12 +48,12 @@ module WxApp
     end
 
     # 获取用户已领取的卡券
-    def get_member_card_list
+    def member_card_list
       url = '/card/user/getcardlist?access_token=TOKEN'
     end
 
     # 拉取会员信息（积分查询）接口
-    def get_member_card_detail
+    def member_card_detail
       url = '/card/membercard/userinfo/get?access_token=TOKEN'
       end
   end

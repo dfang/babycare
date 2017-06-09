@@ -30,11 +30,10 @@ class DoctorsController < InheritedResources::Base
         # redirect_to status_doctor_path(@doctor)
         redirect_to(wizard_path(:finished)) && return
       end
-      redirect_to(wizard_path(:basic)) && return
     else
       @doctor = current_user.build_doctor
-      redirect_to(wizard_path(:basic)) && return
     end
+    redirect_to(wizard_path(:basic)) && return
   end
 
   def index

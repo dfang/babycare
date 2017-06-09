@@ -73,9 +73,9 @@ class Users::SessionsController < Devise::SessionsController
           unionid = userinfo['openid']
           # unionid = union_info['unionid']
 
-          authentication = Authentication.where(provider: 'wechat', unionid: unionid).first
+          authentication = Authentication.find_by(provider: 'wechat', unionid: unionid)
           if authentication.blank?
-            if authentication = Authentication.where(provider: 'wechat', uid: openid).first
+            if authentication = Authentication.find_by(provider: 'wechat', uid: openid)
               authentication.update_column :unionid, unionid
               user = authentication.user
             else
@@ -137,6 +137,7 @@ class Users::SessionsController < Devise::SessionsController
     # 通过code换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同
     token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{WxApp::WxCommon::WEIXIN_ID}&secret=#{WxApp::WxCommon::WEIXIN_SECRET}&code=#{code}&grant_type=authorization_code"
     token_info = JSON.parse(Faraday.get(token_url).body)
+    token_info
   end
 
   def exchange_access_token_for_userinfo(access_token, openid)
