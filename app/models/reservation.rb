@@ -19,7 +19,8 @@ class Reservation < ApplicationRecord
   has_many :sms_histories, dependent: :destroy
 
   validates :reservation_phone, format: /(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}/
-  validates_presence_of :name, :chief_complains
+  validates :name, presence: true
+  validates :chief_complains, presence: true
 
   attr_accessor :total_fee
 
@@ -27,6 +28,12 @@ class Reservation < ApplicationRecord
   enumerize :reservation_type, in: %i[online offline], default: :offline, predicates: true
   enumerize :gender, in: %i[male female], default: :male
   GENDERS = [%w[儿子 male], %w[女儿 female]].freeze
+
+  delegate :hospital, to: :doctor, allow_nil: true
+  delegate :doctor, to: :doctor_user, allow_nil: true
+
+  delegate :patient_user_name, to: :patient_user, prefix: false, allow_nil: true
+  delegate :doctor_user_name, to: :doctor_user, prefix: false, allow_nil: true
 
   # for testing, use claimed_by instead of res.reserve to debug in rails console
   # def claimed_by(user_b, reservation_time, reservation_location, reservation_phone)
@@ -55,11 +62,11 @@ class Reservation < ApplicationRecord
   end
 
   def rating_by_doctor
-    ratings.where(rated_by: user_b).first
+    ratings.find_by(rated_by: user_b)
   end
 
   def rating_by_patient
-    ratings.where(rated_by: user_a).first
+    ratings.find_by(rated_by: user_a)
   end
 
   def doctor_has_rated?
@@ -86,13 +93,13 @@ class Reservation < ApplicationRecord
     reservation_phone || patient_user.mobile_phone
   end
 
-  def patient_user_name
-    name || patient_user.try(:name)
-  end
+  # def patient_user_name
+  #   name || patient_user.try(:name)
+  # end
 
-  def doctor_user_name
-    doctor_user.try(:name)
-  end
+  # def doctor_user_name
+  #   doctor_user.try(:name)
+  # end
 
   def doctor_user_phone
     doctor_user.try(:mobile_phone)
@@ -106,13 +113,13 @@ class Reservation < ApplicationRecord
     return reservation_time.strftime('%Y-%m-%d %H:%M:%S') if reservation_time.present?
   end
 
-  def doctor
-    doctor_user.try(:doctor)
-  end
+  # def doctor
+  #   doctor_user.try(:doctor)
+  # end
 
-  def hospital
-    doctor.hospital
-  end
+  # def hospital
+  #   doctor.hospital
+  # end
 
   def reservation_title
     "#{name}的#{gender}"

@@ -16,7 +16,7 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  scope :settleable, -> { where(Time.now - 7.days >= 'CREATED_AT') }
+  scope :settleable, -> { where(Time.zone.now - 7.days >= 'CREATED_AT') }
 
   validates :amount, presence: true
   validates :reservation_id, presence: true, if: :income?

@@ -26,6 +26,6 @@ class Post < ActiveRecord::Base
   scope :published, -> { where(published: true) }
 
   def publish!
-    update_attribute(published: true)
+    update(published: true)
   end
 end

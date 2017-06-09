@@ -13,7 +13,7 @@ class Doctor < ApplicationRecord
   scope :verified, -> { where(verified: true) }
 
   def verify!
-    update_attribute(:verified, true)
+    update(:verified, true)
     broadcast(:doctor_verified_successful, self)
   end
 end

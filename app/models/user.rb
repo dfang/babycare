@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   end
 
   def wechat_authentication
-    authentications.where(provider: 'wechat').first
+    authentications.find_by(provider: 'wechat')
   end
 
   def create_wechat_user(wechat_session)
@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
   # 结算
   def decrease_balance_withdrawable(amount)
     build_wallet if wallet.blank?
-    wallet.update_attribute(balance_withdrawable: balance_withdrawable - amount) if can_withdraw?(amount)
+    wallet.update(balance_withdrawable: balance_withdrawable - amount) if can_withdraw?(amount)
   end
 
   def increase_balance_withdrawable(amount)
