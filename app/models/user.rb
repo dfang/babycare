@@ -147,6 +147,10 @@ class User < ActiveRecord::Base
     wallet.balance_withdrawable >= amount
   end
 
+  def profile_complete?
+    name.present? && mobile_phone.present?
+  end
+
   private
 
   # method for testing
