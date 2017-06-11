@@ -123,11 +123,9 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def redirect_after_sign_in
-    if session[:user_return_to]
-      redirect_to session[:user_return_to]
-    else
-      redirect_to(root_path) && return
-    end
+    redirect_to(edit_patients_settings_path) && return if current_user.profile_complete?
+    redirect_to session[:user_return_to] && return if session[:user_return_to]
+    redirect_to(root_path) && return
   end
 
   def get_code_uri(redirect_uri)
