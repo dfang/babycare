@@ -3,12 +3,12 @@
         <div class="weui-msg__icon-area"><i class="weui-icon-waiting weui-icon_msg"></i></div>
         <div class="weui_text_area">
             <h2 class="weui-msg__title">请支付定金</h2>
-            <p class="weui-msg__desc">请支付预约定金, 方便医生和你确认见面地点和时间. 测试阶段定金只要5元</p>
+            <p class="weui-msg__desc">请支付预约定金, 方便医生和你确认见面地点和时间. 测试阶段定金只要0.01元</p>
             <p class="weui-msg__desc">未支付定金之前你可以随便取消, 支付之后的所有取消需要联系客服处理</p>
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-              <a href="javascript:void(0)" class="weui-btn weui-btn__primary" id="wechatPaymentBtn">支付定金(30元)</a>
+              <a href="javascript:void(0)" class="weui-btn weui-btn__primary" id="wechatPaymentBtn">支付定金(0.01元)</a>
               <a href="tel:4000719136" class="weui-btn weui-btn__primary">拨打客服电话</a>
 							<a href="javascript: IM.cancel(<%= resource.id %>)" class="weui-btn weui-btn_warn">取消预约</a>
             </p>
@@ -34,6 +34,8 @@
         };
 
         url = location.href.split('#')[0]
+        console.log('url is ........')
+        console.log(url)
 
         $.ajax({
           url:        "/wx/config_jssdk.json?url=" + escape(url),
@@ -43,6 +45,7 @@
         .done(function(data){
 
           wx.config({
+            debug:     true,
             appId:     data.appId,
             timestamp: data.timestamp,
             nonceStr:  data.nonceStr,
@@ -51,10 +54,13 @@
           });
 
           wx.error(function(res){
+            console.log('fuck')
+            console.log(res)
             alert("初始化微信js sdk出错，请联系我们");
           })
 
           wx.ready(function(){
+            console.log('fuck')
             console.log('wx ready, click to pay')
 
             $('#wechatPaymentBtn').on('click', function() {

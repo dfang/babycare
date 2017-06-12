@@ -123,7 +123,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def redirect_after_sign_in
-    redirect_to(edit_patients_settings_path) && return if current_user.profile_complete?
+    redirect_to(edit_patients_settings_path) && return unless current_user.profile_complete?
     redirect_to session[:user_return_to] && return if session[:user_return_to]
     redirect_to(root_path) && return
   end

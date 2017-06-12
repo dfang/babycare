@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Patients::MedicalRecordsController < InheritedResources::Base
-  before_action -> { authenticate_user!(force: true) }, except: []
+class Patients::MedicalRecordsController < Patients::BaseController
   before_action :find_reservation, only: %i[create update]
   skip_before_action :find_reservation, except: %i[create update]
 

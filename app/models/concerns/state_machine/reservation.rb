@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ClientStateMachine
+module StateMachine
   module Reservation
     extend ActiveSupport::Concern
 

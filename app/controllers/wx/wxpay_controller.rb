@@ -34,7 +34,7 @@ class Wx::WxpayController < ApplicationController
       transaction_id: response_obj['xml']['transaction_id']
     }
 
-    options = WxApp::WxPay.generate_payment_options
+    options = WxApp::WxJsSDK.generate_payment_options
     @order_query_result = WxPay::Service.order_query(params, options)
   end
 end

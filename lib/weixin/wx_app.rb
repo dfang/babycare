@@ -17,14 +17,14 @@ module WxApp
     end
 
     def get_access_token(options = {})
+      Rails.logger.info "app_id in get_access_token is #{WEIXIN_ID}"
       access_token = Rails.cache.fetch('weixin_access_token')
       return access_token unless access_token.nil? || options[:force]
-
       url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
       conn = get_conn
       response = conn.get url
       access_token = JSON.parse(response.body)['access_token']
-      Rails.cache.write('weixin_access_token', access_token, expires_in: 100.minutes)
+      Rails.cache.write('weixin_access_token', access_token, expires_in: 7200.seconds)
       access_token
     end
 
@@ -231,7 +231,7 @@ module WxApp
 end
 
 module WxApp
-  module WxPay
+  module WxJsSDK
     extend self
 
     def generate_payment_params(body_text, out_trade_no, fee, ip, notify_url, trade_type)
@@ -252,12 +252,13 @@ module WxApp
         mch_id:    Settings.wx_pay.mch_id,
         key:       Settings.wx_pay.api_key,
         noncestr:  SecureRandom.hex,
-        timestamp: DateTime.now.to_i
+        timestamp: Time.zone.now.to_i
       }.merge(options)
       options
     end
 
     def generate_js_sdk_signature_str(noncestr, timestamp, url)
+      Rails.logger.info "jsapi_ticket is #{::WxApp::WxCommon.get_jsapi_ticket}"
       js_sdk_signature_str = { jsapi_ticket: ::WxApp::WxCommon.get_jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k, v|
         "#{k}=#{v}" if v != '' && !v.nil?
       end.compact.join('&')
@@ -301,7 +302,7 @@ module WxApp
         desc:                '提现',
         amount:              amount
       }
-      options = WxApp::WxPay.generate_payment_options
+      options = ::WxApp::WxJsSDK.generate_payment_options
       ::WxPay::Service.invoke_transfer(transfer_params, options)
 
       # WxPay::Service.send(:make_payload, transfer_params)

@@ -2,11 +2,7 @@
 
 require 'rexml/document'
 
-class Patients::ReservationsController < InheritedResources::Base
-  # before_action ->{ authenticate_user!( force: true ) }
-  before_action :deny_doctors
-  before_action :authenticate_user!
-  before_action :check_is_verified_doctor
+class Patients::ReservationsController < Patients::BaseController
   # before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
   # skip_before_action :deny_doctors, only: :payment_notify
   # skip_before_action :verify_authenticity_token, only: :payment_notify
@@ -59,8 +55,8 @@ class Patients::ReservationsController < InheritedResources::Base
 
     if resource.pending? || resource.diagnosed?
 
-      payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
-      options = WxApp::WxPay.generate_payment_options
+      payment_params = WxApp::WxJsSDK.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
+      options = WxApp::WxJsSDK.generate_payment_options
 
       # 微信支付的坑
       # total_fee 必须是整数的分，不能是float
@@ -74,10 +70,10 @@ class Patients::ReservationsController < InheritedResources::Base
       Rails.logger.info "invoke_unifiedorder result is .......... #{result}"
 
       # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-      # js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
+      # js_sdk_signature_str = WxApp::WxJsSDK.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
       # p  "js_sdk_signature string ..........\n #{js_sdk_signature_str} "
 
-      # pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
+      # pay_sign_str = WxApp::WxJsSDK.generate_pay_sign_str(options, result['prepay_id'])
       # p   'pay_sign_str is .....'
       # p   pay_sign_str
 
@@ -131,20 +127,20 @@ class Patients::ReservationsController < InheritedResources::Base
   #   end
   #
   #   out_trade_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
-  #   payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, reservation.total_fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
+  #   payment_params = WxApp::WxJsSDK.generate_payment_params(body_text, out_trade_no, reservation.total_fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
   #
-  #   options = WxApp::WxPay.generate_payment_options
+  #   options = WxApp::WxJsSDK.generate_payment_options
   #   result = WxPay::Service.invoke_unifiedorder(payment_params, options)
   #
   #   p 'invoke_unifiedorder result is .......... '
   #   p result
   #
   #   # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-  #   js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
+  #   js_sdk_signature_str = WxApp::WxJsSDK.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
   #   p   'js_sdk_signature string ..........'
   #   p   js_sdk_signature_str
   #
-  #   pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
+  #   pay_sign_str = WxApp::WxJsSDK.generate_pay_sign_str(options, result['prepay_id'])
   #   p   'pay_sign_str is .....'
   #   p   pay_sign_str
   #
@@ -164,20 +160,6 @@ class Patients::ReservationsController < InheritedResources::Base
   # end
 
   private
-
-  # TODO: fix_this
-  def check_is_verified_doctor
-    redirect_to(patients_status_path) && return if current_user.verified_doctor?
-  end
-
-  def deny_doctors
-    if current_user.verified_doctor?
-      # unless resource.user_a == current_user.id
-      #   # todo: redirect_to page with permission denied message
-      flash[:error] = '你是医生不能访问用户区域'
-      redirect_to(global_denied_path) && return
-    end
-  end
 
   def current_wechat_authentication
     current_user.authentications.where(provider: 'wechat').first

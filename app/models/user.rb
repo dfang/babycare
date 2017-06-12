@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
       decrease_balance_withdrawable(amount)
 
       # pay_to_wechat_user
-      WxApp::WxPay.pay_to_wechat_user(wechat_authentication.uid, amount, ip)
+      WxApp::WxJsSDK.pay_to_wechat_user(wechat_authentication.uid, amount, ip)
     end
     transaction
   end

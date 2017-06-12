@@ -27,7 +27,7 @@ class ReservationsController < InheritedResources::Base
   def new
     @symptoms = Symptom.all.group_by(&:name).map { |k, _v| k }.to_json
     @symptom_details = Symptom.all.group_by(&:name).map { |k, v| { name: k, values: v.map(&:detail) } }.to_json
-    super
+    # super
   end
 
   def restricted; end

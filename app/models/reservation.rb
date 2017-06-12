@@ -3,8 +3,10 @@
 class Reservation < ApplicationRecord
   self.table_name = 'fa_reservation'
 
-  # include AASM
-  include ClientStateMachine
+  include AASM
+  include Wisper.model
+
+  # include ::StateMachine::Reservation
   extend Enumerize
   extend ActiveModel::Naming
 
@@ -34,6 +36,76 @@ class Reservation < ApplicationRecord
 
   delegate :patient_user_name, to: :patient_user, prefix: false, allow_nil: true
   delegate :doctor_user_name, to: :doctor_user, prefix: false, allow_nil: true
+
+  aasm do
+    state :pending, initial: true
+    state :reserved, :prepaid, :diagnosed, :paid, :rated, :archived, :overdued, :cancelled
+
+    event :prepay, after_commit: :after_prepaid! do
+      transitions from: :pending, to: :prepaid
+    end
+
+    event :reserve, after_commit: :after_reserved! do
+      transitions from: :prepaid, to: :reserved, guard: :can_be_reserved?
+    end
+
+    event :diagnose, after_commit: :after_diagnosed! do
+      transitions from: :prepaid, to: :diagnosed
+    end
+
+    event :pay, after_commit: :after_paid! do
+      transitions from: :diagnosed, to: :paid
+    end
+
+    event :unreserve do
+      transitions from: :reserved, to: :pending
+    end
+
+    event :archive do
+      transitions from: %i[pending reserved], to: :archived
+    end
+
+    event :rate, after_commit: :after_rated! do
+      transitions from: :paid, to: :rated
+    end
+
+    event :cancel, after_commit: :after_cancelled! do
+      transitions from: %i[reserved prepaid pending], to: :cancelled
+    end
+
+    event :overdue, after_commit: :after_overdue! do
+      transitions from: :pending, to: :overdued
+    end
+  end
+
+  # aasm guards
+  def can_be_reserved?
+    # self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
+    # must be prepaid
+    true
+  end
+
+  # aasm transaction callbacks
+  def after_prepaid!
+    p 'broadcast reservation_prepay_successful'
+    broadcast(:reservation_prepay_successful, self)
+  end
+
+  def after_reserved!
+    broadcast(:reservation_reserve_successful, self)
+  end
+
+  def after_diagnosed!
+    broadcast(:reservation_diagnose_successful, self)
+  end
+
+  def after_paid!
+    broadcast(:reservation_pay_successful, self)
+  end
+
+  def after_rated!
+    broadcast(:reservation_rate_successful, self)
+  end
 
   # for testing, use claimed_by instead of res.reserve to debug in rails console
   # def claimed_by(user_b, reservation_time, reservation_location, reservation_phone)
