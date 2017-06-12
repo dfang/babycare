@@ -145,9 +145,9 @@
       console.log(data)
 
       var config = {
-        debug:      true,
+        debug:      false,
         appId:      data.appId,
-        timestamp:  parseInt(data.timestamp),
+        timestamp:  data.timestamp,
         nonceStr:   data.nonceStr,
         signature:  data.signature,
         jsApiList:  data.jsApiList

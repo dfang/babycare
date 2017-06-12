@@ -3,6 +3,11 @@ weixin:
   app_secret: edec276827d57e92206db85f88d77db5
   token: yibutianxia
 
+weixin_authorize:
+  app_id: wxa887ef8490361f68
+  app_secret: edec276827d57e92206db85f88d77db5
+  token: yibutianxia
+
 qiniu:
   access_key: "4ZphZ7CCpJmmeTl3JltPd0AUSwXFlZR4L5EcX4xi"
   secret_key: "Z7m2P3-VJJOLGDrdEzSvtqCaI1ihumJbOLg-R2ls"

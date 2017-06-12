@@ -34,18 +34,13 @@
         };
 
         url = location.href.split('#')[0]
-        console.log('url is ........')
-        console.log(url)
-
         $.ajax({
-          url:        "/wx/config_jssdk.json?url=" + escape(url),
-          beforeSend: function(){},
-          global:     false
+          url:   "/wx/config_jssdk.json?url=" + escape(url),
         })
         .done(function(data){
 
           wx.config({
-            debug:     true,
+            debug:     false,
             appId:     data.appId,
             timestamp: data.timestamp,
             nonceStr:  data.nonceStr,
@@ -54,8 +49,6 @@
           });
 
           wx.error(function(res){
-            console.log('fuck')
-            console.log(res)
             alert("初始化微信js sdk出错，请联系我们");
           })
 

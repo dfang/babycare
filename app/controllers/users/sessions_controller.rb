@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  before_action :wechat_authorize
+  # before_action :wechat_authorize
   # before_action :configure_sign_in_params, only: [:create]
-  # prepend_before_action :authenticate_user!, :wechat_authorize
+  prepend_before_action :authenticate_user!, :wechat_authorize
 
   def wechat_authorize
     wx_authenticate!
@@ -47,7 +47,7 @@ class Users::SessionsController < Devise::SessionsController
         Rails.logger.debug '正常情况下，用户点击授权按钮就会去申请code参数，如果曾经授权过，此时静默授权，用户无感知'
         Rails.logger.debug "redirect_uri is #{redirect_uri}"
 
-        redirect_to(get_code_uri(redirect_uri)) && return
+        redirect_to get_code_uri(redirect_uri)
       end
 
       # 如果code参数不为空，则认证到第二步，通过code获取openid，并保存到session中
@@ -129,7 +129,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def get_code_uri(redirect_uri)
-    uri_for_get_code_from_weixin = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{WxApp::WxCommon::WEIXIN_ID}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
+    uri_for_get_code_from_weixin = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Settings.weixin_authorize.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
     uri_for_get_code_from_weixin
   end
 

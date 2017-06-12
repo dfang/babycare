@@ -33,7 +33,7 @@ class Patients::ReservationsController < Patients::BaseController
       resource.pay_fee = fee
     end
 
-    Rails.logger.info "payment fee (unit: fen) is #{fee}"
+    Rails.logger.info "需要支付的费用fee是#{fee}分"
 
     # 预约定金 TO_BE_TESTED
     # if resource.out_trade_prepay_no.blank? && resource.reserved?
@@ -49,7 +49,7 @@ class Patients::ReservationsController < Patients::BaseController
 
     out_trade_no = resource.out_trade_pay_no || resource.out_trade_prepay_no
 
-    Rails.logger.info "out_trade_no is #{out_trade_no}"
+    Rails.logger.info "out_trade_no 是 #{out_trade_no}"
 
     resource.save!
 
@@ -63,11 +63,11 @@ class Patients::ReservationsController < Patients::BaseController
       # JSAPI支付必须传openid
       payment_params[:openid] = current_wechat_authentication.uid
 
-      Rails.logger.info  "payment_params is #{payment_params}"
-      Rails.logger.info  "options is #{options}"
+      Rails.logger.info  "payment_params is \n#{payment_params}"
+      Rails.logger.info  "options is \n#{options}"
 
       result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-      Rails.logger.info "invoke_unifiedorder result is .......... #{result}"
+      Rails.logger.info "invoke_unifiedorder result is \n#{result}"
 
       # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
       # js_sdk_signature_str = WxApp::WxJsSDK.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
@@ -81,7 +81,7 @@ class Patients::ReservationsController < Patients::BaseController
 
       # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
       @order_params = {
-        appId:     WxPay.appid,
+        appId:     Settings.wx_pay.app_id,
         timeStamp: js_pay_params.delete(:timeStamp),
         nonceStr:  js_pay_params.delete(:nonceStr),
         signType:  js_pay_params.delete(:signType),
