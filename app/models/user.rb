@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     authentications.find_by(provider: 'wechat')
   end
 
-  def create_wechat_user(wechat_session)
+  def self.create_wechat_user(wechat_session)
     Rails.logger.info "wechat_session:::: #{wechat_session}"
     wx_nickname = wechat_session.nickname
     nickname = !wx_nickname.strip.empty? ? wx_nickname : User.gen_name
