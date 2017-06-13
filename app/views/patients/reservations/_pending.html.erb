@@ -33,6 +33,8 @@
           signType:  "<%= @order_params[:signType] %>"
         };
 
+
+
         url = location.href.split('#')[0]
         $.ajax({
           url:   "/wx/config_jssdk.json?url=" + escape(url),
