@@ -71,7 +71,6 @@ gem 'qiniu'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-qiniu'
 gem 'mini_magick'
-
 gem 'carrierwave-data-uri'
 
 # gem 'smart_sms'
@@ -84,6 +83,7 @@ gem 'omniauth'
 gem 'omniauth-wechat-oauth2'
 
 gem 'puma', '~> 3.7'
+gem 'whenever', require: false
 
 group :development, :teset do
   gem 'ffaker'
