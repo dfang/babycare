@@ -9,7 +9,7 @@ class Wx::ServiceController < ApplicationController
   skip_before_action :check_weixin_legality, on: :config_jssdk
   respond_to :json, :js, :xml
   # http://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection.html
-  skip_before_action :authenticate_user!, only: :config_jssdk
+  # skip_before_action :authenticate_user!, only: :config_jssdk
 
   layout 'weixin'
 
