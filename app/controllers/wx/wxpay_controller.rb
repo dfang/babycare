@@ -14,8 +14,8 @@ class Wx::WxpayController < ApplicationController
     return unless @order_query_result['return_code'] == 'SUCCESS'
     reservation = Reservation.where('out_trade_pay_no = ? OR out_trade_prepay_no = ?', @order_query_result['out_trade_no'], @order_query_result['out_trade_no']).first
 
-    p reservation
-    p 'trigger prepay or pay event'
+    Rails.logger.info 'trigger prepay or pay event'
+    Rails.logger.info reservation
 
     if reservation.pending?
       reservation.prepay!
