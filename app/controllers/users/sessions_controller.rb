@@ -54,17 +54,14 @@ class Users::SessionsController < Devise::SessionsController
       # 如果code参数不为空，则认证到第二步，通过code获取openid，并保存到session中
       begin
         Rails.logger.debug 'code参数不为空,通过code获取openid和access_token'
-        Rails.logger.info 'hhhhh'
         token_info = exchange_code_for_access_token(code)
 
         unless token_info['errcode']
 
-          Rails.logger.debug "\ntoken_info: #{token_info.inspect}\n"
-
           openid = token_info['openid']
           access_token = token_info['access_token']
 
-          Rails.logger.debug '通过openid和access_token获取用户信息'
+          Rails.logger.debug '通过openid和access_token获取用户信息 ..........'
 
           userinfo = exchange_access_token_for_userinfo(access_token, openid)
 
@@ -74,7 +71,7 @@ class Users::SessionsController < Devise::SessionsController
 
           # 微信公众号绑定到微信公众开发平台上才能获取到unionid, 此处用的是测试号，所以自己随变弄一个算了
           unionid = userinfo['openid']
-          # unionid = union_info['unionid']
+          unionid = userinfo['unionid']
 
           authentication = Authentication.find_by(provider: 'wechat', unionid: unionid)
           if authentication.blank?
@@ -133,17 +130,18 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def exchange_code_for_access_token(code)
-    Rails.logger.info 'exchange_code_for_access_token'
     # 通过code换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同
     token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{Settings.weixin_authorize.app_id}&secret=#{Settings.weixin_authorize.app_secret}&code=#{code}&grant_type=authorization_code"
-    token_info = JSON.parse(Faraday.get(token_url).body)
-    Rails.logger.info token_info
-    token_info
+    token_info_response_data = JSON.parse(Faraday.get(token_url).body)
+    Rails.logger.info "\n\nexchange_code_for_access_token response data is \n #{token_info_response_data}\n\n"
+    token_info_response_data
   end
 
   def exchange_access_token_for_userinfo(access_token, openid)
     uinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token=#{access_token}&openid=#{openid}&lang=zh_CN"
-    union_info = JSON.parse(Faraday.get(uinfo_url).body)
+    uinfo_response_data = JSON.parse(Faraday.get(uinfo_url).body)
+    Rails.logger.info "\n\nexchange_access_token_for_userinfo response data is \n #{uinfo_response_data}\n\n"
+    uinfo_response_data
   end
 
   def create_wechat_session(userinfo, union_info)
