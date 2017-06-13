@@ -18,28 +18,28 @@ module WxApp
 
     def get_access_token(options = {})
       Rails.logger.info "app_id in get_access_token is #{WEIXIN_ID}"
-      access_token = Rails.cache.fetch('weixin_access_token')
-      return access_token unless access_token.nil? || options[:force]
+      # access_token = Rails.cache.fetch('weixin_access_token')
+      # return access_token unless access_token.nil? || options[:force]
       url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
       conn = get_conn
       response = conn.get url
       access_token = JSON.parse(response.body)['access_token']
-      Rails.cache.write('weixin_access_token', access_token, expires_in: 7200.seconds)
+      # Rails.cache.write('weixin_access_token', access_token, expires_in: 7200.seconds)
       access_token
     end
 
     def get_jsapi_ticket
-      jsapi_ticket = Rails.cache.fetch('weixin_jsapi_ticket')
-      if jsapi_ticket.present?
-        return jsapi_ticket
-      else
+      # jsapi_ticket = Rails.cache.fetch('weixin_jsapi_ticket')
+      # if jsapi_ticket.present?
+      #   return jsapi_ticket
+      # else
         url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
         conn = get_conn
         response = conn.get url
         jsapi_ticket = JSON.parse(response.body)['ticket']
-        Rails.cache.write('weixin_jsapi_ticket', jsapi_ticket, expires_in: 7200.seconds)
+        # Rails.cache.write('weixin_jsapi_ticket', jsapi_ticket, expires_in: 7200.seconds)
         jsapi_ticket
-      end
+      # end
     end
   end
 end
@@ -58,32 +58,6 @@ module WxApp
       conn.post do |req|
         req.url "/cgi-bin/menu/create?access_token=#{WxApp::WxCommon.get_access_token}"
         req.headers['Content-Type'] = 'application/json'
-        # req.body =
-        #           {
-        #             "menu" => {
-        #               "button" => [
-        #
-        #                 {
-        #                   "name"=>"用户",
-        #                   "sub_button"=>
-        #                     [ {"type"=>"view", "name"=>"预约医生", "url"=>"http://babycare.tunnel.qydev.com/reservations/new", "sub_button"=>[]},
-        #                       {"type"=>"view", "name"=>"用户后台", "url"=>"http://babycare.tunnel.qydev.com/patients", "sub_button"=>[]}
-        #                     ]
-        #                 },
-        #
-        #                 {"type"=>"view", "name"=>"预约列表", "url"=>"http://babycare.tunnel.qydev.com/reservations/public", "sub_button"=>[]},
-        #
-        #                 {
-        #                   "name"=>"医生",
-        #                   "sub_button"=>
-        #                     [ {"type"=>"view", "name"=>"注册医生", "url"=>"http://babycare.tunnel.qydev.com/doctors/new", "sub_button"=>[]},
-        #                       {"type"=>"view", "name"=>"医生后台", "url"=>"http://babycare.tunnel.qydev.com/doctors", "sub_button"=>[]}
-        #                     ]
-        #                 }
-        #               ]
-        #             }
-        #           }.to_json
-        # binding.pry
         req.body = menus
       end
     end
