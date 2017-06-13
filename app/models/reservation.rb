@@ -34,8 +34,11 @@ class Reservation < ApplicationRecord
   delegate :hospital, to: :doctor, allow_nil: true
   delegate :doctor, to: :doctor_user, allow_nil: true
 
-  delegate :patient_user_name, to: :patient_user, prefix: false, allow_nil: true
-  delegate :doctor_user_name, to: :doctor_user, prefix: false, allow_nil: true
+  # wrong
+  # delegate :patient_user_name, to: :patient_user, prefix: false, allow_nil: true
+  # delegate :doctor_user_name, to: :doctor_user, prefix: false, allow_nil: true
+  delegate :name, to: :patient_user, prefix: :patient_user, allow_nil: true
+  delegate :name, to: :doctor_user, prefix: :doctor_user, allow_nil: true
 
   aasm do
     state :pending, initial: true
