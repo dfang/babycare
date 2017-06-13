@@ -162,6 +162,6 @@ class Patients::ReservationsController < Patients::BaseController
   private
 
   def current_wechat_authentication
-    current_user.authentications.where(provider: 'wechat').first
+    current_user.authentications.find_by(provider: 'wechat')
   end
 end

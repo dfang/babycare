@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  # before_action :wechat_authorize
+  before_action :wechat_authorize
   # before_action :configure_sign_in_params, only: [:create]
-  prepend_before_action :authenticate_user!, :wechat_authorize
+  # prepend_before_action :authenticate_user!, :wechat_authorize
 
   def wechat_authorize
     wx_authenticate!
@@ -53,7 +53,7 @@ class Users::SessionsController < Devise::SessionsController
       # 如果code参数不为空，则认证到第二步，通过code获取openid，并保存到session中
       begin
         Rails.logger.debug 'code参数不为空,通过code获取openid和access_token'
-
+        Rails.logger.info 'hhhhh'
         token_info = exchange_code_for_access_token(code)
 
         unless token_info['errcode']
@@ -102,9 +102,7 @@ class Users::SessionsController < Devise::SessionsController
           cookies[:weixin_openid] = openid
           sign_in(:user, authentication.user)
           # respond_with authentication.user, location: after_sign_in_path_for(authentication.user)
-
-          # redirect_after_sign_in
-          redirect_to(edit_patients_settings_path) && return
+          redirect_after_sign_in
         end
       rescue StandardError => e
         Rails.logger.info e.inspect
@@ -134,9 +132,11 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def exchange_code_for_access_token(code)
+    Rails.logger.info 'exchange_code_for_access_token'
     # 通过code换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同
-    token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{WxApp::WxCommon::WEIXIN_ID}&secret=#{WxApp::WxCommon::WEIXIN_SECRET}&code=#{code}&grant_type=authorization_code"
+    token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{Settings.weixin_authorize.app_id}&secret=#{Settings.weixin_authorize.app_secret}&code=#{code}&grant_type=authorization_code"
     token_info = JSON.parse(Faraday.get(token_url).body)
+    Rails.logger.info token_info
     token_info
   end
 

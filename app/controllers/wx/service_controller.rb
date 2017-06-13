@@ -8,6 +8,8 @@ class Wx::ServiceController < ApplicationController
   before_action :parse_xml, only: [:create]
   skip_before_action :check_weixin_legality, on: :config_jssdk
   respond_to :json, :js, :xml
+  # http://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection.html
+  skip_before_action :authenticate_user, only: :config_jssdk
 
   layout 'weixin'
 

@@ -1,3 +1,13 @@
+weixin:
+  app_id: wxa887ef8490361f68
+  app_secret: edec276827d57e92206db85f88d77db5
+  token: yibutianxia
+
+weixin_authorize:
+  app_id: wxa887ef8490361f68
+  app_secret: edec276827d57e92206db85f88d77db5
+  token: yibutianxia
+
 ronglian:
   SoftVersion: "2013-12-26"
   AccountSid: "8a216da85600ef240156029396a2034d"
