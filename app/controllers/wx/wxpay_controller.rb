@@ -3,7 +3,7 @@
 class Wx::WxpayController < ApplicationController
   # protect_from_forgery unless: -> { request.format.json? || request.format.xml? }
   skip_before_action :verify_authenticity_token
-  before_action :payment_notify
+  before_action :query_order_result, only: :payment_notify
 
   # 改变订单状态
   # // 示例报文
