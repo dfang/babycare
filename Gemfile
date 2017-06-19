@@ -114,8 +114,7 @@ group :development do
   gem 'capistrano-secrets-yml'
 
   # gem 'capistrano-nginx-unicorn'
-  # gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
-  gem 'capistrano3-puma'
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
   gem 'capistrano3-nginx', '~> 2.1', '>= 2.1.6'
   # gem 'capistrano-nginx', '~> 1.0.0'
 

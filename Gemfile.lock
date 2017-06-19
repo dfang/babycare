@@ -4,6 +4,15 @@ GIT
   specs:
     nifty-generators (0.4.6)
 
+GIT
+  remote: https://github.com/seuros/capistrano-puma.git
+  revision: 00708fa18a029cb34f46aef60f920106c0c00107
+  specs:
+    capistrano3-puma (3.1.0)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 3.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -91,10 +100,6 @@ GEM
       capistrano (~> 3.0)
     capistrano3-nginx (2.1.6)
       capistrano (>= 3.0.0)
-    capistrano3-puma (3.1.0)
-      capistrano (~> 3.7)
-      capistrano-bundler
-      puma (~> 3.4)
     carrierwave (1.1.0)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -428,7 +433,7 @@ DEPENDENCIES
   capistrano-secrets-yml
   capistrano-yarn (~> 2.0, >= 2.0.2)
   capistrano3-nginx (~> 2.1, >= 2.1.6)
-  capistrano3-puma
+  capistrano3-puma!
   carrierwave (~> 1.0)
   carrierwave-data-uri
   carrierwave-qiniu
