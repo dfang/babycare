@@ -63,6 +63,7 @@ class Users::SessionsController < Devise::SessionsController
         unless token_info['errcode']
 
           openid = token_info['openid']
+          unionid = token_info['unionid']
           access_token = token_info['access_token']
 
           Rails.logger.debug '通过openid和access_token获取用户信息 ..........'
@@ -74,7 +75,7 @@ class Users::SessionsController < Devise::SessionsController
           # union_info = JSON.parse Faraday.get(union_url).body
 
           # 微信公众号绑定到微信公众开发平台上才能获取到unionid, 此处用的是测试号，所以自己随变弄一个算了
-          unionid = userinfo['openid']
+          openid = userinfo['openid']
           unionid = userinfo['unionid']
 
           authentication = Authentication.find_by(provider: 'wechat', unionid: unionid)
@@ -82,6 +83,7 @@ class Users::SessionsController < Devise::SessionsController
             if authentication = Authentication.find_by(provider: 'wechat', uid: openid)
               authentication.update_column :unionid, unionid
               user = authentication.user
+              user.save!
             else
 
               # Transaction create wechat authentication and user
@@ -100,8 +102,8 @@ class Users::SessionsController < Devise::SessionsController
             Rails.logger.info "Authentication inspected : #{authentication.inspect}"
           end
 
-          session[:weixin_openid] = openid
-          cookies[:weixin_openid] = openid
+          session[:weixin_openid] = unionid
+          cookies[:weixin_openid] = unionid
           sign_in(:user, authentication.user)
           # respond_with authentication.user, location: after_sign_in_path_for(authentication.user)
           redirect_after_sign_in
