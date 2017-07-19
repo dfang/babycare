@@ -9,15 +9,33 @@ class Patients::MedicalRecordsController < Patients::BaseController
 
   def index
     @medical_records = current_user.medical_records.order('created_at DESC')
+
+    format.json {
+      render json: {:medical_records => @medical_records}
+    }
   end
 
   def create
-    create! do
-      if @reservation.present?
-        patients_reservation_path(@reservation)
-      else
-        patients_profile_path
-      end
+    @medical_record = MedicalRecord.new(medical_record_params)
+    @medical_record.user = current_user
+
+    if @medical_record.save
+      render json: {:message => 'Done'}, :status => 200
+    else
+      render json: {:message => 'Create failed'}, :status => 400
+    end
+
+    create! do |format|
+      # format.json {
+      #
+      # }
+      format.html {
+        if @reservation.present?
+          patients_reservation_path(@reservation)
+        else
+          patients_profile_path
+        end
+      }
     end
   end
 

@@ -18,7 +18,7 @@ namespace :db do
       execute "rm #{dump_filename}"
 
       # 服务器用的9.4版本的postgresql, pg_dump 和 pg_restore 最好用版本一致的
-      local_postgresql_path = '/usr/local/Cellar/postgresql@9.4/9.4.11/bin'
+      local_postgresql_path = '/usr/local/Cellar/postgresql@9.4/9.4.12/bin'
       run_locally do
         with rails_env: :development do
           execute "PGPASSWORD=#{local_development['password']} #{local_postgresql_path}/dropdb --if-exists -h #{local_development['host']} -p #{local_development['port']} -U #{local_development['username']} #{local_development['database']}"

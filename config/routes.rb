@@ -2,7 +2,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+
   resources :products, only: %i[index show]
+
+  get 'auth_token' => 'authentication#authenticate_token'
+  get 'webtoken_test' => 'webtoken_test#index'
 
   root 'home#index'
   get 'home/index'

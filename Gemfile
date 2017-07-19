@@ -38,6 +38,7 @@ gem 'devise'
 gem 'inherited_resources'
 gem 'friendly_id'
 gem 'config'
+gem 'jwt'
 
 gem 'has_scope'
 
