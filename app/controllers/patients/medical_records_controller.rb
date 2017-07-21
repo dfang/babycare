@@ -10,9 +10,11 @@ class Patients::MedicalRecordsController < Patients::BaseController
   def index
     @medical_records = current_user.medical_records.order('created_at DESC')
 
-    format.json {
-      render json: {:medical_records => @medical_records}
-    }
+    respond_to do |format|
+      format.json {
+        render json: {:medical_records => @medical_records}
+      }
+    end
   end
 
   def create
