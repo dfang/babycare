@@ -20,17 +20,11 @@ class Patients::MedicalRecordsController < Patients::BaseController
   def create
     @medical_record = MedicalRecord.new(medical_record_params)
     @medical_record.user = current_user
-
-    if @medical_record.save
-      render json: {:message => 'Done'}, :status => 200
-    else
-      render json: {:message => 'Create failed'}, :status => 400
-    end
-
+  
     create! do |format|
-      # format.json {
-      #
-      # }
+      format.json {
+        render json: { message: "done" }, status: 200
+      }
       format.html {
         if @reservation.present?
           patients_reservation_path(@reservation)
