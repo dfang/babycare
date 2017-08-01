@@ -4,9 +4,8 @@ require 'browser'
 require Rails.root.join('lib', 'extras', 'browser')
 
 class ApplicationController < ActionController::Base
-  include  Devise::Controllers::Helpers
+  include Devise::Controllers::Helpers
 
-  attr_reader :current_user
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
