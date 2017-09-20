@@ -1,4 +1,4 @@
-class AddColumnsToReservations < ActiveRecord::Migration
+class AddColumnsToReservations < ActiveRecord::Migration[5.1]
   def change
     add_column :reservations, :reservation_time, :datetime
     add_column :reservations, :reservation_location, :string

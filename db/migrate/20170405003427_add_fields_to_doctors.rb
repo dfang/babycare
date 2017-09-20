@@ -1,4 +1,4 @@
-class AddFieldsToDoctors < ActiveRecord::Migration
+class AddFieldsToDoctors < ActiveRecord::Migration[5.1]
   def change
     add_column :doctors, :id_card_front_media_id, :string
     add_column :doctors, :id_card_back_media_id, :string

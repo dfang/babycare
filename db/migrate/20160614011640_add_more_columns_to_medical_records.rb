@@ -1,4 +1,4 @@
-class AddMoreColumnsToMedicalRecords < ActiveRecord::Migration
+class AddMoreColumnsToMedicalRecords < ActiveRecord::Migration[5.1]
   def change
     add_column :medical_records, :height, :integer
     add_column :medical_records, :weight, :float

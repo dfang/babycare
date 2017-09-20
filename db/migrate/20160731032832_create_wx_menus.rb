@@ -1,4 +1,4 @@
-class CreateWxMenus < ActiveRecord::Migration
+class CreateWxMenus < ActiveRecord::Migration[5.1]
   def change
     create_table :wx_menus do |t|
       t.string :menu_type

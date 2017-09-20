@@ -1,4 +1,4 @@
-class CreateSmsHistories < ActiveRecord::Migration
+class CreateSmsHistories < ActiveRecord::Migration[5.1]
   def change
     create_table :sms_histories do |t|
       t.integer :sender_user_id
