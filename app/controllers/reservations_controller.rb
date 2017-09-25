@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class ReservationsController < InheritedResources::Base
-  before_action -> { authenticate_user!(force: true) }
+  # before_action -> { authenticate_user!(force: true) }
 
   before_action :deny_doctors
   skip_before_action :deny_doctors, only: %i[public show status]
 
+  before_action -> { ensure_mobile_phone_valid? }
   before_action -> { patient_and_has_children? }
   before_action -> { ensure_registerd_membership }
   # custom_actions :resource => :wxpay_test
@@ -27,7 +28,7 @@ class ReservationsController < InheritedResources::Base
   def new
     @symptoms = Symptom.all.group_by(&:name).map { |k, _v| k }.to_json
     @symptom_details = Symptom.all.group_by(&:name).map { |k, v| { name: k, values: v.map(&:detail) } }.to_json
-    super
+    # super
   end
 
   def restricted; end
@@ -90,5 +91,10 @@ class ReservationsController < InheritedResources::Base
   def ensure_registerd_membership
     # 如果是非会员， 第二次预约就要邀请他加入会员了
     # 如果是会员的， 第二次预约的判断资料是不是完善的，如果不是完善的话，就要提醒他完善了
+  end
+
+  def ensure_mobile_phone_valid?
+    # current_user.
+    redirect_to validate_phone_path and return
   end
 end

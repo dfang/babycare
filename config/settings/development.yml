@@ -1,0 +1,30 @@
+# https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index
+# 这个是测试号的 app_id
+# 用户同意授权，获取code 本地用测试号测试的时候必须用此测试号的app_id
+# https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842&token=&lang=zh_CN
+# 不然不能跳转 /users/sign_in/?code=CODE
+
+# 网页授权
+weixin_authorize:
+  app_id: wxffecc41acd70ccd6
+  app_secret: 8c76b7677de43e5ba1db3822c7343553
+  token: yibutianxia
+
+
+# wx.config 的时候 signature 必须要用生成jsapi_ticket 一样的 app_id
+# 微信支付也是
+
+# 微信jssdk
+weixin_jssdk:
+  app_id: wxa887ef8490361f68
+  app_secret: edec276827d57e92206db85f88d77db5
+  token: yibutianxia
+
+weixin:
+  app_id: wxa887ef8490361f68
+  app_secret: edec276827d57e92206db85f88d77db5
+  token: yibutianxia
+
+weixin_mp:
+  app_id: wx218800b558d61f52
+  app_secret: 37530899a42eb9ab0db105eccdfbb2ad

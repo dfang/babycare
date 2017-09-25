@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Patients::MedicalRecordsController < InheritedResources::Base
-  before_action -> { authenticate_user!(force: true) }, except: []
+class Patients::MedicalRecordsController < Patients::BaseController
   before_action :find_reservation, only: %i[create update]
   skip_before_action :find_reservation, except: %i[create update]
 
@@ -10,15 +9,29 @@ class Patients::MedicalRecordsController < InheritedResources::Base
 
   def index
     @medical_records = current_user.medical_records.order('created_at DESC')
+
+    respond_to do |format|
+      format.json {
+        render json: {:medical_records => @medical_records}
+      }
+    end
   end
 
   def create
-    create! do
-      if @reservation.present?
-        patients_reservation_path(@reservation)
-      else
-        patients_profile_path
-      end
+    @medical_record = MedicalRecord.new(medical_record_params)
+    @medical_record.user = current_user
+  
+    create! do |format|
+      format.json {
+        render json: { message: "done" }, status: 200
+      }
+      format.html {
+        if @reservation.present?
+          patients_reservation_path(@reservation)
+        else
+          patients_profile_path
+        end
+      }
     end
   end
 

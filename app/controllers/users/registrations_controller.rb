@@ -4,12 +4,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
+  def validate_phone
+
+  end
+
+  def send_verification_code
+    verification_code = Random.new.rand(000000...999999)
+    IM::Ronglian.new.send_templated_sms(params[:mobile_phone], Settings.sms_templates.notify_user_when_reserved, verification_code)
+
+    Rails.logger.info "verification_code:#{verification_code}"
+  end
+
   # def show
   # end
 
-  # def update
-  #   binding.pry
-  # end
+  def update
+    # 取出 mobile_phone, 并更新当前的手机号
+    mobile_phone = params[:user][:mobile_phone]
+    current_user.update(mobile_phone: mobile_phone)
+    redirect_to bind_phone_success_path and return
+  end
+
+  def bind_phone_success
+
+  end
 
   # GET /resource/sign_up
   # def new

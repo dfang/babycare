@@ -1,6 +1,11 @@
 weixin:
   app_id: wxa887ef8490361f68
-  app_secret: 259f46cfadecd6e2a171b10362f155bd
+  app_secret: edec276827d57e92206db85f88d77db5
+  token: yibutianxia
+
+weixin_authorize:
+  app_id: wxa887ef8490361f68
+  app_secret: edec276827d57e92206db85f88d77db5
   token: yibutianxia
 
 qiniu:
@@ -37,12 +42,14 @@ wx_pay:
   pay_amount: 0.01
 
 sms_templates:
+  captcha: 206219
   notify_all_when_new_reservation: 121703
   notify_user_when_reserved: 121704
   notify_user_when_prepaid: 121708
   notify_doctor_when_prepaid: 121706
   notify_user_when_diagnosed: 121709
   notify_doctor_when_paid: 121710
+
 
 
 doctors:

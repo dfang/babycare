@@ -19,7 +19,7 @@ zh-CN:
         male: "儿子"
         female: "女儿"
       aasm_state:
-        pending: 待接单
+        pending: 待支付定金
         reserved: 已接单
         archived: 已存档
         prepaid: 已支付定金
@@ -33,7 +33,7 @@ zh-CN:
         male: "儿子"
         female: "女儿"
       aasm_state:
-        pending: 待接单
+        pending: 待支付定金
         reserved: 已接单
         archived: 已存档
         prepaid: 已支付定金

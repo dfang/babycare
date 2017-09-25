@@ -8,6 +8,8 @@ class Wx::ServiceController < ApplicationController
   before_action :parse_xml, only: [:create]
   skip_before_action :check_weixin_legality, on: :config_jssdk
   respond_to :json, :js, :xml
+  # http://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection.html
+  # skip_before_action :authenticate_user!, only: :config_jssdk
 
   layout 'weixin'
 
@@ -35,17 +37,30 @@ class Wx::ServiceController < ApplicationController
   def config_jssdk
     # 在rails 5 里面这里绝对不能叫config, 否则 SystemStackError (stack level too deep)
     app_id               =  Settings.wx_pay.app_id
+    api_key              =  Settings.wx_pay.api_key
+    mch_id               =  Settings.wx_pay.mch_id
     noncestr             =  SecureRandom.hex
-    timestamp            =  DateTime.now.to_i
-    js_sdk_signature_str = ::WxApp::WxPay.generate_js_sdk_signature_str(noncestr, timestamp, URI.unescape(params[:url]))
-    p js_sdk_signature_str
+    timestamp            =  Time.zone.now.to_i
+    url                  =  URI.unescape(params[:url])
+    js_sdk_signature_str =  ::WxApp::WxJsSDK.generate_js_sdk_signature_str(noncestr, timestamp, url)
+    # 微信 JS 接口签名校验工具
+    # https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=jsapisign
+    # invalid signature签名等常见错误
+    # 见微信JS-SDK说明文档
+    # 附录5-常见错误及解决方法
+
+    Rails.logger.info "jsapi_ticket is #{::WxApp::WxCommon.get_jsapi_ticket}"
+    Rails.logger.info "noncestr is #{noncestr}"
+    Rails.logger.info "timestamp is #{timestamp}"
+    Rails.logger.info "url is #{url}"
+    Rails.logger.info "js_sdk_signature_str is #{js_sdk_signature_str}"
 
     render json: {
       appId: app_id,
-      key: Settings.wx_pay.api_key,
-      mch_id: Settings.wx_pay.mch_id,
-      timestamp: timestamp.to_s,
-      nonceStr: SecureRandom.hex,
+      key: api_key,
+      mch_id: mch_id,
+      timestamp: timestamp,
+      nonceStr: noncestr,
       signature: js_sdk_signature_str,
       jsApiList: %w[checkJsApi chooseWXPay chooseImage uploadImage downloadImage previewImage openLocation getLocation]
     }

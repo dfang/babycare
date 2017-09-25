@@ -16,6 +16,8 @@ set :deploy_to, '/home/deployer/apps/callmeadoctor'
 
 set :db_local_clean, false
 set :deploy_user, :deployer
+
+set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 set :backup_path, "/home/#{fetch(:deploy_user)}/Backup"
 
 set :ssh_options, forward_agent: true

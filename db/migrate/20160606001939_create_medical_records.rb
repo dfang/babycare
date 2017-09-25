@@ -1,4 +1,4 @@
-class CreateMedicalRecords < ActiveRecord::Migration
+class CreateMedicalRecords < ActiveRecord::Migration[5.1]
   def change
     create_table :medical_records do |t|
       t.references :person, index: true, foreign_key: true

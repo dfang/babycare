@@ -13,7 +13,7 @@
 
           <%- default_date = Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10).strftime("%Y-%m-%dT%H:%M") %>
 
-          <%= simple_form_for resource, url: reservations_path, method: 'POST' do |f| %>
+          <%= simple_form_for Reservation.new, url: reservations_path, method: 'POST' do |f| %>
 
           <!-- <div class="weui-cells__title">预约</div> -->
 
@@ -134,14 +134,29 @@
     symptom_tag_details = <%= raw @symptom_details %>
 
     url = location.href.split('#')[0]
+    console.log('url is .....', url)
+
     $.ajax({
-      url: "/wx/config_jssdk.json?url=" + escape(url),
-      beforeSend: function () {},
-      global: false
+      url: "/wx/config_jssdk.json?url=" + escape(url)
     }).done(function (data) {
 
-      wx.config({appId: data.appId, timestamp: data.timestamp, nonceStr: data.nonceStr, signature: data.signature, jsApiList: data.jsApiList});
+      console.log('fuck ');
+      console.log("data is ");
+      console.log(data)
 
+      var config = {
+        debug:      false,
+        appId:      data.appId,
+        timestamp:  data.timestamp,
+        nonceStr:   data.nonceStr,
+        signature:  data.signature,
+        jsApiList:  data.jsApiList
+      }
+
+      console.log("config is " );
+      console.log(config);
+
+      wx.config(config);
       wx.error(function (res) {
         alert("初始化微信js sdk出错，请联系我们");
       })
