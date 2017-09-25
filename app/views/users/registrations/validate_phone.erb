@@ -27,7 +27,7 @@
                 </div>
               </div>
 
-            <div class="weui-cell">
+            <div class="weui-cell simple-captcha">
               <div class="weui-cell__hd">
                 <label class="weui-label">验证码</label>
               </div>
@@ -40,6 +40,9 @@
                   data-parsley-required="true"
                   data-parsley-type="integer"
                   data-parsley-length="[6,6]">
+              </div>
+              <div class="weui-cell__ft">
+                  <!-- <i class="weui-icon-success"></i> -->
               </div>
             </div>
           </div>
@@ -71,16 +74,26 @@
       );
     })
 
-
-
     // 验证验证码when focusOut
     $(document).on('keyup', '.weui-input.captcha', function(e){
-      var captcha = $('.weui-input.captcha').val();
-      var mobile_phone = $('.weui-input.request-captcha').val();
-      if(captcha.length == 6){
-        $.post('/simple_captcha/simple_captcha_valid', { mobile_phone: mobile_phone, captcha: captcha }, function(data){
-          // 如果正确， enable the button
-        })
+      var charCode = e.charCode || e.keyCode;
+      // numbers
+      if(96 <= charCode <= 105){
+        var mobile_phone = $('.weui-input.request-captcha').val();
+        var captcha = $('.weui-input.captcha').val();
+        var mobile_phone = $('.weui-input.request-captcha').val();
+        if(mobile_phone.length == 11 && captcha.length == 6 ){
+          $.post('/simple_captcha/simple_captcha_valid.json', { mobile_phone: mobile_phone, captcha: captcha }, function(data){
+            if(data.result == "success"){
+              // 如果正确， enable the button
+              $('.weui-cell.simple-captcha').find('.weui-cell__ft').html('<i class="weui-icon-success"></i>')
+              $('.weui-btn-area .weui-btn_disabled').removeClass('weui-btn_disabled').removeAttr('disabled')
+            }else{
+              // 错误
+              $('.weui-cell.simple-captcha').find('.weui-cell__ft').html('<i class="weui-icon-cancel"></i>')
+            }
+          })
+        }
       }
     })
   })
