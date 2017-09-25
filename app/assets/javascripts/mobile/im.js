@@ -3,9 +3,9 @@ $.ajaxSetup({
     $('#loadingToast').fadeIn(100);
   },
   complete: function(jqXHR){
-    setTimeout(function () {
+    // setTimeout(function () {
       $('#loadingToast').hide(100);
-    }, 1200);
+    // }, 1200);
   }
 });
 

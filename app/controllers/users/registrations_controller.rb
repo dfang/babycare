@@ -19,14 +19,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def update
-    # 取出 mobile_phone, 并更新当前的手机号
-    mobile_phone = params[:user][:mobile_phone]
-    current_user.update(mobile_phone: mobile_phone)
-    redirect_to bind_phone_success_path and return
+    # 区分是绑定手机号还是更新个人资料
+    if params.key?(:user) && params[:user].key?(:captcha)
+      # 取出 mobile_phone, 并更新当前的手机号
+      mobile_phone = params[:user][:mobile_phone]
+      current_user.update(mobile_phone: mobile_phone)
+      redirect_to bind_phone_success_path and return
+    else
+      # binding.pry
+      current_user.update(params[:user].permit!)
+      redirect_to update_success_path and return
+    end
+  end
+
+  def update_success
   end
 
   def bind_phone_success
-
   end
 
   # GET /resource/sign_up

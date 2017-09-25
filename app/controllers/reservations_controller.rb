@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
 class ReservationsController < InheritedResources::Base
-  # before_action -> { authenticate_user!(force: true) }
+  before_action -> { authenticate_user!(force: true) }
 
   before_action :deny_doctors
   skip_before_action :deny_doctors, only: %i[public show status]
 
+  # 看下手机号是不是valid
   before_action -> { ensure_mobile_phone_valid? }
+  # 看下病人有没有添加小孩信息
   before_action -> { patient_and_has_children? }
+  # 看下病人是不是付费会员
   before_action -> { ensure_registerd_membership }
+
   # custom_actions :resource => :wxpay_test
   # before_action :rectrict_access
   # skip_before_action :rectrict_access, only: [ :restricted ]
@@ -94,7 +98,6 @@ class ReservationsController < InheritedResources::Base
   end
 
   def ensure_mobile_phone_valid?
-    # current_user.
-    redirect_to validate_phone_path and return
+    redirect_to validate_phone_path if current_user.mobile_phone.blank?
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Rating < ApplicationRecord
+class Rating < OdooRecord
   self.table_name = 'fa_rating'
 
   belongs_to :user

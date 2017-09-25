@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Doctor < ApplicationRecord
+class Doctor < OdooRecord
   self.table_name = 'fa_doctor'
   include Wisper.model
 

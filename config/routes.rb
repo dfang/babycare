@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
     get 'validate_phone' => 'users/registrations#validate_phone', as: :validate_phone
     get 'bind_phone_success' => 'users/registrations#bind_phone_success', as: :bind_phone_success
+    get 'update_success' => 'users/registrations#update_success', as: :update_success
   end
 
   resources :users do

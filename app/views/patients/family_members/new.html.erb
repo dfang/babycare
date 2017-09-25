@@ -1,16 +1,16 @@
 <%= simple_nested_form_for User.new, url: patients_family_members_path, method: 'POST' do |f| %>
 
   <div class="weui-cell">
-      <div class="weui-cell__hd"><label class="weui-label">名字</label></div>
+      <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
       <div class="weui-cell__bd">
-          <input class="weui-input" type="text" name="user[name]" placeholder="名字">
+          <input class="weui-input" type="text" name="user[name]" placeholder="请输入小孩姓名">
       </div>
   </div>
 
   <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">身份证</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="number" name="user[identity_card]" pattern="[0-9][a-z]*" placeholder="身份证">
+            <input class="weui-input" type="number" name="user[identity_card]" pattern="[0-9][a-z]*" placeholder="请输入小孩身份证号码">
         </div>
     </div>
 
@@ -43,15 +43,15 @@
     </div>
   </div>
 
-  <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
+  <!-- <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %> -->
   <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
-  <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
-  <%= f.input :family_history, as: :text, wrapper: :weui_input %>
+  <!-- <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
+  <%= f.input :family_history, as: :text, wrapper: :weui_input %> -->
   <%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
 
 
   <div class="weui-btn-area">
     <!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
-    <button class="weui-btn weui-btn__primary">确定</button>
+    <button class="weui-btn weui-btn_primary">确定</button>
   </div>
 <% end %>

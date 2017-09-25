@@ -2,10 +2,10 @@
 
 <div class="weui-cell">
   <div class="weui-cell__hd">
-    <label class="weui-label">名字</label>
+    <label class="weui-label">姓名</label>
   </div>
   <div class="weui-cell__bd">
-    <%= f.text_field :name, class: "weui-input", placeholder: "名字", "data-parsley-required": true %>
+    <%= f.text_field :name, class: "weui-input", placeholder: "请输入小孩姓名", "data-parsley-required": true %>
   </div>
 </div>
 
@@ -14,7 +14,7 @@
     <label class="weui-label">身份证</label>
   </div>
   <div class="weui-cell__bd">
-    <%= f.text_field :identity_card, class: "weui-input", pattern: "[0-9][a-z]*", placeholder: "身份证", "data-parsley-required": true %>
+    <%= f.text_field :identity_card, class: "weui-input", pattern: "[0-9][a-z]*", placeholder: "请输入小孩身份证号码", "data-parsley-required": true %>
   </div>
 </div>
 
@@ -49,14 +49,14 @@
   </div>
 </div>
 
-<%= f.input :past_medical_history, as: :text, wrapper: :weui_input %>
+<!-- <%= f.input :past_medical_history, as: :text, wrapper: :weui_input %> -->
 <%= f.input :allergic_history, as: :text, wrapper: :weui_input %>
-<%= f.input :personal_history, as: :text, wrapper: :weui_input %>
-<%= f.input :family_history, as: :text, wrapper: :weui_input %>
+<!-- <%= f.input :personal_history, as: :text, wrapper: :weui_input %>
+<%= f.input :family_history, as: :text, wrapper: :weui_input %> -->
 <%= f.input :vaccination_history, as: :text, wrapper: :weui_input %>
 
 <div class="weui-btn-area">
   <!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
-  <button class="weui-btn weui-btn__primary">确定</button>
+  <button class="weui-btn weui-btn_primary">确定</button>
 </div>
 <% end %>

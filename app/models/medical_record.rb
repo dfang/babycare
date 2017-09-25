@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MedicalRecord < ApplicationRecord
+class MedicalRecord < OdooRecord
   self.table_name = 'fa_medical_record'
 
   belongs_to :user
