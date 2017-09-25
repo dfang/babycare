@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Reservation < ApplicationRecord
+  establish_connection("odoo_#{Rails.env}".to_sym)
   self.table_name = 'fa_reservation'
 
   include AASM

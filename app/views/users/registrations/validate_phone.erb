@@ -1,0 +1,88 @@
+<div class="tabbar">
+  <div class="weui-tab">
+
+    <div class="weui-tab__panel">
+      <div class="panel">
+        <div class="page__bd">
+
+          <%= simple_form_for Reservation.new, url: reservations_path, method: 'POST' do |f| %>
+
+          <div class="weui-cells weui-cells_form">
+
+              <div class="weui-cell weui-cell_vcode">
+                <div class="weui-cell__hd">
+                  <label class="weui-label">手机号</label>
+                </div>
+                <div class="weui-cell__bd">
+                  <input class="weui-input request-captcha"
+                    data-parsley-required="true"
+                    data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+                    data-parsley-type="integer"
+                    data-parsley-length="[11,11]"
+                    type="tel"
+                    placeholder="请输入手机号">
+                </div>
+                <div class="weui-cell__ft">
+                  <button class="weui-vcode-btn">获取验证码</button>
+                </div>
+              </div>
+
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">验证码</label>
+              </div>
+              <div class="weui-cell__bd weui-cell_primary">
+                <input
+                  class="weui-input captcha"
+                  name="reservation[reservation_phone]"
+                  placeholder="请输入六位验证码"
+                  type="number"
+                  data-parsley-required="true"
+                  data-parsley-type="integer"
+                  data-parsley-length="[6,6]">
+              </div>
+            </div>
+          </div>
+
+          <div class="weui-btn-area">
+            <%= f.button :submit, "下一步", class: "weui-btn weui-btn_disabled weui-btn_primary", disabled: true, data: { disable_with: '正在提交...' } %>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+    <%=  render 'patients/tab_bar' %>
+
+  </div>
+</div>
+
+<%- content_for :js  do %>
+<script type="text/javascript">
+  $(function () {
+
+    // 请求获取验证码
+    $(document).on('click', 'button.weui-vcode-btn', function(e){
+      e.preventDefault();
+      var mobile_phone = $('.weui-input.request-captcha').val();
+      $.post('/simple_captcha/request_captcha', { mobile_phone: mobile_phone }, function(data){
+          console.log(mobile_phone);
+        }
+      );
+    })
+
+
+
+    // 验证验证码when focusOut
+    $(document).on('keyup', '.weui-input.captcha', function(e){
+      var captcha = $('.weui-input.captcha').val();
+      var mobile_phone = $('.weui-input.request-captcha').val();
+      if(captcha.length == 6){
+        $.post('/simple_captcha/simple_captcha_valid', { mobile_phone: mobile_phone, captcha: captcha }, function(data){
+          // 如果正确， enable the button
+        })
+      }
+    })
+  })
+</script>
+<% end %>

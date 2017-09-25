@@ -3,6 +3,10 @@
 
 Rails.application.routes.draw do
 
+  post 'simple_captcha/request_captcha'
+  post 'simple_captcha/simple_captcha_valid'
+
+
   resources :products, only: %i[index show]
 
   get 'auth_token' => 'authentication#authenticate_token'
@@ -28,6 +32,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'wechat_authorize' => 'users/sessions#wechat_authorize', as: :wechat_authorize
     get 'profile' => 'users/registrations#show', as: :profile
+
+    get 'validate_phone' => 'users/registrations#validate_phone', as: :validate_phone
   end
 
   resources :users do

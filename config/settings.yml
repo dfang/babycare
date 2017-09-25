@@ -42,12 +42,14 @@ wx_pay:
   pay_amount: 0.01
 
 sms_templates:
+  captcha: 121710
   notify_all_when_new_reservation: 121703
   notify_user_when_reserved: 121704
   notify_user_when_prepaid: 121708
   notify_doctor_when_prepaid: 121706
   notify_user_when_diagnosed: 121709
   notify_doctor_when_paid: 121710
+
 
 
 doctors:
