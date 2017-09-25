@@ -1,3 +1,6 @@
-.git
-tmp
-log
+.git/
+tmp/
+log/
+node_modules/
+coverage/
+.cache/
