@@ -5,51 +5,53 @@
       <div class="panel">
         <div class="page__bd">
 
-          <%= simple_form_for Reservation.new, url: reservations_path, method: 'POST' do |f| %>
+          <%= simple_form_for User.new, url: user_registration_path, method: 'PUT' do |f| %>
 
-          <div class="weui-cells weui-cells_form">
+            <div class="weui-cells weui-cells_form">
 
-              <div class="weui-cell weui-cell_vcode">
-                <div class="weui-cell__hd">
-                  <label class="weui-label">手机号</label>
+                <div class="weui-cell weui-cell_vcode">
+                  <div class="weui-cell__hd">
+                    <label class="weui-label">手机号</label>
+                  </div>
+                  <div class="weui-cell__bd">
+                    <input name="user[mobile_phone]"
+                      class="weui-input request-captcha"
+                      data-parsley-required="true"
+                      data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+                      data-parsley-type="integer"
+                      data-parsley-length="[11,11]"
+                      type="tel"
+                      placeholder="请输入手机号">
+                  </div>
+                  <div class="weui-cell__ft">
+                    <button class="weui-vcode-btn">获取验证码</button>
+                  </div>
                 </div>
-                <div class="weui-cell__bd">
-                  <input class="weui-input request-captcha"
+
+              <div class="weui-cell simple-captcha">
+                <div class="weui-cell__hd">
+                  <label class="weui-label">验证码</label>
+                </div>
+                <div class="weui-cell__bd weui-cell_primary">
+                  <input
+                    name="user[captcha]"
+                    class="weui-input captcha"
+                    placeholder="请输入六位验证码"
+                    type="number"
                     data-parsley-required="true"
-                    data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
                     data-parsley-type="integer"
-                    data-parsley-length="[11,11]"
-                    type="tel"
-                    placeholder="请输入手机号">
+                    data-parsley-length="[6,6]">
                 </div>
                 <div class="weui-cell__ft">
-                  <button class="weui-vcode-btn">获取验证码</button>
+                    <!-- <i class="weui-icon-success"></i> -->
                 </div>
               </div>
-
-            <div class="weui-cell simple-captcha">
-              <div class="weui-cell__hd">
-                <label class="weui-label">验证码</label>
-              </div>
-              <div class="weui-cell__bd weui-cell_primary">
-                <input
-                  class="weui-input captcha"
-                  name="reservation[reservation_phone]"
-                  placeholder="请输入六位验证码"
-                  type="number"
-                  data-parsley-required="true"
-                  data-parsley-type="integer"
-                  data-parsley-length="[6,6]">
-              </div>
-              <div class="weui-cell__ft">
-                  <!-- <i class="weui-icon-success"></i> -->
-              </div>
             </div>
-          </div>
 
-          <div class="weui-btn-area">
-            <%= f.button :submit, "下一步", class: "weui-btn weui-btn_disabled weui-btn_primary", disabled: true, data: { disable_with: '正在提交...' } %>
-          </div>
+            <div class="weui-btn-area">
+              <%= f.button :submit, "下一步", class: "weui-btn weui-btn_disabled weui-btn_primary", disabled: true, data: { disable_with: '正在提交...' } %>
+            </div>
+
         <% end %>
         </div>
       </div>
@@ -83,9 +85,14 @@
         var captcha = $('.weui-input.captcha').val();
         var mobile_phone = $('.weui-input.request-captcha').val();
         if(mobile_phone.length == 11 && captcha.length == 6 ){
-          $.post('/simple_captcha/simple_captcha_valid.json', { mobile_phone: mobile_phone, captcha: captcha }, function(data){
+
+          $.ajax({
+            url: '/simple_captcha/simple_captcha_valid.json',
+            data: { mobile_phone: mobile_phone, captcha: captcha },
+            type: 'POST'
+          })
+          .always(function(data){
             if(data.result == "success"){
-              // 如果正确， enable the button
               $('.weui-cell.simple-captcha').find('.weui-cell__ft').html('<i class="weui-icon-success"></i>')
               $('.weui-btn-area .weui-btn_disabled').removeClass('weui-btn_disabled').removeAttr('disabled')
             }else{
@@ -93,9 +100,17 @@
               $('.weui-cell.simple-captcha').find('.weui-cell__ft').html('<i class="weui-icon-cancel"></i>')
             }
           })
+
+        }else{
+          $('.weui-cell.simple-captcha').find('.weui-cell__ft').html('<i class="weui-icon-cancel"></i>')
+          $('.weui-btn-area input').addClass('weui-btn_disabled').attr('disabled', "disabled")
         }
       }
     })
   })
+
+
+  $('form#new_user').parsley();
+
 </script>
 <% end %>

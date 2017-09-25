@@ -18,9 +18,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def show
   # end
 
-  # def update
-  #   binding.pry
-  # end
+  def update
+    # 取出 mobile_phone, 并更新当前的手机号
+    mobile_phone = params[:user][:mobile_phone]
+    current_user.update(mobile_phone: mobile_phone)
+    redirect_to bind_phone_success_path and return
+  end
+
+  def bind_phone_success
+
+  end
 
   # GET /resource/sign_up
   # def new

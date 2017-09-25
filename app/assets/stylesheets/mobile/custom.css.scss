@@ -3,9 +3,16 @@
   display: none;
 }
 
-.weui-cell{
-  padding: 12px 15px;
+.weui-cell.weui-cell_vcode{
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
 }
+
+
+// .weui-cell{
+//   padding: 12px 15px;
+// }
 
 .weui-cell.validation_error{
   border-bottom: 1px solid red;

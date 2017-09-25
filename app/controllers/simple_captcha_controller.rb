@@ -8,7 +8,7 @@ class SimpleCaptchaController < ApplicationController
     captcha = SimpleCaptcha.gen_captcha(to)
 
     # 发出去
-    # SmsCaptchaJob.perform_now(to, captcha)
+    SmsCaptchaJob.perform_now(to, captcha)
   end
 
   # 验证验证码是否正确

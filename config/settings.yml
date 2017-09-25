@@ -42,7 +42,7 @@ wx_pay:
   pay_amount: 0.01
 
 sms_templates:
-  captcha: 121710
+  captcha: 206219
   notify_all_when_new_reservation: 121703
   notify_user_when_reserved: 121704
   notify_user_when_prepaid: 121708
