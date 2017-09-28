@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
 
   has_ancestry
 
+  validates :name, presence: true
+  validates :birthdate, presence: true
+
   with_options dependent: :destroy do |assoc|
     assoc.has_many :authentications
     assoc.has_one :doctor
@@ -48,9 +51,9 @@ class User < ActiveRecord::Base
 
   def reservations
     if verified_doctor?
-      Reservation.where(user_b: id)
+      Reservation.where(doctor_id: id)
     else
-      Reservation.where(user_a: id)
+      Reservation.where(user_id: id)
     end
   end
 

@@ -5,13 +5,15 @@
           <div class="panel">
             <div class="bd">
               <div class="weui-panel__bd">
-                <% if @reservations.any? %>
-                  <% @reservations.each do |re| %>
-                    <%= render 'entry', res: re %>
-                  <% end  %>
-                <% else %>
-                  你暂时没有预约
-                <% end %>
+                <div class="weui-cells">
+                  <% if @reservations.any? %>
+                    <% @reservations.each do |re| %>
+                      <%= render 'entry', res: re %>
+                    <% end  %>
+                  <% else %>
+                    你暂时没有预约
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>

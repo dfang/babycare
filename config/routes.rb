@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   post 'simple_captcha/request_captcha'
   post 'simple_captcha/simple_captcha_valid'
 
-
   resources :products, only: %i[index show]
 
   get 'auth_token' => 'authentication#authenticate_token'
@@ -28,7 +27,6 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-
   devise_scope :user do
     get 'wechat_authorize' => 'users/sessions#wechat_authorize', as: :wechat_authorize
     get 'profile' => 'users/registrations#show', as: :profile
@@ -89,6 +87,7 @@ Rails.application.routes.draw do
       get 'pay', on: :member
       get 'wxpay', on: :collection
       post 'payment_notify', on: :collection
+      delete 'cancel', on: :member
     end
     get 'profile'
     get 'status'
@@ -97,6 +96,7 @@ Rails.application.routes.draw do
     resources :medical_records
   end
 
+  # 快捷方式
   namespace :my do
     get '/', to: 'home#index'
     get '/doctors', to: 'doctors#index', as: :doctor_root

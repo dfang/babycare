@@ -1,15 +1,15 @@
-<div class="tabbar">
+<!-- <div class="tabbar">
   <div class="weui-tab">
 
     <div class="weui-tab__panel">
-      <div class="panel">
-        <div class="page__hd">
+      <div class="panel"> -->
+        <!-- <div class="page__hd">
           <h1 class="page__title">我要预约</h1>
           <p class="page__desc">目前
             我们只针对儿童开放预约。。。。。</p>
-        </div>
+        </div> -->
 
-        <div class="page__bd">
+        <!-- <div class="page__bd"> -->
 
           <%- default_date = Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10).strftime("%Y-%m-%dT%H:%M") %>
 
@@ -19,10 +19,10 @@
 
           <!-- <p class="weui-cells__tips">准备预约医生提交预约医生完善姓名、小孩性别、您的联系方式、您的位置、不适症状描述</p> -->
 
+
           <div class="weui-cells weui-cells_form">
 
-            <%= f.hidden_field :reservation_type, value: params[:type] %>
-            <%= f.hidden_field :user_a, value: current_user.id %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
 
             <div class="weui-cell weui-cell_select weui-cell_select-after">
               <div class="weui-cell__hd">
@@ -37,34 +37,36 @@
 
             <div class="weui-cell">
               <div class="weui-cell__hd">
-                <label class="weui-label">想预约在</label>
+                <label class="weui-label">身高(cm)</label>
               </div>
               <div class="weui-cell__bd weui-cell_primary">
-                <input class="weui-input" name="reservation[reservation_date]" placeholder="请选择一个大概的时间" type="datetime-local" value="<%= default_date %>" data-parsley-required="true">
+                <input class="weui-input" name="reservation[height]" data-parsley-required="true" type="number" >
               </div>
             </div>
 
             <div class="weui-cell">
               <div class="weui-cell__hd">
-                <label class="weui-label">有什么症状</label>
+                <label class="weui-label">体重(kg)</label>
+              </div>
+              <div class="weui-cell__bd weui-cell_primary">
+                <input class="weui-input" name="reservation[weight]" data-parsley-required="true" type="number" >
               </div>
             </div>
+
+          </div>
+
+          <div class="weui-cells weui-cells_form">
 
             <div class="weui-cell">
-              <div id="symptom-tags"></div>
-            </div>
-
-            <div class="weui-cell hide">
-              <div id="symptom-tag-details"></div>
-            </div>
-
-            <div class="weui-cell weui-cell-remark">
+              <div class="weui-cell__hd">
+                <label class="weui-label">怎么称呼您</label>
+              </div>
               <div class="weui-cell__bd weui-cell_primary">
-                <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
+                <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="尊姓大名" type="text" value="<%= current_user.name %>">
               </div>
             </div>
 
-            <div class="weui-cell weui-cell-vcode">
+            <div class="weui-cell weui-cell-vcode" style="padding:0 15px">
               <div class="weui-cell__hd">
                 <label class="weui-label">您的位置</label>
               </div>
@@ -75,15 +77,6 @@
               </div>
               <div class="weui-cell__ft">
                 <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
-              </div>
-            </div>
-
-            <div class="weui-cell">
-              <div class="weui-cell__hd">
-                <label class="weui-label">怎么称呼您</label>
-              </div>
-              <div class="weui-cell__bd weui-cell_primary">
-                <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="尊姓大名" type="text" value="<%= current_user.name %>">
               </div>
             </div>
 
@@ -104,22 +97,70 @@
                   value="<%= current_user.mobile_phone %>">
               </div>
             </div>
+
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">想预约在</label>
+              </div>
+              <div class="weui-cell__bd weui-cell_primary">
+                <input class="weui-input" name="reservation[reservation_date]" placeholder="请选择一个大概的时间" type="datetime-local" value="<%= default_date %>" data-parsley-required="true">
+              </div>
+            </div>
+
+            <div class="weui-cells weui-cells_checkbox" style="margin: 0">
+                <label class="weui-cell weui-check__label" for="s11">
+                    <div class="weui-cell__hd" style="padding-right: 0">
+                        <input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked">
+                        <i class="weui-icon-checked"></i>
+                    </div>
+                    <div class="weui-cell__bd ">
+                        是否接受时间调配
+                    </div>
+                </label>
+            </div>
+
+          </div>
+
+          <div class="weui-cells weui-cells_form">
+
+
+
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">选择症状</label>
+              </div>
+            </div>
+
+            <div class="weui-cell">
+              <div id="symptom-tags"></div>
+            </div>
+
+            <div class="weui-cell hide">
+              <div id="symptom-tag-details"></div>
+            </div>
+
+            <div class="weui-cell weui-cell-remark">
+              <div class="weui-cell__bd weui-cell_primary">
+                <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
+              </div>
+            </div>
+
           </div>
 
           <div class="weui-btn-area">
-            <%= f.button :submit, "确定", class: "weui-btn weui-btn__primary", data: { disable_with: '正在提交...' } %>
+            <%= f.button :submit, "确定", class: "weui-btn weui-btn_primary", data: { disable_with: '正在提交...' } %>
           </div>
 
           <% end %>
 
-        </div>
+        <!-- </div>
       </div>
     </div>
 
     <%=  render 'patients/tab_bar' %>
 
   </div>
-</div>
+</div> -->
 
 
 

@@ -34,6 +34,7 @@ class Reservation < OdooRecord
   delegate :hospital, to: :doctor, allow_nil: true
   delegate :doctor, to: :doctor_user, allow_nil: true
 
+
   # wrong
   # delegate :patient_user_name, to: :patient_user, prefix: false, allow_nil: true
   # delegate :doctor_user_name, to: :doctor_user, prefix: false, allow_nil: true
@@ -137,11 +138,11 @@ class Reservation < OdooRecord
   end
 
   def rating_by_doctor
-    ratings.find_by(rated_by: user_b)
+    ratings.find_by(rated_by: doctor_id)
   end
 
   def rating_by_patient
-    ratings.find_by(rated_by: user_a)
+    ratings.find_by(rated_by: user_id)
   end
 
   def doctor_has_rated?
@@ -157,11 +158,11 @@ class Reservation < OdooRecord
   end
 
   def patient_user
-    User.find_by(id: user_a)
+    User.find_by(id: user_id)
   end
 
   def doctor_user
-    User.find_by(id: user_b)
+    User.find_by(id: user_doctor)
   end
 
   def patient_user_phone
