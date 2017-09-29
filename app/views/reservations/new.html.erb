@@ -30,7 +30,7 @@
               </div>
               <div class="weui-cell__bd weui-cell_primary">
                 <select class="weui-select" name="reservation[user_c]" data-parsley-required="true">
-                  <%= options_for_select  current_user.children.map {|x| [x.name, x.id] }, params[:user_c] %>
+                  <%= options_for_select  current_user.children.map {|x| [x.name, x.id] }, params[:family_member_id] %>
                 </select>
               </div>
             </div>
@@ -108,13 +108,13 @@
             </div>
 
             <div class="weui-cells weui-cells_checkbox" style="margin: 0">
-                <label class="weui-cell weui-check__label" for="s11">
+                <label class="weui-cell weui-check__label" for="s1">
                     <div class="weui-cell__hd" style="padding-right: 0">
-                        <input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked">
+                        <input type="checkbox" class="weui-check" name="checkbox1" id="s1" checked="checked">
                         <i class="weui-icon-checked"></i>
                     </div>
                     <div class="weui-cell__bd ">
-                        是否接受时间调配
+                        <p>是否接受时间调配</p>
                     </div>
                 </label>
             </div>
@@ -141,11 +141,141 @@
 
             <div class="weui-cell weui-cell-remark">
               <div class="weui-cell__bd weui-cell_primary">
-                <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请大概描述下你孩子的情况"></textarea>
+                <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请简要描述您小孩的情况"></textarea>
               </div>
             </div>
-
+            <div class="weui-cell">
+              <div class="weui-cell__bd">
+                  <div class="weui-uploader">
+                      <div class="weui-uploader__bd">
+                          <!-- <ul class="weui-uploader__files" id="uploaderFiles"  style="margin: 0">
+                              <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+                              <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                  <div class="weui-uploader__file-content">
+                                      <i class="weui-icon-warn"></i>
+                                  </div>
+                              </li>
+                              <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                  <div class="weui-uploader__file-content">50%</div>
+                              </li>
+                          </ul> -->
+                          <div class="weui-uploader__input-box">
+                              <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+                          </div>
+                          <p style="color: #999999;font-size: 0.8em;">上传症状照片、病历、检查单，方便医生作诊断，最多上传5张</p>
+                      </div>
+                  </div>
+              </div>
+            </div>
           </div>
+
+
+          <div class="weui-cells__title">从哪里知道我们</div>
+          <div class="weui-cells weui-cells_checkbox">
+            <label class="weui-cell weui-check__label" for="s2">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" class="weui-check" name="checkbox1" id="s2" checked="checked">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>朋友推荐</p>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="s3">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s3">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>微信朋友圈</p>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="s4">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s4">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>微信公众号</p>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="s5">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s5">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>微信群</p>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="s6">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s6">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>官方网站</p>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="s7">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s7">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>新闻媒体</p>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="s8">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s8">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>其他</p>
+                </div>
+            </label>
+        </div>
+
+        <div class="weui-cells__title">寻求帮助的原因</div>
+        <div class="weui-cells weui-cells_checkbox">
+          <label class="weui-cell weui-check__label" for="s9">
+              <div class="weui-cell__hd">
+                  <input type="checkbox" class="weui-check" name="checkbox1" id="s9" checked="checked">
+                  <i class="weui-icon-checked"></i>
+              </div>
+              <div class="weui-cell__bd">
+                  <p>想找到长期提供服务的私人医生</p>
+              </div>
+          </label>
+          <label class="weui-cell weui-check__label" for="s10">
+              <div class="weui-cell__hd">
+                  <input type="checkbox" class="weui-check" name="checkbox1" id="s10">
+                  <i class="weui-icon-checked"></i>
+              </div>
+              <div class="weui-cell__bd">
+                  <p>想找到专科医生</p>
+              </div>
+          </label>
+          <label class="weui-cell weui-check__label" for="s11">
+              <div class="weui-cell__hd">
+                  <input type="checkbox" class="weui-check" name="checkbox1" id="s11">
+                  <i class="weui-icon-checked"></i>
+              </div>
+              <div class="weui-cell__bd">
+                  <p>找到合适的医院</p>
+              </div>
+          </label>
+          <label class="weui-cell weui-check__label" for="s12">
+              <div class="weui-cell__hd">
+                  <input type="checkbox" class="weui-check" name="checkbox1" id="s12">
+                  <i class="weui-icon-checked"></i>
+              </div>
+              <div class="weui-cell__bd">
+                  <p>其他</p>
+              </div>
+          </label>
+        </div>
 
           <div class="weui-btn-area">
             <%= f.button :submit, "确定", class: "weui-btn weui-btn_primary", data: { disable_with: '正在提交...' } %>

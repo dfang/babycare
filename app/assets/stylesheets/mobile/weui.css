@@ -465,6 +465,11 @@ z-index:
   -webkit-flex: 1;
           flex: 1;
 }
+
+.weui-cell__bd > p {
+  margin: 0;
+}
+
 .weui-cell__ft {
   text-align: right;
   color: #999999;
