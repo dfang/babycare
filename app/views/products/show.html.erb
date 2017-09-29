@@ -10,11 +10,11 @@
 
 
         <div class="page__bd">
-          <p> 电话咨询 </p>
-          <p> 描述下电话咨询
+          <p> 见面咨询咨询 </p>
+          <p> 描述下见面咨询
             <div class="weui-msg__opr-area">
               <p class="weui-btn-area">
-                <a class="weui-btn weui-btn_primary" href="/reservations/new">立即预约</a>
+                <%= link_to "立即预约", new_reservation_path(member_id: params[:member_id]), class: 'weui-btn weui-btn_primary' %>
               </p>
             </div>
         </div>
