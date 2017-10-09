@@ -6,7 +6,7 @@ docker-compose down -v
 # docker volume create --name=odoo-db-data
 
 # 启动服务
-docker-compose up --build --force-recreate -d
+docker-compose up --build --force-recreate --scale app=3 -d
 # docker-compose up -d
 
 # 初始化rails 数据库

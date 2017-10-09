@@ -11,14 +11,14 @@ services:
       - '8400:8400'
       - '8500:8500'
       - '8600:53/udp'
-    container_name: 'consul1'
+    container_name: consul1
     networks: 
       - babycare
 
   consul2:
     image: consul
     command: 'agent -server -retry-join consul1 -node=consul2 -log-level=info'
-    container_name: 'consul2'
+    container_name: consul2
     depends_on:
       - consul1
     networks: 
@@ -27,7 +27,7 @@ services:
   consul3:
     image: consul
     command: 'agent -server -retry-join consul1 -node=consul3 -log-level=info'
-    container_name: 'consul3'
+    container_name: consul3
     depends_on:
       - consul1
     networks: 
@@ -35,19 +35,22 @@ services:
 
   consul-client:
     image: consul
-    command: 'agent -retry-join consul1 -log-level=info'
+    command: 'agent -retry-join consul1 --node=consul-client -log-level=info'
     depends_on:
       - consul1
+    environment:
+      - SERVICE_NAME=consul-client
+      - SERVICE_TAGS=consul,consul-client
     networks: 
       - babycare
 
 
   registrator:
     image: gliderlabs/registrator:latest
-    container_name: 'registrator'
+    container_name: registrator
     command: consul://consul1:8500
     volumes:
-      - "/var/run/docker.sock:/tmp/docker.sock"
+      - /var/run/docker.sock:/tmp/docker.sock
     # links:
     #   - consul
     depends_on:
@@ -90,15 +93,17 @@ services:
 
   app:
     # image: babycare
-    container_name: babycare
+    # container_name: babycare
     build: .
     command: bundle exec puma -C config/puma.rb
     environment:
       - PORT=5000
     volumes:
       - ./docker/database.yml:/app/config/database.yml
-    ports:
-      - "5000:5000"
+    # ports:
+    #   - "5000:5000"
+    expose:
+      - "5000"
     depends_on:
       - db
     networks: 
