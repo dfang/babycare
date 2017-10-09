@@ -20,16 +20,19 @@ class Reservation < OdooRecord
   has_many :phone_call_histories, dependent: :destroy
   has_many :sms_histories, dependent: :destroy
 
+  belongs_to :family_member, foreign_key: :family_member_id, class_name: :User
+
+  belongs_to :user
+  # belongs_to :user, foreign_key: :user_id, class_name: :User
+
   validates :reservation_phone, format: /(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}/
-  validates :name, presence: true
+  # validates :name, presence: true
   validates :chief_complains, presence: true
 
   attr_accessor :total_fee
 
   enumerize :aasm_state, in: %i[pending reserved prepaid diagnosed paid archived rated overdued cancelled], default: :pending, predicates: true
-  enumerize :reservation_type, in: %i[online offline], default: :offline, predicates: true
-  enumerize :gender, in: %i[male female], default: :male
-  GENDERS = [%w[儿子 male], %w[女儿 female]].freeze
+  # enumerize :reservation_type, in: %i[online offline], default: :offline, predicates: true
 
   delegate :hospital, to: :doctor, allow_nil: true
   delegate :doctor, to: :doctor_user, allow_nil: true

@@ -29,7 +29,7 @@
                 <label class="weui-label">为谁预约</label>
               </div>
               <div class="weui-cell__bd weui-cell_primary">
-                <select class="weui-select" name="reservation[user_c]" data-parsley-required="true">
+                <select class="weui-select" name="reservation[family_member_id]" data-parsley-required="true">
                   <%= options_for_select  current_user.children.map {|x| [x.name, x.id] }, params[:family_member_id] %>
                 </select>
               </div>
@@ -57,14 +57,14 @@
 
           <div class="weui-cells weui-cells_form">
 
-            <div class="weui-cell">
+            <!-- <div class="weui-cell">
               <div class="weui-cell__hd">
                 <label class="weui-label">怎么称呼您</label>
               </div>
               <div class="weui-cell__bd weui-cell_primary">
                 <input class="weui-input" name="reservation[name]" data-parsley-required="true" placeholder="尊姓大名" type="text" value="<%= current_user.name %>">
               </div>
-            </div>
+            </div> -->
 
             <div class="weui-cell weui-cell-vcode" style="padding:0 15px">
               <div class="weui-cell__hd">

@@ -6,6 +6,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
+  extend Enumerize
+  extend ActiveModel::Naming
+
+  has_many :reservations
+  # has_many :reservations, through: :family_member_id
+
   include ImageVersion
   mount_image_version :avatar
   # mount_image_version :qrcode
@@ -14,6 +20,9 @@ class User < ActiveRecord::Base
   include Wisper.model
 
   has_ancestry
+
+  enumerize :gender, in: %i[male female], default: :male
+  GENDERS = [%w[儿子 male], %w[女儿 female]].freeze
 
   validates :name, presence: true
   validates :birthdate, presence: true
