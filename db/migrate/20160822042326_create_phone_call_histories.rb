@@ -1,4 +1,4 @@
-class CreatePhoneCallHistories < ActiveRecord::Migration
+class CreatePhoneCallHistories < ActiveRecord::Migration[5.1]
   def change
     create_table :phone_call_histories do |t|
       t.integer :caller_user_id

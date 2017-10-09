@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class MedicalRecord < ApplicationRecord
+class MedicalRecord < OdooRecord
   self.table_name = 'fa_medical_record'
 
   belongs_to :user
-  belongs_to :reservation
+  belongs_to :reservation , required: false
 
   has_many :medical_record_images, class_name: 'MedicalRecordImage', dependent: :destroy
   has_many :laboratory_examination_images, class_name: 'LaboratoryExaminationImage', dependent: :destroy

@@ -17,29 +17,33 @@ module WxApp
     end
 
     def get_access_token(options = {})
-      access_token = Rails.cache.fetch('weixin_access_token')
-      return access_token unless access_token.nil? || options[:force]
-
+      Rails.logger.info "\napp_id in get_access_token is #{WEIXIN_ID}\n\n"
+      # access_token = Rails.cache.fetch('weixin_access_token')
+      # return access_token unless access_token.nil? || options[:force]
       url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
       conn = get_conn
       response = conn.get url
-      access_token = JSON.parse(response.body)['access_token']
-      Rails.cache.write('weixin_access_token', access_token, expires_in: 100.minutes)
+      response_data = JSON.parse(response.body)
+      Rails.logger.info "\nget_access_token response data is \n#{response_data}\n\n"
+      access_token = response_data['access_token']
+      # Rails.cache.write('weixin_access_token', access_token, expires_in: 7200.seconds)
       access_token
     end
 
     def get_jsapi_ticket
-      jsapi_ticket = Rails.cache.fetch('weixin_jsapi_ticket')
-      if jsapi_ticket.present?
-        return jsapi_ticket
-      else
-        url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
-        conn = get_conn
-        response = conn.get url
-        jsapi_ticket = JSON.parse(response.body)['ticket']
-        Rails.cache.write('weixin_jsapi_ticket', jsapi_ticket, expires_in: 7200.seconds)
-        jsapi_ticket
-      end
+      # jsapi_ticket = Rails.cache.fetch('weixin_jsapi_ticket')
+      # if jsapi_ticket.present?
+      #   return jsapi_ticket
+      # else
+      url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
+      conn = get_conn
+      response = conn.get url
+      response_data = JSON.parse(response.body)
+      Rails.logger.info "get_jsapi_ticket response data is \n#{response_data} "
+      jsapi_ticket = response_data['ticket']
+      # Rails.cache.write('weixin_jsapi_ticket', jsapi_ticket, expires_in: 7200.seconds)
+      jsapi_ticket
+      # end
     end
   end
 end
@@ -58,32 +62,6 @@ module WxApp
       conn.post do |req|
         req.url "/cgi-bin/menu/create?access_token=#{WxApp::WxCommon.get_access_token}"
         req.headers['Content-Type'] = 'application/json'
-        # req.body =
-        #           {
-        #             "menu" => {
-        #               "button" => [
-        #
-        #                 {
-        #                   "name"=>"用户",
-        #                   "sub_button"=>
-        #                     [ {"type"=>"view", "name"=>"预约医生", "url"=>"http://babycare.tunnel.qydev.com/reservations/new", "sub_button"=>[]},
-        #                       {"type"=>"view", "name"=>"用户后台", "url"=>"http://babycare.tunnel.qydev.com/patients", "sub_button"=>[]}
-        #                     ]
-        #                 },
-        #
-        #                 {"type"=>"view", "name"=>"预约列表", "url"=>"http://babycare.tunnel.qydev.com/reservations/public", "sub_button"=>[]},
-        #
-        #                 {
-        #                   "name"=>"医生",
-        #                   "sub_button"=>
-        #                     [ {"type"=>"view", "name"=>"注册医生", "url"=>"http://babycare.tunnel.qydev.com/doctors/new", "sub_button"=>[]},
-        #                       {"type"=>"view", "name"=>"医生后台", "url"=>"http://babycare.tunnel.qydev.com/doctors", "sub_button"=>[]}
-        #                     ]
-        #                 }
-        #               ]
-        #             }
-        #           }.to_json
-        # binding.pry
         req.body = menus
       end
     end
@@ -231,7 +209,7 @@ module WxApp
 end
 
 module WxApp
-  module WxPay
+  module WxJsSDK
     extend self
 
     def generate_payment_params(body_text, out_trade_no, fee, ip, notify_url, trade_type)
@@ -252,12 +230,13 @@ module WxApp
         mch_id:    Settings.wx_pay.mch_id,
         key:       Settings.wx_pay.api_key,
         noncestr:  SecureRandom.hex,
-        timestamp: DateTime.now.to_i
+        timestamp: Time.zone.now.to_i
       }.merge(options)
       options
     end
 
     def generate_js_sdk_signature_str(noncestr, timestamp, url)
+      Rails.logger.info "jsapi_ticket is #{::WxApp::WxCommon.get_jsapi_ticket}"
       js_sdk_signature_str = { jsapi_ticket: ::WxApp::WxCommon.get_jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k, v|
         "#{k}=#{v}" if v != '' && !v.nil?
       end.compact.join('&')
@@ -301,7 +280,7 @@ module WxApp
         desc:                '提现',
         amount:              amount
       }
-      options = WxApp::WxPay.generate_payment_options
+      options = ::WxApp::WxJsSDK.generate_payment_options
       ::WxPay::Service.invoke_transfer(transfer_params, options)
 
       # WxPay::Service.send(:make_payload, transfer_params)

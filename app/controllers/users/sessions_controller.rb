@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  before_action :authenticate_user!
   before_action :wechat_authorize
   # before_action :configure_sign_in_params, only: [:create]
   # prepend_before_action :authenticate_user!, :wechat_authorize
+
+  def new
+    redirect_to :wechat_authorize
+  end
 
   def wechat_authorize
     wx_authenticate!
@@ -47,23 +52,21 @@ class Users::SessionsController < Devise::SessionsController
         Rails.logger.debug '正常情况下，用户点击授权按钮就会去申请code参数，如果曾经授权过，此时静默授权，用户无感知'
         Rails.logger.debug "redirect_uri is #{redirect_uri}"
 
-        redirect_to(get_code_uri(redirect_uri)) && return
+        redirect_to get_code_uri(redirect_uri)
       end
 
       # 如果code参数不为空，则认证到第二步，通过code获取openid，并保存到session中
       begin
         Rails.logger.debug 'code参数不为空,通过code获取openid和access_token'
-
         token_info = exchange_code_for_access_token(code)
 
         unless token_info['errcode']
 
-          Rails.logger.debug "\ntoken_info: #{token_info.inspect}\n"
-
           openid = token_info['openid']
+          unionid = token_info['unionid']
           access_token = token_info['access_token']
 
-          Rails.logger.debug '通过openid和access_token获取用户信息'
+          Rails.logger.debug '通过openid和access_token获取用户信息 ..........'
 
           userinfo = exchange_access_token_for_userinfo(access_token, openid)
 
@@ -72,14 +75,15 @@ class Users::SessionsController < Devise::SessionsController
           # union_info = JSON.parse Faraday.get(union_url).body
 
           # 微信公众号绑定到微信公众开发平台上才能获取到unionid, 此处用的是测试号，所以自己随变弄一个算了
-          unionid = userinfo['openid']
-          # unionid = union_info['unionid']
+          openid = userinfo['openid']
+          unionid = userinfo['unionid']
 
           authentication = Authentication.find_by(provider: 'wechat', unionid: unionid)
           if authentication.blank?
             if authentication = Authentication.find_by(provider: 'wechat', uid: openid)
               authentication.update_column :unionid, unionid
               user = authentication.user
+              user.save!
             else
 
               # Transaction create wechat authentication and user
@@ -98,13 +102,11 @@ class Users::SessionsController < Devise::SessionsController
             Rails.logger.info "Authentication inspected : #{authentication.inspect}"
           end
 
-          session[:weixin_openid] = openid
-          cookies[:weixin_openid] = openid
+          session[:weixin_openid] = unionid
+          cookies[:weixin_openid] = unionid
           sign_in(:user, authentication.user)
           # respond_with authentication.user, location: after_sign_in_path_for(authentication.user)
-
-          # redirect_after_sign_in
-          redirect_to(edit_patients_settings_path) && return
+          redirect_after_sign_in
         end
       rescue StandardError => e
         Rails.logger.info e.inspect
@@ -123,26 +125,29 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def redirect_after_sign_in
-    redirect_to(edit_patients_settings_path) && return if current_user.profile_complete?
+    redirect_to(edit_patients_settings_path) && return unless current_user.profile_complete?
     redirect_to session[:user_return_to] && return if session[:user_return_to]
     redirect_to(root_path) && return
   end
 
   def get_code_uri(redirect_uri)
-    uri_for_get_code_from_weixin = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{WxApp::WxCommon::WEIXIN_ID}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
+    uri_for_get_code_from_weixin = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Settings.weixin_authorize.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
     uri_for_get_code_from_weixin
   end
 
   def exchange_code_for_access_token(code)
     # 通过code换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同
-    token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{WxApp::WxCommon::WEIXIN_ID}&secret=#{WxApp::WxCommon::WEIXIN_SECRET}&code=#{code}&grant_type=authorization_code"
-    token_info = JSON.parse(Faraday.get(token_url).body)
-    token_info
+    token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{Settings.weixin_authorize.app_id}&secret=#{Settings.weixin_authorize.app_secret}&code=#{code}&grant_type=authorization_code"
+    token_info_response_data = JSON.parse(Faraday.get(token_url).body)
+    Rails.logger.info "\n\nexchange_code_for_access_token response data is \n #{token_info_response_data}\n\n"
+    token_info_response_data
   end
 
   def exchange_access_token_for_userinfo(access_token, openid)
     uinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token=#{access_token}&openid=#{openid}&lang=zh_CN"
-    union_info = JSON.parse(Faraday.get(uinfo_url).body)
+    uinfo_response_data = JSON.parse(Faraday.get(uinfo_url).body)
+    Rails.logger.info "\n\nexchange_access_token_for_userinfo response data is \n #{uinfo_response_data}\n\n"
+    uinfo_response_data
   end
 
   def create_wechat_session(userinfo, union_info)

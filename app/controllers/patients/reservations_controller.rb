@@ -2,11 +2,7 @@
 
 require 'rexml/document'
 
-class Patients::ReservationsController < InheritedResources::Base
-  # before_action ->{ authenticate_user!( force: true ) }
-  before_action :deny_doctors
-  before_action :authenticate_user!
-  before_action :check_is_verified_doctor
+class Patients::ReservationsController < Patients::BaseController
   # before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
   # skip_before_action :deny_doctors, only: :payment_notify
   # skip_before_action :verify_authenticity_token, only: :payment_notify
@@ -37,7 +33,7 @@ class Patients::ReservationsController < InheritedResources::Base
       resource.pay_fee = fee
     end
 
-    Rails.logger.info "payment fee (unit: fen) is #{fee}"
+    Rails.logger.info "需要支付的费用fee是#{fee}分"
 
     # 预约定金 TO_BE_TESTED
     # if resource.out_trade_prepay_no.blank? && resource.reserved?
@@ -53,31 +49,31 @@ class Patients::ReservationsController < InheritedResources::Base
 
     out_trade_no = resource.out_trade_pay_no || resource.out_trade_prepay_no
 
-    Rails.logger.info "out_trade_no is #{out_trade_no}"
+    Rails.logger.info "out_trade_no 是 #{out_trade_no}"
 
     resource.save!
 
     if resource.pending? || resource.diagnosed?
 
-      payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
-      options = WxApp::WxPay.generate_payment_options
+      payment_params = WxApp::WxJsSDK.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
+      options = WxApp::WxJsSDK.generate_payment_options
 
       # 微信支付的坑
       # total_fee 必须是整数的分，不能是float
       # JSAPI支付必须传openid
       payment_params[:openid] = current_wechat_authentication.uid
 
-      Rails.logger.info  "payment_params is #{payment_params}"
-      Rails.logger.info  "options is #{options}"
+      Rails.logger.info  "payment_params is \n#{payment_params}"
+      Rails.logger.info  "options is \n#{options}"
 
       result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-      Rails.logger.info "invoke_unifiedorder result is .......... #{result}"
+      Rails.logger.info "invoke_unifiedorder result is \n#{result}"
 
       # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-      # js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
+      # js_sdk_signature_str = WxApp::WxJsSDK.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
       # p  "js_sdk_signature string ..........\n #{js_sdk_signature_str} "
 
-      # pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
+      # pay_sign_str = WxApp::WxJsSDK.generate_pay_sign_str(options, result['prepay_id'])
       # p   'pay_sign_str is .....'
       # p   pay_sign_str
 
@@ -85,7 +81,7 @@ class Patients::ReservationsController < InheritedResources::Base
 
       # 这里不能用options[:app_id], 因为WxPay::Service.invoke_unifiedorder会delete掉，详情要查看源码,这里用result['appid']或Settings.wx_pay.app_id都可以
       @order_params = {
-        appId:     WxPay.appid,
+        appId:     Settings.wx_pay.app_id,
         timeStamp: js_pay_params.delete(:timeStamp),
         nonceStr:  js_pay_params.delete(:nonceStr),
         signType:  js_pay_params.delete(:signType),
@@ -131,20 +127,20 @@ class Patients::ReservationsController < InheritedResources::Base
   #   end
   #
   #   out_trade_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100000)}"
-  #   payment_params = WxApp::WxPay.generate_payment_params(body_text, out_trade_no, reservation.total_fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
+  #   payment_params = WxApp::WxJsSDK.generate_payment_params(body_text, out_trade_no, reservation.total_fee, request.ip, Settings.wx_pay.payment_notify_url, current_wechat_authentication.uid)
   #
-  #   options = WxApp::WxPay.generate_payment_options
+  #   options = WxApp::WxJsSDK.generate_payment_options
   #   result = WxPay::Service.invoke_unifiedorder(payment_params, options)
   #
   #   p 'invoke_unifiedorder result is .......... '
   #   p result
   #
   #   # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
-  #   js_sdk_signature_str = WxApp::WxPay.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
+  #   js_sdk_signature_str = WxApp::WxJsSDK.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
   #   p   'js_sdk_signature string ..........'
   #   p   js_sdk_signature_str
   #
-  #   pay_sign_str = WxApp::WxPay.generate_pay_sign_str(options, result['prepay_id'])
+  #   pay_sign_str = WxApp::WxJsSDK.generate_pay_sign_str(options, result['prepay_id'])
   #   p   'pay_sign_str is .....'
   #   p   pay_sign_str
   #
@@ -165,21 +161,7 @@ class Patients::ReservationsController < InheritedResources::Base
 
   private
 
-  # TODO: fix_this
-  def check_is_verified_doctor
-    redirect_to(patients_status_path) && return if current_user.verified_doctor?
-  end
-
-  def deny_doctors
-    if current_user.verified_doctor?
-      # unless resource.user_a == current_user.id
-      #   # todo: redirect_to page with permission denied message
-      flash[:error] = '你是医生不能访问用户区域'
-      redirect_to(global_denied_path) && return
-    end
-  end
-
   def current_wechat_authentication
-    current_user.authentications.where(provider: 'wechat').first
+    current_user.authentications.find_by(provider: 'wechat')
   end
 end

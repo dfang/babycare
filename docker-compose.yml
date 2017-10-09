@@ -1,6 +1,60 @@
 version: '2'
 
 services:
+  consul1:
+    image: 'consul'
+    command: 'agent -server -bootstrap-expect=3 -ui -client=0.0.0.0 -node=consul1 -log-level=DEBUG'
+    ports:
+      - '8300:8300'
+      - '8301:8301'
+      - '8302:8302'
+      - '8400:8400'
+      - '8500:8500'
+      - '8600:53/udp'
+    container_name: 'consul1'
+    networks: 
+      - babycare
+
+  consul2:
+    image: 'consul'
+    command: 'agent -server -retry-join consul1 -node=consul2 -log-level=info'
+    container_name: 'consul2'
+    depends_on:
+      - consul1
+    networks: 
+      - babycare
+
+  consul3:
+    image: 'consul'
+    command: 'agent -server -retry-join consul1 -node=consul3 -log-level=info'
+    container_name: 'consul3'
+    depends_on:
+      - consul1
+    networks: 
+      - babycare
+
+  consul-client:
+    image: 'consul'
+    command: 'agent -retry-join consul1 -log-level=info'
+    depends_on:
+      - consul1
+    networks: 
+      - babycare
+
+
+  registrator:
+    image: gliderlabs/registrator:latest
+    container_name: 'registrator'
+    command: consul://consul1:8500
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock"
+    # links:
+    #   - consul
+    depends_on:
+      - consul1
+    networks: 
+      - babycare
+
   db:
     image: postgres:9.4
     container_name: db
@@ -8,17 +62,65 @@ services:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
-    # volumes:
-      # - odoo-db-data:/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
       # - ./config/pg_hba.conf:/var/lib/postgresql/data/pgdata/pg_hba.conf
     ports:
       - "5432:5432"
-  web:
-    build: .  
-    command: rails s
-    ports:
-      - "80:3000"
-    links:
+    networks: 
+      - babycare
+
+  odoo:
+    image: dfang/odoo
+    container_name: odoo
+    depends_on:
       - db
+    networks: 
+      - babycare
+    ports:
+      - "8069:8069"
     volumes:
-      - .:/fusion
+      - odoo-web-data:/var/lib/odoo
+      - ./docker/odoo.conf:/etc/odoo/odoo.conf
+      - ./docker/bootstrap_odoo_db.py:/tmp/bootstrap_odoo_db.py
+      - ./docker/addons:/mnt/extra-addons
+
+  app:
+    # image: babycare
+    # container_name: babycare
+    build: .
+    command: bundle exec puma -C config/puma.rb
+    environment:
+      - PORT=5000
+    volumes:
+      - ./docker/database.yml:/app/config/database.yml
+    ports:
+      - "5000:5000"
+    networks: 
+      - babycare
+
+  nginx:
+    image: nginx
+    ports:
+      - "3000:3000"
+    networks: 
+      - babycare
+    # links:
+    #   - consul1
+    depends_on:
+      - app
+    volumes_from:
+      - app
+    volumes:
+      - ./docker/site.conf:/etc/nginx/conf.d/default.conf
+
+
+volumes:
+  odoo-web-data:
+    external: true
+  odoo-db-data:
+    external: true
+
+networks:
+  babycare:
+    driver: bridge

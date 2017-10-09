@@ -1,4 +1,4 @@
-class AddReservationIdToMedicalRecords < ActiveRecord::Migration
+class AddReservationIdToMedicalRecords < ActiveRecord::Migration[5.1]
   def change
     add_reference :medical_records, :reservation, index: true, foreign_key: true
   end

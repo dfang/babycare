@@ -1,11 +1,11 @@
-.doctors_index {
+.doctors_index, .patients_index {
   .page__hd {
     padding: 20px;
   }
   .weui-grid {
     .weui-grid__icon {
-      width: 60px;
-      height: 60px;
+      width: 40px;
+      height: 40px;
       img{
         // border-radius: 60px;
         border-radius: 0;

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Patients::SettingsController < InheritedResources::Base
+class Patients::SettingsController < Patients::BaseController
   def edit; end
 
   protected

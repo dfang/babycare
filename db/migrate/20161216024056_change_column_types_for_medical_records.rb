@@ -1,4 +1,4 @@
-class ChangeColumnTypesForMedicalRecords < ActiveRecord::Migration
+class ChangeColumnTypesForMedicalRecords < ActiveRecord::Migration[5.1]
   def change
     change_column(:medical_records, :chief_complaint, :text)
     change_column(:medical_records, :history_of_present_illness, :text)

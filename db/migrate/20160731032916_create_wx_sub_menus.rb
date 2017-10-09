@@ -1,4 +1,4 @@
-class CreateWxSubMenus < ActiveRecord::Migration
+class CreateWxSubMenus < ActiveRecord::Migration[5.1]
   def change
     create_table :wx_sub_menus do |t|
       t.references :wx_menu, index: true, foreign_key: true

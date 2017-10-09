@@ -1,5 +1,5 @@
 # This migration comes from china_region_fu_engine (originally 20111111111111)
-class CreateChinaRegionTables < ActiveRecord::Migration
+class CreateChinaRegionTables < ActiveRecord::Migration[5.1]
   def change
     unless table_exists? 'provinces'
       create_table :provinces do |t|

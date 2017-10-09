@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class Patients::FamilyMembersController < ApplicationController
-  before_action -> { authenticate_user! }
-
+class Patients::FamilyMembersController < Patients::BaseController
   def index
     @members = current_user.children
   end
