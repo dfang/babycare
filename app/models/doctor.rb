@@ -2,6 +2,7 @@
 
 class Doctor < OdooRecord
   self.table_name = 'fa_doctor'
+  
   include Wisper.model
 
   belongs_to :user

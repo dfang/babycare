@@ -8,30 +8,31 @@
 
 # rake region:download
 # rake region:import
-require 'factory_girl_rails'
-require 'database_cleaner'
 
-p 'Cleaning database .......'
-DatabaseCleaner.strategy = :truncation
-DatabaseCleaner.clean
+# require 'factory_girl_rails'
+# require 'database_cleaner'
 
-Reservation.delete_all
-Doctor.delete_all
+# p 'Cleaning database .......'
+# DatabaseCleaner.strategy = :truncation
+# DatabaseCleaner.clean
 
-FactoryGirl.create(:authentication1)
-FactoryGirl.create(:authentication2)
-FactoryGirl.create(:doctor)
+# Reservation.delete_all
+# Doctor.delete_all
 
-20.times do
-  FactoryGirl.create(:pending_reservations)
-end
+# FactoryGirl.create(:authentication1)
+# FactoryGirl.create(:authentication2)
+# FactoryGirl.create(:doctor)
 
-5.times do
-  FactoryGirl.create(:reserved_reservations)
-end
+# 20.times do
+#   FactoryGirl.create(:pending_reservations)
+# end
 
-require_relative './seeds/symptoms.rb'
+# 5.times do
+#   FactoryGirl.create(:reserved_reservations)
+# end
 
-p 'Done .....'
+# require_relative './seeds/symptoms.rb'
+
+# p 'Done .....'
 
 # City.find_or_create_by(name: "武汉市", pinyin: "wuhan")
