@@ -19,10 +19,15 @@
   </head>
   <body class="<%= underscore_body_class %>">
 
+     / - if @no_header.blank?
+     /   = render 'header'
      <div id='container' class='container'>
         <%= yield %>
         <%= render 'loading_toast' %>
      </div>
+
+     / - if @no_footer.blank?
+     /   = render 'footer'
 
   </body>
   <%= javascript_include_tag :mobile %>
