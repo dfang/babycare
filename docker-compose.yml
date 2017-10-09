@@ -89,7 +89,7 @@ services:
       - odoo-web-data:/var/lib/odoo
       - ./docker/odoo.conf:/etc/odoo/odoo.conf
       - ./docker/bootstrap_odoo_db.py:/tmp/bootstrap_odoo_db.py
-      - ./docker/addons:/mnt/extra-addons
+      - ./tmp/addons:/mnt/extra-addons
 
   app:
     # image: babycare
@@ -123,7 +123,6 @@ services:
       - app
     volumes:
       - ./docker/site.conf:/etc/nginx/conf.d/default.conf
-
 
 volumes:
   odoo-web-data:
