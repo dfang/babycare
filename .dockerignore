@@ -7,3 +7,18 @@ Dockerfile
 node_modules/
 coverage/
 .cache/
+
+build
+dist
+*.egg-info
+*.egg/
+*.pyc
+*.swp
+
+.tox
+.coverage
+html/*
+__pycache__
+
+# Compiled Documentation
+docs/_build

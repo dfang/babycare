@@ -1,0 +1,12 @@
+FROM odoo:10.0
+
+MAINTAINER df1228@gmail.com
+
+# RUN pip install odoorpc --user odoo
+# RUN su - root -c "pip install odoorpc"
+USER root
+# RUN apt-get install -y sudo
+RUN pip install odoorpc
+USER odoo
+
+CMD ["odoo"]

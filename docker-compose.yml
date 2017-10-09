@@ -2,7 +2,7 @@ version: '2'
 
 services:
   consul1:
-    image: 'consul'
+    image: consul
     command: 'agent -server -bootstrap-expect=3 -ui -client=0.0.0.0 -node=consul1 -log-level=DEBUG'
     ports:
       - '8300:8300'
@@ -16,7 +16,7 @@ services:
       - babycare
 
   consul2:
-    image: 'consul'
+    image: consul
     command: 'agent -server -retry-join consul1 -node=consul2 -log-level=info'
     container_name: 'consul2'
     depends_on:
@@ -25,7 +25,7 @@ services:
       - babycare
 
   consul3:
-    image: 'consul'
+    image: consul
     command: 'agent -server -retry-join consul1 -node=consul3 -log-level=info'
     container_name: 'consul3'
     depends_on:
@@ -34,7 +34,7 @@ services:
       - babycare
 
   consul-client:
-    image: 'consul'
+    image: consul
     command: 'agent -retry-join consul1 -log-level=info'
     depends_on:
       - consul1
@@ -71,7 +71,10 @@ services:
       - babycare
 
   odoo:
-    image: dfang/odoo
+    # image: dfang/odoo
+    build: 
+      context: ./docker
+      dockerfile: Dockerfile-odoo
     container_name: odoo
     depends_on:
       - db
@@ -87,7 +90,7 @@ services:
 
   app:
     # image: babycare
-    # container_name: babycare
+    container_name: babycare
     build: .
     command: bundle exec puma -C config/puma.rb
     environment:
@@ -96,6 +99,8 @@ services:
       - ./docker/database.yml:/app/config/database.yml
     ports:
       - "5000:5000"
+    depends_on:
+      - db
     networks: 
       - babycare
 
@@ -117,9 +122,9 @@ services:
 
 volumes:
   odoo-web-data:
-    external: true
+    external: false
   odoo-db-data:
-    external: true
+    external: false
 
 networks:
   babycare:
