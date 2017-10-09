@@ -1,6 +1,9 @@
-.git/
-tmp/
-log/
+.git*
+tmp/*
+log/*
+db/*.sqlite3
+db/*.sqlite3-journal
+Dockerfile
 node_modules/
 coverage/
 .cache/

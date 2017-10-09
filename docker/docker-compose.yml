@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:9.4
+    container_name: db
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    # volumes:
+      # - odoo-db-data:/var/lib/postgresql/data/pgdata
+      # - ./config/pg_hba.conf:/var/lib/postgresql/data/pgdata/pg_hba.conf
+    ports:
+      - "5432:5432"
+
+  puma:
+    # image: babycare
+    container_name: babycare
+    build: .
+    command: bundle exec puma -C config/puma.rb
+    environment:
+      - PORT=5000
+    volumes:
+      - ./docker/database.yml:/fusion/config/database.yml
+    ports:
+      - "5000:5000"
+    links:
+      - db
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "8888:8888"
+    links:
+      - puma
+
+
+  # web:
+  #   build: .
+  #   command: rails s
+  #   ports:
+  #     - "80:3000"
+  #   links:
+  #     - db
+  #   volumes:
+  #     - .:/fusion

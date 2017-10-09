@@ -1,0 +1,49 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  # pool: 5
+  host: db
+  port: 5432
+  username: odoo
+  password: odoo
+
+development:
+  <<: *default
+  database: fusion_admin_development
+
+test:
+  <<: *default
+  database: fusion_admin_test
+
+production:
+  <<: *default
+  database: fusion_admin_production
+
+staging:
+  <<: *default
+  database: fusion_admin_production
+
+# psql -h 192.168.31.51 -p 5432 -U odoo -d odoo
+odoo: &odoo
+  adapter: postgresql
+  encoding: utf8
+  host: db
+  port: 5432
+  username: odoo
+  password: odoo
+
+odoo_development:
+  <<: *odoo
+  database: odoo_production
+
+odoo_test:
+  <<: *odoo
+  database: odoo_test
+
+odoo_production:
+  <<: *odoo
+  database: odoo_production
+
+odoo_staging:
+  <<: *odoo
+  database: odoo_production
