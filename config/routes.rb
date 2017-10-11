@@ -81,6 +81,7 @@ Rails.application.routes.draw do
     resource :settings, only: :edit
     resources :family_members
     resources :reservations do
+      get 'pay_deposit', on: :member
       get 'latest', on: :collection
       get 'payment', on: :member
       put 'payment', on: :member
