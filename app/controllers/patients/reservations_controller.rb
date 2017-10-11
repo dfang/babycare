@@ -51,7 +51,7 @@ class Patients::ReservationsController < Patients::BaseController
 
     Rails.logger.info "out_trade_no 是 #{out_trade_no}"
 
-    resource.save!
+    # resource.save!
 
     if resource.pending? || resource.diagnosed?
 

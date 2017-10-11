@@ -1,87 +1,62 @@
-<div class="msg">
-    <div class="weui-msg">
-        <div class="weui-msg__icon-area"><i class="weui-icon-waiting weui-icon_msg"></i></div>
-        <div class="weui_text_area">
-            <h2 class="weui-msg__title">请支付定金</h2>
-            <p class="weui-msg__desc">请支付预约定金, 方便医生和你确认见面地点和时间. 测试阶段定金只要0.01元</p>
-            <p class="weui-msg__desc">未支付定金之前你可以随便取消, 支付之后的所有取消需要联系客服处理</p>
-        </div>
-        <div class="weui-msg__opr-area">
-            <p class="weui-btn-area">
-              <a href="javascript:void(0)" class="weui-btn weui-btn_primary" id="wechatPaymentBtn">支付定金(0.01元)</a>
-              <a href="tel:4000719136" class="weui-btn weui-btn_default">拨打客服电话</a>
-							<a href="javascript: IM.cancel(<%= resource.id %>)" class="weui-btn weui-btn_default">取消预约</a>
-            </p>
-        </div>
-        <div class="weui-msg__extra-area">
-            <a href="">帮助</a>
-        </div>
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:60px;margin-right:5px;display:block">
+        <p><%= @reservation.family_member.name %></p>
     </div>
+    <div class="weui-cell__bd">
+      <div class="weui_media_status">
+        <%- if @reservation.patient_has_rated? %>
+          已评价
+        <% else %>
+          <%= @reservation.aasm_state_text %>
+        <% end %>
+      </div>
+    </div>
+    <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:60px;margin-right:5px;display:block">
+        <p>
+          <% if @reservation.doctor.present? %>
+            <%= @reservation.doctor_user_name %>
+          <% else %>
+            未指定
+          <% end %>
+        </p>
+    </div>
+  </div>
 </div>
 
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约时间</p>
+    </div>
+    <div class="weui-cell__ft"><%= @reservation.reservation_date %></div>
+  </div>
 
-<%= content_for :js do %>
-  <%= javascript_tag do %>
-    $(function(){
-      <% if @order_params.present? %>
-        var orderParams = {
-          appId:     "<%= @order_params[:appId] %>",
-          timeStamp: "<%= @order_params[:timeStamp] %>",
-          nonceStr:  "<%= @order_params[:nonceStr] %>",
-          package:   "<%= @order_params[:package] %>",
-          paySign:   "<%= @order_params[:paySign] %>",
-          signType:  "<%= @order_params[:signType] %>"
-        };
-
-
-
-        url = location.href.split('#')[0]
-        $.ajax({
-          url:   "/wx/config_jssdk.json?url=" + escape(url),
-        })
-        .done(function(data){
-
-          wx.config({
-            debug:     false,
-            appId:     data.appId,
-            timestamp: data.timestamp,
-            nonceStr:  data.nonceStr,
-            signature: data.signature,
-            jsApiList: data.jsApiList
-          });
-
-          wx.error(function(res){
-            alert("初始化微信js sdk出错，请联系我们");
-          })
-
-          wx.ready(function(){
-            console.log('fuck')
-            console.log('wx ready, click to pay')
-
-            $('#wechatPaymentBtn').on('click', function() {
-
-              wx.chooseWXPay({
-                  timestamp: orderParams.timeStamp,
-                  nonceStr:  orderParams.nonceStr,
-                  package:   orderParams.package,
-                  signType:  orderParams.signType,
-                  paySign:   orderParams.paySign,
-                  success: function (res) {
-      							console.log(JSON.stringify(res));
-      							if(res["errMsg"] == "chooseWXPay:ok"){
-      								// check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
-                      location.reload()
-      							}
-                  },
-      						fail: function(res){
-      							console.log(JSON.stringify(res));
-                    alert('支付请求失败, 请联系我们');
-      						}
-              });
-            });
-          })
-      })
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约地点</p>
+    </div>
+    <div class="weui-cell__ft">
+      <% if @reservation.reservation_location.present? %>
+        <%= @reservation.reservation_location %>
+      <% else %>
+        待定
       <% end %>
-    })
-  <% end %>
-<% end %>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>症状描述</p>
+    </div>
+    <div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:58px;margin-right:5px;display:block"></div>
+    <div class="weui-cell__ft"><%= @reservation.chief_complains %></div>
+  </div>
+</div>
+
+<div class="weui-btn-area">
+  <%= link_to "支付定金", pay_deposit_patients_reservation_path(@reservation), class: "weui-btn weui-btn_primary" %>
+  <a href="javascript:;" class="weui-btn weui-btn_default">取消预约</a>
+</div>

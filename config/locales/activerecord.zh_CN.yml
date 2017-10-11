@@ -120,6 +120,9 @@ zh-CN:
         medical_record_images: 病历图片
         imaging_examination_images: 影像学意见图片
         laboratory_examination_images: 实验室检查图片
+      reservation:
+        <<: *common
+        doctor: 医生
       setting:
         <<: *common
         history_of_present_illness: 现病史

@@ -29,6 +29,13 @@ class Reservation < OdooRecord
 
   attr_accessor :total_fee
 
+  # pending', '待接单'), ('reserved', '已接单'), ('reserved',  '已接单'),
+  # ('archived',  '已存档'), ('prepaid',  '已支付定金'), ('paid',  '已支付'),
+  # ('diagnosed',  '医生服务已完成'), ('cancelled',  '已取消'),
+  # ('overdued',  '超时未支付定金'), ('rated',  '已评价')
+  # ], string='state', default='pending')
+
+
   enumerize :aasm_state, in: %i[pending reserved prepaid diagnosed paid archived rated overdued cancelled], default: :pending, predicates: true
   # enumerize :reservation_type, in: %i[online offline], default: :offline, predicates: true
 
