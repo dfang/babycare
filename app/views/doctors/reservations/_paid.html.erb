@@ -13,7 +13,7 @@
             <%= f.input :body, as: :text, label: false, input_html: { height: '100px' } %>
             <%= f.input :tag_list, as: :hidden %>
             <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
-            <%= f.input :user_id, as: :hidden, input_html: { value: resource.user_a } %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: resource.doctor_id } %>
             <%= f.button :submit, class: "weui-btn weui-btn__primary" %>
           <% end %>
         </p>
