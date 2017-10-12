@@ -11,6 +11,8 @@ set :repo_url, 'git@github.com:dfang/babycare.git'
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
+set :branch, :develop
+
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/home/deployer/apps/callmeadoctor'
 
@@ -53,7 +55,7 @@ set :puma_nginx, :web
 set :nginx_sites_available_path, '/etc/nginx/sites-available'
 set :nginx_sites_enabled_path, '/etc/nginx/sites-enabled'
 set :nginx_config_name, "#{fetch(:application)}_#{fetch(:stage)}"
-set :nginx_server_name, 'wx.yhuan.cc'
+set :nginx_server_name, 'wx.baojiankang.cc'
 
 set :puma_conf, "#{shared_path}/config/puma.rb"
 set :puma_workers, 1
