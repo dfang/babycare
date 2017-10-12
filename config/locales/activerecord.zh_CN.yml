@@ -51,8 +51,10 @@ zh-CN:
           0: 男
           1: 女
     models:
-      person: 登记
       user: 用户
+      reservation: 预约
+      doctor: 医生
+      rating: 评价
     attributes:
       common: &common
         gender: 性别
@@ -81,15 +83,6 @@ zh-CN:
         <<: *common
         name: 症状
         detail: 具体症状
-      person:
-        <<: *common
-        name: 姓名
-        job: 工作
-        employer: 工作单位
-        source: 来源
-        blood_type: 血型
-        qq: qq
-        wechat: 微信
       medical_record:
         <<: *common
         name: 姓名

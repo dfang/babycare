@@ -20,7 +20,8 @@ class Reservation < OdooRecord
   has_many :phone_call_histories, dependent: :destroy
   has_many :sms_histories, dependent: :destroy
 
-  belongs_to :doctor
+  belongs_to :doctor, optional: true
+  # belongs_to :assistant, optional: true
   belongs_to :user
   belongs_to :family_member, foreign_key: :family_member_id, class_name: :User
 
@@ -34,7 +35,6 @@ class Reservation < OdooRecord
   # ('diagnosed',  '医生服务已完成'), ('cancelled',  '已取消'),
   # ('overdued',  '超时未支付定金'), ('rated',  '已评价')
   # ], string='state', default='pending')
-
 
   enumerize :aasm_state, in: %i[pending reserved prepaid diagnosed paid archived rated overdued cancelled], default: :pending, predicates: true
   # enumerize :reservation_type, in: %i[online offline], default: :offline, predicates: true
