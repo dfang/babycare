@@ -32,7 +32,7 @@ install_plugin Capistrano::Puma::Jungle # if you need the jungle tasks
 # install_plugin Capistrano::Puma::Monit  # if you need the monit tasks
 install_plugin Capistrano::Puma::Nginx
 
-require 'capistrano/local_precompile'
+# require 'capistrano/local_precompile'
 
 require 'whenever/capistrano'
 
