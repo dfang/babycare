@@ -73,7 +73,7 @@ namespace :deploy do
   before :starting, 'puma:stop'
   before :starting, :ensure_enough_memory do
     on roles(:app) do
-      execute 'sudo service redis-server stop'
+      # execute 'sudo service redis-server stop'
       execute 'sudo service postgresql stop'
       execute 'sudo service nginx stop'
     end
@@ -81,7 +81,7 @@ namespace :deploy do
   after 'deploy:assets:backup_manifest', :start_server_again do
     on roles(:app) do
       execute 'sudo service postgresql start'
-      execute 'sudo service redis-server start'
+      # execute 'sudo service redis-server start'
       execute 'sudo service nginx start'
     end
   end
