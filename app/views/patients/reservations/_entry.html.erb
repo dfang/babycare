@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="weui-cell__bd">
-    <p><%= res.user.name %>的<%= res.family_member.gender_text %><%= res.family_member.name %></p>
+    <p><%= res.user.try(:name) %>的<%= res.family_member.try(:gender_text) %><%= res.family_member.try(:name) %></p>
     <p class="weui-media-box__desc"><%= res.chief_complains %></p>
     <p class="weui-media-box__desc">预约时间: <%= res.reservation_time %></p>
     <p class="weui-media-box__desc">预约地点: <%= res.reservation_location %></p>
