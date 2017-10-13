@@ -11,7 +11,7 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./ 
+COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && \
       bundle config mirror.https://rubygems.org https://gems.ruby-china.org && \
       bundle install --jobs 4 --retry 5 --deployment --no-cache --without development test
@@ -21,12 +21,12 @@ ENV PATH /root/.yarn/bin:$PATH
 # Copy dependencies for Node.js and instance the packages.
 # Again, being separate means this will cache.
 COPY package.json yarn.lock ./
-RUN yarn install 
+RUN yarn install
 RUN npm rebuild node-sass --force
 
 
 # Set Rails to run in production
-ENV RAILS_ENV production 
+ENV RAILS_ENV production
 ENV RACK_ENV production
 
 
