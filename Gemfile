@@ -120,7 +120,7 @@ group :development do
   gem 'capistrano3-nginx', '~> 2.1', '>= 2.1.6'
   # gem 'capistrano-nginx', '~> 1.0.0'
 
-  gem 'capistrano-local-precompile', '~> 1.0.0', require: false
+  # gem 'capistrano-local-precompile', '~> 1.0.0', require: false
 
   # gem 'capistrano-db-tasks', github: 'dfang/capistrano-db-tasks', branch: 'master', require: false
   gem 'capistrano-db-tasks', require: false
