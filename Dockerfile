@@ -33,10 +33,11 @@ ENV RACK_ENV production
 # Copy the main application.
 COPY . ./
 
+COPY docker/database.yml ./config/database.yml
+
 # Precompile Rails assets (plus Webpack)
 RUN bundle exec rake assets:precompile
 
-COPY docker/database.yml ./config/database.yml
 EXPOSE 5000
 ENV PORT 5000
 
