@@ -18,6 +18,10 @@ port        ENV.fetch('PORT') { 3000 }
 #
 environment ENV.fetch('RAILS_ENV') { 'development' }
 
+# make it 12factor see github.com/heroku/12factor
+environment ENV.fetch('RAILS_LOG_TO_STDOUT') { 'true' }
+environment ENV.fetch('RAILS_SERVE_STATIC_FILES') { 'true' }
+
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.
