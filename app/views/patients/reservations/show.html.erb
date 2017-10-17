@@ -2,17 +2,17 @@
   <div class="weui-tab">
       <div class="weui-tab__panel">
         <% if resource.paid? %>
-          <%= render 'states/paid' %>
+          <%= render 'patients/reservations/states/paid' %>
         <% elsif resource.to_pay? %>
-          <%= render 'states/to_pay' %>
+          <%= render 'patients/reservations/states/to_pay' %>
         <% elsif resource.consulting? %>
-          <%= render 'states/consulting' %>
+          <%= render 'patients/reservations/states/consulting' %>
         <% elsif resource.to_consult? %>
-          <%= render 'states/to_consult' %>
+          <%= render 'patients/reservations/states/to_consult' %>
         <% elsif resource.to_examine? %>
-          <%= render 'states/to_examine' %>
+          <%= render 'patients/reservations/states/to_examine' %>
         <% elsif resource.prepaid? %>
-          <%= render 'states/prepaid' %>
+          <%= render 'patients/reservations/states/prepaid' %>
         <% elsif resource.to_prepay? %>
           <%= render 'patients/reservations/states/to_prepay' %>
         <% end %>

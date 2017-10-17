@@ -41,8 +41,6 @@ class Reservation < OdooRecord
   # enumerize :reservation_type, in: %i[online offline], default: :offline, predicates: true
 
   delegate :hospital, to: :doctor, allow_nil: true
-
-
   delegate :name, to: :patient_user, prefix: :patient_user, allow_nil: true
   delegate :name, to: :doctor_user, prefix: :doctor_user, allow_nil: true
 

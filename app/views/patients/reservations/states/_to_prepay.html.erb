@@ -6,11 +6,7 @@
     </div>
     <div class="weui-cell__bd">
       <div class="weui_media_status">
-        <%- if resource.patient_has_rated? %>
-          已评价
-        <% else %>
-          <%= resource.aasm_state_text %>
-        <% end %>
+        <%= resource.aasm_state_text %>
       </div>
     </div>
     <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
