@@ -36,7 +36,8 @@ class Wx::WxpayController < ApplicationController
 
     Rails.logger.info "out_trade_no 是 #{out_trade_no}"
 
-    # @reservation.save!
+    # 保存商户订单号
+    @reservation.save!
 
     if @reservation.to_prepay? || @reservation.to_pay?
       payment_params = WxApp::WxJsSDK.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
