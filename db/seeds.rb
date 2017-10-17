@@ -31,8 +31,8 @@
 #   FactoryGirl.create(:reserved_reservations)
 # end
 
-# require_relative './seeds/symptoms.rb'
-
-# p 'Done .....'
+p 'Creating symptoms'
+require_relative './seeds/symptoms.rb'
+p 'Done .....'
 
 # City.find_or_create_by(name: "武汉市", pinyin: "wuhan")
