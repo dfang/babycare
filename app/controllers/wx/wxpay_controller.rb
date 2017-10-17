@@ -89,6 +89,7 @@ class Wx::WxpayController < ApplicationController
     elsif @reservation && @reservation.to_pay?
       @reservation.pay!
     end
+    redirect_to patients_reservation_path(@reservation) and return
   end
 
   private
