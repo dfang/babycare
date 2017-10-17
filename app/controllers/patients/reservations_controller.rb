@@ -20,17 +20,16 @@ class Patients::ReservationsController < Patients::BaseController
 
   def status; end
 
-  def show
-  end
+  def show; end
 
   # FIXME
   # rubocop:disable Metrics/MethodLength
-  def show2
-    if resource.pending?
+  def pay
+    if resource.to_prepay?
       body_text = '预约定金'
       fee = (Settings.wx_pay.prepay_amount * 100).to_i
       resource.prepay_fee = fee
-    elsif resource.diagnosed?
+    elsif resource.to_pay?
       body_text = '支付咨询费用'
       fee = (Settings.wx_pay.pay_amount * 100).to_i
       resource.pay_fee = fee
@@ -56,7 +55,7 @@ class Patients::ReservationsController < Patients::BaseController
 
     # resource.save!
 
-    if resource.pending? || resource.diagnosed?
+    if resource.to_prepay? || resource.to_pay?
 
       payment_params = WxApp::WxJsSDK.generate_payment_params(body_text, out_trade_no, fee, request.ip, Settings.wx_pay.payment_notify_url, 'JSAPI')
       options = WxApp::WxJsSDK.generate_payment_options
