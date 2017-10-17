@@ -5,7 +5,6 @@ class Wx::WxpayController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :query_order_result, only: :payment_notify
   before_action :query_payment_reservation, only: :payment_notify
-
   before_action :find_reservation, only: :payment
 
   def payment

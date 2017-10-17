@@ -4,7 +4,6 @@
   <%= render 'to_pay' %>
 <% end %>
 
-
 <%= content_for :js do %>
   <%= javascript_tag do %>
     $(function(){
@@ -50,10 +49,10 @@
                   signType:  orderParams.signType,
                   paySign:   orderParams.paySign,
                   success: function (res) {
-      							console.log(JSON.stringify(res));
       							if(res["errMsg"] == "chooseWXPay:ok"){
       								// check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
-                      location.reload()
+                      // and redirect to reservation status page
+                      location.href = "<%= patients_reservation_path(@reservation) %>"
       							}
                   },
       						fail: function(res){
