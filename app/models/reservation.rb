@@ -25,7 +25,7 @@ class Reservation < OdooRecord
   belongs_to :user
   belongs_to :family_member, foreign_key: :family_member_id, class_name: :User
 
-  validates :reservation_phone, format: /(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}/
+  validates :p_phone, format: /(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}/
   validates :chief_complains, presence: true
 
   attr_accessor :total_fee
@@ -166,7 +166,7 @@ class Reservation < OdooRecord
   def marked_phone_number
     # http://stackoverflow.com/questions/26103394/regular-expression-to-mask-all-but-the-last-4-digits-of-a-social-security-number
     # Simply extract the last four characters and append them to a string of five '*'
-    return '*' * 7 + reservation_phone[-4..-1] if reservation_phone.present?
+    return '*' * 7 + p_phone[-4..-1] if p_phone.present?
   end
 
   def rating_by_doctor
@@ -199,36 +199,12 @@ class Reservation < OdooRecord
   end
 
   def patient_user_phone
-    reservation_phone || patient_user.mobile_phone
+    p_phone || patient_user.mobile_phone
   end
-
-  # def patient_user_name
-  #   patient_user.try(:name)
-  # end
-  #
-  # def doctor_user_name
-  #   doctor_user.try(:name)
-  # end
 
   def doctor_user_phone
     doctor_user.try(:mobile_phone)
   end
-
-  def reserved_location
-    reservation_location || doctor_user.doctor.try(:hospital)
-  end
-
-  def reserved_time
-    return reservation_time.strftime('%Y-%m-%d %H:%M:%S') if reservation_time.present?
-  end
-
-  # def doctor
-  #   doctor_user.try(:doctor)
-  # end
-
-  # def hospital
-  #   doctor.hospital
-  # end
 
   def reservation_title
     "#{name}的#{gender}"

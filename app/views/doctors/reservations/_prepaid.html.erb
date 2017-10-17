@@ -1,31 +1,102 @@
-<div class="msg">
-    <div class="weui-msg">
-        <div class="weui-msg__icon-area"><i class="weui-icon-info weui-icon_msg"></i></div>
-        <div class="weui_text_area">
-            <h2 class="weui-msg__title">用户已经支付定金</h2>
-            <p class="weui-msg__desc">预约正式成立,请站在用户的角度进行咨询服务,保证服务质量还请在服务后完善添加病例资料,最后才能确认服务完成。服务完成了之后,可以对用户进行评价</p>
-        </div>
-        <div class="weui-msg__opr-area">
-          <p class="weui-btn-area">
-            <% if resource.reservation_type.offline? %>
-						  <%= link_to "确认线下咨询服务完成", complete_offline_consult_doctors_reservation_path(resource), method: 'PUT', class: "weui-btn weui-btn__primary" %>
-            <% else %>
-              <%= link_to "确认电话咨询服务完成", complete_online_consult_doctors_reservation_path(resource), method: 'PUT', class: "weui-btn weui-btn__primary" %>
-            <% end %>
-
-            <%- if resource.medical_record.present?  %>
-							<%= link_to "修改病例", edit_doctors_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.doctor_id), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
-						<% else %>
-							<%= link_to "添加病例", new_doctors_medical_record_path(reservation_id: resource, user_id: resource.doctor_id), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
-						<% end  %>
-
-            <%= link_to "查看用户资料", profile_doctors_patient_path(resource.doctor_id), class: 'weui-btn weui-btn__primary', data: { turbolinks: "false" } %>
-
-            <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.doctor_id %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.patient_user_phone %>);" class="weui-btn weui-btn_default">拨打电话</a>
-          </p>
-        </div>
-        <div class="weui-msg__extra-area">
-            <a href="">帮助</a>
-        </div>
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:60px;margin-right:5px;display:block">
+        <p><%= resource.aasm_state_text %></p>
     </div>
+    <div class="weui-cell__bd">
+      <div class="weui_media_status">
+        <%= resource.family_member.name %>
+        <p>
+          性别: <%= resource.family_member.gender_text %>
+          身高: <%= resource.height %>
+          血型: <%= resource.family_member.blood_type %>
+          年龄: <%= resource.family_member.birthdate %>
+          体重: <%= resource.weight %>
+        </p>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>期望时间</p>
+    </div>
+    <div class="weui-cell__ft"><%= resource.reservation_date %></div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>患者位置</p>
+    </div>
+    <div class="weui-cell__ft">
+      <%= resource.reservation_location %>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>症状描述</p>
+    </div>
+    <div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:58px;margin-right:5px;display:block"></div>
+    <div class="weui-cell__ft"><%= resource.chief_complains %></div>
+  </div>
+</div>
+
+
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__hd">
+      <label class="weui-label">预约时间</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <input class="weui-input" name="reservation[reservation_date]" placeholder="患者来见你的时间" type="datetime-local"  data-parsley-required="true">
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__hd">
+      <label class="weui-label">预约地点</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <input class="weui-input" name="reservation[reservation_date]" placeholder="患者来见你的位置" type="text"  data-parsley-required="true">
+    </div>
+  </div>
+</div>
+
+
+检查项目 暂时不放
+对应原型图
+
+
+<div class="weui-btn-area">
+  <%= link_to "接单", '', class: 'weui-btn weui-btn_primary', data: { turbolinks: "false" } %>
+  <%= link_to "拒单", '', class: 'weui-btn weui-btn_default', data: { turbolinks: "false" } %>
+  <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.doctor_id %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.patient_user_phone %>);" class="weui-btn weui-btn_default">拨打患者电话</a>
+</div>
+
+<%= content_for :js do %>
+  <%= javascript_tag do %>
+    $(function(){
+
+      $.ajax({
+        url: '/path/to/file',
+        type: 'PUT',
+        data: {
+          param1: 'value1'
+        }
+      }).done(function(data, textStatus, jqXHR) {
+          console.log("success");
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+          console.log("error");
+      }).always(function(data|jqXHR, textStatus, jqXHR|errorThrown) {
+          console.log("complete");
+      });
+      .then(function( data, textStatus, jqXHR ) {}, function( jqXHR, textStatus, errorThrown ) {});
+
+    })
+  <% end %>
+<% end %>

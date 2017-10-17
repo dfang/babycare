@@ -9,19 +9,31 @@ class Doctors::ReservationsController < InheritedResources::Base
   def reservations; end
 
   def index
-    p params
-    if params.key?(:id)
-      # /doctors/patients/22/reservations
-      # {"controller"=>"doctors/reservations", "action"=>"index", "id"=>"22"}
-      # 医生查看某病人和自己的所有的预约页面
-      @user = User.find_by(id: params[:id])
-      @reservations = @user.reservations.order('updated_at DESC')
+    Rails.logger.info params
+
+
+    if params.key?(:aasm_state)
+      # 医生我要接单页面
+      # /doctors/reservations?aasm_state=prepaid
+      @reservations = current_user.doctor.reservations.prepaid
     else
-      # /doctors/reservations
-      # {"controller"=>"doctors/reservations", "action"=>"index"}
       # 医生的所有预约页面
-      @reservations = current_user.reservations.order('updated_at DESC')
+      # /doctors/reservations
+      @reservations = current_user.doctor.reservations
     end
+    # p params
+    # if params.key?(:id)
+    #   # /doctors/patients/22/reservations
+    #   # {"controller"=>"doctors/reservations", "action"=>"index", "id"=>"22"}
+    #   # 医生查看某病人和自己的所有的预约页面
+    #   @user = User.find_by(id: params[:id])
+    #   @reservations = @user.reservations.order('updated_at DESC')
+    # else
+    #   # /doctors/reservations
+    #   # {"controller"=>"doctors/reservations", "action"=>"index"}
+    #   # 医生的所有预约页面
+    #   @reservations = current_user.reservations.order('updated_at DESC')
+    # end
   end
 
   def show
@@ -51,7 +63,6 @@ class Doctors::ReservationsController < InheritedResources::Base
         "#{k}=#{v}" if v != '' && !v.nil?
       end.compact.join('&')
       @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
-
     end
   end
 

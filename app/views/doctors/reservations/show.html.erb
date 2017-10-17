@@ -22,14 +22,18 @@
     <div class="weui-tab__panel">
       <%- if resource.doctor_has_rated? %>
         <%= render 'rated' %>
-      <%- elsif resource.pending? %>
-        <%= render 'pending' %>
-      <% elsif resource.reserved? %>
-        <%= render 'reserved' %>
+      <%- elsif resource.to_prepay? %>
+        <%= render 'to_prepay' %>
+      <% elsif resource.to_consult? %>
+        <%= render 'to_consult' %>
+      <% elsif resource.consulting? %>
+        <%= render 'consulting' %>
+      <% elsif resource.to_examine? %>
+        <%= render 'to_examine' %>
       <% elsif resource.prepaid? %>
         <%= render 'prepaid' %>
-      <% elsif resource.diagnosed? %>
-        <%= render 'diagnosed' %>
+      <% elsif resource.to_pay? %>
+        <%= render 'to_pay' %>
       <% elsif resource.paid? %>
         <%= render 'paid' %>
       <% end %>
