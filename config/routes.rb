@@ -50,6 +50,8 @@ Rails.application.routes.draw do
     get '/' => 'service#verify'
     post '/' => 'service#create', :defaults => { format: 'xml' }
     get '/config_jssdk' => 'service#config_jssdk'
+
+    get '/payment' => 'wxpay#payment'
     post '/payment_notify' => 'wxpay#payment_notify'
   end
 
@@ -81,13 +83,12 @@ Rails.application.routes.draw do
     resource :settings, only: :edit
     resources :family_members
     resources :reservations do
-
-      get 'pay', on: :member
+      get 'pay', on: :collection
 
       get 'latest', on: :collection
-      get 'payment', on: :member
-      put 'payment', on: :member
-      get 'pay', on: :member
+      # get 'payment', on: :member
+      # put 'payment', on: :member
+
       get 'wxpay', on: :collection
       post 'payment_notify', on: :collection
       delete 'cancel', on: :member
