@@ -39,13 +39,13 @@ class Patients::ReservationsController < Patients::BaseController
 
     # 预约定金 TO_BE_TESTED
     # if resource.out_trade_prepay_no.blank? && resource.reserved?
-    if resource.pending?
+    if resource.to_prepay?
       resource.out_trade_prepay_no = "prepay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100_000)}"
     end
 
     # 支付余款 TO_BE_TESTED
     # if resource.out_trade_pay_no.blank? && resource.diagnosed?
-    if resource.diagnosed?
+    if resource.to_pay?
       resource.out_trade_pay_no = "pay_#{Time.zone.now.strftime('%Y%m%d')}#{SecureRandom.random_number(100_000)}"
     end
 
