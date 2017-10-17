@@ -20,9 +20,12 @@ class Patients::ReservationsController < Patients::BaseController
 
   def status; end
 
+  def show
+  end
+
   # FIXME
   # rubocop:disable Metrics/MethodLength
-  def show
+  def show2
     if resource.pending?
       body_text = '预约定金'
       fee = (Settings.wx_pay.prepay_amount * 100).to_i
@@ -95,7 +98,7 @@ class Patients::ReservationsController < Patients::BaseController
   end
 
   def latest
-    latest_pending_reservation = current_user.reservations.pending.order('CREATED_AT DESC').first
+    latest_pending_reservation = current_user.reservations.to_prepay.order('CREATED_AT DESC').first
     if latest_pending_reservation.present?
       redirect_to patients_reservation_path(latest_pending_reservation)
     else

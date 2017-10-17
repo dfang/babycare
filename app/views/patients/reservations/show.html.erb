@@ -1,40 +1,23 @@
 <div class="tabbar">
   <div class="weui-tab">
       <div class="weui-tab__panel">
-
-        <!-- <%- if resource.patient_has_rated? %>
-          <%= render 'rated' %>
-        <% elsif resource.paid? %>
-          <%= render 'paid' %>
-        <% elsif resource.diagnosed? %>
-          <%= render 'diagnosed' %>
-        <% elsif resource.reserved? %>
-          <%= render 'reserved' %>
-        <%- elsif resource.prepaid? %>
-          <%= render 'prepaid' %>
-        <% elsif resource.pending? %>
-          <%= render 'pending' %>
-        <% elsif resource.cancelled? %>
-          <%= render 'cancelled' %>
-        <% end %> -->
-
         <% if resource.paid? %>
-          <%= render 'paid' %>
+          <%= render 'states/paid' %>
         <% elsif resource.to_pay? %>
-          <%= render 'to_pay' %>
+          <%= render 'states/to_pay' %>
         <% elsif resource.consulting? %>
-          <%= render 'consulting' %>
-        <% elsif resource.to_consult %>
-          <%= render 'to_consult' %>
+          <%= render 'states/consulting' %>
+        <% elsif resource.to_consult? %>
+          <%= render 'states/to_consult' %>
         <% elsif resource.to_examine? %>
-          <%= render 'to_examine' %>
+          <%= render 'states/to_examine' %>
         <% elsif resource.prepaid? %>
-          <%= render 'prepaid' %>
+          <%= render 'states/prepaid' %>
         <% elsif resource.to_prepay? %>
-          <%= render 'to_prepay' %>
+          <%= render 'patients/reservations/states/to_prepay' %>
         <% end %>
-
     </div>
+
     <%= render 'tab_bar' %>
   </div>
 </div>

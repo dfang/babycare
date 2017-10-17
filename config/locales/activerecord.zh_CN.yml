@@ -19,15 +19,22 @@ zh-CN:
         male: "儿子"
         female: "女儿"
       aasm_state:
-        pending: 待支付定金
-        reserved: 已接单
-        archived: 已存档
-        prepaid: 已支付定金
-        paid: 已支付
-        diagnosed: 医生服务已完成
-        cancelled: 已取消
-        overdued: 超时未支付定金
-        rated: 已评价
+        to_prepay: "待支付定金"
+        prepaid: "匹配中"
+        to_examine: "待检查"
+        to_consult: "待咨询"
+        consulting: "咨询中"
+        to_pay: "待支付"
+        paid: "已支付"
+        # pending: 待支付定金
+        # reserved: 已接单
+        # archived: 已存档
+        # prepaid: 已支付定金
+        # paid: 已支付
+        # diagnosed: 医生服务已完成
+        # cancelled: 已取消
+        # overdued: 超时未支付定金
+        # rated: 已评价
     reservations:
       gender:
         male: "儿子"
