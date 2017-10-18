@@ -70,7 +70,7 @@
                   <label class="weui-label">您的位置</label>
                 </div>
                 <div class="weui-cell__bd">
-                  <textarea class="weui-textarea" name="reservation[location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你">
+                  <textarea class="weui-textarea" name="reservation[p_location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你">
                     <%= current_user.location %>
                   </textarea>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="weui-cell__bd weui-cell_primary">
                   <input
                     class="weui-input"
-                    name="reservation[reservation_phone]"
+                    name="reservation[p_phone]"
                     placeholder="医生可以看到您的电话并联系你"
                     type="number"
                     data-parsley-required="true"
@@ -102,7 +102,7 @@
                   <label class="weui-label">想预约在</label>
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
-                  <input class="weui-input" name="reservation[reservation_date]" placeholder="请选择一个大概的时间" type="datetime-local" value="<%= default_date %>" data-parsley-required="true">
+                  <input class="weui-input" name="reservation[p_date]" placeholder="请选择一个大概的时间" type="datetime-local" value="<%= default_date %>" data-parsley-required="true">
                 </div>
               </div>
 

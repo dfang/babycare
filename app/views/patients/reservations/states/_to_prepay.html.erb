@@ -28,7 +28,7 @@
         <p>预约时间</p>
     </div>
     <div class="weui-cell__ft">
-      <%= resource.reservation_date %>
+      <%= resource.p_date %>
     </div>
   </div>
 
@@ -37,10 +37,10 @@
         <p>预约地点</p>
     </div>
     <div class="weui-cell__ft">
-      <% if resource.reservation_location.present? %>
-        <%= resource.reservation_location %>
+      <% if resource.d_location.present? %>
+        <%= resource.d_location %>
       <% else %>
-        待定
+        <%= resource.p_location %>
       <% end %>
     </div>
   </div>
