@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+ENV['RAILS_ENV'] = 'production'
+ENV['RAILS_LOG_TO_STDOUT'] = 'true'
+ENV['RAILS_SERVE_STATIC_FILES'] = 'true'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
