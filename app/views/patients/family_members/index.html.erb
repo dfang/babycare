@@ -15,7 +15,7 @@
                 <% @members.each do |member| %>
                     <%= link_to patients_family_member_path(member), class: "weui-grid" do %>
                         <div class="weui-grid__icon">
-                            <img src="/icon_tabbar.png" alt="">
+                            <%= image_tag member.avatar, size: '60x60' %>
                         </div>
                         <p class="weui-grid__label"><%= member.name %></p>
                     <% end %>

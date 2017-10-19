@@ -200,6 +200,40 @@
   .weui-msg .weui_text_area{
     margin-bottom: 10px;
   }
+  .weui_media_status{
+    border-radius: 5px;
+    width: 50%;
+    line-height: 30px;
+    height: 30px;
+    margin: 0 auto;
+    background: #10aeff;
+    text-align: center;
+    color: white;
+
+  }
+  .chief-complains_img{
+    width: 20%;
+  }
+  .chief-complains_img img{
+    width: 60px;
+    display: block;
+  }
+  .chief-complains{
+    font-size: .6em;
+    width: 56%;
+    color: #999;
+  }
+  .base-info{
+
+  }
+  .base-info-patient-avatar{
+    text-align: center;
+    position: relative;
+  }
+  .base-info-doctor-avatar{
+    text-align: center;
+    position: relative;
+  }
 }
 
 
