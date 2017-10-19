@@ -9,6 +9,8 @@ class SimpleCaptchaController < ApplicationController
 
     # 发出去
     SmsCaptchaJob.perform_now(to, captcha)
+
+    render :nothing
   end
 
   # 验证验证码是否正确

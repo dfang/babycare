@@ -75,8 +75,10 @@ class DoctorsController < InheritedResources::Base
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json
   def update
+    # binding.pry
+
     respond_to do |format|
-      if @doctor.update(doctor_params)
+      if @doctor.update(doctor_params.except(:captcha))
         case step
         when :basic
           format.html { redirect_to next_wizard_path }
