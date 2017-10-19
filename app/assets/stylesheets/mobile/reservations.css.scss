@@ -102,15 +102,6 @@
   }
 }
 
-.patients_reservations_index{
-  .weui-media-box{
-    a{
-      display: block;
-    }
-  }
-}
-
-
 .doctors_reservations_index{
   .container .weui-tab__panel .bd{
     // margin-top: 15%;
@@ -242,5 +233,25 @@
     .weui-cell__hd{
       margin-right: 15px;
     }
+  }
+  .weui-media-box{
+    a{
+      display: block;
+    }
+  }
+  .weui_media_status{
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+    padding: 4px 2px;
+    border-radius: 2px;
+    background: #10aeff;
+  }
+  .weui-cell__hd img {
+    width:60px;
+    display:block;
+  }
+  .weui-media-box__desc{
+
   }
 }

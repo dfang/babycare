@@ -1,14 +1,8 @@
 <%= link_to patients_reservation_path(res), class: "weui-cell weui-cell_access", data: { turbolinks: false} do %>
   <div class="weui-cell__hd">
-    <img src="/boy.png" alt="" style="width:60px;margin-right:5px;display:block">
+    <img src="/boy.png" alt="">
     <div class="weui_media_status">
-
-      <%- if res.patient_has_rated? %>
-      已评价
-      <% else %>
       <%= res.aasm_state_text %>
-      <% end %>
-
     </div>
   </div>
   <div class="weui-cell__bd">
