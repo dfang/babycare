@@ -305,11 +305,10 @@
         details.push($(e).text())
       })
 
-      text = "病请描述：大夫您好, 我的宝宝, "
+      text = "大夫您好, 我的宝宝, "
 
       console.log(text + details)
       $('.weui-cell-remark .weui-textarea').val(text + details)
-
     })
 
     $('.simple_form.new_reservation').parsley({uiEnabled: true, errorsWrapper: ''}).on('field:error', function () {
