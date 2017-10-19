@@ -140,10 +140,19 @@
       </div>
       <div class="weui-cell__hd">
         <!-- <input class="weui-input" name="doctor[location]" type="text" value=""> -->
-        <%= f.text_field :location, class: 'weui-input', data: { "parsley-required": "true" } %>
+        <%= f.text_field :work_address, class: 'weui-input', data: { "parsley-required": "true" } %>
       </div>
     </div>
 
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
+        <label class="weui-label" for="">家庭地址</label>
+      </div>
+      <div class="weui-cell__hd">
+        <!-- <input class="weui-input" name="doctor[location]" type="text" value=""> -->
+        <%= f.text_field :home_address, class: 'weui-input', data: { "parsley-required": "true" } %>
+      </div>
+    </div>
   </div>
 
   <!-- <div class="weui-cells__title">备注</div>
