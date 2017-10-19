@@ -6,7 +6,9 @@
         <div class="weui-cells">
           <div class="weui-cell">
             <div class="base-info-patient-avatar">
-                <%= image_tag resource.family_member.avatar %>
+                <%- if resource.family_member.avatar.present? %>
+                  <%= image_tag resource.family_member.avatar %>
+                <% end %>
                 <p><%= resource.family_member.name %></p>
             </div>
             <div class="weui-cell__bd">
