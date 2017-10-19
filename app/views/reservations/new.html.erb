@@ -200,10 +200,7 @@
       url: "/wx/config_jssdk.json?url=" + escape(url)
     }).done(function (data) {
 
-      console.log('fuck ');
-      console.log("data is ");
       console.log(data)
-
       var config = {
         debug:      false,
         appId:      data.appId,
@@ -252,7 +249,7 @@
                 // var toStr = JSON.stringify(json);
                 console.log(json.result.address)
                 if (json.status == 0) {
-                  $('textarea[name="reservation[location]"]').val(json.result.address)
+                  $('textarea[name="reservation[p_location]"]').val(json.result.address)
                 }
               },
               error: function (err) {
