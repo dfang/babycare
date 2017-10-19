@@ -58,6 +58,8 @@ class DoctorsController < InheritedResources::Base
     @doctor = Doctor.new(doctor_params)
     @doctor.user = current_user
 
+    @doctor.verified = true unless Rails.env.production?
+
     respond_to do |format|
       if @doctor.save
         # format.html { redirect_to status_doctor_path(@doctor), notice: 'Doctor was successfully created.' }
