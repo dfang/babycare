@@ -1,6 +1,11 @@
 <%= link_to patients_reservation_path(res), class: "weui-cell weui-cell_access", data: { turbolinks: false} do %>
   <div class="weui-cell__hd">
-    <img src="/boy.png" alt="">
+    <% if res.family_member.present? %>
+      <%= image_tag res.family_member.avatar %>
+    <% else %>
+      <img src="/boy.png" alt="">
+    <% end %>
+
     <div class="weui_media_status">
       <%= res.aasm_state_text %>
     </div>
