@@ -1,7 +1,11 @@
 <% if @reservation.to_prepay? %>
   <%= render 'to_prepay' %>
-<% else %>
+<% elsif @reservation.to_pay? %>
   <%= render 'to_pay' %>
+<% elsif @reservation.paid? %>
+  <%= render 'paid' %>
+<% else %>
+  <%= render 'payment_status' %>
 <% end %>
 
 <%= content_for :js do %>

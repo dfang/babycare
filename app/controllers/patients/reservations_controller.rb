@@ -22,6 +22,15 @@ class Patients::ReservationsController < Patients::BaseController
 
   def show; end
 
+  def update
+    if params.key?(:event) && params[:event] == 'complete'
+      resource.diagnose!
+      redirect_to wx_payment_path(reservation_id: resource) and return
+    else
+      super
+    end
+  end
+
   # FIXME
   # rubocop:disable Metrics/MethodLength
   def pay

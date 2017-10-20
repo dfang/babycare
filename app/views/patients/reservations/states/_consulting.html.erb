@@ -83,3 +83,9 @@
       </div>
   </div>
 </div>
+
+
+
+<div class="weui-btn-area">
+  <%= link_to "完成本次咨询", patients_reservation_path(resource, event: 'complete'), remote: true, method: 'PUT', class: "weui-btn weui-btn_primary" %>
+</div>

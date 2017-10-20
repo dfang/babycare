@@ -1,0 +1,79 @@
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+      <% if resource.family_member.present? %>
+        <%= image_tag resource.family_member.avatar %>
+      <% end %>
+      <div class="weui_media_status">
+        <%= resource.aasm_state_text %>
+      </div>
+    </div>
+    <div class="weui-cell__bd">
+         <h4><%= resource.family_member.name %></h4>
+
+        <ul class="weui-cell__bd_ul">
+          <li>性别: <%= resource.family_member.gender_text %></li>
+          <li>身高: <%= resource.height %></li>
+          <li>血型: <%= resource.family_member.blood_type %></li>
+          <li>年龄: <%= resource.family_member.birthdate %></li>
+          <li>体重: <%= resource.weight %></li>
+        </ul>
+
+
+    </div>
+
+  </div>
+</div>
+
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约时间</p>
+    </div>
+    <div class="weui-cell__ft">
+      <% if resource.d_date.present? %>
+        <%= resource.d_date %>
+      <% else %>
+        <%= resource.p_date %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约位置</p>
+    </div>
+    <div class="weui-cell__ft">
+      <% if resource.d_location.present? %>
+        <%= resource.d_location %>
+      <% else %>
+        <%= resource.p_location %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>症状描述</p>
+    </div>
+    <div class="chief-complains_img">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:58px;margin-right:5px;display:block">
+    </div>
+    <div class="chief-complains"><%= resource.chief_complains %></div>
+  </div>
+</div>
+
+检查项目 暂时不放
+对应原型图
+
+
+<div class="weui-btn-area">
+  <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.doctor_id %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.patient_user_phone %>);" class="weui-btn weui-btn_primary">拨打患者电话</a>
+</div>
+
+<%= content_for :js do %>
+  <%= javascript_tag do %>
+    $(function(){
+    })
+  <% end %>
+<% end %>
