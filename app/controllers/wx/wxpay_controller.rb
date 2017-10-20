@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class Wx::WxpayController < ApplicationController
-  before_action -> { authenticate_user!(force: true) }
   # protect_from_forgery unless: -> { request.format.json? || request.format.xml? }
   skip_before_action :verify_authenticity_token
+  before_action :find_reservation, only: :payment
   before_action :query_order_result, only: :payment_notify
   before_action :query_payment_reservation, only: :payment_notify
-  before_action :find_reservation, only: :payment
 
   def payment
     if @reservation.to_prepay?
