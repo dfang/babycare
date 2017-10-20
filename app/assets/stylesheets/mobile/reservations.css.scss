@@ -102,9 +102,82 @@
   }
 }
 
+.doctors_reservations_show{
+  .chief-complains_img{
+    width: 20%;
+  }
+  .chief-complains_img img{
+    width: 60px;
+    display: block;
+  }
+  .chief-complains{
+    text-align: right;
+    font-size: .6em;
+    width: 56%;
+    color: #999;
+  }
+  .weui-cell__hd {
+    text-align: center;
+  }
+
+  .weui_media_status {
+    border-radius: 5px;
+    line-height: 30px;
+    height: 30px;
+    margin: 5px 0 auto;
+    background: #10aeff;
+    text-align: center;
+    color: white;
+  }
+  .weui-cell__bd_ul {
+    margin-top: 20px;
+    list-style: none;
+    list-style: none
+  }
+  .weui-cell__bd_ul li{
+    color: #999;
+    width: 50%;
+    float: left;
+    text-decoration: none;
+    padding-right: 20px;
+    font-size: .8em;
+    padding-bottom: 5px;
+  }
+  .weui-cell__bd h4{
+    position: relative;
+    top: 5px;
+    font-weight: 400;
+  }
+  .weui-cell_primary input{
+    text-align: right;
+    width: 100%;
+    font-size: .8em;
+    color: #999;
+  }
+  .weui-cell_primary input::after {
+    content: " ";
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+    border-width: 2px 2px 0 0;
+    border-color: #C8C8CD;
+    border-style: solid;
+    -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    position: relative;
+    top: -2px;
+    position: absolute;
+    top: 50%;
+    margin-top: -4px;
+    right: 15px;
+
+  }
+}
+
 .doctors_reservations_index{
   .container .weui-tab__panel .bd{
     // margin-top: 15%;
+
   }
 }
 
@@ -210,6 +283,7 @@
     display: block;
   }
   .chief-complains{
+    text-align: right;
     font-size: .6em;
     width: 56%;
     color: #999;
