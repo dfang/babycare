@@ -131,13 +131,13 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def get_code_uri(redirect_uri)
-    uri_for_get_code_from_weixin = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Settings.weixin_authorize.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
+    uri_for_get_code_from_weixin = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Settings.weixin.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
     uri_for_get_code_from_weixin
   end
 
   def exchange_code_for_access_token(code)
     # 通过code换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同
-    token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{Settings.weixin_authorize.app_id}&secret=#{Settings.weixin_authorize.app_secret}&code=#{code}&grant_type=authorization_code"
+    token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{Settings.weixin.app_id}&secret=#{Settings.weixin.app_secret}&code=#{code}&grant_type=authorization_code"
     token_info_response_data = JSON.parse(Faraday.get(token_url).body)
     Rails.logger.info "\n\nexchange_code_for_access_token response data is \n #{token_info_response_data}\n\n"
     token_info_response_data

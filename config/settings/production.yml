@@ -18,8 +18,8 @@ ronglian:
 
 wx_pay:
   app_id: wxa887ef8490361f68
-  api_key: 78df15cf437347f1929e8317662de688
   mch_id: '1368072702'
+  api_key: 78df15cf437347f1929e8317662de688
   payment_notify_url: "http://wx.baojiankang.cc/wx/payment_notify"
   # JSSDK 支付的时候单为分
   # 企业付款金额单位为分, 但是最小支付单位必须1元

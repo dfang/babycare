@@ -18,8 +18,8 @@ wx_pay:
   # app_secret: '259f46cfadecd6e2a171b10362f155bd'
   # partner_id: '1368072702'
   # partner_key: 'k9RrfNLZtOx5GghfPJc3tOYXGVr68qpu'
-  api_key: abfe46bde1a4054bc656e92ffafd0a82
   mch_id: '1484169922'
+  api_key: 05ec7b4ee97646f5bae71b229cdab366
   payment_notify_url: "http://wx.yhuan.cc/wx/payment_notify"
   # JSSDK 支付的时候单为分
   # 企业付款金额单位为分, 但是最小支付单位必须1元
