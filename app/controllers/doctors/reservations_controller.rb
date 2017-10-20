@@ -46,25 +46,37 @@ class Doctors::ReservationsController < InheritedResources::Base
 
   def status; end
 
-  # 医生认领用户的预约
-  def claim
-    if request.put?
-      resource.update(reservation_params)
-      resource.user_b = current_user.id
+  def update
+    # binding.pry
 
-      resource.reserve!
-
-      redirect_to(doctors_reservation_path(resource)) && return
+    if reservation_params.key?(:event) && reservation_params.delete(:event) == 'claim'
+      resource.update(reservation_params.except(:event))
+      # TODO: 需要判断下是否有检查项目 resource.upload_examination!
+      resource.reserve_to_consult!
     else
-      @appId = Settings.wx_pay.app_id
-      @nonceStr = SecureRandom.hex
-      @timestamp = DateTime.now.to_i
-      js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k, v|
-        "#{k}=#{v}" if v != '' && !v.nil?
-      end.compact.join('&')
-      @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
+      super
     end
   end
+
+  # 医生认领用户的预约
+  # def claim
+  #   if request.put?
+  #     resource.update(reservation_params)
+  #     resource.user_b = current_user.id
+  #
+  #     resource.reserve!
+  #
+  #     redirect_to(doctors_reservation_path(resource)) && return
+  #   else
+  #     @appId = Settings.wx_pay.app_id
+  #     @nonceStr = SecureRandom.hex
+  #     @timestamp = DateTime.now.to_i
+  #     js_sdk_signature_str = { jsapi_ticket: WxApp::WxCommon.get_jsapi_ticket, noncestr: @nonceStr, timestamp: @timestamp, url: request.url }.sort.map do |k, v|
+  #       "#{k}=#{v}" if v != '' && !v.nil?
+  #     end.compact.join('&')
+  #     @signature = Digest::SHA1.hexdigest(js_sdk_signature_str)
+  #   end
+  # end
 
   # 医生完成线下咨询服务
   def complete_offline_consult

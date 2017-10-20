@@ -98,6 +98,6 @@ class ReservationsController < InheritedResources::Base
   end
 
   def ensure_mobile_phone_valid?
-    redirect_to validate_phone_path if current_user.mobile_phone.blank?
+    redirect_to validate_phone_path and return if current_user.mobile_phone.blank?
   end
 end

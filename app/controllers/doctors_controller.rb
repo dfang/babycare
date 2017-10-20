@@ -75,7 +75,7 @@ class DoctorsController < InheritedResources::Base
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json
   def update
-    # binding.pry
+    @doctor.verified = true unless Rails.env.production?
 
     respond_to do |format|
       if @doctor.update(doctor_params.except(:captcha))

@@ -59,12 +59,15 @@ Rails.application.routes.draw do
     resources :transactions, only: %i[index show create show]
     get 'wallet', to: 'wallets#index'
     get 'wallet/withdraw', to: 'wallets#withdraw'
+
     resources :reservations do
-      get 'detail', on: :member
-      get 'claim', on: :member
-      put 'claim', on: :member
-      put 'complete_offline_consult', on: :member
-      put 'complete_online_consult', on: :member
+      get 'status', on: :member
+
+      # get 'detail', on: :member
+      # get 'claim', on: :member
+      # put 'claim', on: :member
+      # put 'complete_offline_consult', on: :member
+      # put 'complete_online_consult', on: :member
     end
     resources :patients do
       member do

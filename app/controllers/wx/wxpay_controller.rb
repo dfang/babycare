@@ -16,6 +16,8 @@ class Wx::WxpayController < ApplicationController
       body_text = '支付咨询费用'
       fee = (Settings.wx_pay.pay_amount * 100).to_i
       @reservation.pay_fee = fee
+    else
+      redirect_to patients_reservation_path(@reservation) and return
     end
 
     Rails.logger.info "需要支付的费用fee是#{fee}分"

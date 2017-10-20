@@ -25,7 +25,7 @@
     <div class="weui-cell__bd">
         <p>期望时间</p>
     </div>
-    <div class="weui-cell__ft"><%= resource.reservation_date %></div>
+    <div class="weui-cell__ft"><%= resource.p_date %></div>
   </div>
 
   <div class="weui-cell">
@@ -33,7 +33,7 @@
         <p>患者位置</p>
     </div>
     <div class="weui-cell__ft">
-      <%= resource.reservation_location %>
+      <%= resource.p_location %>
     </div>
   </div>
 
@@ -53,7 +53,7 @@
       <label class="weui-label">预约时间</label>
     </div>
     <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" name="reservation[reservation_date]" placeholder="患者来见你的时间" type="datetime-local"  data-parsley-required="true">
+      <input class="weui-input" name="reservation[d_date]" placeholder="患者来见你的时间" type="datetime-local"  data-parsley-required="true">
     </div>
   </div>
 
@@ -62,7 +62,7 @@
       <label class="weui-label">预约地点</label>
     </div>
     <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" name="reservation[reservation_date]" placeholder="患者来见你的位置" type="text"  data-parsley-required="true">
+      <input class="weui-input" name="reservation[d_location]" placeholder="患者来见你的位置" type="text"  data-parsley-required="true">
     </div>
   </div>
 </div>
@@ -73,7 +73,7 @@
 
 
 <div class="weui-btn-area">
-  <%= link_to "接单", '', class: 'weui-btn weui-btn_primary', data: { turbolinks: "false" } %>
+  <%= link_to "接单", '', class: 'weui-btn weui-btn_primary btn-claim', data: { turbolinks: "false" } %>
   <%= link_to "拒单", '', class: 'weui-btn weui-btn_default', data: { turbolinks: "false" } %>
   <a href="javascript: IM.call(<%= current_user.id %>, <%= resource.doctor_id %>, <%= resource.id %>, <%= current_user.doctor.mobile_phone %>, <%= resource.patient_user_phone %>);" class="weui-btn weui-btn_default">拨打患者电话</a>
 </div>
@@ -82,20 +82,28 @@
   <%= javascript_tag do %>
     $(function(){
 
-      $.ajax({
-        url: '/path/to/file',
-        type: 'PUT',
-        data: {
-          param1: 'value1'
-        }
-      }).done(function(data, textStatus, jqXHR) {
-          console.log("success");
-      }).fail(function(jqXHR, textStatus, errorThrown) {
-          console.log("error");
-      }).always(function(data|jqXHR, textStatus, jqXHR|errorThrown) {
-          console.log("complete");
-      });
-      .then(function( data, textStatus, jqXHR ) {}, function( jqXHR, textStatus, errorThrown ) {});
+      $(document).on('click', '.btn-claim', function(e){
+        e.preventDefault();
+        $.ajax({
+          url: '<%= doctors_reservation_path(resource) %>',
+          type: 'PUT',
+          data: {
+            reservation:{
+              d_location: $('input[name="reservation[d_location]"]').val(),
+              d_date: $('input[name="reservation[d_date]"]').val(),
+              event: 'claim'
+            }
+          }
+        }).done(function(data, textStatus, jqXHR) {
+            console.log("success");
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log("error");
+        }).always(function(data, textStatus, jqXHR) {
+            console.log("complete");
+        })
+      })
+
+
 
     })
   <% end %>
