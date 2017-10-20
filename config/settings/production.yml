@@ -3,11 +3,6 @@ weixin:
   app_secret: edec276827d57e92206db85f88d77db5
   token: yibutianxia
 
-weixin_authorize:
-  app_id: wxa887ef8490361f68
-  app_secret: edec276827d57e92206db85f88d77db5
-  token: yibutianxia
-
 weixin_jssdk:
   app_id: wxa887ef8490361f68
   app_secret: edec276827d57e92206db85f88d77db5
@@ -32,6 +27,7 @@ wx_pay:
   prepay_amount: 0.01
   pay_amount: 0.01
 
+# 微信小程序
 weixin_mp:
   app_id: wx218800b558d61f52
   app_secret: 37530899a42eb9ab0db105eccdfbb2ad

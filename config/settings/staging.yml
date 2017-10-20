@@ -3,16 +3,10 @@ weixin:
   app_secret: abfe46bde1a4054bc656e92ffafd0a82
   token: yibutianxia
 
-weixin_authorize:
-  app_id: wxfa3c7a8dc6ad872d
-  app_secret: abfe46bde1a4054bc656e92ffafd0a82
-  token: yibutianxia
-
 weixin_jssdk:
   app_id: wxfa3c7a8dc6ad872d
   app_secret: abfe46bde1a4054bc656e92ffafd0a82
   token: yibutianxia
-
 
 qingmayun:
   SoftVersion: "20141029"
