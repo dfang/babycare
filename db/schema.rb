@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921070742) do
+ActiveRecord::Schema.define(version: 20171021043919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,20 @@ ActiveRecord::Schema.define(version: 20170921070742) do
     t.string "license_front_media_id"
     t.string "license_back_media_id"
     t.index ["user_id"], name: "index_doctors_on_user_id"
+  end
+
+  create_table "examination_groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "examinations", force: :cascade do |t|
+    t.string "name"
+    t.bigint "examination_group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["examination_group_id"], name: "index_examinations_on_examination_group_id"
   end
 
   create_table "global_images", force: :cascade do |t|
@@ -400,7 +414,7 @@ ActiveRecord::Schema.define(version: 20170921070742) do
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

@@ -1,6 +1,30 @@
 <div class="tabbar">
   <div class="weui-tab">
     <div class="weui-tab__panel">
+
+      <div class="weui-cells">
+        <div class="weui-cell">
+          <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+            <% if resource.family_member.present? %>
+              <%= image_tag resource.family_member.avatar %>
+            <% end %>
+            <div class="weui_media_status">
+              <%= resource.aasm_state_text %>
+            </div>
+          </div>
+          <div class="weui-cell__bd">
+            <h4><%= resource.family_member.name %></h4>
+            <ul class="weui-cell__bd_ul">
+              <li>性别: <%= resource.family_member.gender_text %></li>
+              <li>身高: <%= resource.height %></li>
+              <li>血型: <%= resource.family_member.blood_type %></li>
+              <li>年龄: <%= resource.family_member.birthdate %></li>
+              <li>体重: <%= resource.weight %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <%- if resource.doctor_has_rated? %>
         <%= render 'rated' %>
       <%- elsif resource.to_prepay? %>

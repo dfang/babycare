@@ -33,6 +33,13 @@
 
 p 'Creating symptoms'
 require_relative './seeds/symptoms.rb'
+
+p 'Creating doctor test data'
+require_relative './seeds/doctor.rb'
+
+p 'Creating examination test data'
+require_relative './seeds/examination.rb'
+
 p 'Done .....'
 
 # City.find_or_create_by(name: "武汉市", pinyin: "wuhan")
