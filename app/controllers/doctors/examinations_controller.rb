@@ -1,12 +1,12 @@
 class Doctors::ExaminationsController < ApplicationController
   def new
     @examination_groups = ExaminationGroup.all
-    # @reservation_examination = ReservationExamination.new
-    @reservation = Reservation.find_by(id: params[:reservation_id])
+    @reservation_examination = ReservationExamination.new
+    # @reservation = Reservation.find_by(id: params[:reservation_id])
 
     p @reservation
 
-    @reservation_examinations = @reservation.reservation_examinations.build()
+    # @reservation_examinations = @reservation.reservation_examinations.build()
   end
 
   def create
