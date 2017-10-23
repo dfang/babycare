@@ -1,0 +1,2 @@
+module Doctors::ExaminationsHelper
+end

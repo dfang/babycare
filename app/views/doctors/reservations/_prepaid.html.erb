@@ -46,12 +46,20 @@
 </div>
 
 <div class="weui-cells weui-cells_form">
+
   <div class="weui-cell weui-cell_switch">
       <div class="weui-cell__bd">检查项目</div>
       <div class="weui-cell__ft">
           <input class="weui-switch" type="checkbox">
       </div>
   </div>
+    <%= link_to new_doctors_examination_path(reservation_id: resource), class: "weui-cell weui-cell_access add-examines" do %>
+      <div class="weui-cell__bd">
+        <p>添加检查项目</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    <% end %>
 </div>
 
 
@@ -84,7 +92,20 @@
         }).always(function(data, textStatus, jqXHR) {
             console.log("complete");
         })
-      })
+      });
+
+      <!-- 滑动滑块，显示检查项目添加按钮 -->
+      $('.add-examines').hide();
+      $('.weui-switch').change(function(e){
+        console.log($(this).is(':checked'));
+        if($(this).is(':checked')){
+          $('.add-examines').toggle();
+        }
+        else{
+          $('.add-examines').hide();
+        }
+      });
+
     })
   <% end %>
 <% end %>

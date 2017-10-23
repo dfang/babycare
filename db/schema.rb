@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021043919) do
+ActiveRecord::Schema.define(version: 20171023031214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -329,6 +329,15 @@ ActiveRecord::Schema.define(version: 20171021043919) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
+  create_table "reservation_examinations", force: :cascade do |t|
+    t.bigint "reservation_id"
+    t.bigint "examination_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["examination_id"], name: "index_reservation_examinations_on_examination_id"
+    t.index ["reservation_id"], name: "index_reservation_examinations_on_reservation_id"
+  end
+
   create_table "reservations", force: :cascade do |t|
     t.string "name"
     t.string "mobile_phone"
@@ -489,6 +498,8 @@ ActiveRecord::Schema.define(version: 20171021043919) do
   add_foreign_key "phone_call_histories", "reservations"
   add_foreign_key "ratings", "reservations"
   add_foreign_key "ratings", "users"
+  add_foreign_key "reservation_examinations", "examinations"
+  add_foreign_key "reservation_examinations", "reservations"
   add_foreign_key "sms_histories", "reservations"
   add_foreign_key "transactions", "users"
   add_foreign_key "wallets", "users"

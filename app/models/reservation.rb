@@ -19,6 +19,7 @@ class Reservation < OdooRecord
   has_one :medical_record, dependent: :destroy
   has_many :phone_call_histories, dependent: :destroy
   has_many :sms_histories, dependent: :destroy
+  has_many :reservation_examinations, foreign_key: :reservation_id, dependent: :destroy
 
   belongs_to :doctor, optional: true
   # belongs_to :assistant, optional: true

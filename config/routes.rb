@@ -3,6 +3,18 @@
 
 Rails.application.routes.draw do
 
+  namespace :doctors do
+    get 'reservation_examinations/new'
+  end
+
+  namespace :doctors do
+    get 'reservation_examinations/update'
+  end
+
+  namespace :doctors do
+    get 'reservation_examinations/create'
+  end
+
   post 'simple_captcha/request_captcha'
   post 'simple_captcha/simple_captcha_valid'
 
@@ -62,13 +74,15 @@ Rails.application.routes.draw do
 
     resources :reservations do
       get 'status', on: :member
-
       # get 'detail', on: :member
       # get 'claim', on: :member
       # put 'claim', on: :member
       # put 'complete_offline_consult', on: :member
       # put 'complete_online_consult', on: :member
     end
+
+    resources :examinations
+
     resources :patients do
       member do
         get 'profile'
@@ -85,6 +99,8 @@ Rails.application.routes.draw do
   namespace :patients do
     resource :settings, only: :edit
     resources :family_members
+    resources :examinations
+
     resources :reservations do
       get 'pay', on: :collection
 
