@@ -20,6 +20,7 @@ class Reservation < OdooRecord
   has_many :phone_call_histories, dependent: :destroy
   has_many :sms_histories, dependent: :destroy
   has_many :reservation_examinations, foreign_key: :reservation_id, dependent: :destroy
+  has_many :reservation_images, class_name: 'ReservationImage', dependent: :destroy
 
   belongs_to :doctor, optional: true
   # belongs_to :assistant, optional: true
