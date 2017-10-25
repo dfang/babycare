@@ -53,13 +53,23 @@
           <input class="weui-switch" type="checkbox">
       </div>
   </div>
-    <%= link_to new_doctors_examination_path(reservation_id: resource), class: "weui-cell weui-cell_access add-examines" do %>
+
+  <% resource.reservation_examinations.each do |re| %>
+    <div class="weui-cell">
       <div class="weui-cell__bd">
-        <p>添加检查项目</p>
+      <%= re.examination.name %>
       </div>
-      <div class="weui-cell__ft">
-      </div>
-    <% end %>
+    </div>
+  <% end %>
+
+
+  <%= link_to new_doctors_examination_path(reservation_id: resource), class: "weui-cell weui-cell_access add-examines" do %>
+    <div class="weui-cell__bd">
+      <p>添加检查项目</p>
+    </div>
+    <div class="weui-cell__ft">
+    </div>
+  <% end %>
 </div>
 
 
@@ -106,7 +116,7 @@
         }
       });
 
-      if()
+      <!-- if() -->
     })
   <% end %>
 <% end %>
