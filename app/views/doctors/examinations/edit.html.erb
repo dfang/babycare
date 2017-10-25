@@ -1,6 +1,6 @@
-<%= form_for @reservation_examination, url: doctors_examination_path(@reservation), namespace: 'doctors' do |f|  %>
+<%= form_for @reservation_examination, url: doctors_examinations_path, namespace: 'doctors', method: 'PUT' do |f|  %>
 
-  <%= hidden_field_tag :reservation_id, params[:reservation_id] %>
+<%= hidden_field_tag :reservation_id, params[:reservation_id] %>
 
   <%- @examination_groups.each do |group| %>
     <div class="weui-cells__title"><%= group.name %></div>
@@ -24,4 +24,6 @@
   <div class="weui-btn-area">
     <button type="submit" class="weui-btn weui-btn_primary">选择</button>
   </div>
+
+
 <% end %>

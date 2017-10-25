@@ -50,26 +50,43 @@
   <div class="weui-cell weui-cell_switch">
       <div class="weui-cell__bd">检查项目</div>
       <div class="weui-cell__ft">
+        <% if resource.reservation_examinations.any? %>
+          <input class="weui-switch" type="checkbox" checked>
+        <% else %>
           <input class="weui-switch" type="checkbox">
+        <% end %>
       </div>
   </div>
 
-  <% resource.reservation_examinations.each do |re| %>
-    <div class="weui-cell">
-      <div class="weui-cell__bd">
-      <%= re.examination.name %>
+  <% if resource.reservation_examinations.any? %>
+    <% resource.reservation_examinations.each do |re| %>
+      <div class="weui-cell add-examinations">
+        <div class="weui-cell__bd">
+        <%= re.examination.name %>
+        </div>
       </div>
-    </div>
+    <% end %>
+  <% end %>
+
+  <% if resource.reservation_examinations.any? %>
+    <%= link_to edit_doctors_examination_path(reservation_id: resource), class: "weui-cell weui-cell_access add-examinations" do %>
+      <div class="weui-cell__bd">
+        <p>修改检查项目</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    <% end %>
+  <% else %>
+    <%= link_to new_doctors_examination_path(reservation_id: resource), class: "weui-cell weui-cell_access add-examinations" do %>
+      <div class="weui-cell__bd">
+        <p>添加检查项目</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    <% end %>
   <% end %>
 
 
-  <%= link_to new_doctors_examination_path(reservation_id: resource), class: "weui-cell weui-cell_access add-examines" do %>
-    <div class="weui-cell__bd">
-      <p>添加检查项目</p>
-    </div>
-    <div class="weui-cell__ft">
-    </div>
-  <% end %>
 </div>
 
 
@@ -104,19 +121,14 @@
         })
       });
 
-      <!-- 滑动滑块，显示检查项目添加按钮 -->
-      $('.add-examines').hide();
+      $('.add-examinations').hide();
       $('.weui-switch').change(function(e){
-        console.log($(this).is(':checked'));
-        if($(this).is(':checked')){
-          $('.add-examines').toggle();
-        }
-        else{
-          $('.add-examines').hide();
-        }
+        $('.add-examinations').toggle();
       });
 
-      <!-- if() -->
+      <% if resource.reservation_examinations.any? %>
+        $('.add-examinations').show();
+      <% end %>
     })
   <% end %>
 <% end %>

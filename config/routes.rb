@@ -81,7 +81,14 @@ Rails.application.routes.draw do
       # put 'complete_online_consult', on: :member
     end
 
-    resources :examinations
+    resources :examinations, only: [:new, :edit, :update, :create, :destroy] do
+      # 这里的路由没有按照restful来，一定要传reservtion_id
+      # doctors/examinations/new?reservation_id
+      # doctors/examinations/edit?reservation_id
+      # doctors/examinations/update?reservation_id
+      get 'edit', on: :collection
+      put 'update', on: :collection
+    end
 
     resources :patients do
       member do
