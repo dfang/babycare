@@ -1,6 +1,6 @@
 <%= form_for @reservation_examination, url: doctors_examinations_path, namespace: 'doctors', method: 'PUT' do |f|  %>
 
-<%= hidden_field_tag :reservation_id, params[:reservation_id] %>
+  <%= hidden_field_tag :reservation_id, params[:reservation_id] %>
 
   <%- @examination_groups.each do |group| %>
     <div class="weui-cells__title"><%= group.name %></div>
@@ -9,7 +9,7 @@
       <%= f.collection_check_boxes(:examination_id, group.examinations.all, :id, :name) do |b| %>
         <%= b.label class:"weui-cell weui-check__label" do%>
           <div class="weui-cell__hd">
-            <%= b.check_box class: 'weui-check' %>
+            <%= b.check_box class: 'weui-check', checked: @ids.include?(b.object.id) %>
             <i class="weui-icon-checked"></i>
           </div>
           <div class="weui-cell__bd">

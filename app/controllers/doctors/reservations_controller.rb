@@ -50,7 +50,14 @@ class Doctors::ReservationsController < InheritedResources::Base
     # binding.pry
 
     if reservation_params.key?(:event) && reservation_params.delete(:event) == 'claim'
+
+      has_examinations = reservation_params.delete(:examinations)
+      if has_examinations == "off"
+        resource.reservation_examinations.delete_all
+      end
+
       resource.update(reservation_params.except(:event))
+
       # TODO: 需要判断下是否有检查项目 resource.upload_examination!
       resource.reserve_to_consult!
       redirect_to doctors_reservation_path

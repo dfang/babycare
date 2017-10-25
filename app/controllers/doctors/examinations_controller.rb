@@ -1,11 +1,12 @@
 class Doctors::ExaminationsController < ApplicationController
   before_action -> { authenticate_user!(force: true) }
 
+  before_action :find_reservation , only: [:new, :edit]
+  before_action :prepare_checkboxs_data , only: [:new, :edit]
+
   def new
-    @examination_groups = ExaminationGroup.all
-    @reservation = Reservation.find_by(id: params[:reservation_id])
     @reservation_examination = ReservationExamination.new
-    @reservation_examinations = @reservation.reservation_examinations
+    # @reservation_examinations = @reservation.reservation_examinations
   end
 
   def create
@@ -20,11 +21,8 @@ class Doctors::ExaminationsController < ApplicationController
   end
 
   def edit
-    @reservation = Reservation.find_by(id: params[:reservation_id])
     @reservation_examination = ReservationExamination.first
-    @reservation_examinations = @reservation.reservation_examinations
-
-    @examination_groups = ExaminationGroup.all
+    @ids = @reservation.reservation_examinations.pluck(:examination_id)
   end
 
   def update
@@ -43,6 +41,11 @@ class Doctors::ExaminationsController < ApplicationController
 
   private
 
-  def examination_params
+  def find_reservation
+    @reservation = Reservation.find_by(id: params[:reservation_id])
+  end
+
+  def prepare_checkboxs_data
+    @examination_groups = ExaminationGroup.all
   end
 end
