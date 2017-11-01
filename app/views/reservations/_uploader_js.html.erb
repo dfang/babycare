@@ -47,48 +47,53 @@
 
         var localIds;
         wx.chooseImage({
-            count:      1,
+            count:      5,
             sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
                 localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-
                 for (var i = 0; i < localIds.length; i++) {
                   $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
                   $files.find('.weui-uploader__file.holder').remove()
-                  // $files = $('.weui_uploader2').find('.weui-uploader__files')
-                  // $files.find('.weui-uploader__file.holder').remove()
-                  $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
+
+                  if (window.__wxjs_is_wkwebview) {
+                    // fix iOS 11 wechat can't preview
+                    wx.getLocalImgData({
+                      localId: localIds[i], // 图片的localID
+                      success: function (res) {
+                        var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+                        localData = localData.replace('jgp', 'jpeg');//iOS 系统里面得到的数据，类型为 image/jgp,因此需要替换一下
+                        // $('#img_media').attr('src', localData);
+                        $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localData + ")")
+                        $files.append($li)
+                      },
+                      fail:function(res){
+                        console.log('preview failed');
+                      }
+                    });
+                  }else{
+                    $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
+                    $files.append($li);
+                  }
+
                   $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px")
-                  $li.append($i)
-                  $files.append($li)
+
+                  alert($li);
 
                   wx.uploadImage({
                     localId: localIds[i].toString(),
                     isShowProgressTips: 1,
                     success: function(res) {
-                      // alert('upload complete, serverId is ')
-                      // alert(res.serverId)
-
-                      $input = $('<input type="hidden">').attr('class', "media-id").attr("name", uploadPhotosField($files.find('.weui-uploader__file').length + 1)).attr('value', res.serverId)
+                      console.log('upload complete, serverId is ' + res.serverId);
+                      mediaId = "reservation[reservation_images_attributes][" + i + "][media_id]"
+                      $input = $('<input type="hidden" class="media-id">').attr('name', mediaId).attr('value', res.serverId)
                       $li.append($input)
-
-                      // alert('input field name is')
-                      // alert($li.find('input').attr('name'))
-                      // alert('input field value is')
-                      // alert($li.find('input').attr('value'))
-                      // alert('images length is')
-                      // alert($files.find('li input').length);
-
                     },
                     fail: function(res) {
                       alert(JSON.stringify(res));
                     }
                   })
-
                 }
-
-
             }
         });
       })

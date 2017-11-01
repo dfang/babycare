@@ -5,4 +5,6 @@ class ReservationImage < OdooRecord
   self.table_name = 'fa_reservation_image'
 
   belongs_to :reservation
+
+  mount_uploaders :data, ImageUploader
 end

@@ -23,6 +23,8 @@ class ReservationsController < InheritedResources::Base
   end
 
   def create
+    binding.pry
+
     @reservation = Reservation.new(reservation_params)
     create! do
       status_reservation_path(resource)

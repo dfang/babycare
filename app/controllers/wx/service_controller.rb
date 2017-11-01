@@ -62,7 +62,7 @@ class Wx::ServiceController < ApplicationController
       timestamp: timestamp,
       nonceStr: noncestr,
       signature: js_sdk_signature_str,
-      jsApiList: %w[checkJsApi chooseWXPay chooseImage uploadImage downloadImage previewImage openLocation getLocation]
+      jsApiList: %w[checkJsApi chooseWXPay chooseImage uploadImage downloadImage previewImage getLocalImgData openLocation getLocation]
     }
   end
 
