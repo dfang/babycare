@@ -13,7 +13,6 @@
     .done(function(data){
 
       wx.config({
-        debug:     true,
         appId:     data.appId,
         timestamp: data.timestamp,
         nonceStr:  data.nonceStr,
@@ -38,43 +37,37 @@
     })
 
     $(document).on('click', '#picker1', function(e){
+        e.preventDefault();
+
         var localIds = [];
         wx.chooseImage({
           count:      5,
           sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
-              localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
               $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files');
-              $files.find('.weui-uploader__file.holder').remove();
+              // $files.find('.weui-uploader__file.holder').remove();
+              localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              $lis = previewImage($files, localIds);
 
-              for (var i = 0; i < localIds.length; i++) {
-                console.log(localIds);
-                console.log(localIds[i]);
-                // console.log(localIds[i].toString());
-                $li = $('<li class="weui-uploader__file">')
-                previewImage($files, $li, localIds[i]);
+              console.log('preview后的所有li');
+              console.log($lis);
 
-                syncUpload(localIds,i);
-                // console.log($li);
+              serverIds = syncUpload(localIds);
+              writeServerIdToHiddenField($files, serverIds);
 
-                // $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px")
+              setTimeout(function(){
+                // $lis = $files.find('li.weui-uploader__file')
+                $hiddens = $lis.find('input:hidden')
+                $hidden_values = $hiddens.map(function(i,e){return $(e).val()});
 
-                // wx.uploadImage({
-                //   localId: localIds[i].toString(),
-                //   isShowProgressTips: 1,
-                //   success: function(res) {
-                //     console.log('upload complete, serverId is ' + res.serverId);
-                //     mediaId = "reservation[reservation_images_attributes][" + i + "][media_id]"
-                //     $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', res.serverId)
-                //     $li.append($input)
-                //   },
-                //   fail: function(res) {
-                //     alert(JSON.stringify(res));
-                //   }
-                // })
+                console.log($files);
+                console.log($lis);
+                console.log($hiddens);
+                console.log('server ids are .....');
+                console.log($hidden_values);
+              }, 300)
 
-              }
 
 
               // if(localIds.length >= 1){
@@ -82,51 +75,67 @@
                   // syncUpload(localIds);
                 // }, 100)
               // }
-
           }
       });
     })
 
   });
 
+  function previewImage($files, localIds){
+    var localId = localIds.shift();
+    wx.getLocalImgData({
+      localId: localId, // 图片的localID
+      success: function (res) {
+        var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+        // localData = localData.replace('jgp', 'jpeg');//iOS 系统里面得到的数据，类型为 image/jgp,因此需要替换一下
+        $li = $('<li class="weui-uploader__file">')
+        $li.css("background-image", "url(" + localData + ")")
+        $files.append($li);
 
-  function previewImage($files, $li, localId){
-      wx.getLocalImgData({
-        localId: localId, // 图片的localID
-        success: function (res) {
-          var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-          // localData = localData.replace('jgp', 'jpeg');//iOS 系统里面得到的数据，类型为 image/jgp,因此需要替换一下
-          $li.css("background-image", "url(" + localData + ")")
-          $files.append($li);
-        },
-        fail: function(res){
-          console.log('preview failed');
+        if(localIds.length > 0){
+          previewImage($files, localIds);
+        }else{
+          return $files.find('li.weui-uploader__file');
         }
-      });
+      },
+      fail: function(res){
+        console.log('preview failed');
+      }
+    });
   }
 
-  function syncUpload(localIds,i){
-    var localId = localIds.pop();
-    // for(var i=0; i < localIds.length; i++){
-      wx.uploadImage({
-        localId: localId,
-        isShowProgressTips: 1,
-        success: function(res) {
-          console.log('upload complete, serverId is ' + res.serverId);
-          mediaId = "reservation[reservation_images_attributes][" + i + "][media_id]"
-          $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', res.serverId)
-          $li.append($input)
+  function syncUpload(localIds){
+    var localId = localIds.shift();
+    var serverIds = [];
 
-          if(localIds.length > 0){
-            syncUpload(localIds);
-          }
-
-        },
-        fail: function(res) {
-          console.log(JSON.stringify(res));
+    wx.uploadImage({
+      localId: localId,
+      isShowProgressTips: 1,
+      success: function(res) {
+        console.log('upload complete, serverId is ' + res.serverId);
+        serverIds.push(res.serverId);
+        // mediaId = "reservation[reservation_images_attributes][" + index + "][media_id]"
+        // $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', res.serverId)
+        // $li.append($input)
+        if(localIds.length > 0){
+          syncUpload(localIds);
+        }else{
+          return serverIds;
         }
-      })
-
-    // }
+      },
+      fail: function(res) {
+        console.log(JSON.stringify(res));
+      }
+    })
   }
+
+  function writeServerIdToHiddenField($files, serverIds){
+    $lis = $files.find('li.weui-uploader__file')
+    for(var i = 0, len = $lis.length; i < len; i++) {
+      mediaId = "reservation[reservation_images_attributes][" + i + "][media_id]"
+      $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', serverIds[i])
+      $lis.eq(i).append($input)
+    }
+  }
+
 </script>
