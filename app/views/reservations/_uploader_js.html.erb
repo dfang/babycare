@@ -1,141 +1,132 @@
 <script type="text/javascript">
   $(document).on("ready", function(){
 
-    console.log("isisWeiXin: " + isWeiXin())
+    console.log("isWeiXin: " + isWeiXin())
     console.log("isAndroid: " + isAndroid())
 
-    if( true ){
-      // z-index可以遮住plupload生成的上传按钮, iOS的plupload选择框有拍照功能，所以用plupload
-      // android 用 wx js sdk, 设置z-index 把plupload上传按钮遮住
-      $(".weui-uploader__input-box").attr('z-index', 9999)
+    url = location.href.split('#')[0]
+    $.ajax({
+      url:        "/wx/config_jssdk.json?url=" + escape(url),
+      beforeSend: function(){},
+      global:     false
+    })
+    .done(function(data){
 
-      url = location.href.split('#')[0]
-      $.ajax({
-        url:        "/wx/config_jssdk.json?url=" + escape(url),
-        beforeSend: function(){},
-        global:     false
+      wx.config({
+        debug:     true,
+        appId:     data.appId,
+        timestamp: data.timestamp,
+        nonceStr:  data.nonceStr,
+        signature: data.signature,
+        jsApiList: data.jsApiList
+      });
+
+      wx.ready(function(){
+        console.log('wx.config is ready, checking js api available');
+        wx.checkJsApi({
+           jsApiList: data.jsApiList,
+           success: function (res) {
+             console.log(JSON.stringify(res));
+           }
+         });
+      });
+
+      wx.error(function(e){
+        console.log('wx.config is error');
+        console.log(e.errMsg);
       })
-      .done(function(data){
-
-        wx.config({
-          appId:     data.appId,
-          timestamp: data.timestamp,
-          nonceStr:  data.nonceStr,
-          signature: data.signature,
-          jsApiList: data.jsApiList
-        });
-
-        wx.ready(function(){
-          console.log('wx.config is ready, checking js api available');
-          wx.checkJsApi({
-             jsApiList: data.jsApiList,
-             success: function (res) {
-               console.log(JSON.stringify(res));
-             }
-           });
-        });
-
-        wx.error(function(e){
-          console.log('wx.config is error');
-          console.log(e.errMsg);
-        })
-      })
-
-
-      $(document).on('click', '#picker1', function(e){
-        console.log('clickkkkkkkkkk');
-
-        var localIds;
-        wx.chooseImage({
-            count:      5,
-            sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-                localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-                for (var i = 0; i < localIds.length; i++) {
-                  $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
-                  $files.find('.weui-uploader__file.holder').remove()
-
-                  if (window.__wxjs_is_wkwebview) {
-                    // fix iOS 11 wechat can't preview
-                    wx.getLocalImgData({
-                      localId: localIds[i], // 图片的localID
-                      success: function (res) {
-                        var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                        localData = localData.replace('jgp', 'jpeg');//iOS 系统里面得到的数据，类型为 image/jgp,因此需要替换一下
-                        // $('#img_media').attr('src', localData);
-                        $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localData + ")")
-                        $files.append($li)
-                      },
-                      fail:function(res){
-                        console.log('preview failed');
-                      }
-                    });
-                  }else{
-                    $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
-                    $files.append($li);
-                  }
-
-                  $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px")
-
-                  alert($li);
-
-                  wx.uploadImage({
-                    localId: localIds[i].toString(),
-                    isShowProgressTips: 1,
-                    success: function(res) {
-                      console.log('upload complete, serverId is ' + res.serverId);
-                      mediaId = "reservation[reservation_images_attributes][" + i + "][media_id]"
-                      $input = $('<input type="hidden" class="media-id">').attr('name', mediaId).attr('value', res.serverId)
-                      $li.append($input)
-                    },
-                    fail: function(res) {
-                      alert(JSON.stringify(res));
-                    }
-                  })
-                }
-            }
-        });
-      })
-
-
-      // 提交之前 要重排图片的索引
-      $('form').submit(function(){
-
-        // $('.weui_uploader1').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        //   $(element).find('input').attr('name', "medical_record[medical_record_images_attributes][" + index + "][media_id]")
-        // })
-        //
-        // $('.weui_uploader2').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        //   $(element).find('input').attr('name', "medical_record[laboratory_examination_images_attributes][" + index + "][media_id]")
-        // })
-        //
-        // $('.weui_uploader3').find('.weui-uploader__files').find('li.weui-uploader__file').each(function(index, element){
-        //   $(element).find('input').attr('name', "medical_record[imaging_examination_images_attributes][" + index + "][media_id]")
-        // })
-
-      })
-
-    }else{
-
-      uploader1 = new uploader( 'picker1', '.weui_uploader1', '/global_images.js', 'multiple', 'reservation_images')
-      // delegate click weui upload icon to uploader
-      $(document).on('click', '.weui-uploader__input-box', function(e){
-        $(e.target).parent('.weui-uploader__bd').find('.moxie-shim input[type=file]').trigger('click')
-      })
-
-    }
-
-    // 伪造medical_record_images_attributes[0][_destroy]
-    // 删除图片按钮
-    $(document).on('click', '.weui-icon-delete', function(e){
-      $field = $(e.target).parents('li')
-      $destroyFlagField = $field.find('input:hidden').clone().attr("value", "1")
-      destroyFlagName = $destroyFlagField.attr('name').replace('data', '_destroy')
-      $destroyFlagField.attr('name', destroyFlagName)
-      $field.hide()
-      $field.append($destroyFlagField)
     })
 
-  })
+    $(document).on('click', '#picker1', function(e){
+        var localIds = [];
+        wx.chooseImage({
+          count:      5,
+          sizeType:   ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+              localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files');
+              $files.find('.weui-uploader__file.holder').remove();
+
+              for (var i = 0; i < localIds.length; i++) {
+                console.log(localIds);
+                console.log(localIds[i]);
+                // console.log(localIds[i].toString());
+                $li = $('<li class="weui-uploader__file">')
+                previewImage($files, $li, localIds[i]);
+
+                syncUpload(localIds,i);
+                // console.log($li);
+
+                // $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px")
+
+                // wx.uploadImage({
+                //   localId: localIds[i].toString(),
+                //   isShowProgressTips: 1,
+                //   success: function(res) {
+                //     console.log('upload complete, serverId is ' + res.serverId);
+                //     mediaId = "reservation[reservation_images_attributes][" + i + "][media_id]"
+                //     $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', res.serverId)
+                //     $li.append($input)
+                //   },
+                //   fail: function(res) {
+                //     alert(JSON.stringify(res));
+                //   }
+                // })
+
+              }
+
+
+              // if(localIds.length >= 1){
+                // setTimeout(function(){
+                  // syncUpload(localIds);
+                // }, 100)
+              // }
+
+          }
+      });
+    })
+
+  });
+
+
+  function previewImage($files, $li, localId){
+      wx.getLocalImgData({
+        localId: localId, // 图片的localID
+        success: function (res) {
+          var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+          // localData = localData.replace('jgp', 'jpeg');//iOS 系统里面得到的数据，类型为 image/jgp,因此需要替换一下
+          $li.css("background-image", "url(" + localData + ")")
+          $files.append($li);
+        },
+        fail: function(res){
+          console.log('preview failed');
+        }
+      });
+  }
+
+  function syncUpload(localIds,i){
+    var localId = localIds.pop();
+    // for(var i=0; i < localIds.length; i++){
+      wx.uploadImage({
+        localId: localId,
+        isShowProgressTips: 1,
+        success: function(res) {
+          console.log('upload complete, serverId is ' + res.serverId);
+          mediaId = "reservation[reservation_images_attributes][" + i + "][media_id]"
+          $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', res.serverId)
+          $li.append($input)
+
+          if(localIds.length > 0){
+            syncUpload(localIds);
+          }
+
+        },
+        fail: function(res) {
+          console.log(JSON.stringify(res));
+        }
+      })
+
+    // }
+  }
 </script>
