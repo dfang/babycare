@@ -1,61 +1,79 @@
-<div class="msg">
-  <div class="weui-msg">
-      <div class="weui-msg__icon-area"><i class="weui-icon-info weui-icon_msg"></i></div>
-      <div class="weui_text_area">
-          <h2 class="weui-msg__title">用户已经支付完成, 请对用户进行评价</h2>
-          <!-- <p class="weui-msg__desc">请对用户进行评价</p> -->
-      </div>
-      <div class="weui-msg__opr-area">
-        <p class="weui-btn-area">
-          <%= simple_form_for Rating.new, url: reservation_ratings_path(resource) do |f| %>
-            <input id="rating-doctor" type="text" class="" value="5" name="rating[stars]" data-size="md" title="">
-            <div id="tags-input"></div>
-            <%= f.input :body, as: :text, label: false, input_html: { height: '100px' } %>
-            <%= f.input :tag_list, as: :hidden %>
-            <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
-            <%= f.input :user_id, as: :hidden, input_html: { value: resource.doctor_id } %>
-            <%= f.button :submit, class: "weui-btn weui-btn__primary" %>
-          <% end %>
-        </p>
-      </div>
-      <!-- <div class="weui-msg__extra-area">
-        <a href="">帮助</a>
-      </div> -->
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约时间</p>
+    </div>
+    <div class="weui-cell__ft">
+      <% if resource.d_date.present? %>
+        <%= resource.d_date %>
+      <% else %>
+        <%= resource.p_date %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约位置</p>
+    </div>
+    <div class="weui-cell__ft">
+      <% if resource.d_location.present? %>
+        <%= resource.d_location %>
+      <% else %>
+        <%= resource.p_location %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>症状描述</p>
+    </div>
+    <div class="chief-complains_img">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:58px;margin-right:5px;display:block">
+    </div>
+    <div class="chief-complains"><%= resource.chief_complains %></div>
   </div>
 </div>
 
-<%= content_for :css do %>
-  <%= stylesheet_link_tag :bootstrap_fontawesome %>
-<% end %>
-
-<%= content_for :js do %>
-  <%= javascript_tag do %>
-    $(function(){
-      $("#rating-doctor").rating({
-        showClear: false,
-        showCaption: false
-      });
-
-      $('#tags-input').tags({
-        values: ["超级奶爸", "暖神爹地", "萝莉妈咪", "时尚辣妈", "爱心泛滥", "高冷大咖", "神准时", "聊的很开心", "通情达理", "支付神速" ],
-        templates: {
-          pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
-          number: '<sup><small>{0}</small></sup>'
-        },
-        input_name: "tag_list[]",
-        can_delete: false,
-        can_add: false
-      });
-
-      $('.pills-list').on('click', '.badge', function(e){
-        $(e.target).toggleClass('active')
-        arr = []
-        $('.pills-list .badge.active').map(function(i,e){
-          arr.push( $(e).find('input').val() )
-        })
-        console.log(arr)
-        $('#rating_tag_list').val(arr)
-      })
-    })
+<div class="weui-cells">
+  <% if resource.reservation_examinations.any? %>
+    <% resource.reservation_examinations.each do |re| %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+        <%= re.examination.name %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+
+<div class="weui-cells">
+  <% if resource.medical_record.preliminary_diagnosis.present? %>
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <p>咨询意见</p>
+      </div>
+      <div class="weui-cell__ft">
+        <%= resource.medical_record.preliminary_diagnosis %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if resource.medical_record.treatment_recommendation.present? %>
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <p>处置意见</p>
+      </div>
+      <div class="weui-cell__ft">
+        <%= resource.medical_record.treatment_recommendation %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="weui-btn-area">
+  <% unless resource.doctor_has_rated? %>
+    <%= link_to '去评价', new_doctors_rating_path(reservation_id: resource), class: 'weui-btn weui-btn_primary'  %>
+  <% end %>
+</div>

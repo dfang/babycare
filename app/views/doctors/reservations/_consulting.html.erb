@@ -1,28 +1,5 @@
 <div class="weui-cells">
   <div class="weui-cell">
-    <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-      <% if resource.family_member.present? %>
-        <%= image_tag resource.family_member.avatar %>
-      <% end %>
-      <div class="weui_media_status">
-        <%= resource.aasm_state_text %>
-      </div>
-    </div>
-    <div class="weui-cell__bd">
-        <h4><%= resource.family_member.name %></h4>
-        <ul class="weui-cell__bd_ul">
-          <li>性别: <%= resource.family_member.gender %></li>
-          <li>身高: <%= resource.height %></li>
-          <li>血型: <%= resource.family_member.blood_type %></li>
-          <li>年龄: <%= resource.family_member.birthdate %></li>
-          <li>体重: <%= resource.weight %></li>
-        </ul>
-    </div>
-  </div>
-</div>
-
-<div class="weui-cells">
-  <div class="weui-cell">
     <div class="weui-cell__bd">
         <p>预约时间</p>
     </div>
@@ -59,12 +36,24 @@
   </div>
 </div>
 
-检查项目 暂时不放
-对应原型图
-
+<div class="weui-cells">
+  <% if resource.reservation_examinations.any? %>
+    <% resource.reservation_examinations.each do |re| %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+        <%= re.examination.name %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
 <div class="weui-btn-area">
-  <%= link_to '填写病历', '#', class: 'weui-btn weui-btn_primary'  %>
+  <% if resource.medical_record.present? %>
+    <%= link_to '修改病历', edit_doctors_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.family_member), class: 'weui-btn weui-btn_primary'  %>
+  <% else %>
+    <%= link_to '填写病历', new_doctors_medical_record_path(reservation_id: resource, user_id: resource.family_member), class: 'weui-btn weui-btn_primary'  %>
+  <% end %>
   <%= link_to '查看既往病历', '#', class: 'weui-btn weui-btn_default'  %>
 </div>
 

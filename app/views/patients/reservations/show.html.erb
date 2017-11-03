@@ -29,7 +29,9 @@
           </div>
         </div>
 
-        <% if resource.paid? %>
+        <%- if resource.patient_has_rated? %>
+          <%= render 'patients/reservations/states/rated' %>
+        <% elsif resource.paid? %>
           <%= render 'patients/reservations/states/paid' %>
         <% elsif resource.to_pay? %>
           <%= render 'patients/reservations/states/to_pay' %>

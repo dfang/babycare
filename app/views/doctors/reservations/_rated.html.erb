@@ -1,10 +1,12 @@
+<%= render 'paid' %>
+
 <div class="msg">
   <div class="weui-msg">
-      <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+      <!-- <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
       <div class="weui_text_area">
-        <h2 class="weui-msg__title">你已评价对方</h2>
-        <p class="weui-msg__desc">针对本次服务你作出了如下评价:</p>
-      </div>
+        <h2 class="weui-msg__title">你已评价对方</h2> -->
+        <p class="weui-msg__desc">您对患者作出了如下评价:</p>
+      <!-- </div> -->
       <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
           <input id="rating-doctor" type="text" class="" value="<%= resource.rating_by_doctor.try(:stars) %>" name="rating[stars]" data-size="md" title="">

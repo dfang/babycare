@@ -1,30 +1,32 @@
-<div class="tabbar">
-  <div class="weui-tab">
-      <div class="weui-tab__panel">
-
-          <div class="panel">
-            <div class="bd">
-              <div class="weui-cells__title">表单</div>
-              <div class="weui-cells weui-cells_form">
-                <%= render 'edit_form', url: doctors_medical_record_path(resource), method: 'PUT' %>
-              </div>
-            </div>
-
-            </div>
-          </div>
-
-      </div>
-
-      <%= render 'tab_bar' %>
+<%= form_for resource, url: doctors_medical_record_path(resource), method: 'put' do |f| %>
+  <div class="weui-cells__title">咨询意见</div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <%= f.text_area :preliminary_diagnosis, class: 'weui-textarea', rows: '3', placeholder: '请填写咨询意见' %>
+          <!-- <div class="weui-textarea-counter"><span>0</span>/200</div> -->
+        </div>
+    </div>
   </div>
-</div>
 
-<%- content_for :js  do %>
-  <%= javascript_include_tag :uploader %>
-  <%= render 'uploader_js' %>
-  <script type="text/javascript">
-  $(function(){
-    autosize(document.querySelectorAll('textarea'));
-  })
-  </script>
+  <div class="weui-cells__title">处置意见</div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <%= f.text_area :treatment_recommendation, class: 'weui-textarea', rows: '3', placeholder: '请填写处置意见' %>
+        </div>
+    </div>
+  </div>
+
+  <% if params.key?(:user_id)  %>
+    <%= f.hidden_field :user_id, value: params[:user_id]%>
+  <% end %>
+
+  <% if params.key?(:reservation_id)  %>
+    <%= f.hidden_field :reservation_id, value: params[:reservation_id]%>
+  <% end %>
+
+  <div class="weui-btn-area">
+    <%= f.submit '确认', class: 'weui-btn weui-btn_primary'  %>
+  </div>
 <% end %>

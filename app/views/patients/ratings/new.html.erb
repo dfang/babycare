@@ -1,0 +1,65 @@
+<div class="msg">
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-info weui-icon_msg"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui-msg__title">你已经支付完成,请对医生本次服务做出评价,以方便我们改进服务</h2>
+            <!-- <p class="weui-msg__desc">说明文字</p> -->
+        </div>
+        <div class="weui-msg__opr-area">
+          <p class="weui-btn-area">
+            <%= simple_form_for Rating.new, url: patients_ratings_path(resource) do |f| %>
+              <input id="rating-doctor" type="text" class="" value="5" name="rating[stars]" data-size="md" title="">
+              <div id="tags-input"></div>
+
+              <% if params.key?(:reservation_id)  %>
+                <%= f.hidden_field :reservation_id, value: params[:reservation_id]%>
+              <% end %>
+
+              <%= f.input :body, as: :text, label: false, input_html: { height: '100px' } %>
+							<%= f.input :tag_list, as: :hidden %>
+              <%= f.input :rated_by, as: :hidden, input_html: { value: current_user.id } %>
+              <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+              <%= f.button :submit, class: "weui-btn weui-btn_primary" %>
+            <% end %>
+          </p>
+        </div>
+        <!-- <div class="weui-msg__extra-area">
+          <a href="">帮助</a>
+        </div> -->
+    </div>
+</div>
+
+<%= content_for :css do %>
+  <%= stylesheet_link_tag :bootstrap_fontawesome %>
+<% end %>
+
+<%= content_for :js do %>
+  <%= javascript_tag do %>
+    $(function(){
+      $("#rating-doctor").rating({
+        showClear: false,
+        showCaption: false
+      });
+
+      $('#tags-input').tags({
+        values: ['非常有亲和力', '有强烈用户思维', '颜值爆表', '神准时', '聊得很开心', '解释超有耐心', '童心未泯', '认真负责', '专业学霸'],
+        templates: {
+          pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
+          number: '<sup><small>{0}</small></sup>'
+        },
+        input_name: "tag_list[]",
+        can_delete: false,
+        can_add: false
+      });
+
+      $('.pills-list').on('click', '.badge', function(e){
+        $(e.target).toggleClass('active')
+        arr = []
+        $('.pills-list .badge.active').map(function(i,e){
+          arr.push( $(e).find('input').val() )
+        })
+	      $('#rating_tag_list').val(arr)
+      })
+    })
+  <% end %>
+<% end %>

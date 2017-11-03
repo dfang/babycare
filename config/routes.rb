@@ -5,13 +5,7 @@ Rails.application.routes.draw do
 
   namespace :doctors do
     get 'reservation_examinations/new'
-  end
-
-  namespace :doctors do
     get 'reservation_examinations/update'
-  end
-
-  namespace :doctors do
     get 'reservation_examinations/create'
   end
 
@@ -81,6 +75,8 @@ Rails.application.routes.draw do
       # put 'complete_online_consult', on: :member
     end
 
+    resources :ratings
+
     resources :examinations, only: [:new, :edit, :update, :create, :destroy] do
       # 这里的路由没有按照restful来，一定要传reservtion_id
       # doctors/examinations/new?reservation_id
@@ -107,6 +103,7 @@ Rails.application.routes.draw do
     resource :settings, only: :edit
     resources :family_members
     resources :examinations
+    resources :ratings
 
     resources :reservations do
       get 'pay', on: :collection
@@ -155,7 +152,7 @@ Rails.application.routes.draw do
     get 'status', on: :member
     get 'restricted', on: :collection
     get 'wxpay_test', on: :member
-    resources :ratings
+    # resources :ratings
   end
 
   devise_for :admin_users, controllers: {

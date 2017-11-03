@@ -45,6 +45,8 @@ module Babycare
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :erb
+      g.helper      false
+      g.test      false
     end
   end
 end
