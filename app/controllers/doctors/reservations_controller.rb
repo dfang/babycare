@@ -59,7 +59,11 @@ class Doctors::ReservationsController < InheritedResources::Base
       resource.update(reservation_params.except(:event))
 
       # TODO: 需要判断下是否有检查项目 resource.upload_examination!
-      resource.reserve_to_consult!
+      if resource.reservation_examinations.present?
+        resource.reserve_to_examine!
+      else
+        resource.reserve_to_consult!
+      end
       redirect_to doctors_reservation_path
     else
       super
