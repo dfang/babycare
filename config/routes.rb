@@ -115,6 +115,7 @@ Rails.application.routes.draw do
       get 'wxpay', on: :collection
       post 'payment_notify', on: :collection
       delete 'cancel', on: :member
+      get 'status', on: :member
     end
     get 'profile'
     get 'status'

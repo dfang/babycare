@@ -1,0 +1,18 @@
+<div class="msg">
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui-msg__title">取消失败</h2>
+            <p class="weui-msg__desc">可能已匹配到医生导致预约取消失败<br />返回本次预约请按继续，仍需取消请联系客服</p>
+        </div>
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
+              <%= link_to '继续', patients_reservation_path, class: 'weui-btn weui-btn_primary' %>
+              <a href="tel:4000719136" class="weui-btn weui-btn_default">拨打客服电话</a>
+            </p>
+        </div>
+        <div class="weui-msg__extra-area">
+            <a href="">帮助</a>
+        </div>
+    </div>
+</div>

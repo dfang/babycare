@@ -23,9 +23,19 @@ class Patients::ReservationsController < Patients::BaseController
   def show; end
 
   def update
-    if params.key?(:event) && params[:event] == 'complete'
-      resource.diagnose!
-      redirect_to wx_payment_path(reservation_id: resource) and return
+    if params.key?(:event)
+      case params[:event]
+      when 'cancel'
+        if resource.prepaid?
+          resource.cancel!
+          redirect_to patients_reservation_path(resource)
+        else
+          redirect_to status_patients_reservation_path(resource)
+        end
+      when 'complete'
+        resource.diagnose!
+        redirect_to wx_payment_path(reservation_id: resource) and return
+      end
     else
       super
     end
