@@ -26,6 +26,7 @@ zh-CN:
         consulting: "咨询中"
         to_pay: "待支付"
         paid: "已支付"
+        cancelled: "已取消"
         # pending: 待支付定金
         # reserved: 已接单
         # archived: 已存档
