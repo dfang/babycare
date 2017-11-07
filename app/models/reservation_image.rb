@@ -4,7 +4,7 @@ class ReservationImage < OdooRecord
   establish_connection("odoo_#{Rails.env}".to_sym)
   self.table_name = 'fa_reservation_image'
 
-  belongs_to :reservation
+  include Wisper.model
 
-  mount_uploaders :data, ImageUploader
+  belongs_to :reservation
 end

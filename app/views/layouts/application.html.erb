@@ -14,6 +14,9 @@
     <%= yield :css %>
     <%= csrf_meta_tags %>
     <%= javascript_include_tag "http://res.wx.qq.com/open/js/jweixin-1.2.0.js" %>
+
+    <%= javascript_pack_tag 'application' %>
+
     <%= action_cable_meta_tag %>
 
   </head>

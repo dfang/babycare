@@ -1,0 +1,50 @@
+import $ from 'jquery';
+import wx from 'wechat-jssdk-promise';
+
+
+wx.ready( () => {
+
+    $(document).on('click', '.weui-vcode-btn',  (e) => {
+        console.log('click get Location 222');
+
+        wx.getLocationAsync({
+          type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        }).then( (res) => {
+          var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+          var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+          var speed = res.speed; // 速度，以米/每秒计
+          var accuracy = res.accuracy; // 位置精度
+
+          var data = {
+            location: latitude + "," + longitude,
+            key: "GHPBZ-BCE3X-GPT4A-7EJHJ-G2TPQ-PTFBQ",
+            get_poi: 0,
+            output: "jsonp"
+          }
+          var url = "http://apis.map.qq.com/ws/geocoder/v1/?";
+          console.log('convert latitude and longitude to address');
+          $.ajax({
+            type: "get",
+            dataType: 'jsonp',
+            data: data,
+            jsonp: "callback",
+            jsonpCallback: "QQmap",
+            url: url,
+            success: function (json) {
+              // var toStr = JSON.stringify(json);
+              console.log(json.result.address)
+              if (json.status == 0) {
+                $('textarea[name="reservation[p_location]"]').val(json.result.address)
+              }
+            },
+            error: function (err) {
+              alert("服务端错误，请刷新浏览器后重试")
+            }
+          })
+
+        }).catch( (res) => {
+           alert('获取地理位置失败');
+        })
+    });
+
+})
