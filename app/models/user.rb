@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   include ImageVersion
   mount_image_version :avatar
   # mount_image_version :qrcode
+
   mount_uploader :qrcode, SingleUploader
 
   include Wisper.model
@@ -161,6 +162,24 @@ class User < ActiveRecord::Base
 
   def profile_complete?
     name.present? && mobile_phone.present?
+  end
+
+  def save_qrcode!
+    qrcode = RQRCode::QRCode.new("github.com")
+    png = qrcode.as_png(
+                resize_gte_to: false,
+                resize_exactly_to: false,
+                fill: 'white',
+                color: 'black',
+                size: 180,
+                border_modules: 4,
+                module_px_size: 6,
+                file: nil
+              )
+    image_path = "#{Rails.root.join('tmp',  "qrcode-#{self.id}.png")}"
+    png.save(image_path)
+    self.update_attribute(:qrcode, File.open(image_path))
+    self.save!
   end
 
   private
