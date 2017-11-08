@@ -1,6 +1,17 @@
 import $ from 'jquery';
 import wx from 'wechat-jssdk-promise';
 
+wx.getLocalImgDataAsync = function (params) {
+  params = params || {};
+  return new Promise(function (resolve, reject) {
+    params.success = resolve;
+    params.fail = function (res) {
+      reject(new Error(res.errMsg));
+    };
+    wx.getLocalImgData(params);
+  });
+};
+
 // export let config_js_sdk = (url) =>
 let url = location.href.split('#')[0]
 $.ajax({
