@@ -100,6 +100,10 @@ class Reservation < OdooRecord
       transitions from: :prepaid, to: :to_examine
     end
 
+    event :examine_to_consult do
+      transitions from: :to_examine, to: :to_consult
+    end
+
     event :reserve_to_consult do
       transitions from: :prepaid, to: :to_consult
     end
