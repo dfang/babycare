@@ -26,3 +26,6 @@ wx_pay:
   # 这里的单位是元
   prepay_amount: 0.01
   pay_amount: 0.01
+
+wx_qrcode:
+  qrcode_url: "https://www.yhuan.cc/"

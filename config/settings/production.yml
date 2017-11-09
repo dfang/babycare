@@ -31,3 +31,6 @@ wx_pay:
 weixin_mp:
   app_id: wx218800b558d61f52
   app_secret: 37530899a42eb9ab0db105eccdfbb2ad
+
+wx_qrcode:
+  qrcode_url: "https://www.baojiankang.cc/"

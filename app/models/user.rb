@@ -165,7 +165,7 @@ class User < ActiveRecord::Base
   end
 
   def save_qrcode!
-    qrcode = RQRCode::QRCode.new("http://haven.natapp1.cc/users/#{self.id}/scan_qrcode")
+    qrcode = RQRCode::QRCode.new("#{Settings.wx_qrcode.qrcode_url}/users/#{self.id}/scan_qrcode")
     png = qrcode.as_png(
                 resize_gte_to: false,
                 resize_exactly_to: false,

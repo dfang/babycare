@@ -8,21 +8,6 @@ class UsersController < InheritedResources::Base
   # /users/:id/qrcode 用户打开这个页面让医生扫描
   def qrcode
     @qrcode = current_user.qrcode_url
-    # qrcode = RQRCode::QRCode.new("http://github.com/")
-    # With default options specified explicitly
-    # png = qrcode.as_png(
-    #           resize_gte_to: false,
-    #           resize_exactly_to: false,
-    #           fill: 'white',
-    #           color: 'black',
-    #           size: 180,
-    #           border_modules: 4,
-    #           module_px_size: 6,
-    #           file: nil # path to write
-    #           )
-    # png.save("/tmp/github-qrcode.png")
-
-    # IO.write(Rails.root.join("tmp/#{current_user.id}-qrcode.png"), qrcode_png.to_s)
   end
 
   # /users/:id/scan_qrcode 医生扫描后进入这个页面
