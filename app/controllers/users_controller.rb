@@ -30,6 +30,7 @@ class UsersController < InheritedResources::Base
     user = User.find_by(id: params[:id])
     # latest_reservation = user.reservations.where(user_b: current_user.id).order('created_at DESC').first
     redirect_to profile_doctors_patient_path(user) if current_user.doctor?
+    redirect_to(global_denied_path) && return
   end
 
   def children; end
