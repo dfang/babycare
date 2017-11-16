@@ -43,16 +43,16 @@
 
   <div class="weui-panel__bd">
   <% if resource.reservation_examinations.any? %>
-    <% resource.reservation_examinations.each do |re| %>
+    <% resource.reservation_examinations.each_with_index do |re, index| %>
       <div class="weui-cell">
         <div class="weui-cell__bd">
             <div class="uploader_title"><%= re.examination.name %></div>
         </div>
         <div class="weui-uploader">
             <div class="weui-uploader__bd">
-              <ul class="weui-uploader__files" id="uploaderFiles[<%= re.id %>]">
+              <ul class="weui-uploader__files" id="uploaderFiles[<%= index + 1 %>]">
               </ul>
-              <div class="weui-uploader__input-box" id='picker<%= re.id %>'>
+              <div class="weui-uploader__input-box picker" id='picker<%= index + 1 %>'>
               </div>
             </div>
         </div>

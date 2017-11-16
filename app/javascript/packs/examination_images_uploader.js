@@ -11,7 +11,7 @@ wx.ready( () => {
   // console.log("isWeiXin: " + isWeiXin());
   // console.log("isAndroid: " + isAndroid());
 
-  $(document).on('click', '#picker1', (e) => {
+  $(document).on('click', '.picker', (e) => {
     // e.preventDefault();
     let $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files');
     // let localIds = []
@@ -27,13 +27,13 @@ wx.ready( () => {
       console.log('choosed ' + localIdsToPreview.length + ' images');
 
         for (let i = 0, len = localIdsToPreview.length; i < len; i++) {
-            preview(localIdsToPreview[i]);
+            preview($files, localIdsToPreview[i]);
         }
 
       syncUpload(localIds, serverIds)
     })
 
-    const preview = (localId) => {
+    const preview = ($files, localId) => {
       wx.getLocalImgDataAsync({
         localId: localId
       }).then( (res) => {
@@ -41,7 +41,7 @@ wx.ready( () => {
           let $li = $('<li class="weui-uploader__file">');
           $li.css("background-image", "url(" + localData + ")");
           // $files.append($li);
-          $('#picker1').parents('.weui-uploader').find('.weui-uploader__files').append($li);
+          $files.parents('.weui-uploader').find('.weui-uploader__files').append($li);
       })
     }
 
