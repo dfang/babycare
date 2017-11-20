@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rexml/document'
+# require 'rexml/document'
 
 class Patients::ReservationsController < Patients::BaseController
   # before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
@@ -10,9 +10,6 @@ class Patients::ReservationsController < Patients::BaseController
   # skip_before_action :check_is_verified_doctor, only: :payment_notify
   # custom_actions :collection => [ :payment_notify, :payment_test ], :member => [ :status ]
   custom_actions member: [:status]
-
-  # def reservations
-  # end
 
   def index
     @reservations = current_user.reservations.order('created_at DESC')
@@ -25,6 +22,10 @@ class Patients::ReservationsController < Patients::BaseController
   def update
     if params.key?(:event)
       case params[:event]
+      when 'upload_reservation_examination_images'
+        resource.update(reservation_examinations_attributes: reservation_examination_params)
+        resource.upload_examination! if resource.has_all_examination_uploaded_images? && resource.to_examine?
+        redirect_to patients_reservation_path(resource) and return
       when 'cancel'
         if resource.prepaid?
           resource.cancel!
@@ -100,7 +101,24 @@ class Patients::ReservationsController < Patients::BaseController
   # def payment_test
   # end
 
+  def examinations_uploader
+    #
+    @reservation_examinations = resource.reservation_examinations.includes(:reservation_examination_images)
+    # @reservation_examinations = resource.reservation_examinations.as_json(
+    #   include: {
+    #     reservation_examination_images: {
+    #       only: :media_id
+    #     }
+    #   }
+    # )
+
+  end
+
   private
+
+  def reservation_examination_params
+    params['reservation_examinations_attributes'].permit!
+  end
 
   def current_wechat_authentication
     current_user.authentications.find_by(provider: 'wechat')

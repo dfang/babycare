@@ -1,11 +1,15 @@
 import $ from 'jquery';
 import wx from 'wechat-jssdk-promise';
 
-
-
-
-
 wx.ready( () => {
+
+  $.ajax({
+    url: '/patients/reservations/examinations_uploader.json?id=1',
+    method: 'GET'
+  }).then( (data)=> {
+    console.log(data)
+  })
+
 
   console.log('document is ready');
   // console.log("isWeiXin: " + isWeiXin());
@@ -46,9 +50,6 @@ wx.ready( () => {
     }
 
     const syncUpload = (localIds, serverIds) => {
-      console.log('weihhhsfadsfasdf');
-      console.log('sdafdsfa'+ localIds);
-
       if (localIds.length > 0) {
         let localId = localIds.shift();
         wx.uploadImageAsync({
@@ -62,17 +63,22 @@ wx.ready( () => {
       } else {
           console.log('上传成功!');
           // write serverId to hidden fields
-          let $files = $('#picker1').parents('.weui-uploader').find('ul.weui-uploader__files');
+          // let $files = $('.picker').parents('.weui-uploader').find('ul.weui-uploader__files');
           // write($files, serverIds);
           // let $lis = $files.find('li.weui-uploader__file')
           let existings = $files.find('input:hidden').length;
 
-          console.log(existings);
-          console.log('serverIds are: ') ;
-          console.log(serverIds);
+          console.log('existings: ' + existings);
+          // console.log('serverIds are: ') ;
+          // console.log(serverIds);
+
+          var pickerId = $files.next('.picker').attr('id')
 
           for (let i = 0, len = serverIds.length; i < len; i++) {
-            let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]"
+            console.log('input ' + i);
+            console.log('serverIds are: ') ;
+            console.log(serverIds);
+            let mediaId_name = "reservation_examinations_attributes[" + pickerId + "][reservation_examination_images_attributes][" + (i + existings) + "][media_id]"
             console.log(mediaId_name);
 
             let mediaId_value =  serverIds[i]
@@ -83,30 +89,6 @@ wx.ready( () => {
             $files.append($input);
           }
       }
-
     }
-
-
-    const write = ($files, serverIds) => {
-      console.log('write funciton...');
-      console.log($files);
-      console.log(serverIds);
-
-      let $lis = $files.find('li.weui-uploader__file')
-      let existings = $lis.find('input:hidden').length;
-
-      for (let i = 0, len = serverIds.length; i < len; i++) {
-        let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]"
-        let mediaId_value =  serverIds[i]
-        let $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', mediaId_value)
-        $files.append($input);
-      }
-    }
-
-
   })
-
-
-
-
 })

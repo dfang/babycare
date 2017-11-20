@@ -40,30 +40,18 @@
   <div class="weui-panel__hd">
     检查项目
   </div>
-
-  <div class="weui-panel__bd">
   <% if resource.reservation_examinations.any? %>
     <% resource.reservation_examinations.each_with_index do |re, index| %>
       <div class="weui-cell">
         <div class="weui-cell__bd">
             <div class="uploader_title"><%= re.examination.name %></div>
         </div>
-        <div class="weui-uploader">
-            <div class="weui-uploader__bd">
-              <ul class="weui-uploader__files" id="uploaderFiles[<%= index + 1 %>]">
-              </ul>
-              <div class="weui-uploader__input-box picker" id='picker<%= index + 1 %>'>
-              </div>
-            </div>
-        </div>
+
+        <!-- <i class="weui-icon-success"></i> -->
+        <%= link_to '', examinations_uploader_patients_reservations_path(id: resource), class: 'weui-icon-info-circle' %>
       </div>
     <% end %>
   <% end %>
-  </div>
-
-  <div class="weui-panel__ft">
-    <p class="weui-cell weui-cell_link" style="color: #999999;font-size: 0.8em;">请上传检查结果相关图片，最多上传5张。</p>
-  </div>
 </div>
 
 
@@ -71,10 +59,3 @@
   <%= link_to "联系医生", "", class: "weui-btn weui-btn_primary" %>
   <a href="tel:4000719136" class="weui-btn weui-btn_default">拨打客服电话</a>
 </div>
-
-<%- content_for :js  do %>
-
-  <%= javascript_pack_tag 'config_js_sdk',  'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'examination_images_uploader',  'data-turbolinks-track': 'reload' %>
-
-<% end %>

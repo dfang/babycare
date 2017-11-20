@@ -22,6 +22,7 @@ class Reservation < OdooRecord
   has_many :reservation_examinations, foreign_key: :reservation_id, dependent: :destroy
   has_many :reservation_images, class_name: 'ReservationImage', dependent: :destroy
   accepts_nested_attributes_for :reservation_images
+  accepts_nested_attributes_for :reservation_examinations
 
   belongs_to :doctor, optional: true
   # belongs_to :assistant, optional: true
@@ -223,5 +224,15 @@ class Reservation < OdooRecord
 
   def reservation_title
     "#{name}的#{gender}"
+  end
+
+  def has_all_examination_uploaded_images?
+    flag = true
+    reservation_examinations.each do |re|
+      if re.reservation_examination_images.count <= 0
+        flag =  false
+      end
+    end
+    flag
   end
 end

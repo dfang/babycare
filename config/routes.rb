@@ -116,6 +116,7 @@ Rails.application.routes.draw do
       post 'payment_notify', on: :collection
       delete 'cancel', on: :member
       get 'status', on: :member
+      get 'examinations_uploader', on: :collection
     end
     get 'profile'
     get 'status'
