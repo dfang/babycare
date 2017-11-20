@@ -91,4 +91,14 @@ wx.ready( () => {
       }
     }
   })
+
+  $(document).on('click', 'li', (e) => {
+    let $gallery = $(e.target).children('.weui-gallery');
+    $gallery.fadeIn(200);
+  })
+
+  $(document).on('click', 'span', (e) => {
+    let $gallery = $(e.target).parents('.weui-gallery');
+    $gallery.fadeOut(200);
+  })
 })
