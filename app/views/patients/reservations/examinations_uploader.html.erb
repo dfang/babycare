@@ -15,11 +15,11 @@
               <ul class="weui-uploader__files" id="uploaderFiles[<%= index %>]">
                 <%- if re.reservation_examination_images.any? %>
                     <%- re.reservation_examination_images.each do |img| %>
-                      <li class="weui-uploader__file" style="background-image:url()" data-media-id="<%= img.media_id %>">
+                      <li class="weui-uploader__file" style="background-image:url(<%= img.data %>)" id="li<%=img.id%>">
                         <div class="weui-gallery" id="gallery" style="display: none;">
                             <span class="weui-gallery__img" id="galleryImg" style="background-image:url(<%= img.data %>)"></span>
                             <div class="weui-gallery__opr">
-                                <%= link_to patients_examination_path(resource, imgid: img.id, reid: re.id),  method: 'DELETE', class: 'weui-gallery__del' do %>
+                                <%= link_to patients_examination_path(resource, imgid: img.id, reid: re.id), 'data-turbolinks-track': 'reload', remote: true, method: 'DELETE', class: 'weui-gallery__del' do %>
                                   <i class="weui-icon-delete weui-icon_gallery-delete"></i>
                                 <% end %>
                             </div>

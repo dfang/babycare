@@ -3,18 +3,11 @@ import wx from 'wechat-jssdk-promise';
 
 wx.ready( () => {
 
-  $.ajax({
-    url: '/patients/reservations/examinations_uploader.json?id=1',
-    method: 'GET'
-  }).then( (data)=> {
-    console.log(data)
-  })
-
-
   console.log('document is ready');
   // console.log("isWeiXin: " + isWeiXin());
   // console.log("isAndroid: " + isAndroid());
 
+  // wx js sdk 图片上传 即时预览
   $(document).on('click', '.picker', (e) => {
     // e.preventDefault();
     let $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files');
@@ -43,9 +36,16 @@ wx.ready( () => {
       }).then( (res) => {
           let localData = res.localData;
           let $li = $('<li class="weui-uploader__file">');
+          let $gallery = $('<div class="weui-gallery" style="display: none;">');
+          let $galleryImg = $('<span class="weui-gallery__img">');
+          let $galleryOpr = $('<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>')
           $li.css("background-image", "url(" + localData + ")");
+          $galleryImg.css("background-image", "url(" + localData + ")");
           // $files.append($li);
           $files.parents('.weui-uploader').find('.weui-uploader__files').append($li);
+          $li.append($gallery);
+          $gallery.append($galleryImg);
+          $gallery.append($galleryOpr);
       })
     }
 
@@ -92,6 +92,7 @@ wx.ready( () => {
     }
   })
 
+  // 单张图片的大图预览
   $(document).on('click', 'li', (e) => {
     let $gallery = $(e.target).children('.weui-gallery');
     $gallery.fadeIn(200);
@@ -101,4 +102,15 @@ wx.ready( () => {
     let $gallery = $(e.target).parents('.weui-gallery');
     $gallery.fadeOut(200);
   })
+
+  // 从DOM中删除还未上传的图片，已经上传的图片通过ujs删除的
+  $(document).on('click', '.weui-icon_gallery-delete', (e) => {
+    alert('clicked')
+    let $li = $(e.target).parents('li.weui-uploader__file')
+    if($li.attr('id') == undefined){
+      $li.remove();
+      e.preventDefault();
+    }
+  })
+
 })
