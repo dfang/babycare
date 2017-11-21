@@ -84,7 +84,23 @@
   </div>
 </div>
 
-
+<% if resource.reservation_examinations.any? %>
+  <div class="weui-cells">
+    <div class="weui-panel__hd">
+      检查项目
+    </div>
+    <% resource.reservation_examinations.each_with_index do |re, index| %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <div class="uploader_title"><%= re.examination.name %></div>
+        </div>
+        <%= link_to examinations_uploader_patients_reservations_path(id: resource) do %>
+          <i class="weui-icon-success"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="weui-btn-area">
   <%= link_to "联系医生", "", class: "weui-btn weui-btn_primary" %>
