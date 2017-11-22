@@ -25,29 +25,19 @@ module WxApp
         url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
         conn = get_conn
         response = conn.get url
-        response_data = JSON.parse(response.body)
-        # Rails.logger.info "\nget_access_token response data is \n#{response_data}\n\n"
-        access_token = response_data['access_token']
-        # Rails.logger.info "Write weixin_access_token to Rails.cache"
-        # Rails.cache.write('weixin_access_token', access_token, expires_in: 5.seconds)
-        access_token
+        access_token = JSON.parse(response.body)['access_token']
       end
     end
 
     def get_jsapi_ticket
-      # jsapi_ticket = Rails.cache.fetch('weixin_jsapi_ticket')
-      # if jsapi_ticket.present?
-      #   return jsapi_ticket
-      # else
-      url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
-      conn = get_conn
-      response = conn.get url
-      response_data = JSON.parse(response.body)
-      Rails.logger.info "get_jsapi_ticket response data is \n#{response_data} "
-      jsapi_ticket = response_data['ticket']
-      # Rails.cache.write('weixin_jsapi_ticket', jsapi_ticket, expires_in: 7200.seconds)
-      jsapi_ticket
-      # end
+      Rails.cache.fetch 'jsapi_ticket', expires_in: 7200.seconds do
+        url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
+        conn = get_conn
+        response = conn.get url
+        response_data = JSON.parse(response.body)
+        # Rails.logger.info "get_jsapi_ticket response data is \n#{response_data} "
+        jsapi_ticket = response_data['ticket']
+      end
     end
   end
 end
