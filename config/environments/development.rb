@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# https://github.com/krisleech/wisper/issues/119#issuecomment-130572197
+# https://stackoverflow.com/questions/28346609/reload-wisper-listeners-automatically-at-every-request/28362286#28362286
+Rails.application.config.to_prepare do
+  Wisper.clear if Rails.env.development?
+
+  filenames = Dir.entries('app/models/subscribers/').select {|f| !File.directory? f}.map { |f| f.gsub!(".rb", "")}
+  classes = filenames.map {|f| f.classify.constantize }
+
+  classes.each do |c|
+    Wisper.subscribe(c.new)
+  end
+end
+
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
