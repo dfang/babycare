@@ -101,16 +101,20 @@ class Users::SessionsController < Devise::SessionsController
 
     @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
 
-    binding.pry
     # 有error_code, 一般是过期了，那就刷新token， 看第三步
     # https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
     # invalid credential, access_token is invalid or not latest
-    if @userinfo['errcode'].present? && @userinfo['errcode'] == '40001'
+    if @userinfo['errcode'].present? && @userinfo['errcode'] == 40001
       @access_token_info = refresh_token(Rails.cache.fetch(:refresh_token_when_authorizing))
 
       # invalid refresh_token
-      if @access_token_info['errcode'] == "40030"
-        redirect_to wechat_authorize_path
+      if @access_token_info['errcode'] == 40030
+        Rails.cache.delete('refresh_token_when_authorizing')
+        Rails.cache.delete('openid_when_authorizing')
+        Rails.cache.delete('unionid_when_authorizing')
+        Rails.cache.delete('access_token_when_authorizing')
+
+        redirect_to wechat_authorize_path and return
       end
 
       @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
@@ -119,24 +123,30 @@ class Users::SessionsController < Devise::SessionsController
     @authentication = Authentication.find_by(provider: 'wechat', unionid: @userinfo['unionid'])
     if @authentication.blank?
         # Transaction create wechat authentication and user
-        Authentication.transaction do
-          user = User.create_wechat_user(
-            OpenStruct.new(
-              nickname:   @userinfo['nickname'],
-              sex:        @userinfo['sex'],
-              headimgurl: @userinfo['headimgurl'],
-              openid:     @userinfo['openid'],
-              unionid:    @userinfo['unionid']
+
+        begin
+          ActiveRecord::Base.transaction do
+            @user = User.create_wechat_user(
+              OpenStruct.new(
+                nickname:   @userinfo['nickname'],
+                sex:        @userinfo['sex'],
+                headimgurl: @userinfo['headimgurl'],
+                openid:     @userinfo['openid'],
+                unionid:    @userinfo['unionid']
+              )
             )
-          )
-          p 'user created ###########################'
-          @authentication = Authentication.create_from_omniauth_hash(
-                                OpenStruct.new(
-                                    nickname:   @userinfo['nickname'],
-                                    uid:     @userinfo['openid'],
-                                    unionid:    @userinfo['unionid']
-                            ), user.id)
-          p 'authentication created  ###########################'
+            p 'user created ###########################'
+            @authentication =  @user.create_wechat_authentication({
+              provider: 'wechat',
+              nickname:   @userinfo['nickname'],
+              uid:     @userinfo['openid'],
+              unionid:    @userinfo['unionid']
+            })
+            p 'authentication created  ###########################'
+          end
+        rescue StandardError => e
+          Rails.logger.info e.message
+          raise ActiveRecord::Rollback
         end
       Rails.logger.info "Authentication inspected : #{@authentication.inspect}"
     end

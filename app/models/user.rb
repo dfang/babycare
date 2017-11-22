@@ -182,6 +182,10 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def create_wechat_authentication(authentication)
+    authentications.create(authentication)
+  end
+
   private
 
   # method for testing
