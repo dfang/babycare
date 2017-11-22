@@ -101,10 +101,18 @@ class Users::SessionsController < Devise::SessionsController
 
     @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
 
+    binding.pry
     # 有error_code, 一般是过期了，那就刷新token， 看第三步
     # https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
-    if @userinfo['errcode']
+    # invalid credential, access_token is invalid or not latest
+    if @userinfo['errcode'].present? && @userinfo['errcode'] == '40001'
       @access_token_info = refresh_token(Rails.cache.fetch(:refresh_token_when_authorizing))
+
+      # invalid refresh_token
+      if @access_token_info['errcode'] == "40030"
+        redirect_to wechat_authorize_path
+      end
+
       @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
     end
 

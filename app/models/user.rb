@@ -12,8 +12,8 @@ class User < ActiveRecord::Base
   has_many :reservations
   # has_many :reservations, through: :family_member_id
 
-  include ImageVersion
-  mount_image_version :avatar
+  # include ImageVersion
+  # mount_image_version :avatar
   # mount_image_version :qrcode
 
   mount_uploader :qrcode, SingleUploader
