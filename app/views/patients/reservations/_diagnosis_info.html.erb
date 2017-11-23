@@ -1,0 +1,25 @@
+<% if resource.medical_record.present? %>
+  <div class="weui-cells" style="margin-bottom: 30px">
+    <% if resource.medical_record.preliminary_diagnosis.present? %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>咨询意见</p>
+        </div>
+        <div class="weui-cell__ft">
+          <%= resource.medical_record.preliminary_diagnosis %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if resource.medical_record.treatment_recommendation.present? %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>处置意见</p>
+        </div>
+        <div class="weui-cell__ft">
+          <%= resource.medical_record.treatment_recommendation %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

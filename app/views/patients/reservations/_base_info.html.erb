@@ -1,0 +1,34 @@
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约时间</p>
+    </div>
+    <div class="weui-cell__ft">
+      <% if resource.d_date.present? %>
+        <%= resource.d_date %>
+      <% else %>
+        <%= resource.p_date %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约地点</p>
+    </div>
+    <div class="weui-cell__ft">
+      <% if resource.d_location.present? %>
+        <%= resource.d_location %>
+      <% else %>
+        <%= resource.p_location %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= link_to chief_complains_patients_reservations_path(id: resource), class: 'weui-cell weui-cell_access' do %>
+        <div class="weui-cell__bd">
+            <p>症状描述</p>
+        </div>
+        <div class="weui-cell__ft"><%= resource.chief_complains %></div>
+  <% end %>
+</div>
