@@ -106,6 +106,10 @@ class Doctors::ReservationsController < InheritedResources::Base
     redirect_to(doctors_reservation_path(resource)) && return
   end
 
+  def chief_complains
+
+  end
+
   private
 
   def reservation_params

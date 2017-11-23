@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       # put 'claim', on: :member
       # put 'complete_offline_consult', on: :member
       # put 'complete_online_consult', on: :member
+      get 'chief_complains', on: :collection
     end
 
     resources :ratings
