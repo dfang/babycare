@@ -148,6 +148,8 @@
 <%= content_for :js do %>
   <%= javascript_tag do %>
     $(function(){
+        var symptom_tag_details = <%= raw @symptom_details %>;
+
         $('#symptom-tags').tags({
             values: <%= raw @symptoms %>,
             templates: {
