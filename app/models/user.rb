@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   extend Enumerize
   extend ActiveModel::Naming
-
+  
   has_many :reservations
   # has_many :reservations, through: :family_member_id
 
@@ -165,21 +165,7 @@ class User < ActiveRecord::Base
   end
 
   def save_qrcode!
-    qrcode = RQRCode::QRCode.new("#{Settings.wx_qrcode.qrcode_url}/users/#{self.id}/scan_qrcode")
-    png = qrcode.as_png(
-                resize_gte_to: false,
-                resize_exactly_to: false,
-                fill: 'white',
-                color: 'black',
-                size: 180,
-                border_modules: 4,
-                module_px_size: 6,
-                file: nil
-              )
-    image_path = "#{Rails.root.join('tmp',  "qrcode-#{self.id}.png")}"
-    png.save(image_path)
-    self.update_attribute(:qrcode, File.open(image_path))
-    self.save!
+    GenQrcodeForUserJob.perform_now(self)
   end
 
   def create_wechat_authentication(authentication)

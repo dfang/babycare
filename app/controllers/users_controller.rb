@@ -4,6 +4,7 @@ require 'rqrcode'
 
 class UsersController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }
+  before_action :gen_qrcode, only: [ :scan_qrcode ]
 
   # /users/:id/qrcode 用户打开这个页面让医生扫描
   def qrcode
@@ -22,4 +23,13 @@ class UsersController < InheritedResources::Base
   end
 
   def children; end
+
+
+  private
+  
+  def gen_qrcode
+    if current_user.qrcode_url.blank?
+      current_user.save_qrcode!
+    end
+  end
 end

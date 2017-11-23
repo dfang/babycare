@@ -34,3 +34,7 @@ weixin_mp:
 
 wx_qrcode:
   qrcode_url: "https://www.baojiankang.cc/"
+
+
+common:
+  domain_name: 'http://wx.baojiankang.cc'

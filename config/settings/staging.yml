@@ -29,3 +29,7 @@ wx_pay:
 
 wx_qrcode:
   qrcode_url: "https://www.yhuan.cc/"
+
+
+common:
+  domain_name: 'http://yhuan.cc'
