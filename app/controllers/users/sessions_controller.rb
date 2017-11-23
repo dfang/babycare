@@ -74,23 +74,23 @@ class Users::SessionsController < Devise::SessionsController
       @access_token_info ||= JSON.parse(Faraday.get(token_url).body)
       Rails.logger.info "access_token_info: #{@access_token_info}"
 
-      unless @access_token_info['errcode']
-        Rails.cache.fetch :access_token_when_authorizing, expires_in: 7200.seconds do
-          @access_token_info['access_token']
-        end
+      # unless @access_token_info['errcode']
+      #   Rails.cache.fetch :access_token_when_authorizing, expires_in: 7200.seconds do
+      #     @access_token_info['access_token']
+      #   end
 
-        Rails.cache.fetch :openid_when_authorizing, expires_in: 7200.seconds do
-          @access_token_info['openid']
-        end
+      #   Rails.cache.fetch :openid_when_authorizing, expires_in: 7200.seconds do
+      #     @access_token_info['openid']
+      #   end
 
-        Rails.cache.fetch :unionid_when_authorizing, expires_in: 7200.seconds do
-          @access_token_info['unionid']
-        end
+      #   Rails.cache.fetch :unionid_when_authorizing, expires_in: 7200.seconds do
+      #     @access_token_info['unionid']
+      #   end
 
-        Rails.cache.fetch :refresh_token_when_authorizing, expires_in: 30.days do
-          @access_token_info['refresh_token']
-        end
-      end
+      #   Rails.cache.fetch :refresh_token_when_authorizing, expires_in: 30.days do
+      #     @access_token_info['refresh_token']
+      #   end
+      # end
 
     end
   end
@@ -99,25 +99,28 @@ class Users::SessionsController < Devise::SessionsController
   def exchange_access_token_for_snsapi_userinfo
     Rails.logger.info 'exchange_access_token_for_snsapi_userinfo'
 
-    @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
+    # @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
+    @userinfo = exchange_access_token_for_userinfo(@access_token_info['access_token'], @access_token_info['openid'])
 
     # 有error_code, 一般是过期了，那就刷新token， 看第三步
     # https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
     # invalid credential, access_token is invalid or not latest
     if @userinfo['errcode'].present? && @userinfo['errcode'] == 40001
-      @access_token_info = refresh_token(Rails.cache.fetch(:refresh_token_when_authorizing))
+      # @access_token_info = refresh_token(Rails.cache.fetch(:refresh_token_when_authorizing))
+      @access_token_info = refresh_token(@access_token_info['refresh_token'])
 
       # invalid refresh_token
       if @access_token_info['errcode'] == 40030
-        Rails.cache.delete('refresh_token_when_authorizing')
-        Rails.cache.delete('openid_when_authorizing')
-        Rails.cache.delete('unionid_when_authorizing')
-        Rails.cache.delete('access_token_when_authorizing')
+        # Rails.cache.delete('refresh_token_when_authorizing')
+        # Rails.cache.delete('openid_when_authorizing')
+        # Rails.cache.delete('unionid_when_authorizing')
+        # Rails.cache.delete('access_token_when_authorizing')
 
         redirect_to wechat_authorize_path and return
       end
 
-      @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
+      # @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
+      @userinfo = exchange_access_token_for_userinfo(@access_token_info['access_token'], @access_token_info['openid'])
     end
 
     @authentication = Authentication.find_by(provider: 'wechat', unionid: @userinfo['unionid'])
