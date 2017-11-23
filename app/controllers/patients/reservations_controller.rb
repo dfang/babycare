@@ -10,14 +10,13 @@ class Patients::ReservationsController < Patients::BaseController
   # skip_before_action :check_is_verified_doctor, only: :payment_notify
   # custom_actions :collection => [ :payment_notify, :payment_test ], :member => [ :status ]
   custom_actions member: [:status]
+  before_action :ensure_resource_exists!, only: [ :show ]
 
   def index
     @reservations = current_user.reservations.order('created_at DESC')
   end
 
   def status; end
-
-  def show; end
 
   def update
     if params.key?(:event)
@@ -114,7 +113,16 @@ class Patients::ReservationsController < Patients::BaseController
 
   end
 
+  def chief_complains
+  end
+
   private
+
+  # 用户取消预约后，防止点微信的返回按钮跳到show页面出错
+  def ensure_resource_exists!
+    res = Reservation.find_by(id: params[:id])
+    redirect_to patients_reservations_path and return if res.blank?
+  end
 
   def reservation_examination_params
     params['reservation_examinations_attributes'].permit!

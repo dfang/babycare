@@ -117,6 +117,7 @@ Rails.application.routes.draw do
       delete 'cancel', on: :member
       get 'status', on: :member
       get 'examinations_uploader', on: :collection
+      get 'chief_complains', on: :collection
     end
     get 'profile'
     get 'status'
