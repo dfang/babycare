@@ -1,0 +1,11 @@
+<% if resource.reservation_examinations.any? %>
+  <div class="weui-cells">
+    <% resource.reservation_examinations.each do |re| %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+        <%= re.examination.name %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
