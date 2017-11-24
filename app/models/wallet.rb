@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Wallet < ActiveRecord::Base
+class Wallet < OdooRecord
+  self.table_name = 'fa_wallet'
+
   belongs_to :user
 
   def total_balance
