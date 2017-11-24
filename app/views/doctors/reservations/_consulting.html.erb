@@ -8,5 +8,5 @@
   <% else %>
     <%= link_to '填写病历', new_doctors_medical_record_path(reservation_id: resource, user_id: resource.family_member), class: 'weui-btn weui-btn_primary'  %>
   <% end %>
-  <%= link_to '查看既往病历', '#', class: 'weui-btn weui-btn_default'  %>
+  <%= link_to '查看既往病历', doctors_medical_records_path(reservation_id: resource), class: 'weui-btn weui-btn_default'  %>
 </div>

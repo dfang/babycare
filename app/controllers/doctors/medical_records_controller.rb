@@ -7,6 +7,14 @@ class Doctors::MedicalRecordsController < InheritedResources::Base
   # skip_before_action :find_reservation, except: [:create, :update ]
   # skip_before_action :find_reservation, only: [:index ]
 
+  def index
+    if  @reservation.doctor_user == current_user
+      @medical_records = @reservation.family_member.medical_records
+    else
+      redirect_to global_denied_path
+    end
+  end
+
   def create
     p medical_record_params
     create! do
