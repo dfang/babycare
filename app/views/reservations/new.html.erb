@@ -2,8 +2,6 @@
 
 <%= simple_form_for Reservation.new, url: reservations_path, method: 'POST' do |f| %>
 
-  <%= f.hidden_field :user_id, value: current_user.id %>
-
   <div class="weui-cells weui-cells_form">
 
     <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -191,6 +189,12 @@
 
             console.log(text + details)
             $('.weui-cell-remark .weui-textarea').val(text + details)
+        })
+
+        $('.simple_form.new_reservation').parsley({uiEnabled: true, errorsWrapper: ''}).on('field:error', function () {
+            $(this.$element).parents('.weui-cell').addClass('validation_error')
+        }).on('field:success', function () {
+            $(this.$element).parents('.weui-cell').removeClass('validation_error')
         })
     })
   <% end %>
