@@ -74,6 +74,7 @@ Rails.application.routes.draw do
       # put 'complete_offline_consult', on: :member
       # put 'complete_online_consult', on: :member
       get 'chief_complains', on: :collection
+      get 'examinations_review', on: :collection
     end
 
     resources :ratings

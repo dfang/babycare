@@ -1,10 +1,32 @@
-<% if resource.reservation_examinations.any? %>
+<!-- <% if resource.reservation_examinations.any? %>
   <div class="weui-cells">
     <% resource.reservation_examinations.each do |re| %>
       <div class="weui-cell">
         <div class="weui-cell__bd">
         <%= re.examination.name %>
         </div>
+      </div>
+    <% end %>
+  </div>
+<% end %> -->
+
+<% if resource.reservation_examinations.any? %>
+  <div class="weui-cells">
+    <div class="weui-panel__hd">
+      检查项目
+    </div>
+    <% resource.reservation_examinations.each_with_index do |re, index| %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <div class="uploader_title"><%= re.examination.name %></div>
+        </div>
+        <%= link_to examinations_review_doctors_reservations_path(id: resource) do %>
+          <% if re.reservation_examination_images.present? %>
+            <i class="weui-icon-success"></i>
+          <% else %>
+            <i class="weui-icon-info-circle"></i>
+          <% end %>
+        <% end %>
       </div>
     <% end %>
   </div>
