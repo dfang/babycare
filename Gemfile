@@ -86,7 +86,7 @@ gem 'omniauth-wechat-oauth2'
 gem 'puma', '~> 3.7'
 gem 'whenever', require: false
 
-group :development, :teset do
+group :development, :test do
   gem 'ffaker'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
