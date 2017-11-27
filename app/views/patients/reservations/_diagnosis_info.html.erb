@@ -1,5 +1,16 @@
 <% if resource.medical_record.present? %>
   <div class="weui-cells" style="margin-bottom: 30px">
+    <% if resource.medical_record.chief_complaint.present? %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>主诉</p>
+        </div>
+        <div class="weui-cell__ft">
+          <%= resource.medical_record.chief_complaint %>
+        </div>
+      </div>
+    <% end %>
+
     <% if resource.medical_record.preliminary_diagnosis.present? %>
       <div class="weui-cell">
         <div class="weui-cell__bd">

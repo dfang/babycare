@@ -2,6 +2,8 @@
 
 <%= render 'examinations' %>
 
+<%= render 'diagnosis_info' %>
+
 <div class="weui-btn-area">
   <% if resource.medical_record.present? %>
     <%= link_to '修改病历', edit_doctors_medical_record_path(resource.medical_record, reservation_id: resource, user_id: resource.family_member), class: 'weui-btn weui-btn_primary'  %>
