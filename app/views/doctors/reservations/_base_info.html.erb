@@ -1,4 +1,6 @@
-<div class="weui-cells">
+<div class="weui-panel weui-panel_access" id="base-info">
+  <div class="weui-panel__hd">预约信息</div>
+
   <div class="weui-cell">
     <div class="weui-cell__bd">
         <p>预约时间</p>
@@ -25,10 +27,14 @@
     </div>
   </div>
 
-  <%= link_to chief_complains_doctors_reservations_path(id: resource), class: 'weui-cell weui-cell_access' do %>
-        <div class="weui-cell__bd">
-            <p>症状描述</p>
-        </div>
-        <div class="weui-cell__ft"><%= resource.chief_complains %></div>
-  <% end %>
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">症状描述</h4>
+    <p class="weui-media-box__desc"><%= resource.chief_complains %></p>
+  </div>
+  <div class="weui-panel__ft">
+    <%= link_to chief_complains_doctors_reservations_path(id: resource), class: "weui-cell weui-cell_access weui-cell_link"  do %>
+      <div class="weui-cell__bd">查看更多</div>
+      <span class="weui-cell__ft"></span>
+    <% end %>
+  </div>
 </div>
