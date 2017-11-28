@@ -117,6 +117,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     config (1.4.0)
       activesupport (>= 3.0)
@@ -436,6 +437,7 @@ DEPENDENCIES
   carrierwave-qiniu
   china_region_fu
   coffee-rails (~> 4.2)
+  colorize
   config
   database_cleaner
   devise
@@ -488,4 +490,4 @@ DEPENDENCIES
   wx_pay
 
 BUNDLED WITH
-   1.15.4
+   1.16.0

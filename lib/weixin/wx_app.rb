@@ -17,25 +17,31 @@ module WxApp
     end
 
     def get_access_token(options = {})
-      Rails.logger.info "get access token"
+      Rails.logger.info "begin get_access_token ......."
 
       Rails.cache.fetch 'weixin_access_token', expires_in: 7200.seconds do
         # Rails.logger.info "\napp_id in get_access_token is #{WEIXIN_ID}\n\n"
         # return access_token unless access_token.nil? || options[:force]
         url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
+        Rails.logger.info "url is #{url.red}"
         conn = get_conn
         response = conn.get url
-        access_token = JSON.parse(response.body)['access_token']
+        json = JSON.parse(response.body)
+        Rails.logger.info "get_access_token response body is: \n#{json}"
+        access_token = json['access_token']
       end
     end
 
     def get_jsapi_ticket
+      Rails.logger.info "begin get_jsapi_ticket ......."
       Rails.cache.fetch 'jsapi_ticket', expires_in: 7200.seconds do
         url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
+        Rails.logger.info "url is #{url.red}"
         conn = get_conn
         response = conn.get url
-        response_data = JSON.parse(response.body)
-        # Rails.logger.info "get_jsapi_ticket response data is \n#{response_data} "
+        json = JSON.parse(response.body)
+        Rails.logger.info "get_jsapi_ticket response body is: \n#{json}"
+        # Rails.logger.info "get_jsapi_ticket response data is \n#{json} "
         jsapi_ticket = response_data['ticket']
       end
     end
