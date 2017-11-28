@@ -17,8 +17,8 @@
             <ul class="weui-cell__bd_ul">
               <li>性别: <%= resource.family_member.gender %></li>
               <li>年龄: <%= age_in_natural_language(resource.family_member.human_age) %></li>
-              <li>身高: <%= resource.height %></li>
-              <li>体重: <%= resource.weight %></li>
+              <li>身高: <%= resource.height %>cm</li>
+              <li>体重: <%= resource.weight %>kg</li>
               <li>血型: <%= resource.family_member.blood_type %></li>
             </ul>
           </div>
