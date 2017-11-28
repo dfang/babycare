@@ -6,6 +6,7 @@ module UsersHelper
         age_in_natural_language += age[index].to_s + unit
       end
     end
+    age_in_natural_language.remove!(age[2].to_s + "天") if age[0] > 0
     age_in_natural_language
   end
 end
