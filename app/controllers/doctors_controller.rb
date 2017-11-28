@@ -119,13 +119,11 @@ class DoctorsController < InheritedResources::Base
   end
 
   def set_doctor
-    @doctor = if current_user.doctor.present?
-                current_user.doctor
-              # elsif params.key?(:id)
-              #   @doctor = Doctor.find(params[:id])
-              else
-                Doctor.new
-              end
+    if current_user.doctor.present?
+      @doctor = current_user.doctor
+    else
+      @doctor = Doctor.new
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
