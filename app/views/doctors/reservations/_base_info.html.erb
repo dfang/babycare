@@ -7,9 +7,9 @@
     </div>
     <div class="weui-cell__ft">
       <% if resource.d_date.present? %>
-        <%= resource.d_date %>
+        <%= resource.d_date.strftime("%Y-%m-%d %H:%M:%S") %>
       <% else %>
-        <%= resource.p_date %>
+        <%= resource.p_date.strftime("%Y-%m-%d %H:%M:%S") %>
       <% end %>
     </div>
   </div>
