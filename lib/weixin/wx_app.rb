@@ -18,7 +18,6 @@ module WxApp
 
     def get_access_token(options = {})
       Rails.logger.info "begin get_access_token ......."
-
       Rails.cache.fetch 'weixin_access_token', expires_in: 7200.seconds do
         # Rails.logger.info "\napp_id in get_access_token is #{WEIXIN_ID}\n\n"
         # return access_token unless access_token.nil? || options[:force]
@@ -41,8 +40,7 @@ module WxApp
         response = conn.get url
         json = JSON.parse(response.body)
         Rails.logger.info "get_jsapi_ticket response body is: \n#{json}"
-        # Rails.logger.info "get_jsapi_ticket response data is \n#{json} "
-        jsapi_ticket = response_data['ticket']
+        jsapi_ticket = json['ticket']
       end
     end
   end
