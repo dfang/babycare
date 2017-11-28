@@ -93,6 +93,7 @@ class Wx::WxpayController < ApplicationController
       Rails.logger.info 'trigger pay event'.red
       @reservation.pay!
     end
+    head :ok
   end
 
   private
@@ -109,6 +110,8 @@ class Wx::WxpayController < ApplicationController
       transaction_id: response_obj['xml']['transaction_id']
     }
     options = WxApp::WxJsSDK.generate_payment_options
+    Rails.logger.info "params is \n #{params}".red
+    Rails.logger.info "options is \n #{options}".red
     @order_query_result = WxPay::Service.order_query(params, options)
     Rails.logger.info "order query result ....... \n #{@order_query_result}".red
     return unless @order_query_result['return_code'] == 'SUCCESS'

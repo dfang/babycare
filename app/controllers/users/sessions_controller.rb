@@ -202,7 +202,7 @@ class Users::SessionsController < Devise::SessionsController
   def exchange_access_token_for_userinfo(access_token, openid)
     uinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token=#{access_token}&openid=#{openid}&lang=zh_CN"
     uinfo_response_data = JSON.parse(Faraday.get(uinfo_url).body)
-    Rails.logger.info "\n\nexchange_access_token_for_userinfo response data is \n #{uinfo_response_data}\n\n"
+    Rails.logger.info "\n\nexchange_access_token_for_userinfo response data is \n #{uinfo_response_data}\n\n".red
     uinfo_response_data
   end
 end
