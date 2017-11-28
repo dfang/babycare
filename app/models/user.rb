@@ -10,7 +10,7 @@ class User < OdooRecord
 
   extend Enumerize
   extend ActiveModel::Naming
-  
+
   has_many :reservations
   # has_many :reservations, through: :family_member_id
 
@@ -172,6 +172,19 @@ class User < OdooRecord
 
   def create_wechat_authentication(authentication)
     authentications.create(authentication)
+  end
+
+  def human_age
+    if birthdate == nil
+      "无"
+    else
+      now = Time.now
+      days_in_last_month_of_birthdate = Time.days_in_month(birthdate.last_month.month, birthdate.last_month.year)
+      days_of_age = now.day - birthdate.day + (now.day >= birthdate.day ? 0 : days_in_last_month_of_birthdate)
+      months_of_age = now.month - birthdate.month + (now.month >= birthdate.month ? 0 : 12)
+      years_of_age = now.year - birthdate.year
+      [years_of_age, months_of_age, days_of_age]
+    end
   end
 
   private
