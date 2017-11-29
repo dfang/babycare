@@ -16,8 +16,7 @@ class UsersController < InheritedResources::Base
     user = User.find_by(id: params[:id])
     # latest_reservation = user.reservations.where(user_b: current_user.id).order('created_at DESC').first
     if current_user.doctor?
-
-      @reservation = current_user.reservations.where(user_id: user).order('updated_at DESC').first
+      @reservation = Resevartion.where(doctor_id: current_user.doctor.id).where(user: user).order('updated_at DESC').first
       if @reservation.present?
         @reservation.scan_qrcode! if @reservation.to_consult?
 
