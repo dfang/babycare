@@ -1,30 +1,38 @@
-<div class="weui-cells">
+<div class="weui-panel weui-panel_access" id="base-info">
+  <div class="weui-panel__hd">患者预约信息</div>
+
   <div class="weui-cell">
     <div class="weui-cell__bd">
         <p>期望时间</p>
     </div>
-    <div class="weui-cell__ft"><%= resource.p_date %></div>
+    <div class="weui-cell__ft"><%= resource.p_date.strftime("%Y-%m-%d %H:%M:%S") %></div>
   </div>
 
   <div class="weui-cell">
     <div class="weui-cell__bd">
-        <p>患者位置</p>
+        <p>期望地点</p>
     </div>
     <div class="weui-cell__ft">
       <%= resource.p_location %>
     </div>
   </div>
 
-  <%= link_to chief_complains_doctors_reservations_path(id: resource), class: 'weui-cell weui-cell_access' do %>
-        <div class="weui-cell__bd">
-            <p>症状描述</p>
-        </div>
-        <div class="weui-cell__ft"><%= resource.chief_complains %></div>
-  <% end %>
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">症状描述</h4>
+    <p class="weui-media-box__desc"><%= resource.chief_complains %></p>
+  </div>
+  <div class="weui-panel__ft">
+    <%= link_to chief_complains_doctors_reservations_path(id: resource), class: "weui-cell weui-cell_access weui-cell_link"  do %>
+      <div class="weui-cell__bd">查看更多</div>
+      <span class="weui-cell__ft"></span>
+    <% end %>
+  </div>
 </div>
 
 
-<div class="weui-cells">
+<div class="weui-panel weui-panel_access" id="base-info">
+  <div class="weui-panel__hd">您的预约信息</div>
+
   <div class="weui-cell">
     <div class="weui-cell__hd">
       <p>预约时间</p>
@@ -42,9 +50,6 @@
       <input class="weui-input" name="reservation[d_location]" placeholder="患者来见你的位置" type="text"  data-parsley-required="true">
     </div>
   </div>
-</div>
-
-<div class="weui-cells weui-cells_form">
 
   <div class="weui-cell weui-cell_switch">
       <div class="weui-cell__bd">检查项目</div>
