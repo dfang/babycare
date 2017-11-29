@@ -50,7 +50,7 @@ class Wx::ServiceController < ApplicationController
     # 见微信JS-SDK说明文档
     # 附录5-常见错误及解决方法
 
-    Rails.logger.info "jsapi_ticket is #{::WxApp::WxCommon.get_jsapi_ticket}"
+
     Rails.logger.info "noncestr is #{noncestr}"
     Rails.logger.info "timestamp is #{timestamp}"
     Rails.logger.info "url is #{url}"
