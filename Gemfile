@@ -43,7 +43,7 @@ gem 'jwt'
 
 gem 'has_scope'
 
-gem 'exception_notification'
+gem 'exception_notification', '~> 4.2', '>= 4.2.2'
 gem 'slack-notifier'
 
 gem 'china_region_fu'
