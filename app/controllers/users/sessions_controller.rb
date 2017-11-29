@@ -124,7 +124,7 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     @authentication = Authentication.find_by(provider: 'wechat', unionid: @userinfo['unionid'])
-    if @authentication.blank? || @authenticate.user.blank?
+    if @authentication.blank? || @authentication.user.blank?
         # Transaction create wechat authentication and user
 
         begin
