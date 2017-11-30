@@ -11,7 +11,7 @@
   <div class="weui-cell__bd">
     <p><%= res.user.try(:name) %>的<%= res.family_member.try(:gender_text) %><%= res.family_member.try(:name) %></p>
     <p class="weui-media-box__desc"><%= res.chief_complains %></p>
-    <p class="weui-media-box__desc">预约时间: <%= res.p_date %></p>
+    <p class="weui-media-box__desc">预约时间: <%= date_format(res.p_date) %></p>
     <p class="weui-media-box__desc">预约地点: <%= res.p_location %></p>
   </div>
   <div class="weui-cell__ft"></div>
