@@ -10,7 +10,7 @@ class GenQrcodeForUserJob < ApplicationJob
             resize_exactly_to: false,
             fill: 'white',
             color: 'black',
-            size: 180,
+            size: 300,
             border_modules: 4,
             module_px_size: 6,
             file: nil

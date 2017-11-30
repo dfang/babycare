@@ -19,5 +19,21 @@
 
     td.black { border-color: #000; }
     td.white { border-color: #fff; }
+
+
+    .weui-cells.weui-cells_form{
+      width: 90%;
+      margin: 0 auto;
+      border-radius: 3px;
+      text-align: center;
+      height: 70%;
+      box-shadow: 0px 1px 5px #212121;
+    }
+    img{
+      display: block;
+      // width: 80%;
+      margin: 0 auto;
+      top: 10%;
+    }
   }
 }
