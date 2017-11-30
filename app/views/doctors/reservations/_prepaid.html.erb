@@ -8,13 +8,9 @@
     <div class="weui-cell__ft"><%= date_format(resource.p_date) %></div>
   </div>
 
-  <div class="weui-cell">
-    <div class="weui-cell__bd">
-        <p>期望地点</p>
-    </div>
-    <div class="weui-cell__ft">
-      <%= resource.p_location %>
-    </div>
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">期望地点</h4>
+    <p class="weui-media-box__desc"><%= resource.p_location %></p>
   </div>
 
   <div class="weui-media-box weui-media-box_text">

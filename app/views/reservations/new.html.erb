@@ -37,7 +37,7 @@
 
   <div class="weui-cells weui-cells_form">
 
-    <div class="weui-cell weui-cell-vcode" style="padding:0 15px">
+    <!-- <div class="weui-cell weui-cell-vcode" style="padding:0 15px">
       <div class="weui-cell__hd">
         <label class="weui-label">您的位置</label>
       </div>
@@ -49,6 +49,22 @@
       <div class="weui-cell__ft">
         <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
       </div>
+    </div> -->
+
+    <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+            <label class="weui-label">您的位置</label>
+        </div>
+        <div class="weui-cell__bd">
+        </div>
+        <div class="weui-cell__ft">
+          <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <textarea class="weui-textarea" name="reservation[p_location]" data-parsley-required="true" placeholder="请输入您的地址或您想预约见面的地点" rows="2"><%= current_user.location %></textarea>
+        </div>
     </div>
 
     <div class="weui-cell">
@@ -78,7 +94,7 @@
       </div>
     </div>
 
-    <div class="weui-cells weui-cells_checkbox" style="margin: 0">
+    <!-- <div class="weui-cells weui-cells_checkbox" style="margin: 0">
         <label class="weui-cell weui-check__label" for="s1">
             <div class="weui-cell__hd" style="padding-right: 0">
                 <input type="checkbox" class="weui-check" name="reservation[can_be_arranged]" id="s1" checked="checked">
@@ -88,7 +104,7 @@
                 <p>是否接受时间调配</p>
             </div>
         </label>
-    </div>
+    </div> -->
 
   </div>
 

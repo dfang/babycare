@@ -14,17 +14,15 @@
     </div>
   </div>
 
-  <div class="weui-cell">
-    <div class="weui-cell__bd">
-        <p>预约位置</p>
-    </div>
-    <div class="weui-cell__ft">
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">预约位置</h4>
+    <p class="weui-media-box__desc">
       <% if resource.d_location.present? %>
         <%= resource.d_location %>
       <% else %>
         <%= resource.p_location %>
       <% end %>
-    </div>
+    </p>
   </div>
 
   <div class="weui-media-box weui-media-box_text">
