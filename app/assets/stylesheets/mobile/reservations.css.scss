@@ -299,10 +299,18 @@
   .base-info-patient-avatar{
     text-align: center;
     position: relative;
+    img{
+      width:60px;
+      display:block;
+    }
   }
   .base-info-doctor-avatar{
     text-align: center;
     position: relative;
+    img{
+      width:60px;
+      display:block;
+    }
   }
 }
 
