@@ -25,28 +25,35 @@
   </div>
 </div>
 
-
-<div class="weui-panel weui-panel_access" id="base-info">
+<div class="weui-panel weui-panel_access" id="doctor-reservation">
   <div class="weui-panel__hd">您的预约信息</div>
-
   <div class="weui-cell">
     <div class="weui-cell__hd">
-      <p>预约时间</p>
+      <label class="weui-label">时间</label>
     </div>
     <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" name="reservation[d_date]" placeholder="患者来见你的时间" type="datetime-local"  data-parsley-required="true">
+      <input class="weui-input" name="reservation[d_date]" placeholder="您想预约的时间" type="datetime-local" value="" data-parsley-required="true">
     </div>
   </div>
 
-  <div class="weui-cell">
-    <div class="weui-cell__hd">
-      <p>预约地点</p>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" name="reservation[d_location]" placeholder="患者来见你的位置" type="text"  data-parsley-required="true">
-    </div>
+  <div class="weui-cell weui-cell_vcode">
+      <div class="weui-cell__hd">
+          <label class="weui-label">地点</label>
+      </div>
+      <div class="weui-cell__bd">
+      </div>
+      <div class="weui-cell__ft">
+        <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
+      </div>
   </div>
+  <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <textarea class="weui-textarea"  id="location" name="reservation[d_location]" data-parsley-required="true" placeholder="请输入您的地址或您想预约见面的地点" rows="2"><%= current_user.location %></textarea>
+      </div>
+  </div>
+</div>
 
+<div class="weui-panel weui-panel_access" id="examinations">
   <div class="weui-cell weui-cell_switch">
       <div class="weui-cell__bd">检查项目</div>
       <div class="weui-cell__ft">
@@ -85,7 +92,6 @@
       </div>
     <% end %>
   <% end %>
-
 
 </div>
 
@@ -132,4 +138,6 @@
       <% end %>
     })
   <% end %>
+  <%= javascript_pack_tag 'config_js_sdk',  'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'reservation_new',  'data-turbolinks-track': 'reload' %>
 <% end %>
