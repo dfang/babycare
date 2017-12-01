@@ -37,20 +37,6 @@
 
   <div class="weui-cells weui-cells_form">
 
-    <!-- <div class="weui-cell weui-cell-vcode" style="padding:0 15px">
-      <div class="weui-cell__hd">
-        <label class="weui-label">您的位置</label>
-      </div>
-      <div class="weui-cell__bd">
-        <textarea class="weui-textarea" name="reservation[p_location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你">
-          <%= current_user.location %>
-        </textarea>
-      </div>
-      <div class="weui-cell__ft">
-        <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
-      </div>
-    </div> -->
-
     <div class="weui-cell weui-cell_vcode">
         <div class="weui-cell__hd">
             <label class="weui-label">您的位置</label>
@@ -69,7 +55,7 @@
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui-label">您的联系方式</label>
+        <label class="weui-label">联系方式</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
         <input
@@ -87,7 +73,7 @@
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui-label">想预约在</label>
+        <label class="weui-label">时间</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
         <input class="weui-input" name="reservation[p_date]" placeholder="请选择一个大概的时间" type="datetime-local" value="<%= default_date %>" data-parsley-required="true">
@@ -138,7 +124,7 @@
             </ul>
             <div class="weui-uploader__input-box" id='picker1'>
             </div>
-            <p style="color: #999999;font-size: 0.8em;">上传症状照片、病历、检查单，方便医生作诊断，最多上传5张</p>
+            <p id="uploader-placeholder">上传症状照片、病历、检查单，方便医生作诊断，最多上传5张</p>
           </div>
         </div>
       </div>
