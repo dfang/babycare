@@ -1,3 +1,5 @@
+<% content_for :title, "个人中心" %>
+
 <div class="tabbar">
   <div class="weui-tab">
 
@@ -9,7 +11,13 @@
                 <%= image_tag current_user.avatar %>
               </div>
             <div class="weui-msg__text-area" style="margin-bottom: 0;">
-                <h2 class="weui-msg__title"><%= current_user.wechat_authentication.nickname %></h2>
+                <h2 class="weui-msg__title">
+                  <% if current_user.name.present? %>
+                    <%= current_user.name %>
+                  <% else %>
+                    <%= current_user.wechat_authentication.nickname %>
+                  <% end %>
+                </h2>
             </div>
           </div>
         </div>
