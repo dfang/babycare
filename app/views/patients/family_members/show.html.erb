@@ -1,40 +1,55 @@
+<% title = "我的" + relationship_from_gender(@member.gender_text) + @member.name %>
+<% content_for :title,  title %>
+
 <div class="tabbar">
   <div class="weui-tab">
 
     <div class="weui-tab__panel">
       <div class="panel">
-        <div class="page__hd">
-          <h1 class="page__title">我的小孩<%= @member.name %></h1>
-          <p class="page__desc">这里是<%= @member.name %>所有的预约, 病历</p>
+        <div class="page__hd" style="padding-bottom: 0;">
+
+          <div class="page__hd" style="padding: 0;">
+            <div class="weui-msg" style="padding: 0;">
+              <div class="weui-msg__icon-area">
+                  <%= image_tag @member.avatar %>
+                </div>
+              <div class="weui-msg__text-area" style="margin-bottom: 0;">
+                  <h2 class="weui-msg__title">
+                      <%= @member.name %>
+                  </h2>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="page__bd">
           <div class="weui-cells weui-cells__access">
-
-            <!-- <div class="weui-panel weui-panel__access"> -->
-            <a href="/patients/reservations" class="weui-cell weui-cell_access weui-cell_link">
-              <!-- <div class="weui-panel__hd"> -->
-              <div class="weui-cell__bd">关于<%= @member.name %>的预约</div>
-              <span class="weui-cell__ft"></span>
-              <!-- </div> -->
-            </a>
-            <!-- </div> -->
-
-            <a href="/patients/medical_records" class="weui-cell weui-cell_access weui-cell_link">
-              <!-- <div class="weui-panel__hd"> -->
-              <div class="weui-cell__bd">关于<%= @member.name %>的病例信息</div>
-              <span class="weui-cell__ft"></span>
-              <!-- </div> -->
-            </a>
-
-            <%= link_to edit_patients_family_member_path(@member), class: "weui-cell weui-cell_access weui-cell_link" do %>
-            <div class="weui-cell__bd">修改<%= @member.name %>的信息</div>
-            <span class="weui-cell__ft"></span>
+            <%= link_to patients_reservations_path(family_member_id: @member), class: "weui-cell weui-cell_access" do %>
+              <div class="weui-cell__bd">
+                <p>关于<%= @member.name %>的预约</p>
+              </div>
+              <div class="weui-cell__ft"></div>
             <% end %>
 
-            <%= link_to product_path(1, member_id: @member.id), class: "weui-cell weui-cell_access weui-cell_link" do %>
-            <div class="weui-cell__bd">我要给<%= @member.name %>预约</div>
-            <span class="weui-cell__ft"></span>
+            <%= link_to patients_medical_records_path(family_member_id: @member), class: "weui-cell weui-cell_access" do %>
+              <div class="weui-cell__bd">
+                <p>关于<%= @member.name %>的病例信息</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            <% end %>
+
+            <%= link_to edit_patients_family_member_path(@member), class: "weui-cell weui-cell_access" do %>
+              <div class="weui-cell__bd">
+                <p>修改<%= @member.name %>的信息</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            <% end %>
+
+            <%= link_to product_path(1, member_id: @member.id), class: "weui-cell weui-cell_access" do %>
+              <div class="weui-cell__bd">
+                <p>我要给<%= @member.name %>预约</p>
+              </div>
+              <div class="weui-cell__ft"></div>
             <% end %>
 
           </div>

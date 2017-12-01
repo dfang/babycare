@@ -6,10 +6,18 @@
             <div class="bd">
 							<%- if @medical_records.any? %>
 								<%= render partial: 'medical_record', collection: @medical_records  %>
+              <% else %>
+                <div class="weui-msg">
+                    <div class="weui-msg__icon-area"><i class="weui-icon-info weui-icon_msg"></i></div>
+                    <div class="weui-msg__text-area">
+                        <h2 class="weui-msg__title">暂无病历数据</h2>
+                        <p class="weui-msg__desc">可以自行手动添加病历<a href="javascript:void(0);">帮助</a></p>
+                    </div>
+                </div>
 							<% end %>
-
-    					<a href="/patients/medical_records/new" class="weui-btn weui-btn__primary"  data-turbolinks="false">添加病例</a>
-
+              <div class="weui-btn-area">
+      					<a href="/patients/medical_records/new" class="weui-btn weui-btn_primary"  data-turbolinks="false">添加病例</a>
+              </div>
             </div>
           </div>
 

@@ -1,73 +1,71 @@
+<% content_for :title, "我的个人资料" %>
+
 <div class="tabbar">
   <div class="weui-tab">
 
     <div class="weui-tab__panel">
       <div class="panel">
-        <div class="page__hd">
-          <h1 class="page__title">用户后台</h1>
-          <p class="page__desc">在使用我们的服务之前, 我们需要知道你是谁, 以便更好的服务于您, 特别是手机号, 请填写真实的</p>
-        </div>
-
         <div class="page__bd">
           <%= simple_nested_form_for current_user, url: user_registration_path, method: 'PUT' do |f| %>
 
-          <div class="weui-cell weui-cell-name">
-            <div class="weui-cell__hd">
-              <label class="weui-label"><span class="required">*</span>名字</label>
+          <div class="weui-cells">
+            <div class="weui-cell weui-cell-name">
+              <div class="weui-cell__hd">
+                <label class="weui-label">名字</label>
+              </div>
+              <div class="weui-cell__bd weui-cell_primary">
+                <%= f.text_field :name, class: "weui-input", placeholder: "怎么称呼您", "data-parsley-required": true %>
+              </div>
             </div>
-            <div class="weui-cell__bd weui-cell_primary">
-              <%= f.text_field :name, class: "weui-input", placeholder: "怎么称呼您", "data-parsley-required": true %>
-              <!-- <input class="weui-input" name="user[name]" placeholder="怎么称呼您" type="text" data-parsley-required="true"> -->
-            </div>
-          </div>
 
-          <!-- <div class="weui-cell">
-            <div class="weui-cell__hd">
-              <label class="weui-label"><span class="required">*</span>手机号码</label>
-            </div>
-            <div class="weui-cell__bd weui-cell_primary">
-              <%= f.text_field :mobile_phone, class: "weui-input", type: "number", placeholder: "请填写真实的号码以方便医生联系你", "data-parsley-required": true, "data-parsley-pattern": "/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/", "data-parsley-type": "integer",
-              "data-parsley-length": "[11,11]" %>
+            <!-- <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label"><span class="required">*</span>手机号码</label>
+              </div>
+              <div class="weui-cell__bd weui-cell_primary">
+                <%= f.text_field :mobile_phone, class: "weui-input", type: "number", placeholder: "请填写真实的号码以方便医生联系你", "data-parsley-required": true, "data-parsley-pattern": "/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/", "data-parsley-type": "integer",
+                "data-parsley-length": "[11,11]" %>
 
-               <input
-                class="weui-input"
-                name="user[mobile_phone]"
-                placeholder="请填写真实的号码以方便医生联系你"
-                type="number"
-                data-parsley-required="true"
-                data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
-                data-parsley-type="integer"
-                data-parsley-length="[11,11]"
-                value="">
-            </div>
-          </div> -->
+                 <input
+                  class="weui-input"
+                  name="user[mobile_phone]"
+                  placeholder="请填写真实的号码以方便医生联系你"
+                  type="number"
+                  data-parsley-required="true"
+                  data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+                  data-parsley-type="integer"
+                  data-parsley-length="[11,11]"
+                  value="">
+              </div>
+            </div> -->
 
-          <div class="weui-cell">
-            <div class="weui-cell__hd">
-              <label for="" class="weui-label">生日</label>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label for="" class="weui-label">生日</label>
+              </div>
+              <div class="weui-cell__bd weui-cell_primary">
+                <%= f.text_field :birthdate, class: "weui-input", type: "date", placeholder: "生日", "data-parsley-required": true %>
+              </div>
             </div>
-            <div class="weui-cell__bd weui-cell_primary">
-              <%= f.text_field :birthdate, class: "weui-input", type: "date", placeholder: "生日", "data-parsley-required": true %>
-            </div>
-          </div>
 
-          <div class="weui-cell weui-cell_select weui-cell_select-after">
-            <div class="weui-cell__hd">
-              <label for="" class="weui-label">性别</label>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+              <div class="weui-cell__hd">
+                <label for="" class="weui-label">性别</label>
+              </div>
+              <div class="weui-cell__bd weui-cell_primary">
+                <select class="weui-select" name="user[gender]">
+                  <%= options_for_select MedicalRecord::GENDERS, current_user.gender %>
+                </select>
+              </div>
             </div>
-            <div class="weui-cell__bd weui-cell_primary">
-              <select class="weui-select" name="user[gender]">
-                <%= options_for_select MedicalRecord::GENDERS, current_user.gender %>
-              </select>
-            </div>
-          </div>
 
-          <div class="weui-cell">
-            <div class="weui-cell__hd">
-              <label for="" class="weui-label">位置</label>
-            </div>
-            <div class="weui-cell__bd weui-cell_primary">
-              <%= f.text_field :location, class: "weui-input", type: "text", placeholder: "您的常住地址", "data-parsley-required": true %>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label for="" class="weui-label">位置</label>
+              </div>
+              <div class="weui-cell__bd weui-cell_primary">
+                <%= f.text_field :location, class: "weui-input", type: "text", placeholder: "您的常住地址", "data-parsley-required": true %>
+              </div>
             </div>
           </div>
 

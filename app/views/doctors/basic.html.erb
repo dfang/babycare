@@ -1,3 +1,5 @@
+<% content_for :title, "申请成为医生" %>
+
 <% if @doctor.new_record? %>
   <% url = doctors_path %>
   <% method = 'POST' %>
@@ -6,11 +8,9 @@
   <% method = 'PUT' %>
 <% end %>
 
-
-
 <%= form_for @doctor, url: wizard_path, method: 'PUT' do |f| %>
 
-  <div class="weui-cells__title">申请成为医生</div>
+  <div class="weui-cells__title">基本信息</div>
 
   <div class="weui-cells weui-cells_form">
     <div class="weui-cell">
@@ -32,18 +32,17 @@
       </div>
     </div>
 
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-        <label class="weui-label" for="">性别</label>
-      </div>
-      <div class="weui-cell__bd weui-cell_primary">
-        <select class="weui-select" name="doctor[gender]">
-          <option value="0">男</option>
-          <option value="1">女</option>
-        </select>
-      </div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+            <label for="" class="weui-label">性别</label>
+        </div>
+        <div class="weui-cell__bd">
+            <select class="weui-select" name="doctor[gender]">
+                <option value="0">男</option>
+                <option value="1">女</option>
+            </select>
+        </div>
     </div>
-
 
     <div class="weui-cell weui-cell_vcode">
       <div class="weui-cell__hd">
@@ -93,7 +92,7 @@
     </div>
   </div>
 
-  <div class="weui-cells__tips">底部说明文字底部说明文字</div>
+  <!-- <div class="weui-cells__tips">底部说明文字底部说明文字</div> -->
 
   <div class="weui-btn-area">
     <button class="weui-btn weui-btn_primary">确定</button>

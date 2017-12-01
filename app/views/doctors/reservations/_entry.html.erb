@@ -6,7 +6,7 @@
     <% end %>
 
     <div class="weui_media_status">
-      <%- if res.patient_has_rated? %>
+      <%- if res.doctor_has_rated? %>
         已评价
       <% else %>
         <%= res.aasm_state_text %>

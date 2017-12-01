@@ -9,4 +9,12 @@ module UsersHelper
     age_in_natural_language.remove!(age[2].to_s + "天") if age[0] > 0
     age_in_natural_language
   end
+
+  def relationship_from_gender(gender)
+    if (gender == "male")
+      "儿子"
+    else
+      "女儿"
+    end
+  end
 end

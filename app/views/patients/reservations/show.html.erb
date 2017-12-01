@@ -13,7 +13,11 @@
             </div>
             <div class="weui-cell__bd">
               <div class="weui_media_status">
-                <%= resource.aasm_state_text %>
+                <%- if resource.patient_has_rated? %>
+                  已评价
+                <% else %>
+                  <%= resource.aasm_state_text %>
+                <% end %>
               </div>
             </div>
             <div class="base-info-doctor-avatar">

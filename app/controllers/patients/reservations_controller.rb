@@ -13,7 +13,11 @@ class Patients::ReservationsController < Patients::BaseController
   before_action :ensure_resource_exists!, only: [ :show ]
 
   def index
-    @reservations = current_user.reservations.order('created_at DESC')
+    if params[:family_member_id].present?
+      @reservations = current_user.reservations.order('created_at DESC').select { |x| x.family_member.id == params[:family_member_id].to_i }
+    else
+      @reservations = current_user.reservations.order('created_at DESC')
+    end
   end
 
   def status; end
