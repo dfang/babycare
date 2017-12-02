@@ -164,37 +164,10 @@ Rails.application.routes.draw do
     sessions: 'admin/users/sessions'
   }
 
-  namespace :admin do
-    get 'images/create'
-
-    resources :people do
-      resources :medical_records
-    end
-    resources :medical_records
-    resources :checkins
-    resources :symptoms
-    resources :wx_menus do
-      collection do
-        get 'sync'
-        get 'load_remote'
-      end
-    end
-
-    resources :doctors do
-      put :confirm, on: :member
-    end
-
-    resources :posts do
-      put :publish, on: :member
-    end
-    resources :images, only: :create
-    root 'dashboard#index'
-    resources :users
-    get 'dashboard' => 'dashboard#index'
-    get 'customizer' => 'dashboard#customizer'
-  end
-
   mount ActionCable.server => '/cable'
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
