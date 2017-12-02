@@ -180,9 +180,7 @@ class Reservation < OdooRecord
   def has_all_examination_uploaded_images?
     flag = true
     reservation_examinations.each do |re|
-      if re.reservation_examination_images.count <= 0
-        flag =  false
-      end
+      flag = false if re.reservation_examination_images.count <= 0
     end
     flag
   end

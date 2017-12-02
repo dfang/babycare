@@ -16,9 +16,9 @@ class Patients::MedicalRecordsController < Patients::BaseController
     end
 
     respond_to do |format|
-      format.json {
-        render json: {:medical_records => @medical_records}
-      }
+      format.json do
+        render json: { medical_records: @medical_records }
+      end
       format.html
     end
   end
@@ -28,16 +28,16 @@ class Patients::MedicalRecordsController < Patients::BaseController
     @medical_record.user = current_user
 
     create! do |format|
-      format.json {
-        render json: { message: "done" }, status: 200
-      }
-      format.html {
+      format.json do
+        render json: { message: 'done' }, status: 200
+      end
+      format.html do
         if @reservation.present?
           patients_reservation_path(@reservation)
         else
           patients_profile_path
         end
-      }
+      end
     end
   end
 

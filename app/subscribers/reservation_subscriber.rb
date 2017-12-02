@@ -5,7 +5,7 @@ class ReservationSubscriber
     ReservationBroadcastJob.perform_now reservation
   end
 
-  def reservation_prepay_successful(reservation)
+  def reservation_prepay_successful(_reservation)
     Rails.logger.info 'notify somebody reservation_prepay_successful'
 
     # 开发或者Staging模式下 自动分配给空闲的医生 方便测试

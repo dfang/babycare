@@ -1,4 +1,3 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 require_relative 'boot'
@@ -45,8 +44,8 @@ module Babycare
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :erb
-      g.helper      false
-      g.test      false
+      g.helper false
+      g.test false
     end
   end
 end

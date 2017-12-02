@@ -7,11 +7,10 @@ class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   # prepend_before_action :authenticate_user!, :wechat_authorize
 
-  before_action :authenticated?, only: [ :wechat_authorize ]
-  before_action :request_code, only: [ :wechat_authorize ]
-  before_action :exchange_code_for_access_token_info, only: [ :wechat_authorize ]
-  before_action :exchange_access_token_for_snsapi_userinfo, only: [ :wechat_authorize ]
-
+  before_action :authenticated?, only: [:wechat_authorize]
+  before_action :request_code, only: [:wechat_authorize]
+  before_action :exchange_code_for_access_token_info, only: [:wechat_authorize]
+  before_action :exchange_access_token_for_snsapi_userinfo, only: [:wechat_authorize]
 
   def new
     redirect_to :wechat_authorize
@@ -58,7 +57,7 @@ class Users::SessionsController < Devise::SessionsController
       Rails.logger.debug 'code参数为空，那就重定向到用户同意授权，获取code参数'
       Rails.logger.debug '正常情况下，用户点击授权按钮就会去申请code参数，如果曾经授权过，此时静默授权，用户无感知'
       Rails.logger.debug "redirect_uri is #{redirect_uri}"
-      redirect_to get_code_uri(redirect_uri) and return
+      redirect_to(get_code_uri(redirect_uri)) && return
     end
   end
 
@@ -105,18 +104,18 @@ class Users::SessionsController < Devise::SessionsController
     # 有error_code, 一般是过期了，那就刷新token， 看第三步
     # https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
     # invalid credential, access_token is invalid or not latest
-    if @userinfo['errcode'].present? && @userinfo['errcode'] == 40001
+    if @userinfo['errcode'].present? && @userinfo['errcode'] == 40_001
       # @access_token_info = refresh_token(Rails.cache.fetch(:refresh_token_when_authorizing))
       @access_token_info = refresh_token(@access_token_info['refresh_token'])
 
       # invalid refresh_token
-      if @access_token_info['errcode'] == 40030
+      if @access_token_info['errcode'] == 40_030
         # Rails.cache.delete('refresh_token_when_authorizing')
         # Rails.cache.delete('openid_when_authorizing')
         # Rails.cache.delete('unionid_when_authorizing')
         # Rails.cache.delete('access_token_when_authorizing')
 
-        redirect_to wechat_authorize_path and return
+        redirect_to(wechat_authorize_path) && return
       end
 
       # @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
@@ -125,32 +124,30 @@ class Users::SessionsController < Devise::SessionsController
 
     @authentication = Authentication.find_by(provider: 'wechat', unionid: @userinfo['unionid'])
     if @authentication.blank? || @authentication.user.blank?
-        # Transaction create wechat authentication and user
+      # Transaction create wechat authentication and user
 
-        begin
-          ActiveRecord::Base.transaction do
-            @user = User.create_wechat_user(
-              OpenStruct.new(
-                nickname:   @userinfo['nickname'],
-                sex:        @userinfo['sex'],
-                headimgurl: @userinfo['headimgurl'],
-                openid:     @userinfo['openid'],
-                unionid:    @userinfo['unionid']
-              )
-            )
-            p 'user created ###########################'
-            @authentication =  @user.create_wechat_authentication({
-              provider: 'wechat',
+      begin
+        ActiveRecord::Base.transaction do
+          @user = User.create_wechat_user(
+            OpenStruct.new(
               nickname:   @userinfo['nickname'],
-              uid:     @userinfo['openid'],
+              sex:        @userinfo['sex'],
+              headimgurl: @userinfo['headimgurl'],
+              openid:     @userinfo['openid'],
               unionid:    @userinfo['unionid']
-            })
-            p 'authentication created  ###########################'
-          end
-        rescue StandardError => e
-          Rails.logger.info e.message
-          raise ActiveRecord::Rollback
+            )
+          )
+          p 'user created ###########################'
+          @authentication = @user.create_wechat_authentication(provider: 'wechat',
+                                                               nickname:   @userinfo['nickname'],
+                                                               uid:     @userinfo['openid'],
+                                                               unionid:    @userinfo['unionid'])
+          p 'authentication created  ###########################'
         end
+      rescue StandardError => e
+        Rails.logger.info e.message
+        raise ActiveRecord::Rollback
+      end
       Rails.logger.info "Authentication inspected : #{@authentication.inspect}"
     end
 
@@ -158,18 +155,14 @@ class Users::SessionsController < Devise::SessionsController
     redirect_after_sign_in
   end
 
-
   # FIXME
-  # rubocop:disable Metrics/MethodLength
-  def wx_authenticate!
-  end
-
+  def wx_authenticate!; end
 
   def redirect_after_sign_in
-    Rails.logger.info "redirect_after_sign_in 根据不同的情况跳转到不同的页面"
-    redirect_to(edit_patients_settings_path) and return unless current_user.profile_complete?
-    redirect_to session[:user_return_to] and return if session[:user_return_to]
-    redirect_to(root_path) and return
+    Rails.logger.info 'redirect_after_sign_in 根据不同的情况跳转到不同的页面'
+    redirect_to(edit_patients_settings_path) && return unless current_user.profile_complete?
+    redirect_to(session[:user_return_to]) && return if session[:user_return_to]
+    redirect_to(root_path) && return
   end
 
   def get_code_uri(redirect_uri)

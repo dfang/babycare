@@ -4,7 +4,7 @@ require 'rqrcode'
 
 class UsersController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }
-  before_action :gen_qrcode, only: [ :qrcode ]
+  before_action :gen_qrcode, only: [:qrcode]
 
   # /users/:id/qrcode 用户打开这个页面让医生扫描
   def qrcode
@@ -20,7 +20,7 @@ class UsersController < InheritedResources::Base
       if @reservation.present?
         @reservation.scan_qrcode! if @reservation.to_consult?
 
-        redirect_to doctors_reservation_path(@reservation) and return
+        redirect_to(doctors_reservation_path(@reservation)) && return
       else
         raise StandardError
       end
@@ -32,12 +32,9 @@ class UsersController < InheritedResources::Base
 
   def children; end
 
-
   private
 
   def gen_qrcode
-    if current_user.qrcode_url.blank?
-      current_user.save_qrcode!
-    end
+    current_user.save_qrcode! if current_user.qrcode_url.blank?
   end
 end

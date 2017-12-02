@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'wxbiz_data_crypt'
 
 class AuthenticationController < ApplicationController
@@ -10,16 +12,16 @@ class AuthenticationController < ApplicationController
     Rails.logger.info "code is #{code}"
 
     session_key = get_session_key(code)
-    
+
     decrypted_data = decrypt(session_key, encrypted_data, iv)
     Rails.logger.info "decrypted_data is #{decrypted_data}"
     unionid = decrypted_data['unionId']
 
-    authentication = Authentication.find_by_unionid(unionid)
+    authentication = Authentication.find_by(unionid: unionid)
     if authentication.present?
       render json: payload(authentication)
     else
-      render json: {errors: ['Invalid unionid']}, status: :unauthorized
+      render json: { errors: ['Invalid unionid'] }, status: :unauthorized
     end
   end
 
@@ -39,9 +41,9 @@ class AuthenticationController < ApplicationController
   end
 
   def payload(authentication)
-    return nil unless authentication and authentication.unionid
+    return nil unless authentication&.unionid
     {
-      web_token: JsonWebToken.encode({unionid: authentication.unionid}),
+      web_token: JsonWebToken.encode(unionid: authentication.unionid)
     }
   end
 end

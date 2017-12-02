@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Examination < OdooRecord
   self.table_name = 'fa_examination'
 

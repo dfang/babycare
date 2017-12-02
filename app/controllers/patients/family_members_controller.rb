@@ -12,12 +12,12 @@ class Patients::FamilyMembersController < Patients::BaseController
     fake_password = SecureRandom.hex.to_s
     create_user_params = user_params.merge!(email: fake_email, password: fake_password)
     Rails.logger.info user_params
-    if (user_params[:gender] == 'male')
-      avatar = '/boy.png'
-    else
-      avatar = '/girl.png'
-    end
-    create_user_params.merge!(avatar: avatar)
+    avatar = if user_params[:gender] == 'male'
+               '/boy.png'
+             else
+               '/girl.png'
+             end
+    create_user_params[:avatar] = avatar
     child = current_user.children.create!(create_user_params)
 
     redirect_to(patients_family_members_path) && return if child.errors.empty?

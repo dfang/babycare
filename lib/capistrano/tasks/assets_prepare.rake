@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # # frozen_string_literal: true
 #
 # Rake::Task['deploy:assets:prepare'].clear_actions

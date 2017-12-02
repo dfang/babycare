@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # json.content format_content(@message.content)
 # json.(@message, :created_at, :updated_at)
 #
@@ -13,10 +15,9 @@
 #
 # ReservationExaminationImage(id: integer, create_uid: integer, create_date: datetime, write_uid: integer, write_date: datetime, media_id: string, data: string, reservation_examination_id: integer)
 
-json.array! @reservation_examinations do |examin|
+json.array! @reservation_examinations do |_examin|
   json.reservation_id exmain.reservation_id
   json.examination_id exmain.examination_id
-
 
   json.array! @reservation_examination_images, :media
 end

@@ -4,9 +4,9 @@
 
 FactoryGirl.define do
   factory :user do
-      email { FFaker::Internet.email }
-      password 'fake_password_for_factory_girl_to_work'
-      name  { FFaker::Name.name }
+    email { FFaker::Internet.email }
+    password 'fake_password_for_factory_girl_to_work'
+    name { FFaker::Name.name }
   end
 
   # factory :user do

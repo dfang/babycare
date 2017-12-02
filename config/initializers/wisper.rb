@@ -14,8 +14,8 @@ Rails.application.config.to_prepare do
   #   Wisper.subscribe(ReservationSubscriber.new)
   Wisper.subscribe(Auditor.new)
 
-  filenames = Dir.entries('app/subscribers/').select {|f| !File.directory? f}.map { |f| f.gsub!(".rb", "")}
-  classes = filenames.map {|f| f.classify.constantize }
+  filenames = Dir.entries('app/subscribers/').reject { |f| File.directory? f }.map { |f| f.gsub!('.rb', '') }
+  classes = filenames.map { |f| f.classify.constantize }
 
   classes.each do |subscriber|
     Wisper.subscribe(subscriber.new)

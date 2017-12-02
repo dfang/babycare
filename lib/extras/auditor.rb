@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Auditor
-
   def after_create(subject)
     push_audit_for('create', subject)
   end
@@ -30,7 +29,7 @@ class Auditor
       subject_id: subject.id,
       subject_class: subject.class.to_s,
       changes: subject.previous_changes,
-      created_at: Time.now
+      created_at: Time.zone.now
     }
   end
 end

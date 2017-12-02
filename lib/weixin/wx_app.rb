@@ -1,4 +1,3 @@
-# encoding: utf-8
 # frozen_string_literal: true
 
 module WxApp
@@ -16,14 +15,14 @@ module WxApp
       end
     end
 
-    def get_access_token(options = {})
-      Rails.logger.info "begin get_access_token ......."
+    def get_access_token(_options = {})
+      Rails.logger.info 'begin get_access_token .......'
       Rails.cache.fetch 'weixin_access_token', expires_in: 3600.seconds do
         # url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
         # Rails.logger.info "url is #{url.red}"
         # conn = get_conn
         # response = conn.get url
-        url = "#{ENV['WX_ACCESS_TOKEN_URL']}" || "localhost:8080"
+        url = (ENV['WX_ACCESS_TOKEN_URL']).to_s || 'localhost:8080'
         response = Faraday.new.get(url)
         json = JSON.parse(response.body)
         Rails.logger.info "get_access_token response body is: \n#{json}"
@@ -38,7 +37,7 @@ module WxApp
     end
 
     def get_jsapi_ticket
-      Rails.logger.info "begin get_jsapi_ticket ......."
+      Rails.logger.info 'begin get_jsapi_ticket .......'
       Rails.cache.fetch 'jsapi_ticket', expires_in: 7200.seconds do
         url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
         Rails.logger.info "url is #{url.red}"

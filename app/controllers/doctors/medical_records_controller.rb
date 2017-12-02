@@ -8,7 +8,7 @@ class Doctors::MedicalRecordsController < InheritedResources::Base
   # skip_before_action :find_reservation, only: [:index ]
 
   def index
-    if  @reservation.doctor_user == current_user
+    if @reservation.doctor_user == current_user
       @medical_records = @reservation.family_member.medical_records
     else
       redirect_to global_denied_path
@@ -57,11 +57,9 @@ class Doctors::MedicalRecordsController < InheritedResources::Base
   # end
 
   def find_reservation
-    Rails.logger.info "find_reservation"
+    Rails.logger.info 'find_reservation'
     reservation_id ||= params[:reservation_id] || medical_record_params[:reservation_id]
-    if reservation_id.present?
-      @reservation ||= Reservation.find(reservation_id)
-    end
+    @reservation ||= Reservation.find(reservation_id) if reservation_id.present?
   end
 
   # def medical_record_params

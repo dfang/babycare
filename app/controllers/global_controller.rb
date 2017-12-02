@@ -23,7 +23,7 @@ class GlobalController < ApplicationController
                       end
     doctor.save!
 
-    if current_user.doctor && current_user.doctor.verified?
+    if current_user.doctor&.verified?
       redirect_to(my_doctor_root_path) && return
     else
       redirect_to(my_patient_root_path) && return

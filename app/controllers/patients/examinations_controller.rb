@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Patients::ExaminationsController < ApplicationController
   def destroy
     @reservation = current_user.reservations.find_by(id: params[:id])

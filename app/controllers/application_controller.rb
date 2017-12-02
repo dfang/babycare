@@ -46,26 +46,27 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
   def authenticate_request!
     unless unionid_in_token?
       render json: { errors: ['Not Authenticated'] }, status: :unauthorized
       return
     end
-    authentication = Authentication.find_by_unionid(auth_token[:unionid])
+    authentication = Authentication.find_by(unionid: auth_token[:unionid])
     @current_user = authentication.user
     Rails.logger.info 'sign innnnnn'
 
     sign_in(@current_user)
-
   rescue JWT::VerificationError, JWT::DecodeError
     render json: { errors: ['Not Authenticated'] }, status: :unauthorized
   end
 
   private
+
   def web_token
-      @web_token ||= if request.headers['Authorization'].present?
-        request.headers['Authorization'].split(' ').last
-      end
+    @web_token ||=  if request.headers['Authorization'].present?
+                      request.headers['Authorization'].split(' ').last
+                    end
   end
 
   def auth_token

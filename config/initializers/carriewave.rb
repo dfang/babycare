@@ -12,6 +12,5 @@
 
   config.qiniu_can_overwrite = true
 
-
   # config.qiniu_up_host       = 'http://up.qiniug.com' #七牛上传海外服务器,国内使用可以不要这行配置
 end

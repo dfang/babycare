@@ -1,8 +1,6 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   namespace :doctors do
     get 'reservation_examinations/new'
     get 'reservation_examinations/update'
@@ -79,7 +77,7 @@ Rails.application.routes.draw do
 
     resources :ratings
 
-    resources :examinations, only: [:new, :edit, :update, :create, :destroy] do
+    resources :examinations, only: %i[new edit update create destroy] do
       # 这里的路由没有按照restful来，一定要传reservtion_id
       # doctors/examinations/new?reservation_id
       # doctors/examinations/edit?reservation_id

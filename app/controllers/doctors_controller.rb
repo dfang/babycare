@@ -24,7 +24,7 @@ class DoctorsController < InheritedResources::Base
   end
 
   def new
-    if current_user && current_user.doctor.present?
+    if current_user&.doctor.present?
       @doctor = current_user.doctor
       if @doctor.verified?
         # redirect_to status_doctor_path(@doctor)
@@ -119,11 +119,11 @@ class DoctorsController < InheritedResources::Base
   end
 
   def set_doctor
-    if current_user.doctor.present?
-      @doctor = current_user.doctor
-    else
-      @doctor = Doctor.new
-    end
+    @doctor = if current_user.doctor.present?
+                current_user.doctor
+              else
+                Doctor.new
+              end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
