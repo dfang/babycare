@@ -2,7 +2,7 @@
 
 ENV['RAILS_ENV'] = 'production'
 ENV['RAILS_LOG_TO_STDOUT'] = 'true'
-ENV['RAILS_SERVE_STATIC_FILES'] = 'true'
+ENV['RAILS_SERVE_STATIC_FILES'] = 'false'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -65,7 +65,7 @@ Rails.application.configure do
   config.cache_store = :memory_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter     = :sidekiq
   # config.active_job.queue_name_prefix = "fusion_admin_#{Rails.env}"
   config.action_mailer.perform_caching = false
 

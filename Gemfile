@@ -7,12 +7,20 @@ end
 
 gem 'rails', '~> 5.1.1'
 gem 'pg', '~> 0.18'
-gem 'redis'
+
+# gem 'redis', '~> 4.0', '>= 4.0.1'
+# disble for now due to actioncable incompatibility https://github.com/rails/rails/issues/30527
+gem 'redis', '~> 3.0'
+gem 'redis-namespace'
+gem 'sidekiq'
+gem 'sinatra'
+gem 'foreman'
 
 gem 'webpacker'
 
 gem 'wisper', '2.0.0'
 gem 'wisper-activerecord'
+gem 'wisper-sidekiq'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
