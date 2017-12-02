@@ -1,0 +1,10 @@
+q. redirect_to vs redirect_to and return
+
+https://stackoverflow.com/questions/34842427/redirect-to-vs-redirect-to-and-return
+redirect_to will cause any automatic rendering to be skipped.
+
+q. redirect_to and return vs redirect_to && return
+
+https://stackoverflow.com/questions/32772996/rspec-redirect-to-and-return-vs-redirect-to-return
+
+
