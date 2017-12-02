@@ -18,9 +18,9 @@ Rails.application.config.to_prepare do
   classes = filenames.map { |f| f.classify.constantize }
 
   classes.each do |subscriber|
-    Wisper.subscribe(subscriber.new)
+    # Wisper.subscribe(subscriber.new)
     # publisher = subscriber.name.gsub("Subscriber", "").classify.constantize
-    # publisher.subscribe(subscriber, async: true)
+    Wisper.subscribe(subscriber, async: true)
   end
 end
 

@@ -20,7 +20,8 @@ gem 'webpacker'
 
 gem 'wisper', '2.0.0'
 gem 'wisper-activerecord'
-gem 'wisper-sidekiq'
+# gem 'wisper-sidekiq'
+gem 'wisper-activejob'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'

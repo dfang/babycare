@@ -9,7 +9,7 @@ class ReservationSubscriber
     Rails.logger.info 'notify somebody reservation_prepay_successful'
 
     # 开发或者Staging模式下 自动分配给空闲的医生 方便测试
-    AutoAssignReservationInStagingJob.perform_later
+    AutoAssignReservation.perform_later
 
     # 通知抢单制  现在分配制
     # Doctor.verified.find_each do |doctor|
