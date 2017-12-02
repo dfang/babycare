@@ -1,3 +1,4 @@
 web:    bundle exec rails s -p 3000
-worker: bundle exec sidekiq -C config/sidekiq.yml
-natapp: ~/bin/start_natapp.sh
+sidekiq: bundle exec sidekiq -C config/sidekiq.yml
+ngrok: ~/bin/start_natapp.sh
+webpacker: bin/webpack-dev-server
