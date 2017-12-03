@@ -26,6 +26,9 @@ sms_templates:
   notify_user_when_diagnosed: 121709
   notify_doctor_when_paid: 121710
 
+redis:
+  server_url: "redis://127.0.0.1:6379/0"
+
 doctors:
   good_ats:
     - 儿童外科

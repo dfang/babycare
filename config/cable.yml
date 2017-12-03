@@ -3,7 +3,7 @@
 
 redis: &redis
   adapter: redis
-  url: redis://127.0.0.1:6379/0
+  url: <%= Settings.redis.server_url %>
 
 development: *redis
 
@@ -12,5 +12,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://127.0.0.1:6379/0
-  channel_prefix: fusion_admin_production
+  url: <%= Settings.redis.server_url %>
+  channel_prefix: production

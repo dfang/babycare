@@ -26,6 +26,8 @@ ronglian:
   subAccountAuthToken: "67ca5a784999ad54086ce2af7581fd0d"
   appid: "8a216da85600ef240156029397070353"
 
+redis:
+  server_url: <%= ENV['REDIS_SERVER_URL'] %>
 
 common:
   domain_name: 'http://wx.yhuan.cc'

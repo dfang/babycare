@@ -39,6 +39,7 @@ COPY docker/database.yml ./config/database.yml
 RUN bundle exec rake assets:precompile
 
 EXPOSE 5000
+
 ENV PORT 5000
 
 
