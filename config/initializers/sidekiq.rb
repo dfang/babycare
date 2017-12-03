@@ -6,11 +6,11 @@
 redis_namespace = 'sidekiq'
 
 Sidekiq.configure_server do |config|
-  config.redis = { url: "<%= Settings.redis.server_url %>", namespace: redis_namespace }
+  config.redis = { url: Settings.redis.server_url, namespace: redis_namespace }
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: "<%= Settings.redis.server_url %>", namespace: redis_namespace }
+  config.redis = { url: Settings.redis.server_url, namespace: redis_namespace }
 end
 
 
