@@ -33,7 +33,7 @@ class Reservation < OdooRecord
 
   attr_accessor :total_fee
 
-  enumerize :aasm_state, in: %i[to_prepay prepaid to_examine to_consult consulting to_pay paid cancelled], default: :to_prepay, predicates: true
+  enumerize :aasm_state, in: %i[to_prepay prepaid to_examine to_consult consulting to_pay paid cancelled], default: :to_prepay, predicates: false
   # enumerize :reservation_type, in: %i[online offline], default: :offline, predicates: true
 
   delegate :hospital, to: :doctor, allow_nil: true

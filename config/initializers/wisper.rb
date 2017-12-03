@@ -17,14 +17,14 @@ Rails.application.config.to_prepare do
   filenames = Dir.entries('app/subscribers/').reject { |f| File.directory? f }.map { |f| f.gsub!('.rb', '') }
   classes = filenames.map { |f| f.classify.constantize }
 
-  classes.each do |Subscriber|
+  classes.each do |subscriber|
     # from doc, otherwise jobs not enqueued
     # The listener must be a class (or module), not an object.
     # This is because ActiveJob/Sidekiq can not reconstruct the state of an object.
     # However a class is easily reconstructed. Whereas a class has no state.
 
     # just change instance method to class method in listeners
-    Wisper.subscribe(Subscriber, async: true)
+    Wisper.subscribe(subscriber, async: true)
   end
 end
 
