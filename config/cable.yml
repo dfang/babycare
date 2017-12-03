@@ -10,6 +10,11 @@ development: *redis
 test:
   adapter: async
 
+staging:
+  adapter: redis
+  url: <%= Settings.redis.server_url %>
+  channel_prefix: staging
+
 production:
   adapter: redis
   url: <%= Settings.redis.server_url %>

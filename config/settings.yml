@@ -29,6 +29,9 @@ sms_templates:
 redis:
   server_url: "redis://127.0.0.1:6379/0"
 
+rollbar:
+  access_token: <%= ENV['ROLLBAR_ACCESS_TOKEN'] %>
+
 doctors:
   good_ats:
     - 儿童外科
