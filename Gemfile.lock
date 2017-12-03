@@ -57,6 +57,7 @@ GEM
       rake (>= 10.4, < 12.0)
     arel (8.0.0)
     ast (2.3.0)
+    awesome_print (1.8.0)
     bcrypt (3.1.11)
     browser (2.4.0)
     builder (3.2.3)
@@ -449,6 +450,7 @@ DEPENDENCIES
   acts-as-taggable-on
   ancestry
   annotate
+  awesome_print
   browser
   capistrano (= 3.7.0)
   capistrano-bundler
