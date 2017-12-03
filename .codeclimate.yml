@@ -1,12 +1,31 @@
 ---
+JavaScript: true
+Ruby: true
+
 engines:
+  rubocop:
+    enabled: true
+  reek:
+    enabled: true
   brakeman:
     enabled: true
   bundler-audit:
     enabled: true
+  fixme:
+    enabled: true
   csslint:
     enabled: true
+  scss-lint:
+    enabled: true
   coffeelint:
+    enabled: true
+  eslint:
+    enabled: true
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
+  tailor:
     enabled: true
   duplication:
     enabled: true
@@ -14,14 +33,8 @@ engines:
       languages:
       - ruby
       - javascript
-      - python
-      - php
-  eslint:
-    enabled: true
-  fixme:
-    enabled: true
-  rubocop:
-    enabled: true
+      - css
+      - scss
 ratings:
   paths:
   - Gemfile.lock
