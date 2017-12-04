@@ -18,7 +18,7 @@ class Doctors::ReservationsController < InheritedResources::Base
                     else
                       # 医生的所有预约页面
                       # /doctors/reservations
-                      current_user.doctor.reservations
+                      current_user.doctor.reservations.select { |r| !r.prepaid? }
                     end
     # p params
     # if params.key?(:id)

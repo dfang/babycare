@@ -5,9 +5,11 @@
             <%= resource.chief_complains %>
         </p>
         <p>
-            <% resource.reservation_images.each do |image| %>
-              <%= image_tag image.data %>
-            <% end %>
+            <% if resource.reservation_images.any? %>
+              <% resource.reservation_images.each do |image| %>
+                <%= image_tag image.data %>
+              <% end %>
+            <% end %>  
         </p>
     </section>
 </article>
