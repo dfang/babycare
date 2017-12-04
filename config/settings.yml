@@ -32,6 +32,9 @@ redis:
 rollbar:
   access_token: <%= ENV['ROLLBAR_ACCESS_TOKEN'] %>
 
+devise:
+  secret_key: <%= ENV['DEVISE_SECRET_KEY'] %>
+
 doctors:
   good_ats:
     - 儿童外科

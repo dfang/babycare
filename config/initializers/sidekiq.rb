@@ -12,7 +12,3 @@ end
 Sidekiq.configure_client do |config|
   config.redis = { url: Settings.redis.server_url, namespace: redis_namespace }
 end
-
-
-
-
