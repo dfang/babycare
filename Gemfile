@@ -23,7 +23,8 @@ gem 'wisper-activerecord'
 # gem 'wisper-sidekiq'
 gem 'wisper-activejob'
 
-gem 'dotenv-rails', groups: [:development, :test]
+# gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
 
 gem 'rollbar'
 gem 'oj', '~> 2.16.1'
