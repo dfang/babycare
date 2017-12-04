@@ -25,14 +25,18 @@ module WxApp
         url = (ENV['WX_ACCESS_TOKEN_URL']).to_s || 'localhost:8080'
         response = Faraday.new.get(url)
         json = JSON.parse(response.body)
-        Rails.logger.info "get_access_token response body is: \n#{json}"
-        if json['access_token']
-          access_token = json['access_token']
-        else
-          response = Faraday.new.get(url)
-          json = JSON.parse(response.body)
-          Rails.logger.info "get_access_token response body is: \n#{json}"
-        end
+        access_token = json['access_token']
+        # url = "#{ENV['WX_ACCESS_TOKEN_URL']}" || "localhost:8080"
+        # response = Faraday.new.get(url)
+        # json = JSON.parse(response.body)
+        # Rails.logger.info "get_access_token response body is: \n#{json}"
+        # if json['access_token']
+        #   access_token = json['access_token']
+        # else
+        #   response = Faraday.new.get(url)
+        #   json = JSON.parse(response.body)
+        #   Rails.logger.info "get_access_token response body is: \n#{json}"
+        # end
       end
     end
 
