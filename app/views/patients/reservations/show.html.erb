@@ -21,18 +21,18 @@
               </div>
             </div>
             <div class="base-info-doctor-avatar">
-              <% if resource.doctor.present? && resource.doctor.user.avatar.present? && (resource.doctor.user.avatar != "/0") && !resource.prepaid? %>
+              <% if resource.doctor.present? && !resource.prepaid? %>
                 <%= image_tag resource.doctor.user.avatar %>
               <% else %>
                 <img src="/none-avatar.png" alt="">
               <% end %>
-                <p>
-                  <% if resource.doctor.present? && !resource.prepaid? %>
-                    <%= resource.doctor_user_name %>
-                  <% else %>
-                    未指定
-                  <% end %>
-                </p>
+              <p>
+                <% if resource.doctor.present? && !resource.prepaid? %>
+                  <%= resource.doctor_user_name %>
+                <% else %>
+                  未指定
+                <% end %>
+              </p>
             </div>
           </div>
         </div>

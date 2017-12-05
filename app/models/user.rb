@@ -55,6 +55,7 @@ class User < OdooRecord
       gender: wechat_session.sex,
       avatar: wechat_session.headimgurl
     )
+    user.avatar = "/none-avatar.png" if user.avatar == "/0"
     # user.gen_slug
     Rails.logger.info "user::: #{user.inspect}"
     user.save(validate: false)
