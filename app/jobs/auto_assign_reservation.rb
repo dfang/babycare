@@ -10,10 +10,10 @@ class AutoAssignReservation < ApplicationJob
 
     if ENV['AutoAssignReservationRandomly'] == 'true'
       Rails.logger.info 'auto assign reservation to random selected doctor'
-      doctor_id = Doctor.order('RANDOM()').first.id
+      doctor_id = Doctor.verified.order('RANDOM()').first.id
     else
-      Rails.logger.info 'auto assign reservation to the first only doctor'
-      doctor_id = Doctor.first.id
+      Rails.logger.info 'auto assign reservation to the last doctor'
+      doctor_id = Doctor.verified.last.id
     end
 
     assign_reservertion(reservation, doctor_id)
