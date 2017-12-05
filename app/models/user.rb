@@ -176,7 +176,7 @@ class User < OdooRecord
 
   def human_age
     if birthdate.nil?
-      '无'
+      [0, 0, 0]
     else
       now = Time.zone.now
       days_in_last_month_of_birthdate = Time.days_in_month(birthdate.last_month.month, birthdate.last_month.year)
