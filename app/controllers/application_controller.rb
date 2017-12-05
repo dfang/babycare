@@ -6,6 +6,8 @@ require Rails.root.join('lib', 'extras', 'browser')
 class ApplicationController < ActionController::Base
   include Devise::Controllers::Helpers
 
+  before_action :authenticate_user!, only: :current_wechat_authentication
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception

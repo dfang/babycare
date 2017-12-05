@@ -127,8 +127,4 @@ class Patients::ReservationsController < Patients::BaseController
   def reservation_examination_params
     params['reservation_examinations_attributes'].permit!
   end
-
-  def current_wechat_authentication
-    current_user.authentications.find_by(provider: 'wechat')
-  end
 end
