@@ -14,7 +14,8 @@ gem 'redis', '~> 3.0'
 gem 'redis-namespace'
 gem 'sidekiq'
 gem 'sinatra'
-gem 'foreman'
+
+gem 'foreman', group: :development
 
 gem 'webpacker'
 
