@@ -26,6 +26,8 @@ RUN yarn install
 # Set Rails to run in production
 ENV RAILS_ENV production
 
+COPY docker/database.yml ./config/database.yml
+
 # Copy the main application.
 COPY . ./
 # Precompile Rails assets (plus Webpack)
