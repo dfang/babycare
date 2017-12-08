@@ -28,11 +28,7 @@ class User < OdooRecord
   GENDERS = [%w[儿子 male], %w[女儿 female]].freeze
 
   validates :name, presence: true
-  validates :identity_card, presence: true
-  validates :birthdate, presence: true
-  validates :gender, presence: true
-  validates :allergic_history, presence: true
-  validates :vaccination_history, presence: true
+  # validates :birthdate, presence: true
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :authentications

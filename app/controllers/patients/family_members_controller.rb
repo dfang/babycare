@@ -18,9 +18,9 @@ class Patients::FamilyMembersController < Patients::BaseController
                '/girl.png'
              end
     create_user_params[:avatar] = avatar
-    child = current_user.children.create(create_user_params)
-    redirect_to(patients_family_members_path) && return if child.valid?
-    render(:new) && return
+    child = current_user.children.create!(create_user_params)
+
+    redirect_to(patients_family_members_path) && return if child.errors.empty?
   end
 
   def edit
