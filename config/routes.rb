@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'home/hospitals'
   get 'home/doctors'
   get 'home/hospital'
+  get '/terms', to: 'page#terms'
 
   get 'payment/pay'
   get 'global/status'

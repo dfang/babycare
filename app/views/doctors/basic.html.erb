@@ -80,22 +80,26 @@
       <div class="weui-cell__ft">
       </div>
     </div>
-
-
-    </div>
-
-
-
-  <div class="weui-cells__title">备注</div>
-  <div class="weui-cells weui-cells_form">
-    <div class="weui-cell">
-      <div class="weui-cell__bd weui-cell_primary">
-        <%= f.text_area :remark, class: 'weui-textarea' %>
-      </div>
-    </div>
   </div>
 
-  <!-- <div class="weui-cells__tips">底部说明文字底部说明文字</div> -->
+  <!-- <div class="weui-msg__text-area">
+      <p class="weui-msg__desc">
+        <%= f.check_box :terms %>
+        勾选表示您已阅读并接受
+        <a href="/terms">知情同意书</a>
+      </p>
+  </div> -->
+
+  <label class="weui-cell weui-cells_checkbox weui-check__label" for="s1">
+      <div class="weui-cell__hd">
+          <%= f.check_box :terms, class: "weui-check", id: "s1" %>
+          <!-- <input type="checkbox" class="weui-check" name="doctor[terms]" id="s1"> -->
+          <i class="weui-icon-checked"></i>
+      </div>
+      <div class="weui-cell__bd"  style="color: #999999;">
+          <p>勾选表示您已阅读并接受<a href="/terms" style="color: #586C94;">知情同意书</a></p>
+      </div>
+  </label>
 
   <div class="weui-btn-area">
     <button class="weui-btn weui-btn_primary">确定</button>
