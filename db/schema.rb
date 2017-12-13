@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025085854) do
+ActiveRecord::Schema.define(version: 20171116092814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -329,6 +329,15 @@ ActiveRecord::Schema.define(version: 20171025085854) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
+  create_table "reservation_examination_images", force: :cascade do |t|
+    t.bigint "reservation_examination_id"
+    t.string "data"
+    t.string "media_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservation_examination_id"], name: "index_images_on_reservation_examination_id"
+  end
+
   create_table "reservation_examinations", force: :cascade do |t|
     t.bigint "reservation_id"
     t.bigint "examination_id"
@@ -507,6 +516,7 @@ ActiveRecord::Schema.define(version: 20171025085854) do
   add_foreign_key "phone_call_histories", "reservations"
   add_foreign_key "ratings", "reservations"
   add_foreign_key "ratings", "users"
+  add_foreign_key "reservation_examination_images", "reservation_examinations"
   add_foreign_key "reservation_examinations", "examinations"
   add_foreign_key "reservation_examinations", "reservations"
   add_foreign_key "reservation_images", "reservations"

@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import wx from 'wechat-jssdk-promise';
+import util from './util';
 
 wx.ready( () => {
 
@@ -23,28 +24,40 @@ wx.ready( () => {
       console.log('choosed ' + localIdsToPreview.length + ' images');
 
         for (let i = 0, len = localIdsToPreview.length; i < len; i++) {
-            preview(localIdsToPreview[i]);
+          preview($files, localIdsToPreview[i]);
         }
 
       syncUpload(localIds, serverIds)
     })
 
-    const preview = (localId) => {
-      wx.getLocalImgDataAsync({
-        localId: localId
-      }).then( (res) => {
+    const preview = ($files, localId) => {
+      if (util.isAndroid()) {
+        appendToPlaceholder(localId);
+      } else {
+        wx.getLocalImgDataAsync({
+          localId: localId
+        }).then((res) => {
           let localData = res.localData;
-          let $li = $('<li class="weui-uploader__file">');
-          $li.css("background-image", "url(" + localData + ")");
-          // $files.append($li);
-          $('#picker1').parents('.weui-uploader').find('.weui-uploader__files').append($li);
-      })
+          appendToPlaceholder(localData);
+        })
+      }
+    }
+
+    const appendToPlaceholder = (img) => {
+      let $li = $('<li class="weui-uploader__file">');
+      let $gallery = $('<div class="weui-gallery" style="display: none;">');
+      let $galleryImg = $('<span class="weui-gallery__img">');
+      let $galleryOpr = $('<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>')
+      $li.css("background-image", "url(" + img + ")");
+      $galleryImg.css("background-image", "url(" + img + ")");
+      // $files.append($li);
+      $files.parents('.weui-uploader').find('.weui-uploader__files').append($li);
+      $li.append($gallery);
+      $gallery.append($galleryImg);
+      $gallery.append($galleryOpr);
     }
 
     const syncUpload = (localIds, serverIds) => {
-      console.log('weihhhsfadsfasdf');
-      console.log('sdafdsfa'+ localIds);
-
       if (localIds.length > 0) {
         let localId = localIds.shift();
         wx.uploadImageAsync({

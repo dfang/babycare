@@ -1,4 +1,3 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 set :rails_env, 'production'

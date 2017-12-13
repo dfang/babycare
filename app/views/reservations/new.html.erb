@@ -2,20 +2,46 @@
 
 <%= simple_form_for Reservation.new, url: reservations_path, method: 'POST' do |f| %>
 
-  <%= f.hidden_field :user_id, value: current_user.id %>
-
   <div class="weui-cells weui-cells_form">
 
-    <div class="weui-cell weui-cell_select weui-cell_select-after">
-      <div class="weui-cell__hd">
-        <label class="weui-label">为谁预约</label>
+    <% if current_user.children.any? %>
+      <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+          <label class="weui-label">为谁预约</label>
+        </div>
+        <div class="weui-cell__bd weui-cell_primary">
+          <select class="weui-select" name="reservation[family_member_id]" data-parsley-required="true">
+            <%= options_for_select  current_user.children.map {|x| [x.name, x.id] }, params[:family_member_id] %>
+          </select>
+        </div>
       </div>
-      <div class="weui-cell__bd weui-cell_primary">
-        <select class="weui-select" name="reservation[family_member_id]" data-parsley-required="true">
-          <%= options_for_select  current_user.children.map {|x| [x.name, x.id] }, params[:family_member_id] %>
-        </select>
+    <% else %>
+      <div class="weui-cell">
+          <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+          <div class="weui-cell__bd">
+              <input class="weui-input" type="text" name="user[name]" placeholder="请输入小孩姓名" data-parsley-required="true">
+          </div>
       </div>
-    </div>
+
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label for="" class="weui-label">生日</label></div>
+        <div class="weui-cell__bd weui-cell_primary">
+          <input class="weui-input birthdate" type="date" name="user[birthdate]" data-parsley-required="true">
+        </div>
+      </div>
+
+      <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+            <label for="" class="weui-label">性别</label>
+        </div>
+        <div class="weui-cell__bd weui-cell_primary">
+            <select class="weui-select" name="user[gender]" data-parsley-required="true">
+              <%= options_for_select MedicalRecord::GENDERS, "男" %>
+            </select>
+        </div>
+      </div>
+
+    <% end %>
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
@@ -39,23 +65,25 @@
 
   <div class="weui-cells weui-cells_form">
 
-    <div class="weui-cell weui-cell-vcode" style="padding:0 15px">
-      <div class="weui-cell__hd">
-        <label class="weui-label">您的位置</label>
-      </div>
-      <div class="weui-cell__bd">
-        <textarea class="weui-textarea" name="reservation[p_location]" data-parsley-required="true" placeholder="获取你的位置以便最近的医生联系你">
-          <%= current_user.location %>
-        </textarea>
-      </div>
-      <div class="weui-cell__ft">
-        <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
-      </div>
+    <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+            <label class="weui-label">您的位置</label>
+        </div>
+        <div class="weui-cell__bd">
+        </div>
+        <div class="weui-cell__ft">
+          <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <textarea class="weui-textarea" id="location" name="reservation[p_location]" data-parsley-required="true" placeholder="请输入您的地址或您想预约见面的地点" rows="2"><%= current_user.location %></textarea>
+        </div>
     </div>
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui-label">您的联系方式</label>
+        <label class="weui-label">联系方式</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
         <input
@@ -73,14 +101,14 @@
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui-label">想预约在</label>
+        <label class="weui-label">时间</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
         <input class="weui-input" name="reservation[p_date]" placeholder="请选择一个大概的时间" type="datetime-local" value="<%= default_date %>" data-parsley-required="true">
       </div>
     </div>
 
-    <div class="weui-cells weui-cells_checkbox" style="margin: 0">
+    <!-- <div class="weui-cells weui-cells_checkbox" style="margin: 0">
         <label class="weui-cell weui-check__label" for="s1">
             <div class="weui-cell__hd" style="padding-right: 0">
                 <input type="checkbox" class="weui-check" name="reservation[can_be_arranged]" id="s1" checked="checked">
@@ -90,7 +118,7 @@
                 <p>是否接受时间调配</p>
             </div>
         </label>
-    </div>
+    </div> -->
 
   </div>
 
@@ -115,25 +143,21 @@
         <textarea class="weui-textarea" name="reservation[chief_complains]" data-parsley-required="true" placeholder="请简要描述您小孩的情况"></textarea>
       </div>
     </div>
+
     <div class="weui-cell">
       <div class="weui-cell__bd">
         <div class="weui-uploader">
           <div class="weui-uploader__bd">
             <ul class="weui-uploader__files" id="uploaderFiles">
-              <!-- <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li> -->
             </ul>
             <div class="weui-uploader__input-box" id='picker1'>
             </div>
-
-            <!-- <div class="weui-uploader__input-box">
-                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
-            </div> -->
-
-            <p style="color: #999999;font-size: 0.8em;">上传症状照片、病历、检查单，方便医生作诊断，最多上传5张</p>
+            <p id="uploader-placeholder">上传症状照片、病历、检查单，方便医生作诊断，最多上传5张</p>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="weui-btn-area">
@@ -141,6 +165,72 @@
   </div>
 
 <% end %>
+
+
+
+
+<%= content_for :js do %>
+  <%= javascript_tag do %>
+    $(function(){
+        var symptom_tag_details = <%= raw @symptom_details %>;
+
+        $('#symptom-tags').tags({
+            values: <%= raw @symptoms %>,
+            templates: {
+              pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
+              number: '<sup><small>{0}</small></sup>'
+            },
+            input_name: "tag_list[]",
+            can_delete: false,
+            can_add: false
+        });
+
+        $(document).on('click', '#symptom-tags .pills-list .badge', function (e) {
+            $(e.target).siblings().removeClass('active').end().toggleClass('active')
+            tag = $(e.target).text()
+            details = []
+            for (var i = 0, len = symptom_tag_details.length; i < len; i++) {
+              if (symptom_tag_details[i].name == tag) {
+                details = symptom_tag_details[i].values
+              }
+            }
+            $('#symptom-tag-details').parents('.weui-cell').removeClass('hide')
+            $('#symptom-tag-details').empty()
+            $('#symptom-tag-details').tags({
+              values: details,
+              templates: {
+                pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
+                number: '<sup><small>{0}</small></sup>'
+              },
+              input_name: "tag_list[]",
+              can_delete: false,
+              can_add: false
+            });
+        })
+
+        $(document).on('click', '#symptom-tag-details .pills-list .badge', function (e) {
+            $(e.target).toggleClass('active')
+            details = []
+            $(e.target).parent('.pills-list').find('.badge.active').map(function (i, e) {
+              details.push($(e).text())
+            })
+
+            text = "大夫您好, 我的宝宝, "
+
+            console.log(text + details)
+            $('.weui-cell-remark .weui-textarea').val(text + details)
+        })
+
+        $('.simple_form.new_reservation').parsley({uiEnabled: true, errorsWrapper: ''}).on('field:error', function () {
+            $(this.$element).parents('.weui-cell').addClass('validation_error')
+        }).on('field:success', function () {
+            $(this.$element).parents('.weui-cell').removeClass('validation_error')
+        })
+    })
+  <% end %>
+<% end %>
+
+
 
 
 

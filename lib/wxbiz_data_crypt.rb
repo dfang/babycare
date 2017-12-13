@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WxBizDataCrypt
   def initialize(app_id)
     @app_id = app_id

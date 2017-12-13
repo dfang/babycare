@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rexml/document'
+# require 'rexml/document'
 
 class Patients::ReservationsController < Patients::BaseController
   # before_action ->{ authenticate_user!( force: true ) }, :except => [:payment_notify]
@@ -10,21 +10,25 @@ class Patients::ReservationsController < Patients::BaseController
   # skip_before_action :check_is_verified_doctor, only: :payment_notify
   # custom_actions :collection => [ :payment_notify, :payment_test ], :member => [ :status ]
   custom_actions member: [:status]
-
-  # def reservations
-  # end
+  before_action :ensure_resource_exists!, only: [:show]
 
   def index
-    @reservations = current_user.reservations.order('created_at DESC')
+    @reservations = if params[:family_member_id].present?
+                      current_user.reservations.order('created_at DESC').select { |x| x.family_member.id == params[:family_member_id].to_i }
+                    else
+                      current_user.reservations.order('created_at DESC')
+                    end
   end
 
   def status; end
 
-  def show; end
-
   def update
     if params.key?(:event)
       case params[:event]
+      when 'upload_reservation_examination_images'
+        resource.update(reservation_examinations_attributes: reservation_examination_params)
+        resource.upload_examination! if resource.has_all_examination_uploaded_images? && resource.to_examine?
+        redirect_to(patients_reservation_path(resource)) && return
       when 'cancel'
         if resource.prepaid?
           resource.cancel!
@@ -34,7 +38,7 @@ class Patients::ReservationsController < Patients::BaseController
         end
       when 'complete'
         resource.diagnose!
-        redirect_to wx_payment_path(reservation_id: resource) and return
+        redirect_to(wx_payment_path(reservation_id: resource)) && return
       end
     else
       super
@@ -42,9 +46,7 @@ class Patients::ReservationsController < Patients::BaseController
   end
 
   # FIXME
-  # rubocop:disable Metrics/MethodLength
-  def pay
-  end
+  def pay; end
 
   def latest
     latest_pending_reservation = current_user.reservations.to_prepay.order('CREATED_AT DESC').first
@@ -100,9 +102,29 @@ class Patients::ReservationsController < Patients::BaseController
   # def payment_test
   # end
 
+  def examinations_uploader
+    #
+    @reservation_examinations = resource.reservation_examinations.includes(:reservation_examination_images)
+    # @reservation_examinations = resource.reservation_examinations.as_json(
+    #   include: {
+    #     reservation_examination_images: {
+    #       only: :media_id
+    #     }
+    #   }
+    # )
+  end
+
+  def chief_complains; end
+
   private
 
-  def current_wechat_authentication
-    current_user.authentications.find_by(provider: 'wechat')
+  # 用户取消预约后，防止点微信的返回按钮跳到show页面出错
+  def ensure_resource_exists!
+    res = Reservation.find_by(id: params[:id])
+    redirect_to(patients_reservations_path) && return if res.blank?
+  end
+
+  def reservation_examination_params
+    params['reservation_examinations_attributes'].permit!
   end
 end

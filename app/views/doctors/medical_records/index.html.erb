@@ -4,8 +4,10 @@
 
           <div class="panel">
             <div class="bd">
-							<%- if @medical_records.any? %>
+							<% if @medical_records.any? %>
 								<%= render partial: 'medical_record', collection: @medical_records %>
+              <% else %>
+                没有既往病历记录
 							<% end %>
 
             </div>

@@ -1,4 +1,3 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 require_relative 'boot'
@@ -27,7 +26,7 @@ module Babycare
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.autoload_paths += %W[#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin #{config.root}/app/models/subscribers]
+    config.autoload_paths += %W[#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin]
     config.eager_load_paths += %W[#{config.root}/lib #{config.root}/lib/extras #{config.root}/lib/weixin]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -39,14 +38,16 @@ module Babycare
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :'zh-CN'
 
+    config.assets.initialize_on_precompile=false
+
     # config.assets.paths << Rails.root.join("app", "assets", "fonts")
     # config.assets.paths << Rails.root.join("lib", "assets", "fonts")
 
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :erb
-      g.helper      false
-      g.test      false
+      g.helper false
+      g.test false
     end
   end
 end

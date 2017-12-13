@@ -1,4 +1,4 @@
-<%= link_to doctors_medical_record_path(medical_record), data: { turbolinks: false} do %>
+<%= link_to doctors_medical_record_path(medical_record, reservation_id: @reservation), data: { turbolinks: false} do %>
   <div class="weui-panel__bd">
       <div class="weui-media-box weui-media-box_text">
           <h4 class="weui-media-box__title"> <%= medical_record.created_at.strftime('%Y-%m-%d')%>的病历</h4>

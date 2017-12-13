@@ -7,12 +7,28 @@ end
 
 gem 'rails', '~> 5.1.1'
 gem 'pg', '~> 0.18'
-gem 'redis'
+
+# gem 'redis', '~> 4.0', '>= 4.0.1'
+# disble for now due to actioncable incompatibility https://github.com/rails/rails/issues/30527
+gem 'redis', '~> 3.0'
+gem 'redis-namespace'
+gem 'sidekiq'
+gem 'sinatra'
+
+gem 'foreman', group: :development
 
 gem 'webpacker'
 
 gem 'wisper', '2.0.0'
 gem 'wisper-activerecord'
+# gem 'wisper-sidekiq'
+gem 'wisper-activejob'
+
+# gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
+
+gem 'rollbar'
+gem 'oj', '~> 2.16.1'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -22,6 +38,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
+gem 'colorize'
 
 gem 'groupify'
 
@@ -42,7 +59,7 @@ gem 'jwt'
 
 gem 'has_scope'
 
-gem 'exception_notification'
+gem 'exception_notification', '~> 4.2', '>= 4.2.2'
 gem 'slack-notifier'
 
 gem 'china_region_fu'
@@ -86,7 +103,7 @@ gem 'omniauth-wechat-oauth2'
 gem 'puma', '~> 3.7'
 gem 'whenever', require: false
 
-group :development, :teset do
+group :development, :test do
   gem 'ffaker'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
@@ -96,6 +113,7 @@ group :development, :teset do
 end
 
 group :development do
+  gem 'awesome_print', :require => 'ap'
   # gem 'web-console', '~> 2.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
@@ -128,7 +146,7 @@ group :development do
 
   # just install, don't need to install with bundler
   # gem 'fasterer', require: false
-  gem 'rubocop', '0.49.1', require: false
+  gem 'rubocop', '~> 0.51.0', require: false
   # gem 'rubycritic', require: false
 end
 

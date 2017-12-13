@@ -1,5 +1,6 @@
-class SimpleCaptchaController < ApplicationController
+# frozen_string_literal: true
 
+class SimpleCaptchaController < ApplicationController
   def request_captcha
     return unless params.key?(:mobile_phone)
     to = params[:mobile_phone]
@@ -10,7 +11,7 @@ class SimpleCaptchaController < ApplicationController
     # 发出去
     SmsCaptchaJob.perform_now(to, captcha)
 
-    render :nothing
+    head :ok
   end
 
   # 验证验证码是否正确
@@ -21,11 +22,11 @@ class SimpleCaptchaController < ApplicationController
     captcha = params[:captcha]
 
     if SimpleCaptcha.captcha_valid?(key, captcha)
-      Rails.logger.info "验证成功"
-      render :json => {"result": "success"}
+      Rails.logger.info '验证成功'
+      render json: { "result": 'success' }
     else
-      Rails.logger.info "验证失败"
-      render :json => {"result": "failed"}
+      Rails.logger.info '验证失败'
+      render json: { "result": 'failed' }
     end
   end
 end

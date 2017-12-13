@@ -1,40 +1,126 @@
-<div class="weui-msg">
-    <div class="weui-msg__icon-area">
-      <a href="/patients/index">
-        <%= image_tag current_user.avatar %>
-      </a>
-    </div>
-    <div class="weui-msg__text-area">
-        <h2 class="weui-msg__title"><%= current_user.wechat_authentication.nickname %></h2>
-    </div>
-    <div class="weui-msg__opr-area">
+<% content_for :title, "个人资料" %>
 
-      <div class="weui-panel weui-panel__access">
-        <div class="weui-panel__hd">擅长医治</div>
-        <div class="weui-panel__bd">
-            <div class="weui-media-box weui-media-box_text">
-              <p class="weui-media-box__desc">孕妇保健 儿童保健</p>
-            </div>
-        </div>
-      </div>
+<div class="tabbar">
+    <div class="weui-tab">
+        <div class="weui-tab__panel">
 
-      <div class="weui-panel weui-panel__access">
-        <div class="weui-panel__hd">个人资料</div>
-        <div class="weui-panel__bd">
-            <div class="weui-media-box weui-media-box_text">
-              <p class="weui-media-box__desc">毕业院校：首都医科院</p>
-              <p class="weui-media-box__desc">成就: xxxxx</p>
-            </div>
-        </div>
-      </div>
+            <div class="weui-cells__title">基本信息</div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>姓名</p>
+                    </div>
+                    <div class="weui-cell__ft"><%= current_user.doctor.name %></div>
+                </div>
 
-      <div class="weui-panel weui-panel__access">
-        <div class="weui-panel__hd">用户评价</div>
-        <div class="weui-panel__bd">
-            <div class="weui-media-box weui-media-box_text">
-              <p class="weui-media-box__desc">问诊详细认真</p>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>生日</p>
+                    </div>
+                    <div class="weui-cell__ft"><%= current_user.doctor.date_of_birth %></div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>性别</p>
+                    </div>
+                    <div class="weui-cell__ft"><%= current_user.doctor.gender %></div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>手机号</p>
+                    </div>
+                    <div class="weui-cell__ft"><%= current_user.doctor.mobile_phone %></div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>身份证号码</p>
+                    </div>
+                    <div class="weui-cell__ft"><%= current_user.doctor.id_card_num %></div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-uploader weui_uploader1">
+                            <div class="weui-uploader__hd">
+                              <p class="weui-uploader__title">身份证照片</p>
+                            </div>
+                            <div class="weui-uploader__bd">
+                                <ul class="weui-uploader__files" id="uploaderFiles">
+                                  <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
+                                    <%= show_holder_or_image current_user.doctor, :id_card_front, "79x79" %>
+                                  </li>
+                                  <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
+                                    <%= show_holder_or_image current_user.doctor, :id_card_back, "79x79" %>
+                                  </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weui-media-box weui-media-box_text">
+                    <h4 class="weui-media-box__title">家庭地址</h4>
+                      <p class="weui-media-box__desc">
+                          <%= current_user.doctor.home_address %>
+                      </p>
+                </div>
             </div>
-        </div>
+
+            <div class="weui-cells__title">职业信息</div>
+            <div class="weui-cells">
+              <div class="weui-cell">
+                  <div class="weui-cell__bd">
+                      <div class="weui-uploader weui_uploader3">
+                          <div class="weui-uploader__hd">
+                            <p class="weui-uploader__title">医生执照</p>
+                          </div>
+                          <div class="weui-uploader__bd">
+                              <ul class="weui-uploader__files" id="uploaderFiles">
+                                  <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
+                                    <%= show_holder_or_image @doctor, :license_front, "79x79" %>
+                                  </li>
+                                  <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
+                                    <%= show_holder_or_image @doctor, :license_back, "79x79" %>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="weui-cell">
+                  <div class="weui-cell__bd">
+                      <p>职称</p>
+                  </div>
+                  <div class="weui-cell__ft"><%= current_user.doctor.job_title %></div>
+              </div>
+
+              <div class="weui-cell">
+                  <div class="weui-cell__bd">
+                      <p>擅长</p>
+                  </div>
+                  <div class="weui-cell__ft"><%= current_user.doctor.good_at %></div>
+              </div>
+
+              <div class="weui-cell">
+                  <div class="weui-cell__bd">
+                      <p>医院名称</p>
+                  </div>
+                  <div class="weui-cell__ft"><%= current_user.doctor.hospital %></div>
+              </div>
+
+              <div class="weui-media-box weui-media-box_text">
+                  <h4 class="weui-media-box__title">医院地址</h4>
+                    <p class="weui-media-box__desc">
+                        <%= current_user.doctor.work_address %>
+                    </p>
+              </div>
+            </div>
+
       </div>
+      <%=  render 'tab_bar' %>
     </div>
 </div>

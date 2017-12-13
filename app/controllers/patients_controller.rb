@@ -9,7 +9,7 @@ class PatientsController < InheritedResources::Base
   def deny_doctors!
     if current_user.doctor?
       flash[:error] = '你是医生, 不能访问用户区域'
-      redirect_to global_denied_path and return
+      redirect_to(global_denied_path) && return
     end
   end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Transaction < ActiveRecord::Base
+class Transaction < OdooRecord
+  self.table_name = 'fa_transaction'
+
   include AASM
   extend Enumerize
 

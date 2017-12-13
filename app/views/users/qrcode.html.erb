@@ -1,0 +1,8 @@
+<% content_for :title, "我的二维码" %>
+
+<% if @qrcode.present? %>
+  <div class="weui-cells weui-cells_form">
+    <%= image_tag @qrcode  %>
+    <p>请扫二维码确认身份</p>
+  </div>
+<% end %>
