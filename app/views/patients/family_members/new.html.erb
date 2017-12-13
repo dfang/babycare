@@ -3,21 +3,28 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" name="user[name]" placeholder="请输入小孩姓名">
+            <input class="weui-input" type="text" name="user[name]" placeholder="请输入小孩姓名" data-parsley-required="true">
         </div>
     </div>
 
     <div class="weui-cell">
           <div class="weui-cell__hd"><label class="weui-label">身份证</label></div>
           <div class="weui-cell__bd">
-              <input class="weui-input" type="number" name="user[identity_card]" pattern="[0-9][a-z]*" placeholder="请输入小孩身份证号码">
+              <input
+                name="user[identity_card]"
+                class="weui-input identity_card"
+                placeholder="请输入小孩身份证号码"
+                type="text"
+                maxlength="18"
+                pattern="^\d{17}[\d|X]$"
+                data-parsley-required="true">
           </div>
       </div>
 
     <div class="weui-cell">
       <div class="weui-cell__hd"><label for="" class="weui-label">生日</label></div>
       <div class="weui-cell__bd weui-cell_primary">
-        <input class="weui-input" type="date" name="user[birthdate]">
+        <input class="weui-input birthdate" type="date" name="user[birthdate]" data-parsley-required="true">
       </div>
     </div>
 
@@ -26,7 +33,7 @@
           <label for="" class="weui-label">性别</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-          <select class="weui-select" name="user[gender]">
+          <select class="weui-select" name="user[gender]" data-parsley-required="true">
             <%= options_for_select MedicalRecord::GENDERS, "男" %>
           </select>
       </div>
@@ -68,6 +75,32 @@
   </div>
 
   <div class="weui-btn-area">
-    <button class="weui-btn weui-btn_primary">确定</button>
+    <%= f.button :submit, "确定", class: "weui-btn weui-btn_primary", data: { disable_with: '正在提交...' } %>
   </div>
+<% end %>
+
+<% content_for :js do %>
+  <%= javascript_tag do %>
+  $(function(){
+      $(document).on('keyup', '.weui-input.identity_card', function(e){
+        var identity_card = $('.weui-input.identity_card').val();
+
+        if(identity_card.length >= 14){
+          dateString = identity_card.substring(6,14)
+          y = dateString.substring(0,4)
+          m = dateString.substring(4,6)
+          d = dateString.substring(6,8)
+          birthdate = y + "-" + m + "-" + d
+          $('.weui-input.birthdate').val(birthdate)
+          $('.weui-input.birthdate').parents('.weui-cell').removeClass('validation_error')
+        }
+      })
+
+      $('.simple_form.new_user').parsley({uiEnabled: true, errorsWrapper: ''}).on('field:error', function () {
+          $(this.$element).parents('.weui-cell').addClass('validation_error')
+      }).on('field:success', function () {
+          $(this.$element).parents('.weui-cell').removeClass('validation_error')
+      })
+  })
+  <% end %>
 <% end %>

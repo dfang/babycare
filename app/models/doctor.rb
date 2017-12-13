@@ -11,6 +11,9 @@ class Doctor < OdooRecord
   validates :name, :mobile_phone, presence: true
   JOB_TITLES = %w[主任医师 副主任医师 主治医师 住院医师].freeze
 
+  attr_accessor :terms
+  validates_acceptance_of :terms
+
   scope :verified, -> { where(verified: true) }
 
   def verify!
