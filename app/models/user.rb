@@ -27,6 +27,9 @@ class User < OdooRecord
   enumerize :gender, in: %i[male female], default: :male
   GENDERS = [%w[儿子 male], %w[女儿 female]].freeze
 
+  attr_accessor :terms
+  validates_acceptance_of :terms
+
   validates :name, presence: true
   # validates :identity_card, presence: true
   # validates :birthdate, presence: true

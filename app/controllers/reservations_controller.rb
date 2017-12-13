@@ -9,7 +9,7 @@ class ReservationsController < InheritedResources::Base
   # 看下手机号是不是valid
   before_action -> { ensure_mobile_phone_valid? }
   # 看下病人有没有添加小孩信息
-  before_action -> { patient_and_has_children? }
+  # before_action -> { patient_and_has_children? }
   # 看下病人是不是付费会员
   before_action -> { ensure_registerd_membership }
 
@@ -102,6 +102,7 @@ class ReservationsController < InheritedResources::Base
   end
 
   def ensure_mobile_phone_valid?
-    redirect_to(validate_phone_path) && return if current_user.mobile_phone.blank?
+    # redirect_to(validate_phone_path) && return if current_user.mobile_phone.blank?
+    redirect_to(edit_patients_settings_path) && return if current_user.mobile_phone.blank?
   end
 end

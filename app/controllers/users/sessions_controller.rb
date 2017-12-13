@@ -160,7 +160,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def redirect_after_sign_in
     Rails.logger.info 'redirect_after_sign_in 根据不同的情况跳转到不同的页面'
-    redirect_to(edit_patients_settings_path) && return unless current_user.profile_complete?
+    # redirect_to(edit_patients_settings_path) && return unless current_user.profile_complete?
     redirect_to(session[:user_return_to]) && return if session[:user_return_to]
     redirect_to(root_path) && return
   end

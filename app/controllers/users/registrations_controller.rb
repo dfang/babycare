@@ -23,7 +23,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # 取出 mobile_phone, 并更新当前的手机号
       mobile_phone = params[:user][:mobile_phone]
       current_user.update(mobile_phone: mobile_phone)
-      redirect_to(bind_phone_success_path) && return
+      # redirect_to(bind_phone_success_path) && return
+      redirect_to(new_reservation_path) && return
     else
       # binding.pry
       current_user.update(params[:user].permit!)
