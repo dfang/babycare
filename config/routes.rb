@@ -21,7 +21,10 @@ Rails.application.routes.draw do
   get 'home/hospitals'
   get 'home/doctors'
   get 'home/hospital'
+
   get '/terms', to: 'page#terms'
+  get '/support', to: 'page#support'
+  get '/feedback', to: 'page#feedback'
 
   get 'payment/pay'
   get 'global/status'
