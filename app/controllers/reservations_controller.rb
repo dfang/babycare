@@ -23,6 +23,19 @@ class ReservationsController < InheritedResources::Base
   end
 
   def create
+    if !reservation_params.key?(:family_member_id)
+      child = current_user.children.build(family_member_params)
+      child.email = "wx_user_#{SecureRandom.hex}@wx_email.com"
+      child.password = SecureRandom.hex
+      child.avatar = if family_member_params[:gender] == 'male'
+                        '/boy.png'
+                     else
+                        '/girl.png'
+                     end
+      child.save!
+      reservation_params.merge!(family_member_id: child.id)
+    end
+
     @reservation = current_user.reservations.build(reservation_params)
 
     p reservation_params
@@ -79,6 +92,10 @@ class ReservationsController < InheritedResources::Base
 
   def reservation_params
     params.require(:reservation).permit!
+  end
+
+  def family_member_params
+    params.require(:user).permit!
   end
 
   def deny_doctors
