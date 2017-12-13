@@ -18,18 +18,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def update
-    # 区分是绑定手机号还是更新个人资料
-    if params.key?(:user) && params[:user].key?(:captcha)
-      # 取出 mobile_phone, 并更新当前的手机号
-      mobile_phone = params[:user][:mobile_phone]
-      current_user.update(mobile_phone: mobile_phone)
-      # redirect_to(bind_phone_success_path) && return
-      redirect_to(new_reservation_path) && return
-    else
-      # binding.pry
-      current_user.update(params[:user].permit!)
-      redirect_to(update_success_path) && return
-    end
+    # 区分是更新个人资料还是新建预约
+    params[:user].delete :captcha
+    current_user.update(params[:user].permit!)
+    redirect_to(update_success_path) && return if params.key?(:event)
+    redirect_to(new_reservation_path) && return
   end
 
   def update_success; end

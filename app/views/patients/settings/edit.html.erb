@@ -8,9 +8,11 @@
         <div class="page__bd">
           <%= simple_nested_form_for current_user, url: user_registration_path, method: 'PUT' do |f| %>
 
+          <%= hidden_field_tag 'event', params[:event]  %>
+
           <div class="weui-cells">
             <div class="weui-cell weui-cell-name">
-              <div class="weui-cell__hd"> 
+              <div class="weui-cell__hd">
                 <label class="weui-label">名字</label>
               </div>
               <div class="weui-cell__bd weui-cell_primary">
@@ -60,7 +62,9 @@
                   data-parsley-type="integer"
                   data-parsley-length="[11,11]"
                   type="tel"
-                  placeholder="请输入手机号">
+                  placeholder="请输入手机号"
+                  value="<%= current_user.mobile_phone %>"
+                  >
               </div>
               <div class="weui-cell__ft">
                 <button class="weui-vcode-btn get-code" disabled="disabled" style="color:inherit;width:110px">获取验证码</button>
