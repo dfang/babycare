@@ -82,18 +82,9 @@
     </div>
   </div>
 
-  <!-- <div class="weui-msg__text-area">
-      <p class="weui-msg__desc">
-        <%= f.check_box :terms %>
-        勾选表示您已阅读并接受
-        <a href="/terms">知情同意书</a>
-      </p>
-  </div> -->
-
   <label class="weui-cell weui-cells_checkbox weui-check__label" for="s1">
       <div class="weui-cell__hd">
-          <%= f.check_box :terms, class: "weui-check", id: "s1" %>
-          <!-- <input type="checkbox" class="weui-check" name="doctor[terms]" id="s1"> -->
+          <%= f.check_box :terms, class: "weui-check", id: "s1", data: { "parsley-required": "true" } %>
           <i class="weui-icon-checked"></i>
       </div>
       <div class="weui-cell__bd"  style="color: #999999;">
@@ -186,7 +177,13 @@
   })
 
 
-  $('form#new_doctor').parsley();
-
+  // $('form#new_doctor').parsley();
 </script>
+  <%= javascript_tag do %>
+    $('form#new_doctor').parsley({uiEnabled: true, errorsWrapper: ''}).on('field:error', function () {
+        $(this.$element).parents('.weui-cell').addClass('validation_error')
+    }).on('field:success', function () {
+        $(this.$element).parents('.weui-cell').removeClass('validation_error')
+    })
+  <% end %>
 <% end %>
