@@ -9,4 +9,5 @@
 *= require ./reservations
 *= require ./qrcode
 *= require ./products
+*= require ./pages
 */
