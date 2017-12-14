@@ -12,6 +12,8 @@ module StateMachine
         state :to_prepay, initail: true
         state :prepaid, :to_examine, :to_consult, :consulting, :to_pay, :paid, :cancelled
 
+        after_all_transitions :log_status_change
+
         event :prepay, after: :after_prepaid do
           transitions from: :to_prepay, to: :prepaid
         end
@@ -80,6 +82,10 @@ module StateMachine
 
       def after_rated
         broadcast(:reservation_rated, self)
+      end
+
+      def log_status_change
+        puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
       end
     end
   end
