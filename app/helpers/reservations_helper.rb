@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ReservationsHelper
+  # TODO
+  # FIXME
   def date_format(date)
     if date.today?
       date.strftime('今天%P%I:%M').gsub('am', '上午').gsub('pm', '下午')

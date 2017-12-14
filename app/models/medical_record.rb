@@ -6,10 +6,11 @@ class MedicalRecord < OdooRecord
   belongs_to :user
   belongs_to :reservation, required: false
 
-  has_many :medical_record_images, class_name: 'MedicalRecordImage', dependent: :destroy
-  has_many :laboratory_examination_images, class_name: 'LaboratoryExaminationImage', dependent: :destroy
-  has_many :imaging_examination_images, class_name: 'ImagingExaminationImage', dependent: :destroy
-  # has_one :cover, class_name: 'MedicalRecordImage', dependent: :destroy
+  with_options dependent: :destroy do |assoc|
+    assoc.has_many :medical_record_images, class_name: 'MedicalRecordImage'
+    assoc.has_many :laboratory_examination_images, class_name: 'LaboratoryExaminationImage'
+    assoc.has_many :imaging_examination_images, class_name: 'ImagingExaminationImage'
+  end
 
   accepts_nested_attributes_for :medical_record_images, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :laboratory_examination_images, reject_if: :all_blank, allow_destroy: true

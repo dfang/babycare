@@ -11,9 +11,7 @@ class User < OdooRecord
   extend Enumerize
   extend ActiveModel::Naming
 
-  has_many :reservations
   # has_many :reservations, through: :family_member_id
-
   # include ImageVersion
   # mount_image_version :avatar
   # mount_image_version :qrcode
@@ -28,8 +26,7 @@ class User < OdooRecord
   GENDERS = [%w[儿子 male], %w[女儿 female]].freeze
 
   attr_accessor :terms
-  validates_acceptance_of :terms
-
+  validates :terms, acceptance: true
   validates :name, presence: true
   # validates :identity_card, presence: true
   # validates :birthdate, presence: true
@@ -44,6 +41,7 @@ class User < OdooRecord
     assoc.has_many :medical_records
     assoc.has_many :transactions
     assoc.has_many :ratings
+    assoc.has_many :reservations
   end
 
   def wechat_authentication
@@ -51,22 +49,17 @@ class User < OdooRecord
   end
 
   def self.create_wechat_user(wechat_session)
-    Rails.logger.info "wechat_session:::: #{wechat_session}"
-    wx_nickname = wechat_session.nickname
-    nickname = !wx_nickname.strip.empty? ? wx_nickname : User.gen_name
-    users_count = User.where(name: nickname).count
+    avatar = wechat_session.headimgurl
+    avatar = return '/none-avatar.png' if avatar == '/0'
 
-    user = User.new(
-      name: "#{nickname}#{users_count.zero? ? '' : users_count}",
+    User.create(
+      name: wechat_session.nickname,
       email: "wx_user_#{SecureRandom.hex}@wx_email.com",
       gender: wechat_session.sex,
-      avatar: wechat_session.headimgurl
+      avatar: avatar,
+      password: SecureRandom.hex
     )
-    user.avatar = "/none-avatar.png" if user.avatar == "/0"
-    # user.gen_slug
     Rails.logger.info "user::: #{user.inspect}"
-    user.save(validate: false)
-    user
   end
 
   def reservations
@@ -148,10 +141,8 @@ class User < OdooRecord
 
   def decrease_balance_unwithdrawable(amount)
     build_wallet if wallet.blank?
-    if wallet.balance_unwithdrawable >= amount
-      wallet.balance_unwithdrawable -= amount
-      wallet.save!
-    end
+    return if wallet.balance_unwithdrawable < amount
+    wallet.update(balance_unwithdrawable: wallet.balance_unwithdrawable - amount)
   end
 
   # 结算
@@ -182,6 +173,8 @@ class User < OdooRecord
     authentications.create(authentication)
   end
 
+  # TODO
+  # FIXME
   def human_age
     if birthdate.nil?
       [0, 0, 0]

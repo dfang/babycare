@@ -27,7 +27,7 @@ class Patients::ReservationsController < Patients::BaseController
       case params[:event]
       when 'upload_reservation_examination_images'
         resource.update(reservation_examinations_attributes: reservation_examination_params)
-        resource.upload_examination! if resource.has_all_examination_uploaded_images? && resource.to_examine?
+        resource.upload_examination! if resource.all_examination_uploaded_images? && resource.to_examine?
         redirect_to(patients_reservation_path(resource)) && return
       when 'cancel'
         if resource.prepaid?

@@ -5,5 +5,5 @@ class Examination < OdooRecord
 
   belongs_to :examination_group
 
-  has_many :reservation_examinations
+  has_many :reservation_examinations, dependent: :destroy
 end

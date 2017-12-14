@@ -7,6 +7,6 @@ class ReservationExamination < OdooRecord
 
   belongs_to :reservation
   belongs_to :examination
-  has_many :reservation_examination_images
+  has_many :reservation_examination_images, dependent: :destroy
   accepts_nested_attributes_for :reservation_examination_images
 end

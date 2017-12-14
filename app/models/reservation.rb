@@ -110,26 +110,6 @@ class Reservation < OdooRecord
     broadcast(:reservation_rate_successful, self)
   end
 
-  # for testing, use claimed_by instead of res.reserve to debug in rails console
-  # def claimed_by(user_b, reservation_time, reservation_location, reservation_phone)
-  #   self.user_b = user_b
-  #   self.reservation_time = reservation_time
-  #   self.reservation_location = reservation_location
-  #   self.reservation_phone = reservation_phone || doctor_user.mobile_phone
-  #   self.save!
-  #
-  #   self.reserve! do
-  #     params = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
-  #     SmsNotifyUserWhenReservedJob.perform_now(self.patient_user_phone, params)
-  #   end
-  #
-  # end
-  #
-  # def dumb_claimed_by_first_doctor
-  #   b = Doctor.first
-  #   claimed_by(b.id, Time.now, "测试地址", b.mobile_phone)
-  # end
-  #
   def marked_phone_number
     # http://stackoverflow.com/questions/26103394/regular-expression-to-mask-all-but-the-last-4-digits-of-a-social-security-number
     # Simply extract the last four characters and append them to a string of five '*'
@@ -177,7 +157,7 @@ class Reservation < OdooRecord
     "#{name}的#{gender}"
   end
 
-  def has_all_examination_uploaded_images?
+  def all_examination_uploaded_images?
     flag = true
     reservation_examinations.each do |re|
       flag = false if re.reservation_examination_images.count <= 0

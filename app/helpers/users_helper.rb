@@ -11,7 +11,7 @@ module UsersHelper
   end
 
   def relationship_from_gender(gender)
-    if gender == 'male'
+    if 'male' == gender
       '儿子'
     else
       '女儿'

@@ -78,6 +78,7 @@ coverage
 /public/packs-test
 /node_modules
 
+.idea/
 
 .env
 .env.development
