@@ -218,9 +218,6 @@ GEM
       activerecord
       kaminari-core (= 1.0.1)
     kaminari-core (1.0.1)
-    kramdown (1.16.2)
-    kramdown-rails (0.1.4)
-      kramdown
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -230,6 +227,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    markdown-rails (0.2.1)
+      rails
+      rdiscount (>= 1.6.8, < 2.0)
     method_source (0.8.2)
     mime-types (2.99.3)
     mini_magick (4.7.0)
@@ -323,6 +323,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
+    rdiscount (1.6.8)
     redis (3.3.5)
     redis-namespace (1.6.0)
       redis (>= 3.0.4)
@@ -491,9 +492,8 @@ DEPENDENCIES
   jquery-validation-rails
   jwt
   kaminari
-  kramdown (~> 1.16, >= 1.16.2)
-  kramdown-rails (~> 0.1.4)
   listen (>= 3.0.5, < 3.2)
+  markdown-rails (~> 0.2.1)
   mini_magick
   nested_form
   nifty-generators!
