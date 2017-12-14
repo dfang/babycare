@@ -15,8 +15,6 @@ gem 'redis-namespace'
 gem 'sidekiq'
 gem 'sinatra'
 
-gem 'foreman', group: :development
-
 gem 'webpacker'
 
 gem 'wisper', '2.0.0'
@@ -38,7 +36,9 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
-gem 'colorize'
+# yet another Markdown parser, favored by github
+gem 'kramdown', '~> 1.16', '>= 1.16.2'
+gem 'kramdown-rails', '~> 0.1.4'
 
 gem 'groupify'
 
@@ -102,6 +102,8 @@ gem 'omniauth-wechat-oauth2'
 
 gem 'puma', '~> 3.7'
 gem 'whenever', require: false
+
+gem 'foreman', group: :development
 
 group :development, :test do
   gem 'ffaker'

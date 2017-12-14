@@ -118,7 +118,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     config (1.4.0)
       activesupport (>= 3.0)
@@ -219,6 +218,9 @@ GEM
       activerecord
       kaminari-core (= 1.0.1)
     kaminari-core (1.0.1)
+    kramdown (1.16.2)
+    kramdown-rails (0.1.4)
+      kramdown
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -468,7 +470,6 @@ DEPENDENCIES
   carrierwave-qiniu
   china_region_fu
   coffee-rails (~> 4.2)
-  colorize
   config
   database_cleaner
   devise
@@ -490,6 +491,8 @@ DEPENDENCIES
   jquery-validation-rails
   jwt
   kaminari
+  kramdown (~> 1.16, >= 1.16.2)
+  kramdown-rails (~> 0.1.4)
   listen (>= 3.0.5, < 3.2)
   mini_magick
   nested_form
