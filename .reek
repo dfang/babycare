@@ -1,0 +1,8 @@
+# https://github.com/troessner/reek
+
+---
+IrresponsibleModule:
+  enabled: false
+
+exclude_paths:
+  - db/
