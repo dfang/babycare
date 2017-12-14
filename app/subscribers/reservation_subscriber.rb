@@ -9,10 +9,8 @@ class ReservationSubscriber
     def after_prepaid(reservation)
       # TODO
       Rails.logger.info "#{reservation}"
-
       # 开发或者Staging模式下 自动分配给空闲的医生 方便测试
       AutoAssignReservation.perform_later
-
       # 通知抢单制  现在分配制
       # Doctor.verified.find_each do |doctor|
       #   SmsNotifyAllWhenNewReservationJob.perform_now(doctor.mobile_phone, reservation.patient_user_name)
