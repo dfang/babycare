@@ -50,7 +50,7 @@ class User < OdooRecord
 
   def self.create_wechat_user(wechat_session)
     avatar = wechat_session.headimgurl
-    avatar = return '/none-avatar.png' if avatar == '/0'
+    avatar = '/none-avatar.png' if avatar == '/0'
 
     User.create(
       name: wechat_session.nickname,

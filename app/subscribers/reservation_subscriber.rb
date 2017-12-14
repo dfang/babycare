@@ -6,8 +6,9 @@ class ReservationSubscriber
       ReservationBroadcastJob.perform_now reservation
     end
 
-    def reservation_prepay_successful(_reservation)
-      Rails.logger.info 'notify somebody reservation_prepay_successful'
+    def after_prepaid(reservation)
+      # TODO
+      Rails.logger.info "#{reservation}"
 
       # 开发或者Staging模式下 自动分配给空闲的医生 方便测试
       AutoAssignReservation.perform_later
@@ -18,18 +19,26 @@ class ReservationSubscriber
       # end
     end
 
-    def reservation_reserve_successful(reservation)
-      Rails.logger.info 'notify somebody reservation_reserve_successful'
-      params = [reservation.doctor_user_name, reservation.reserved_time, reservation.reserved_location]
-      SmsNotifyUserWhenReservedJob.perform_now(reservation.patient_user_phone, params)
+    # def reservation_reserve_successful(reservation)
+    #   Rails.logger.info 'notify somebody reservation_reserve_successful'
+    #   params = [reservation.doctor_user_name, reservation.reserved_time, reservation.reserved_location]
+    #   SmsNotifyUserWhenReservedJob.perform_now(reservation.patient_user_phone, params)
+    # end
+
+    def after_reserved_to_examine
+      # TODO
     end
 
-    def reservation_diagnose_successful(reservation)
+    def after_reserved_to_consult
+      # TODO
+    end
+
+    def after_diagnosed(reservation)
       Rails.logger.info 'notify somebody reservation_diagnose_successful'
       SmsNotifyUserWhenDiagnosedJob.perform_now(reservation.patient_user_phone, Settings.sms_templates.notify_user_when_diagnosed)
     end
 
-    def reservation_pay_successful(reservation)
+    def after_paid(reservation)
       Rails.logger.info 'notify somebody reservation_pay_successful'
       ActiveRecord::Base.transaction do
         # increase doctor's income
@@ -42,8 +51,8 @@ class ReservationSubscriber
       SmsNotifyDoctorWhenPaidJob.perform_now(reservation.doctor_user_phone, params)
     end
 
-    def reservation_rate_successful(_reservation)
-      Rails.logger.info 'notify somebody reservation_rate_successful'
+    def after_rated(reservation)
+      Rails.logger.info "#{reservation}"
     end
   end
 end
