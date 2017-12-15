@@ -5,3 +5,5 @@ notifications:
     rooms:
       - shouzheng:wfxDRgzppubfbLfilYQY1wtZ#travisci
       - shouzheng:wfxDRgzppubfbLfilYQY1wtZ#general
+env:
+  RAILS_ENV=staging
