@@ -1,4 +1,3 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 # config valid only for Capistrano 3.1

@@ -6,7 +6,7 @@ class Admin::DoctorsController < Admin::BaseController
   def show; end
 
   def confirm
-    resource.verify! if params.key?(:id)
+    resource.verify if params.key?(:id)
     redirect_to(admin_doctors_path) && return
   end
 end

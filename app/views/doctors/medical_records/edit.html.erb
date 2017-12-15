@@ -1,4 +1,13 @@
 <%= form_for resource, url: doctors_medical_record_path(resource), method: 'put' do |f| %>
+  <div class="weui-cells__title">主诉</div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <%= f.text_area :chief_complaint, class: 'weui-textarea', rows: '3', placeholder: '请填写主诉信息' %>
+        </div>
+    </div>
+  </div>
+
   <div class="weui-cells__title">咨询意见</div>
   <div class="weui-cells weui-cells_form">
     <div class="weui-cell">

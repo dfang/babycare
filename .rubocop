@@ -1,3 +1,5 @@
 --display-cop-names
 --extra-details
 --display-style-guide
+--rails
+--auto-gen-config

@@ -1,0 +1,38 @@
+<div class="weui-panel weui-panel_access" id="base-info">
+  <div class="weui-panel__hd">预约信息</div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+        <p>预约时间</p>
+    </div>
+    <div class="weui-cell__ft">
+      <% if resource.d_date.present? %>
+        <%= date_format(resource.d_date) %>
+      <% else %>
+        <%= date_format(resource.p_date) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">预约地点</h4>
+    <p class="weui-media-box__desc">
+      <% if resource.d_location.present? %>
+        <%= resource.d_location %>
+      <% else %>
+        <%= resource.p_location %>
+      <% end %>
+    </p>
+  </div>
+
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">症状描述</h4>
+    <p class="weui-media-box__desc"><%= resource.chief_complains %></p>
+  </div>
+  <div class="weui-panel__ft">
+    <%= link_to chief_complains_patients_reservations_path(id: resource), class: "weui-cell weui-cell_access weui-cell_link"  do %>
+      <div class="weui-cell__bd">查看更多</div>
+      <span class="weui-cell__ft"></span>
+    <% end %>
+  </div>
+</div>

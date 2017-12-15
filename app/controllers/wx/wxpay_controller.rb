@@ -4,6 +4,7 @@ class Wx::WxpayController < ApplicationController
   # protect_from_forgery unless: -> { request.format.json? || request.format.xml? }
   skip_before_action :verify_authenticity_token
   before_action :find_reservation, only: :payment
+  before_action :authenticate_user!, only: :payment
   before_action :query_order_result, only: :payment_notify
   before_action :query_payment_reservation, only: :payment_notify
 
@@ -17,10 +18,10 @@ class Wx::WxpayController < ApplicationController
       fee = (Settings.wx_pay.pay_amount * 100).to_i
       @reservation.pay_fee = fee
     else
-      redirect_to patients_reservation_path(@reservation) and return
+      redirect_to(patients_reservation_path(@reservation)) && return
     end
 
-    Rails.logger.info "需要支付的费用fee是#{fee}分"
+    Rails.logger.info "需要支付的费用fee是#{fee}分".red
 
     # 预约定金 TO_BE_TESTED
     # if @reservation.out_trade_prepay_no.blank? && @reservation.reserved?
@@ -36,7 +37,7 @@ class Wx::WxpayController < ApplicationController
 
     out_trade_no = @reservation.out_trade_pay_no || @reservation.out_trade_prepay_no
 
-    Rails.logger.info "out_trade_no 是 #{out_trade_no}"
+    Rails.logger.info "out_trade_no 是 #{out_trade_no}".red
 
     # 保存商户订单号
     @reservation.save!
@@ -50,11 +51,11 @@ class Wx::WxpayController < ApplicationController
       # JSAPI支付必须传openid
       payment_params[:openid] = current_wechat_authentication.uid
 
-      Rails.logger.info  "payment_params is \n#{payment_params}"
-      Rails.logger.info  "options is \n#{options}"
+      Rails.logger.info  "payment_params is \n#{payment_params}".red
+      Rails.logger.info  "options is \n#{options}".red
 
       result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-      Rails.logger.info "invoke_unifiedorder result is \n#{result}"
+      Rails.logger.info "invoke_unifiedorder result is \n#{result}".red
 
       # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
       # js_sdk_signature_str = WxApp::WxJsSDK.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
@@ -76,7 +77,7 @@ class Wx::WxpayController < ApplicationController
         paySign:   js_pay_params.delete(:paySign)
       }
 
-      Rails.logger.info '@order_params is .........'
+      Rails.logger.info '@order_params is ......... \n'.red
       Rails.logger.info @order_params
     end
   end
@@ -85,12 +86,14 @@ class Wx::WxpayController < ApplicationController
   # // 示例报文
   # // String xml = "<xml><appid><![CDATA[wxb4dc385f953b356e]]></appid><bank_type><![CDATA[CCB_CREDIT]]></bank_type><cash_fee><![CDATA[1]]></cash_fee><fee_type><![CDATA[CNY]]></fee_type><is_subscribe><![CDATA[Y]]></is_subscribe><mch_id><![CDATA[1228442802]]></mch_id><nonce_str><![CDATA[1002477130]]></nonce_str><openid><![CDATA[o-HREuJzRr3moMvv990VdfnQ8x4k]]></openid><out_trade_no><![CDATA[1000000000051249]]></out_trade_no><result_code><![CDATA[SUCCESS]]></result_code><return_code><![CDATA[SUCCESS]]></return_code><sign><![CDATA[1269E03E43F2B8C388A414EDAE185CEE]]></sign><time_end><![CDATA[20150324100405]]></time_end><total_fee>1</total_fee><trade_type><![CDATA[JSAPI]]></trade_type><transaction_id><![CDATA[1009530574201503240036299496]]></transaction_id></xml>";
   def payment_notify
-    Rails.logger.info 'trigger prepay or pay event'
-    if @reservation && @reservation.to_prepay?
+    if @reservation&.to_prepay?
+      Rails.logger.info 'trigger prepay event'.red
       @reservation.prepay!
-    elsif @reservation && @reservation.to_pay?
+    elsif @reservation&.to_pay?
+      Rails.logger.info 'trigger pay event'.red
       @reservation.pay!
     end
+    head :ok
   end
 
   private
@@ -101,14 +104,16 @@ class Wx::WxpayController < ApplicationController
 
   def query_order_result
     response_obj = Hash.from_xml(request.body.read)
-    p 'payment notify result'
+    Rails.logger.info 'payment notify result ....'.red
     p response_obj
     params = {
       transaction_id: response_obj['xml']['transaction_id']
     }
     options = WxApp::WxJsSDK.generate_payment_options
+    Rails.logger.info "params is \n #{params}".red
+    Rails.logger.info "options is \n #{options}".red
     @order_query_result = WxPay::Service.order_query(params, options)
-    Rails.logger.info "order query result .......\n #{@order_query_result}"
+    Rails.logger.info "order query result ....... \n #{@order_query_result}".red
     return unless @order_query_result['return_code'] == 'SUCCESS'
   end
 

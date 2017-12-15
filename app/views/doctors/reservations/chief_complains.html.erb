@@ -1,0 +1,19 @@
+<!-- 症状详情 -->
+<article class="weui-article">
+    <section>
+        <p>
+            <%= resource.chief_complains %>
+        </p>
+        <p>
+            <% if resource.reservation_images.any?  %>
+              <% resource.reservation_images.each do |image| %>
+                <%= image_tag image.data %>
+              <% end %>
+            <% end %>
+        </p>
+    </section>
+</article>
+
+<div class="weui-btn-area">
+  <%= link_to "返回", doctors_reservation_path(resource), class: "weui-btn weui-btn_primary" %>
+</div>

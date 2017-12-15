@@ -1,0 +1,41 @@
+<% resource.reservation_examinations.each_with_index do |re, index| %>
+  <% reservation_examinations_attributes = "reservation_examinations_attributes["+ index.to_s + "][id]" %>
+
+  <div class="weui-cells">
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+        <div class="weui-uploader">
+          <div class="weui-uploader__hd">
+            <p class="weui-uploader__title"><%= re.examination.name %></p>
+            <%= hidden_field_tag reservation_examinations_attributes, re.id %>
+          </div>
+          <div class="weui-uploader__bd">
+            <ul class="weui-uploader__files" id="uploaderFiles[<%= index %>]">
+              <%- if re.reservation_examination_images.any? %>
+                  <%- re.reservation_examination_images.each do |img| %>
+                    <li class="weui-uploader__file" style="background-image:url(<%= img.data %>)" id="li<%=img.id%>">
+                      <div class="weui-gallery" id="gallery" style="display: none;">
+                          <span class="weui-gallery__img" id="galleryImg" style="background-image:url(<%= img.data %>)"></span>
+                      </div>
+                    </li>
+                  <% end %>
+              <% else %>
+                <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+<div class="weui-btn-area">
+  <%= link_to "确定", doctors_reservation_path(resource), class: "weui-btn weui-btn_primary" %>
+</div>
+
+<%- content_for :js  do %>
+  <%= javascript_pack_tag 'config_js_sdk',  'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'examination_images_uploader',  'data-turbolinks-track': 'reload' %>
+<% end %>

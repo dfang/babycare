@@ -27,5 +27,5 @@ Rails.application.config.assets.precompile += %w[bootstrap_fontawesome]
 # String#match? and Regexp#match? are Ruby 2.4 new methods
 
 Rails.application.config.assets.precompile << proc { |path|
-  true if path =~ /\.(eot|svg|ttf|woff)\z/
+  true if path.match?(/\.(eot|svg|ttf|woff)\z/)
 }

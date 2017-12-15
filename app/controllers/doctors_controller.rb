@@ -24,7 +24,7 @@ class DoctorsController < InheritedResources::Base
   end
 
   def new
-    if current_user && current_user.doctor.present?
+    if current_user&.doctor.present?
       @doctor = current_user.doctor
       if @doctor.verified?
         # redirect_to status_doctor_path(@doctor)
@@ -121,8 +121,6 @@ class DoctorsController < InheritedResources::Base
   def set_doctor
     @doctor = if current_user.doctor.present?
                 current_user.doctor
-              # elsif params.key?(:id)
-              #   @doctor = Doctor.find(params[:id])
               else
                 Doctor.new
               end

@@ -8,4 +8,8 @@
 *= require ./custom
 *= require ./reservations
 *= require ./qrcode
+*= require ./products
+*= require ./pages
+*= require ./home
+*= require ./swiper-3.4.2.min
 */

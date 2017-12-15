@@ -1,0 +1,19 @@
+<% if resource.medical_record.present? %>
+  <div class="weui-panel weui-panel_access" id="diagnosis">
+      <div class="weui-panel__hd">咨询信息</div>
+      <div class="weui-panel__bd">
+          <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">主诉</h4>
+              <p class="weui-media-box__desc"><%= resource.medical_record.chief_complaint %></p>
+          </div>
+          <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">咨询意见</h4>
+              <p class="weui-media-box__desc"><%= resource.medical_record.preliminary_diagnosis %></p>
+          </div>
+          <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">处置意见</h4>
+              <p class="weui-media-box__desc"><%= resource.medical_record.treatment_recommendation %></p>
+          </div>
+      </div>
+  </div>
+<% end %>

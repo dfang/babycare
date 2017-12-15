@@ -1,43 +1,7 @@
-<div class="weui-cells">
-  <div class="weui-cell">
-    <div class="weui-cell__bd">
-        <p>预约时间</p>
-    </div>
-    <div class="weui-cell__ft">
-      <%= resource.p_date %>
-    </div>
-  </div>
-
-  <div class="weui-cell">
-    <div class="weui-cell__bd">
-        <p>预约地点</p>
-    </div>
-    <div class="weui-cell__ft">
-      <% if resource.d_location.present? %>
-        <%= resource.d_location %>
-      <% else %>
-        <%= resource.p_location %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="weui-cell">
-      <div class="weui-cell__bd">
-          <p>症状描述</p>
-      </div>
-      <div class="chief-complains_img">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="">
-      </div>
-      <div class="chief-complains">
-        <%= resource.chief_complains %>
-      </div>
-  </div>
-
-</div>
+<%= render 'base_info' %>
 
 <div class="weui-btn-area">
   <%= link_to "支付定金", wx_payment_path(reservation_id: resource), class: "weui-btn weui-btn_primary" %>
-  <!-- <%= link_to "取消预约", patients_reservation_path(resource), method: 'DELETE', class: 'weui-btn weui-btn_default', id: 'deleteReservation' %> -->
   <a href="javascript:;" class="weui-btn weui-btn_default" id="showIOSDialog1">取消预约</a>
 </div>
 
@@ -49,9 +13,7 @@
               <div class="weui-dialog__bd">取消预约将删除此次预约信息</div>
               <div class="weui-dialog__ft">
                   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">返回</a>
-                  <!-- <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确认</a> -->
                   <%= link_to "确认", patients_reservation_path(resource), method: 'DELETE', class: 'weui-dialog__btn weui-dialog__btn_warn', style: 'color: red;' %>
-
               </div>
           </div>
       </div>

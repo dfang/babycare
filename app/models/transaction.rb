@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Transaction < ActiveRecord::Base
+class Transaction < OdooRecord
+  self.table_name = 'fa_transaction'
+
   include AASM
   extend Enumerize
 
@@ -11,7 +13,7 @@ class Transaction < ActiveRecord::Base
   aasm do
     state :pending, initial: true
     state :settled
-    event :settle, after_commit: :after_settled! do
+    event :settle, after_commit: :after_settled do
       transitions from: :pending, to: :settled
     end
   end
@@ -44,7 +46,7 @@ class Transaction < ActiveRecord::Base
   # # 结算transaction的时候
   # decrease_balance_unwithdrawable
   # increase_balance_withdrawable
-  def after_settled!
+  def after_settled
     ActiveRecord::Base.transaction do
       user.decrease_balance_unwithdrawable(amount)
       user.increase_balance_withdrawable(amount)

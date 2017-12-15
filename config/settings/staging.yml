@@ -1,17 +1,8 @@
 weixin:
   app_id: wxfa3c7a8dc6ad872d
-  app_secret: abfe46bde1a4054bc656e92ffafd0a82
-  token: yibutianxia
+  app_secret: d20017912cc6a5977bf283ab58ffe409
+  token: bjk_staging
 
-weixin_jssdk:
-  app_id: wxfa3c7a8dc6ad872d
-  app_secret: abfe46bde1a4054bc656e92ffafd0a82
-  token: yibutianxia
-
-qingmayun:
-  SoftVersion: "20141029"
-  sid: "38f3b667945d4783b937e10158bb9d3b"
-  token: "3e31b1fb36b3428082a3cffc13cacf4b"
 
 wx_pay:
   app_id: wxfa3c7a8dc6ad872d
@@ -26,3 +17,17 @@ wx_pay:
   # 这里的单位是元
   prepay_amount: 0.01
   pay_amount: 0.01
+
+ronglian:
+  SoftVersion: "2013-12-26"
+  AccountSid: "8a216da85600ef240156029396a2034d"
+  AccountAuthToken: "018d28d0eb364ebd8a103e3dc2702ceb"
+  subAccountSid: "05a5f0ab4fdc11e6bb9bac853d9f54f2"
+  subAccountAuthToken: "67ca5a784999ad54086ce2af7581fd0d"
+  appid: "8a216da85600ef240156029397070353"
+
+redis:
+  server_url: <%= ENV['REDIS_SERVER_URL'] %>
+
+common:
+  domain_name: 'http://wx.yhuan.cc'

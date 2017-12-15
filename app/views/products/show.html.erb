@@ -1,26 +1,21 @@
-<div class="tabbar">
-  <div class="weui-tab">
+<% content_for :title, "产品介绍" %>
 
-    <div class="weui-tab__panel">
-      <div class="panel">
-        <div class="page__hd">
-          <h1 class="page__title">服务介绍页面</h1>
-          <p class="page__desc">这里是服务介绍页面啊</p>
+<article class="weui-article">
+    <h1>医护上门服务</h1>
+    <section>
+        <h5 class="title">宝健康提供针对0～3岁儿童用户同城线下医护上门的服务。</h5>
+        <section id="section1">
+            <h3>服务内容:</h3>
+            <hr />
+            <p>
+                用户通过宝健康微信服务号进行预约，宝健康后台迅速为用户建立专属的医疗团队。
+                通过线上沟通了解宝宝的病情，为用户进行需求评估。确认可以提供上门服务后，儿科医
+                生助理和儿科护士上门，进行面对面的详细询问病史和体格检查。通过视频连线儿科医生，
+                对宝宝病情做更为准确的的判断，并提供咨询建议。
+            </p>
+        </section>
+        <div class="weui-btn-area">
+          <%= link_to "立即预约", new_reservation_path(member_id: params[:member_id]), class: 'weui-btn weui-btn_primary' %>
         </div>
-
-
-        <div class="page__bd">
-          <p> 见面咨询咨询 </p>
-          <p> 描述下见面咨询
-            <div class="weui-msg__opr-area">
-              <p class="weui-btn-area">
-                <%= link_to "立即预约", new_reservation_path(member_id: params[:member_id]), class: 'weui-btn weui-btn_primary' %>
-              </p>
-            </div>
-        </div>
-      </div>
-
-    <%=  render 'patients/tab_bar' %>
-
-  </div>
-</div>
+    </section>
+</article>

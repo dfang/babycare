@@ -34,7 +34,8 @@ wx.ready( () => {
               // var toStr = JSON.stringify(json);
               console.log(json.result.address)
               if (json.status == 0) {
-                $('textarea[name="reservation[p_location]"]').val(json.result.address)
+                // $('textarea[name="reservation[p_location]"]').val(json.result.address)
+                $('#location').val(json.result.address)
               }
             },
             error: function (err) {
