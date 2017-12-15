@@ -8,20 +8,3 @@
 // layout file, like app/views/layouts/application.html.erb
 
 // console.log('Hello World from Webpacker/Yarn')
-
-
-// import './config_js_sdk'
-import wx from 'wechat-jssdk-promise';
-
-
-// extends wx.getLocalImgData
-wx.getLocalImgDataAsync = function (params) {
-  params = params || {};
-  return new Promise(function (resolve, reject) {
-    params.success = resolve;
-    params.fail = function (res) {
-      reject(new Error(res.errMsg));
-    };
-    wx.getLocalImgData(params);
-  });
-};

@@ -1,4 +1,3 @@
-# encoding: utf-8
 # frozen_string_literal: true
 
 require 'base64'
@@ -41,7 +40,7 @@ module IM
                     })
     end
 
-    def self.send_sms(mobile, _code)
+    def self.send_sms(_mobile, _code)
       mobile = '15618903080'
       code = (0...6).map { (65 + rand(26)).chr }.join
       url = 'https://api.netease.im/sms/sendcode.action'

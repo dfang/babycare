@@ -16,8 +16,6 @@ zh-CN:
         1: "女"
         male: "男"
         female: "女"
-        male: "儿子"
-        female: "女儿"
       aasm_state:
         to_prepay: "待支付定金"
         prepaid: "匹配中"
@@ -38,8 +36,8 @@ zh-CN:
         # rated: 已评价
     reservations:
       gender:
-        male: "儿子"
-        female: "女儿"
+        male: "男"
+        female: "女"
       aasm_state:
         pending: 待支付定金
         reserved: 已接单

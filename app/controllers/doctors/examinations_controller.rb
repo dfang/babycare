@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Doctors::ExaminationsController < ApplicationController
   before_action -> { authenticate_user!(force: true) }
 
-  before_action :find_reservation , only: [:new, :edit]
-  before_action :prepare_checkboxs_data , only: [:new, :edit]
+  before_action :find_reservation, only: %i[new edit]
+  before_action :prepare_checkboxs_data, only: %i[new edit]
 
   def new
     @reservation_examination = ReservationExamination.new
@@ -10,14 +12,13 @@ class Doctors::ExaminationsController < ApplicationController
   end
 
   def create
-    reservation_id = params["reservation_id"]
-    ids = params["reservation_examination"]["examination_id"].delete_if {|x| x.blank?}
+    reservation_id = params['reservation_id']
+    ids = params['reservation_examination']['examination_id'].delete_if(&:blank?)
     ids.each do |examination_id|
       ReservationExamination.create(reservation_id: reservation_id, examination_id: examination_id)
     end
 
-    redirect_to doctors_reservation_path(reservation_id) and return
-
+    redirect_to(doctors_reservation_path(reservation_id)) && return
   end
 
   def edit
@@ -26,8 +27,8 @@ class Doctors::ExaminationsController < ApplicationController
   end
 
   def update
-    reservation_id = params["reservation_id"]
-    ids = params["reservation_examination"]["examination_id"].delete_if {|x| x.blank?}
+    reservation_id = params['reservation_id']
+    ids = params['reservation_examination']['examination_id'].delete_if(&:blank?)
 
     @reservation = Reservation.find_by(id: params[:reservation_id])
     @reservation.reservation_examinations.delete_all
@@ -36,7 +37,7 @@ class Doctors::ExaminationsController < ApplicationController
       ReservationExamination.create(reservation_id: reservation_id, examination_id: examination_id)
     end
 
-    redirect_to doctors_reservation_path(reservation_id) and return
+    redirect_to(doctors_reservation_path(reservation_id)) && return
   end
 
   private

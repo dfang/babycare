@@ -1,52 +1,59 @@
-<div class="weui-cells">
+<div class="weui-panel weui-panel_access" id="base-info">
+  <div class="weui-panel__hd">患者预约信息</div>
+
   <div class="weui-cell">
     <div class="weui-cell__bd">
         <p>期望时间</p>
     </div>
-    <div class="weui-cell__ft"><%= resource.p_date %></div>
+    <div class="weui-cell__ft"><%= date_format(resource.p_date) %></div>
   </div>
 
-  <div class="weui-cell">
-    <div class="weui-cell__bd">
-        <p>患者位置</p>
-    </div>
-    <div class="weui-cell__ft">
-      <%= resource.p_location %>
-    </div>
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">期望地点</h4>
+    <p class="weui-media-box__desc"><%= resource.p_location %></p>
   </div>
 
-  <div class="weui-cell">
-    <div class="weui-cell__bd">
-        <p>症状描述</p>
-    </div>
-    <div class="chief-complains_img"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:58px;margin-right:5px;display:block"></div>
-    <div class="chief-complains"><%= resource.chief_complains %></div>
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">症状描述</h4>
+    <p class="weui-media-box__desc"><%= resource.chief_complains %></p>
   </div>
-</div>
-
-
-<div class="weui-cells">
-  <div class="weui-cell">
-    <div class="weui-cell__hd">
-      <p>预约时间</p>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" name="reservation[d_date]" placeholder="患者来见你的时间" type="datetime-local"  data-parsley-required="true">
-    </div>
-  </div>
-
-  <div class="weui-cell">
-    <div class="weui-cell__hd">
-      <p>预约地点</p>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <input class="weui-input" name="reservation[d_location]" placeholder="患者来见你的位置" type="text"  data-parsley-required="true">
-    </div>
+  <div class="weui-panel__ft">
+    <%= link_to chief_complains_doctors_reservations_path(id: resource), class: "weui-cell weui-cell_access weui-cell_link"  do %>
+      <div class="weui-cell__bd">查看更多</div>
+      <span class="weui-cell__ft"></span>
+    <% end %>
   </div>
 </div>
 
-<div class="weui-cells weui-cells_form">
+<div class="weui-panel weui-panel_access" id="doctor-reservation">
+  <div class="weui-panel__hd">您的预约信息</div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd">
+      <label class="weui-label">时间</label>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <input class="weui-input" name="reservation[d_date]" placeholder="您想预约的时间" type="datetime-local" value="" data-parsley-required="true">
+    </div>
+  </div>
 
+  <div class="weui-cell weui-cell_vcode">
+      <div class="weui-cell__hd">
+          <label class="weui-label">地点</label>
+      </div>
+      <div class="weui-cell__bd">
+      </div>
+      <div class="weui-cell__ft">
+        <a href="javascript:void(0)" class="weui-vcode-btn">定位</a>
+      </div>
+  </div>
+  <div class="weui-cell">
+      <div class="weui-cell__bd">
+          <textarea class="weui-textarea"  id="location" name="reservation[d_location]" data-parsley-required="true" placeholder="请输入您的地址或您想预约见面的地点" rows="2"><%= current_user.location %></textarea>
+      </div>
+  </div>
+</div>
+
+<div class="weui-panel weui-panel_access" id="examinations">
   <div class="weui-cell weui-cell_switch">
       <div class="weui-cell__bd">检查项目</div>
       <div class="weui-cell__ft">
@@ -85,7 +92,6 @@
       </div>
     <% end %>
   <% end %>
-
 
 </div>
 
@@ -132,4 +138,6 @@
       <% end %>
     })
   <% end %>
+  <%= javascript_pack_tag 'config_js_sdk',  'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'reservation_new',  'data-turbolinks-track': 'reload' %>
 <% end %>

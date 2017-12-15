@@ -2,7 +2,7 @@
 
 class Patients::BaseController < InheritedResources::Base
   # FIXIT: 要区分请求端
-  before_action :authenticate_request! , if: -> { json_request? }
+  before_action :authenticate_request!, if: -> { json_request? }
   before_action -> { authenticate_user!(force: true) }
   before_action :deny_doctors
 

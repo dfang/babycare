@@ -6,6 +6,8 @@ require Rails.root.join('lib', 'extras', 'browser')
 class ApplicationController < ActionController::Base
   include Devise::Controllers::Helpers
 
+  before_action :authenticate_user!, only: :current_wechat_authentication
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -46,26 +48,27 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
   def authenticate_request!
     unless unionid_in_token?
       render json: { errors: ['Not Authenticated'] }, status: :unauthorized
       return
     end
-    authentication = Authentication.find_by_unionid(auth_token[:unionid])
+    authentication = Authentication.find_by(unionid: auth_token[:unionid])
     @current_user = authentication.user
     Rails.logger.info 'sign innnnnn'
 
     sign_in(@current_user)
-
   rescue JWT::VerificationError, JWT::DecodeError
     render json: { errors: ['Not Authenticated'] }, status: :unauthorized
   end
 
   private
+
   def web_token
-      @web_token ||= if request.headers['Authorization'].present?
-        request.headers['Authorization'].split(' ').last
-      end
+    @web_token ||=  if request.headers['Authorization'].present?
+                      request.headers['Authorization'].split(' ').last
+                    end
   end
 
   def auth_token

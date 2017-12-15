@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+ENV['RAILS_ENV'] = 'development'
+ENV['RAILS_LOG_TO_STDOUT'] = 'true'
+ENV['RAILS_SERVE_STATIC_FILES'] = 'true'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -28,10 +32,18 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  end
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+
+  config.active_job.queue_adapter = :sidekiq
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

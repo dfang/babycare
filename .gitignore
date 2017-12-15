@@ -77,3 +77,11 @@ coverage
 /public/packs
 /public/packs-test
 /node_modules
+
+.idea/
+
+.env
+.env.development
+.env.staging
+.env.production
+!.env.example

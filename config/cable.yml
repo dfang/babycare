@@ -3,14 +3,19 @@
 
 redis: &redis
   adapter: redis
-  url: redis://localhost:6379/1
+  url: <%= Settings.redis.server_url %>
 
 development: *redis
 
 test:
   adapter: async
 
+staging:
+  adapter: redis
+  url: <%= Settings.redis.server_url %>
+  channel_prefix: staging
+
 production:
   adapter: redis
-  url: redis://localhost:6379/1
-  channel_prefix: fusion_admin_production
+  url: <%= Settings.redis.server_url %>
+  channel_prefix: production

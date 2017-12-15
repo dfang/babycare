@@ -1,8 +1,6 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   namespace :doctors do
     get 'reservation_examinations/new'
     get 'reservation_examinations/update'
@@ -23,6 +21,10 @@ Rails.application.routes.draw do
   get 'home/hospitals'
   get 'home/doctors'
   get 'home/hospital'
+
+  get '/terms', to: 'page#terms'
+  get '/support', to: 'page#support'
+  get '/feedback', to: 'page#feedback'
 
   get 'payment/pay'
   get 'global/status'
@@ -73,11 +75,13 @@ Rails.application.routes.draw do
       # put 'claim', on: :member
       # put 'complete_offline_consult', on: :member
       # put 'complete_online_consult', on: :member
+      get 'chief_complains', on: :collection
+      get 'examinations_review', on: :collection
     end
 
     resources :ratings
 
-    resources :examinations, only: [:new, :edit, :update, :create, :destroy] do
+    resources :examinations, only: %i[new edit update create destroy] do
       # 这里的路由没有按照restful来，一定要传reservtion_id
       # doctors/examinations/new?reservation_id
       # doctors/examinations/edit?reservation_id
@@ -116,6 +120,8 @@ Rails.application.routes.draw do
       post 'payment_notify', on: :collection
       delete 'cancel', on: :member
       get 'status', on: :member
+      get 'examinations_uploader', on: :collection
+      get 'chief_complains', on: :collection
     end
     get 'profile'
     get 'status'
@@ -160,37 +166,10 @@ Rails.application.routes.draw do
     sessions: 'admin/users/sessions'
   }
 
-  namespace :admin do
-    get 'images/create'
-
-    resources :people do
-      resources :medical_records
-    end
-    resources :medical_records
-    resources :checkins
-    resources :symptoms
-    resources :wx_menus do
-      collection do
-        get 'sync'
-        get 'load_remote'
-      end
-    end
-
-    resources :doctors do
-      put :confirm, on: :member
-    end
-
-    resources :posts do
-      put :publish, on: :member
-    end
-    resources :images, only: :create
-    root 'dashboard#index'
-    resources :users
-    get 'dashboard' => 'dashboard#index'
-    get 'customizer' => 'dashboard#customizer'
-  end
-
   mount ActionCable.server => '/cable'
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

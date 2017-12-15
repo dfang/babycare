@@ -15,15 +15,14 @@ test:
   <<: *default
   database: fusion_admin_test
 
+staging:
+  <<: *default
+  database: fusion_admin_staging
+
 production:
   <<: *default
   database: fusion_admin_production
 
-staging:
-  <<: *default
-  database: fusion_admin_production
-
-# psql -h 192.168.31.51 -p 5432 -U odoo -d odoo
 odoo: &odoo
   adapter: postgresql
   encoding: utf8
@@ -34,7 +33,11 @@ odoo: &odoo
 
 odoo_development:
   <<: *odoo
-  database: odoo_production
+  database: odoo_development
+
+odoo_staging:
+  <<: *odoo
+  database: odoo_staging
 
 odoo_test:
   <<: *odoo
@@ -44,6 +47,3 @@ odoo_production:
   <<: *odoo
   database: odoo_production
 
-odoo_staging:
-  <<: *odoo
-  database: odoo_production

@@ -11,16 +11,15 @@ class Doctors::ReservationsController < InheritedResources::Base
   def index
     Rails.logger.info params
 
-
-    if params.key?(:aasm_state)
-      # 医生我要接单页面
-      # /doctors/reservations?aasm_state=prepaid
-      @reservations = current_user.doctor.reservations.prepaid
-    else
-      # 医生的所有预约页面
-      # /doctors/reservations
-      @reservations = current_user.doctor.reservations
-    end
+    @reservations = if params.key?(:aasm_state)
+                      # 医生我要接单页面
+                      # /doctors/reservations?aasm_state=prepaid
+                      current_user.doctor.reservations.prepaid
+                    else
+                      # 医生的所有预约页面
+                      # /doctors/reservations
+                      current_user.doctor.reservations.select { |r| !r.prepaid? }
+                    end
     # p params
     # if params.key?(:id)
     #   # /doctors/patients/22/reservations
@@ -52,9 +51,7 @@ class Doctors::ReservationsController < InheritedResources::Base
     if reservation_params.key?(:event) && reservation_params.delete(:event) == 'claim'
 
       has_examinations = reservation_params.delete(:examinations)
-      if has_examinations == "off"
-        resource.reservation_examinations.delete_all
-      end
+      resource.reservation_examinations.delete_all if has_examinations == 'off'
 
       resource.update(reservation_params.except(:event))
 
@@ -105,6 +102,8 @@ class Doctors::ReservationsController < InheritedResources::Base
 
     redirect_to(doctors_reservation_path(resource)) && return
   end
+
+  def chief_complains; end
 
   private
 

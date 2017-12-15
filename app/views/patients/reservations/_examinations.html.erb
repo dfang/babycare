@@ -1,0 +1,21 @@
+<% if resource.reservation_examinations.any? %>
+  <div class="weui-panel weui-panel_access" id="examinations">
+    <div class="weui-panel__hd">
+      检查项目
+    </div>
+    <% resource.reservation_examinations.each_with_index do |re, index| %>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <div class="uploader_title"><%= re.examination.name %></div>
+        </div>
+        <%= link_to examinations_uploader_patients_reservations_path(id: resource) do %>
+          <% if re.reservation_examination_images.present? %>
+            <i class="weui-icon-success"></i>
+          <% else %>
+            <i class="weui-icon-info-circle"></i>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

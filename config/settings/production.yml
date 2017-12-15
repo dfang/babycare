@@ -1,20 +1,8 @@
 weixin:
   app_id: wxa887ef8490361f68
   app_secret: edec276827d57e92206db85f88d77db5
-  token: yibutianxia
+  token: babycare
 
-weixin_jssdk:
-  app_id: wxa887ef8490361f68
-  app_secret: edec276827d57e92206db85f88d77db5
-  token: yibutianxia
-
-ronglian:
-  SoftVersion: "2013-12-26"
-  AccountSid: "8a216da85600ef240156029396a2034d"
-  AccountAuthToken: "018d28d0eb364ebd8a103e3dc2702ceb"
-  subAccountSid: "05a5f0ab4fdc11e6bb9bac853d9f54f2"
-  subAccountAuthToken: "67ca5a784999ad54086ce2af7581fd0d"
-  appid: "8a216da85600ef240156029397070353"
 
 wx_pay:
   app_id: wxa887ef8490361f68
@@ -27,7 +15,17 @@ wx_pay:
   prepay_amount: 0.01
   pay_amount: 0.01
 
-# 微信小程序
-weixin_mp:
-  app_id: wx218800b558d61f52
-  app_secret: 37530899a42eb9ab0db105eccdfbb2ad
+
+ronglian:
+  SoftVersion: "2013-12-26"
+  AccountSid: "8a216da85600ef240156029396a2034d"
+  AccountAuthToken: "018d28d0eb364ebd8a103e3dc2702ceb"
+  subAccountSid: "05a5f0ab4fdc11e6bb9bac853d9f54f2"
+  subAccountAuthToken: "67ca5a784999ad54086ce2af7581fd0d"
+  appid: "8a216da85600ef240156029397070353"
+
+redis:
+  server_url: <%= ENV['REDIS_SERVER_URL'] %>
+
+common:
+  domain_name: 'http://wx.baojiankang.cc'

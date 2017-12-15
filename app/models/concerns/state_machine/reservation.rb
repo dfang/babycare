@@ -6,86 +6,86 @@ module StateMachine
 
     included do
       include AASM
-      include Wisper::Publisher
-
-      after_create_commit do
-        broadcast(:reservation_create_successful, self)
-      end
+      include Wisper.model
 
       aasm do
-        state :pending, initial: true
-        state :reserved, :prepaid, :diagnosed, :paid, :rated, :archived, :overdued, :cancelled
+        state :to_prepay, initail: true
+        state :prepaid, :to_examine, :to_consult, :consulting, :to_pay, :paid, :cancelled
 
-        event :prepay, after_commit: :after_prepaid! do
-          transitions from: :pending, to: :prepaid
+        after_all_transitions :log_status_change
+
+        event :prepay, after: :after_prepaid do
+          transitions from: :to_prepay, to: :prepaid
         end
 
-        event :reserve, after_commit: :after_reserved! do
-          transitions from: :prepaid, to: :reserved, guard: :can_be_reserved?
+        event :reserve_to_examine, after: :after_reserved_to_examine do
+          transitions from: :prepaid, to: :to_examine
         end
 
-        event :diagnose, after_commit: :after_diagnosed! do
-          transitions from: :prepaid, to: :diagnosed
+        event :reserve_to_consult, after: :after_reserved_to_consult do
+          transitions from: :prepaid, to: :to_consult
         end
 
-        event :pay, after_commit: :after_paid! do
-          transitions from: :diagnosed, to: :paid
+        event :upload_examination, after: :after_examine_to_consult do
+          transitions from: :to_examine, to: :to_consult
         end
 
-        event :unreserve do
-          transitions from: :reserved, to: :pending
+        event :scan_qrcode, after: :afer_scan_qrcode do
+          transitions from: :to_consult, to: :consulting
         end
 
-        event :archive do
-          transitions from: %i[pending reserved], to: :archived
+        event :diagnose, after: :after_diagnosed do
+          transitions from: :consulting, to: :to_pay
         end
 
-        event :rate, after_commit: :after_rated! do
-          transitions from: :paid, to: :rated
+        event :pay, after: :after_paid do
+          transitions from: :to_pay, to: :paid
         end
 
-        event :cancel, after_commit: :after_cancelled! do
-          transitions from: %i[reserved prepaid pending], to: :cancelled
-        end
-
-        event :overdue, after_commit: :after_overdue! do
-          transitions from: :pending, to: :overdued
+        event :cancel, after: :after_canceled do
+          transitions from: %i[to_prepay prepaid], to: :cancelled
         end
       end
 
-      # aasm guards
-      def can_be_reserved?
-        # self.user_b.present? && self.reservation_location.present? && self.reservation_time.present? && self.reservation_phone.present?
-        # must be prepaid
-        true
+      # aasm transaction callbacks
+      def after_prepaid
+        broadcast(:after_prepaid, self)
       end
 
-      # # aasm transaction callbacks
-      def after_prepaid!
-        p 'broadcast reservation_prepay_successful'
-        broadcast(:reservation_prepay_successful, self)
-
-        # user prepay and send sms to notify doctor prepaid
-        # params1 = [ self.doctor_user_name, self.reserved_time, self.reserved_location ]
-        # params2 = [ self.patient_user_name, self.reserved_time, self.reserved_location]
-        # SmsNotifyUserWhenPrepaidJob.perform_now(self.patient_user_phone, params1)
-        # SmsNotifyDoctorWhenPrepaidJob.perform_now(self.doctor_user_phone, params2)
+      def after_reserved_to_examine
+        broadcast(:after_reserved_to_examine, self)
       end
 
-      def after_reserved!
-        broadcast(:reservation_reserve_successful, self)
+      def after_reserved_to_consult
+        broadcast(:after_reserved_to_consult, self)
       end
 
-      def after_diagnosed!
-        broadcast(:reservation_diagnose_successful, self)
+      def after_examine_to_consult
+        broadcast(:after_examine_to_consult, self)
       end
 
-      def after_paid!
-        broadcast(:reservation_pay_successful, self)
+      def afer_scan_qrcode
+        broadcast(:afer_scan_qrcode, self)
       end
 
-      def after_rated!
-        broadcast(:reservation_rate_successful, self)
+      def after_diagnosed
+        broadcast(:after_diagnosed, self)
+      end
+
+      def after_paid
+        broadcast(:after_paid, self)
+      end
+
+      def after_canceled
+        broadcast(:after_canceled, self)
+      end
+
+      def after_rated
+        broadcast(:reservation_rated, self)
+      end
+
+      def log_status_change
+        puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
       end
     end
   end
