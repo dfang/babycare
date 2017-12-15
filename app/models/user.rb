@@ -44,24 +44,6 @@ class User < OdooRecord
     assoc.has_many :reservations
   end
 
-  def wechat_authentication
-    authentications.find_by(provider: 'wechat')
-  end
-
-  def self.create_wechat_user(wechat_session)
-    avatar = wechat_session.headimgurl
-    avatar = '/none-avatar.png' if avatar == '/0'
-
-    User.create(
-      name: wechat_session.nickname,
-      email: "wx_user_#{SecureRandom.hex}@wx_email.com",
-      gender: wechat_session.sex,
-      avatar: avatar,
-      password: SecureRandom.hex
-    )
-    Rails.logger.info "user::: #{user.inspect}"
-  end
-
   def reservations
     if verified_doctor?
       Reservation.where(doctor_id: id)
@@ -167,6 +149,27 @@ class User < OdooRecord
 
   def save_qrcode!
     GenQrcodeForUserJob.perform_now(self)
+  end
+
+  def wechat_authentication
+    authentications.find_by(provider: 'wechat')
+  end
+
+  def self.create_wechat_user(wechat_session)
+    avatar = wechat_session.headimgurl
+    avatar = '/none-avatar.png' if avatar == '/0'
+    gender = if wechat_session.sex == 1
+                "male"
+             else
+                "female"
+             end
+    User.create(
+      name: wechat_session.nickname,
+      email: "wx_user_#{SecureRandom.hex}@wx_email.com",
+      gender: gender,
+      avatar: avatar,
+      password: SecureRandom.hex
+    )
   end
 
   def create_wechat_authentication(authentication)

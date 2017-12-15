@@ -137,6 +137,7 @@ class Users::SessionsController < Devise::SessionsController
               unionid:    @userinfo['unionid']
             )
           )
+
           p 'user created ###########################'
           @authentication = @user.create_wechat_authentication(provider: 'wechat',
                                                                nickname:   @userinfo['nickname'],

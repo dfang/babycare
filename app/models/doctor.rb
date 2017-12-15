@@ -4,6 +4,7 @@ class Doctor < OdooRecord
   self.table_name = 'fa_doctor'
 
   include Wisper.model
+  include AASM
 
   belongs_to :user
   # belongs_to :hospital
@@ -14,10 +15,21 @@ class Doctor < OdooRecord
   attr_accessor :terms
   validates :terms, acceptance: true
 
-  scope :verified, -> { where(verified: true) }
+  aasm do
+    # 四种状态，待审核，审核不通过,审核通过，签了合同的
+    state :pending, :initial => true
+    state :verified, :failed, :signed, :overdued
 
-  def verify
-    update(:verified, true)
-    broadcast(:doctor_verified_successful, self)
+    event :verify do
+      transitions :from => :pending, :to => :failed
+    end
+
+    event :deny do
+      transitions :from => :pending, :to => :verified
+    end
+
+    event :sign do
+      transitions :from => :verified, :to => :signed
+    end
   end
 end

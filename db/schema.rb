@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171116092814) do
+ActiveRecord::Schema.define(version: 20171215091858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,7 +110,6 @@ ActiveRecord::Schema.define(version: 20171116092814) do
     t.string "location"
     t.float "lat"
     t.float "long"
-    t.boolean "verified"
     t.date "date_of_birth"
     t.string "mobile_phone"
     t.text "remark"
@@ -130,6 +129,7 @@ ActiveRecord::Schema.define(version: 20171116092814) do
     t.string "id_card_back_media_id"
     t.string "license_front_media_id"
     t.string "license_back_media_id"
+    t.string "aasm_state"
     t.index ["user_id"], name: "index_doctors_on_user_id"
   end
 
