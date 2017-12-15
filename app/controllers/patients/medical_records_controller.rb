@@ -8,30 +8,36 @@ class Patients::MedicalRecordsController < Patients::BaseController
   respond_to :html, :json, :js
 
   def index
-    @medical_records = current_user.medical_records.order('created_at DESC')
+    if params[:family_member_id].present?
+      @family_member = User.find(params[:family_member_id])
+      @medical_records = @family_member.medical_records.order('created_at DESC')
+    else
+      @medical_records = current_user.medical_records.order('created_at DESC')
+    end
 
     respond_to do |format|
-      format.json {
-        render json: {:medical_records => @medical_records}
-      }
+      format.json do
+        render json: { medical_records: @medical_records }
+      end
+      format.html
     end
   end
 
   def create
     @medical_record = MedicalRecord.new(medical_record_params)
     @medical_record.user = current_user
-  
+
     create! do |format|
-      format.json {
-        render json: { message: "done" }, status: 200
-      }
-      format.html {
+      format.json do
+        render json: { message: 'done' }, status: 200
+      end
+      format.html do
         if @reservation.present?
           patients_reservation_path(@reservation)
         else
           patients_profile_path
         end
-      }
+      end
     end
   end
 

@@ -1,7 +1,8 @@
-class SimpleCaptcha < ApplicationRecord
+# frozen_string_literal: true
 
+class SimpleCaptcha < ApplicationRecord
   def self.gen_captcha(to)
-    captcha = Random.new.rand(100000...999999).to_s
+    captcha = Random.new.rand(100_000...999_999).to_s
     # simple_captcha = SimpleCaptcha.find_by(key: to)
 
     # 120s

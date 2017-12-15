@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class User < ActiveRecord::Base
+class User < OdooRecord
+  self.table_name = 'fa_user'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -9,12 +11,11 @@ class User < ActiveRecord::Base
   extend Enumerize
   extend ActiveModel::Naming
 
-  has_many :reservations
   # has_many :reservations, through: :family_member_id
-
-  include ImageVersion
-  mount_image_version :avatar
+  # include ImageVersion
+  # mount_image_version :avatar
   # mount_image_version :qrcode
+
   mount_uploader :qrcode, SingleUploader
 
   include Wisper.model
@@ -24,8 +25,14 @@ class User < ActiveRecord::Base
   enumerize :gender, in: %i[male female], default: :male
   GENDERS = [%w[儿子 male], %w[女儿 female]].freeze
 
+  attr_accessor :terms
+  validates :terms, acceptance: true
   validates :name, presence: true
+  # validates :identity_card, presence: true
   # validates :birthdate, presence: true
+  # validates :gender, presence: true
+  # validates :allergic_history, presence: true
+  # validates :vaccination_history, presence: true
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :authentications
@@ -34,6 +41,7 @@ class User < ActiveRecord::Base
     assoc.has_many :medical_records
     assoc.has_many :transactions
     assoc.has_many :ratings
+    assoc.has_many :reservations
   end
 
   def wechat_authentication
@@ -41,21 +49,17 @@ class User < ActiveRecord::Base
   end
 
   def self.create_wechat_user(wechat_session)
-    Rails.logger.info "wechat_session:::: #{wechat_session}"
-    wx_nickname = wechat_session.nickname
-    nickname = !wx_nickname.strip.empty? ? wx_nickname : User.gen_name
-    users_count = User.where(name: nickname).count
+    avatar = wechat_session.headimgurl
+    avatar = '/none-avatar.png' if avatar == '/0'
 
-    user = User.new(
-      name: "#{nickname}#{users_count.zero? ? '' : users_count}",
+    User.create(
+      name: wechat_session.nickname,
       email: "wx_user_#{SecureRandom.hex}@wx_email.com",
       gender: wechat_session.sex,
-      avatar: wechat_session.headimgurl
+      avatar: avatar,
+      password: SecureRandom.hex
     )
-    # user.gen_slug
     Rails.logger.info "user::: #{user.inspect}"
-    user.save(validate: false)
-    user
   end
 
   def reservations
@@ -137,10 +141,8 @@ class User < ActiveRecord::Base
 
   def decrease_balance_unwithdrawable(amount)
     build_wallet if wallet.blank?
-    if wallet.balance_unwithdrawable >= amount
-      wallet.balance_unwithdrawable -= amount
-      wallet.save!
-    end
+    return if wallet.balance_unwithdrawable < amount
+    wallet.update(balance_unwithdrawable: wallet.balance_unwithdrawable - amount)
   end
 
   # 结算
@@ -161,6 +163,29 @@ class User < ActiveRecord::Base
 
   def profile_complete?
     name.present? && mobile_phone.present?
+  end
+
+  def save_qrcode!
+    GenQrcodeForUserJob.perform_now(self)
+  end
+
+  def create_wechat_authentication(authentication)
+    authentications.create(authentication)
+  end
+
+  # TODO
+  # FIXME
+  def human_age
+    if birthdate.nil?
+      [0, 0, 0]
+    else
+      now = Time.zone.now
+      days_in_last_month_of_birthdate = Time.days_in_month(birthdate.last_month.month, birthdate.last_month.year)
+      days_of_age = now.day - birthdate.day + (now.day >= birthdate.day ? 0 : days_in_last_month_of_birthdate)
+      months_of_age = now.month - birthdate.month + (now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day) ? 0 : 12) - (now.day >= birthdate.day ? 0 : 1)
+      years_of_age = now.year - birthdate.year - (now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day) ? 0 : 1)
+      [years_of_age, months_of_age, days_of_age]
+    end
   end
 
   private

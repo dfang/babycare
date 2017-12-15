@@ -4,12 +4,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
-  def validate_phone
-
-  end
+  def validate_phone; end
 
   def send_verification_code
-    verification_code = Random.new.rand(000000...999999)
+    # https://github.com/bbatsov/ruby-style-guide#underscores-in-numerics
+    verification_code = Random.new.rand(0o00000...999_999)
     IM::Ronglian.new.send_templated_sms(params[:mobile_phone], Settings.sms_templates.notify_user_when_reserved, verification_code)
 
     Rails.logger.info "verification_code:#{verification_code}"
@@ -19,24 +18,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def update
-    # 区分是绑定手机号还是更新个人资料
-    if params.key?(:user) && params[:user].key?(:captcha)
-      # 取出 mobile_phone, 并更新当前的手机号
-      mobile_phone = params[:user][:mobile_phone]
-      current_user.update(mobile_phone: mobile_phone)
-      redirect_to bind_phone_success_path and return
-    else
-      # binding.pry
-      current_user.update(params[:user].permit!)
-      redirect_to update_success_path and return
-    end
+    # 区分是更新个人资料还是新建预约
+    params[:user].delete :captcha
+    current_user.update(params[:user].permit!)
+    redirect_to(update_success_path) && return if params.key?(:event)
+    redirect_to(new_reservation_path) && return
   end
 
-  def update_success
-  end
+  def update_success; end
 
-  def bind_phone_success
-  end
+  def bind_phone_success; end
 
   # GET /resource/sign_up
   # def new

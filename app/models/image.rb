@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Image < OdooRecord
+class Image < ApplicationRecord
   # mount_uploader :data, AdminImageUploader
 end

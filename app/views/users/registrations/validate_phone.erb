@@ -16,6 +16,7 @@
                   <div class="weui-cell__bd">
                     <input name="user[mobile_phone]"
                       class="weui-input request-captcha"
+                      maxlength="11"
                       data-parsley-required="true"
                       data-parsley-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
                       data-parsley-type="integer"
@@ -24,7 +25,10 @@
                       placeholder="请输入手机号">
                   </div>
                   <div class="weui-cell__ft">
-                    <button class="weui-vcode-btn">获取验证码</button>
+                    <button class="weui-vcode-btn get-code" disabled="disabled" style="color:inherit;width:110px">获取验证码</button>
+                    <button class="weui-vcode-btn reset-code" disabled="disabled" style="color:inherit;width:110px;display:none" >
+                      <i class="weui-loading"></i><span class="weui-loadmore__tips" id="J_second">60</span>s
+                    </button>
                   </div>
                 </div>
 
@@ -65,15 +69,46 @@
 <%- content_for :js  do %>
 <script type="text/javascript">
   $(function () {
+    // 输入手机号后获取验证码按钮可用
+    $(document).on('keyup', '.weui-input.request-captcha', function(e){
+      var charCode = e.charCode || e.keyCode;
+      // numbers
+      if(96 <= charCode <= 105){
+        var mobile_phone = $('.weui-input.request-captcha').val();
+        if(mobile_phone.length == 11){
+          $('button.weui-vcode-btn.get-code').removeAttr("disabled").attr('style',"width:110px;")
+        }else{
+          $('button.weui-vcode-btn.get-code').attr('disabled',true).attr('style',"color:inherit;width:110px;")
+        }
+      }
+    })
 
     // 请求获取验证码
-    $(document).on('click', 'button.weui-vcode-btn', function(e){
+    $(document).on('click', 'button.weui-vcode-btn.get-code', function(e){
       e.preventDefault();
       var mobile_phone = $('.weui-input.request-captcha').val();
       $.post('/simple_captcha/request_captcha', { mobile_phone: mobile_phone }, function(data){
           console.log(mobile_phone);
         }
       );
+
+      // 倒计时60秒
+      $('button.weui-vcode-btn.get-code').hide();
+    	$('#J_second').html('60');
+    	$('button.weui-vcode-btn.reset-code').show();
+    	var second = 60;
+    	var timer = null;
+    	timer = setInterval(function(){
+    		second -= 1;
+    		if(second >0 ){
+    			$('#J_second').html(second);
+    		}else{
+    			clearInterval(timer);
+          $('button.weui-vcode-btn.get-code').html('重新获取')
+    			$('button.weui-vcode-btn.get-code').show();
+    			$('button.weui-vcode-btn.reset-code').hide();
+    		}
+    	},1000);
     })
 
     // 验证验证码when focusOut
@@ -83,7 +118,6 @@
       if(96 <= charCode <= 105){
         var mobile_phone = $('.weui-input.request-captcha').val();
         var captcha = $('.weui-input.captcha').val();
-        var mobile_phone = $('.weui-input.request-captcha').val();
         if(mobile_phone.length == 11 && captcha.length == 6 ){
 
           $.ajax({

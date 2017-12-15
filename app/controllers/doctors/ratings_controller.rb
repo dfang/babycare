@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Doctors::RatingsController < InheritedResources::Base
-
   def create
     super do |format|
       format.html { redirect_to doctors_reservation_path(resource.reservation) }

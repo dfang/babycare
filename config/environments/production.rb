@@ -2,7 +2,7 @@
 
 ENV['RAILS_ENV'] = 'production'
 ENV['RAILS_LOG_TO_STDOUT'] = 'true'
-ENV['RAILS_SERVE_STATIC_FILES'] = 'true'
+ENV['RAILS_SERVE_STATIC_FILES'] = 'false'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -62,9 +62,10 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
+  config.cache_store = :memory_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter = :sidekiq
   # config.active_job.queue_name_prefix = "fusion_admin_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
@@ -86,6 +87,9 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
+
+  config.assets.initialize_on_precompile = false
+
   if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
@@ -94,4 +98,14 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+                                          slack: {
+                                            webhook_url: 'https://hooks.slack.com/services/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',
+                                            channel: '#production_exception',
+                                            additional_parameters: {
+                                              icon_url: 'http://7xrod3.com1.z0.glb.clouddn.com/bug.png',
+                                              mrkdwn: true
+                                            }
+                                          }
 end

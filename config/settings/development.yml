@@ -4,27 +4,31 @@
 # https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842&token=&lang=zh_CN
 # 不然不能跳转 /users/sign_in/?code=CODE
 
-# 网页授权
-weixin_authorize:
-  app_id: wxffecc41acd70ccd6
-  app_secret: 8c76b7677de43e5ba1db3822c7343553
-  token: yibutianxia
-
-
 # wx.config 的时候 signature 必须要用生成jsapi_ticket 一样的 app_id
 # 微信支付也是
 
-# 微信jssdk
-weixin_jssdk:
-  app_id: wxa887ef8490361f68
-  app_secret: edec276827d57e92206db85f88d77db5
-  token: yibutianxia
+
+# 本地development环境下不能调试支付
 
 weixin:
   app_id: wxa887ef8490361f68
   app_secret: edec276827d57e92206db85f88d77db5
   token: yibutianxia
 
-weixin_mp:
-  app_id: wx218800b558d61f52
-  app_secret: 37530899a42eb9ab0db105eccdfbb2ad
+common:
+  domain_name: 'http://babycare.natapp1.cc'
+
+
+wx_pay:
+  app_id: wxfa3c7a8dc6ad872d
+  # app_secret: '259f46cfadecd6e2a171b10362f155bd'
+  # partner_id: '1368072702'
+  # partner_key: 'k9RrfNLZtOx5GghfPJc3tOYXGVr68qpu'
+  mch_id: '1484169922'
+  api_key: 05ec7b4ee97646f5bae71b229cdab366
+  payment_notify_url: "http://wx.yhuan.cc/wx/payment_notify"
+  # JSSDK 支付的时候单为分
+  # 企业付款金额单位为分, 但是最小支付单位必须1元
+  # 这里的单位是元
+  prepay_amount: 0.01
+  pay_amount: 0.01

@@ -1,7 +1,7 @@
 <%- if @image.errors.empty? %>
-  console.log("#<%= params[:holderId] %>")  
-  
+  console.log("#<%= params[:holderId] %>")
+
   $("#<%= params[:holderId] %>").find('li img').attr('src', "<%= @image.data %>")
   $("#<%= params[:holderId] %>").find('input:hidden.image-field ').val("<%= @image.data.url %>")
- 
+
 <%- end %>
