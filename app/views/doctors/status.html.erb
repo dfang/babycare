@@ -1,4 +1,6 @@
-<%- if current_user.doctor? %>
+<%- if current_user.verified_doctor? %>
+  请签合同 <%= sign_doctors_path %>
+<%- elsif current_user.doctor? %>
   你还没有通过我们的审核
 <% else %>
   请先提交申请资料和通过我们的审核

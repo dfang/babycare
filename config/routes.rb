@@ -146,6 +146,7 @@ Rails.application.routes.draw do
   resources :doctors do
     collection do
       get 'apply'
+      get 'sign'
     end
     member do
       get 'reservations'

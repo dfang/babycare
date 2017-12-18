@@ -23,6 +23,10 @@ class DoctorsController < InheritedResources::Base
     Rails.logger.info 'status'
   end
 
+  def sign
+
+  end
+
   def new
     if current_user&.doctor.present?
       @doctor = current_user.doctor
@@ -57,8 +61,7 @@ class DoctorsController < InheritedResources::Base
   def create
     @doctor = Doctor.new(doctor_params)
     @doctor.user = current_user
-
-    @doctor.verified = true unless Rails.env.production?
+    @doctor.update(aasm_state: :verified) unless Rails.env.production?
 
     respond_to do |format|
       if @doctor.save
@@ -75,7 +78,7 @@ class DoctorsController < InheritedResources::Base
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json
   def update
-    @doctor.verified = true unless Rails.env.production?
+    @doctor.update(aasm_state: :verified) unless Rails.env.production?
 
     respond_to do |format|
       if @doctor.update(doctor_params.except(:captcha))
