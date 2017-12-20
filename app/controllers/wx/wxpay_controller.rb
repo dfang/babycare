@@ -21,7 +21,7 @@ class Wx::WxpayController < ApplicationController
       redirect_to(patients_reservation_path(@reservation)) && return
     end
 
-    Rails.logger.info "需要支付的费用fee是#{fee}分".red
+    Rails.logger.info "需要支付的费用fee是#{fee}分"
 
     # 预约定金 TO_BE_TESTED
     # if @reservation.out_trade_prepay_no.blank? && @reservation.reserved?
@@ -37,7 +37,7 @@ class Wx::WxpayController < ApplicationController
 
     out_trade_no = @reservation.out_trade_pay_no || @reservation.out_trade_prepay_no
 
-    Rails.logger.info "out_trade_no 是 #{out_trade_no}".red
+    Rails.logger.info "out_trade_no 是 #{out_trade_no}"
 
     # 保存商户订单号
     @reservation.save!
@@ -51,11 +51,11 @@ class Wx::WxpayController < ApplicationController
       # JSAPI支付必须传openid
       payment_params[:openid] = current_wechat_authentication.uid
 
-      Rails.logger.info  "payment_params is \n#{payment_params}".red
-      Rails.logger.info  "options is \n#{options}".red
+      Rails.logger.info  "payment_params is \n#{payment_params}"
+      Rails.logger.info  "options is \n#{options}"
 
       result = ::WxPay::Service.invoke_unifiedorder(payment_params, options)
-      Rails.logger.info "invoke_unifiedorder result is \n#{result}".red
+      Rails.logger.info "invoke_unifiedorder result is \n#{result}"
 
       # 用在wx.config 里的，不要和 wx.chooseWxPay(里的那个sign参数搞混了)
       # js_sdk_signature_str = WxApp::WxJsSDK.generate_js_sdk_signature_str(options[:noncestr], options[:timestamp], request.url)
@@ -110,10 +110,10 @@ class Wx::WxpayController < ApplicationController
       transaction_id: response_obj['xml']['transaction_id']
     }
     options = WxApp::WxJsSDK.generate_payment_options
-    Rails.logger.info "params is \n #{params}".red
-    Rails.logger.info "options is \n #{options}".red
+    Rails.logger.info "params is \n #{params}"
+    Rails.logger.info "options is \n #{options}"
     @order_query_result = WxPay::Service.order_query(params, options)
-    Rails.logger.info "order query result ....... \n #{@order_query_result}".red
+    Rails.logger.info "order query result ....... \n #{@order_query_result}"
     return unless @order_query_result['return_code'] == 'SUCCESS'
   end
 
