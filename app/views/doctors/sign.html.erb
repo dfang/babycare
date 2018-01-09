@@ -1,0 +1,76 @@
+<% default_end_at = Date.today + 12.months %>
+<%= form_for @contract, url: doctors_contract_path, method: "POST" do |f| %>
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">签约时间</label></div>
+            <div class="weui-cell__bd" id="start_at_picker">
+                <%= f.date_field :start_at, value: Date.today, min: Date.today, class: "weui-input" %>
+            </div>
+        </div>
+
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd">
+                <label for="" class="weui-label">签约期限</label>
+            </div>
+            <div class="weui-cell__bd">
+                <%= f.select :months, [["12个月", 12], ["24个月", 24], ["36个月", 36]], {}, {class: "weui-select"} %>
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">合同终止于</label></div>
+            <div class="weui-cell__bd">
+                <%= f.date_field :end_at, value: default_end_at, class: "weui-input", style: "color:black" %>
+            </div>
+        </div>
+
+        <%= f.fields_for :bank_account do |account_form| %>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">户名</label></div>
+                <div class="weui-cell__bd">
+                    <%= account_form.text_field :account_name, class: "weui-input",  placeholder: "请输入银行账户户名" %>
+                </div>
+            </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">开户行</label></div>
+                <div class="weui-cell__bd">
+                    <%= account_form.text_field :bank_name, class: "weui-input", placeholder: "请输入开户银行名称" %>
+                </div>
+            </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">账号</label></div>
+                <div class="weui-cell__bd">
+                    <%= account_form.text_field :account_number, type: "number", class: "weui-input", pattern: "[0-9]*", placeholder: "请输银行账号" %>
+                </div>
+            </div>
+        <% end %>
+
+        <%= link_to doctors_contract_path, html_options = { class: "weui-cell weui-cell_link" } do %>
+            <div class="weui-cell__bd">查看合同内容</div>
+        <% end %>
+    </div>
+
+  <div class="weui-btn-area">
+      <%= f.submit "确认", class: "weui-btn weui-btn_primary", data: { disable_with: "正在提交..." }  %>
+  </div>
+<% end %>
+
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(function(){
+
+      $(document).on('change', '#contract_months, #contract_start_at', function(e){
+        console.log("contract change")
+        var start_at = $("#contract_start_at").val()
+        var months = $("#contract_months").val()
+        var end_at = new Date(start_at)
+        end_at.setMonth(end_at.getMonth() + parseInt(months))
+        console.log(end_at)
+        $("#contract_end_at").val(end_at.getFullYear() + "-" + ("0" + (end_at.getMonth() + 1)).slice(-2) + "-" + ("0" + end_at.getDate()).slice(-2))
+      })
+
+    });
+  </script>
+<% end %>

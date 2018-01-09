@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Authentication < ActiveRecord::Base
+class Authentication < OdooRecord
+  self.table_name = 'fa_authentication'
+
   belongs_to :user
   validates :provider, :uid, presence: true
 

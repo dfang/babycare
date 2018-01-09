@@ -40,6 +40,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'kramdown', '~> 1.16', '>= 1.16.2'
 # gem 'kramdown-rails', '~> 0.1.4'
 gem 'markdown-rails', '~> 0.2.1'
+gem 'rdiscount'
 
 gem 'groupify'
 

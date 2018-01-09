@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215091858) do
+ActiveRecord::Schema.define(version: 20171220065612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 20171215091858) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "bank_accounts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "account_name"
+    t.integer "account_number"
+    t.string "bank_branch_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "contract_id"
+    t.index ["user_id"], name: "index_bank_accounts_on_user_id"
+  end
+
   create_table "checkins", force: :cascade do |t|
     t.string "name"
     t.string "mobile_phone"
@@ -88,6 +99,17 @@ ActiveRecord::Schema.define(version: 20171215091858) do
     t.index ["pinyin_abbr"], name: "index_cities_on_pinyin_abbr"
     t.index ["province_id"], name: "index_cities_on_province_id"
     t.index ["zip_code"], name: "index_cities_on_zip_code"
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.integer "months"
+    t.bigint "user_id"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_contracts_on_user_id"
   end
 
   create_table "districts", force: :cascade do |t|
@@ -506,6 +528,8 @@ ActiveRecord::Schema.define(version: 20171215091858) do
     t.index ["wx_menu_id"], name: "index_wx_sub_menus_on_wx_menu_id"
   end
 
+  add_foreign_key "bank_accounts", "users"
+  add_foreign_key "contracts", "users"
   add_foreign_key "doctors", "users"
   add_foreign_key "global_images", "users"
   add_foreign_key "hospitals", "cities"

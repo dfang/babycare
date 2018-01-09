@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get 'reservation_examinations/create'
   end
 
+  # get 'doctors/contract' => 'doctors#contract'
   post 'simple_captcha/request_captcha'
   post 'simple_captcha/simple_captcha_valid'
 
@@ -67,6 +68,9 @@ Rails.application.routes.draw do
     resources :transactions, only: %i[index show create show]
     get 'wallet', to: 'wallets#index'
     get 'wallet/withdraw', to: 'wallets#withdraw'
+
+    get 'contract'
+    post 'contract'
 
     resources :reservations do
       get 'status', on: :member

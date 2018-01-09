@@ -507,6 +507,7 @@ DEPENDENCIES
   pundit
   qiniu
   rails (~> 5.1.1)
+  rdiscount
   redis (~> 3.0)
   redis-namespace
   rollbar

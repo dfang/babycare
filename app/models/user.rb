@@ -42,6 +42,8 @@ class User < OdooRecord
     assoc.has_many :transactions
     assoc.has_many :ratings
     assoc.has_many :reservations
+    assoc.has_many :contracts
+    assoc.has_many :bank_accounts
   end
 
   def reservations

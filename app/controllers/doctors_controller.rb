@@ -8,7 +8,7 @@ class DoctorsController < InheritedResources::Base
   # before_action ->{ authenticate_user!( force: true ) }, except: [ :apply, :new, :create ]
   # custom_actions :resource => :status
 
-  before_action :set_doctor, only: %i[status show edit update destroy online offline]
+  before_action :set_doctor, only: %i[status show edit update destroy online offline contract]
   before_action :check_is_verified_doctor, only: %i[reservations index]
 
   def apply
@@ -24,6 +24,23 @@ class DoctorsController < InheritedResources::Base
   end
 
   def sign
+    @contract = Contract.new
+    # @contract.build_bank_account
+  end
+
+  def contract
+    if request.post?
+      # binding.pry
+      @contract = Contract.new(contract_params)
+      @contract.user = current_user
+      @bank_account = BankAccount.new(bank_account_params)
+      @bank_account.user = current_user
+      redirect_to doctors_contract_path and return if @contract.save && @bank_account.save
+      render :sign
+    else
+      @contract = current_user.contracts.last
+      @bank_account = current_user.bank_accounts.last
+    end
 
   end
 
@@ -133,5 +150,15 @@ class DoctorsController < InheritedResources::Base
   def doctor_params
     # params.require(:doctor).permit(:name, :gender, :age, :hospital, :location, :lat, :long, :verified, :date_of_birth, :mobile_phone, :remark, :id_card_num, :id_card_front, :id_card_back, :license, :job_title)
     params.require(:doctor).permit!
+  end
+
+  def contract_params
+    params.require(:contract).permit(:start_at, :end_at, :months)
+                                     # :bank_account, {:bank_account => [:account_name, :bank_branch_name, :account_number]})
+    # params.require(:contract).permit!
+  end
+
+  def bank_account_params
+    params.require(:contract).permit(:bank_account, {:bank_account => [:account_name, :bank_name, :account_number]})[:bank_account]
   end
 end
