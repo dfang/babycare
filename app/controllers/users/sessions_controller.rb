@@ -16,7 +16,8 @@ class Users::SessionsController < Devise::SessionsController
     if @browser.wechat?
       redirect_to :wechat_authorize and return
     else
-      render :new, resource: User.first
+      # render :new, resource: User.first
+      super
     end
   end
 
