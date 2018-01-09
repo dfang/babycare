@@ -163,12 +163,17 @@ class User < OdooRecord
              else
                 "female"
              end
+    password = if Rails.env.development?
+                '1qaz2wsx'
+               else
+                SecureRandom.hex
+               end
     User.create(
       name: wechat_session.nickname,
       email: "wx_user_#{SecureRandom.hex}@wx_email.com",
       gender: gender,
       avatar: avatar,
-      password: SecureRandom.hex
+      password: password
     )
   end
 
