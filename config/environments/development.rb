@@ -5,6 +5,9 @@ ENV['RAILS_LOG_TO_STDOUT'] = 'true'
 ENV['RAILS_SERVE_STATIC_FILES'] = 'true'
 
 Rails.application.configure do
+    # Verifies that versions and hashed value of the package contents in the project's package.json
+  config.webpacker.check_yarn_integrity = true
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -66,7 +69,10 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # config.webpacker.check_yarn_integrity = false
+
   Devise.setup do |config|
     config.timeout_in = 3.minutes
   end
 end
+
