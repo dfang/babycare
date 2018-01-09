@@ -59,7 +59,7 @@ GEM
     ast (2.3.0)
     awesome_print (1.8.0)
     bcrypt (3.1.11)
-    browser (2.4.0)
+    browser (2.5.2)
     builder (3.2.3)
     capistrano (3.7.0)
       airbrussh (>= 1.0.0)
@@ -454,7 +454,7 @@ DEPENDENCIES
   ancestry
   annotate
   awesome_print
-  browser
+  browser (~> 2.5, >= 2.5.2)
   capistrano (= 3.7.0)
   capistrano-bundler
   capistrano-db-tasks

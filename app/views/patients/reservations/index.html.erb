@@ -1,12 +1,11 @@
 <div class="tabbar">
   <div class="weui-tab">
       <div class="weui-tab__panel">
-
           <div class="panel">
             <div class="bd">
               <div class="weui-panel__bd">
                 <div class="weui-cells">
-                  <% if @reservations.any? %>
+                  <% if @reservations && @reservations.any? %>
                     <% @reservations.each do |re| %>
                       <%= render 'entry', res: re %>
                     <% end  %>
@@ -17,10 +16,7 @@
               </div>
             </div>
           </div>
-
       </div>
-
       <%= render 'tab_bar' %>
-
     </div>
 </div>

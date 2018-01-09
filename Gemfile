@@ -94,7 +94,8 @@ gem 'carrierwave-data-uri'
 
 # gem 'smart_sms'
 
-gem 'browser'
+gem 'browser', '~> 2.5', '>= 2.5.2'
+
 gem 'wicked'
 
 gem 'pundit'

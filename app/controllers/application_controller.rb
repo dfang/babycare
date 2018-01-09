@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'browser'
-require Rails.root.join('lib', 'extras', 'browser')
 
 class ApplicationController < ActionController::Base
   include Devise::Controllers::Helpers
@@ -11,7 +10,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  # before_action :detect_platform
+  before_action :detect_platform
   before_action :complete_profile
   # before_action :complete_profile
   before_action :prepare_exception_notifier
@@ -24,15 +23,19 @@ class ApplicationController < ActionController::Base
   end
 
   def detect_platform
-    browser = Browser.new(request.user_agent)
-    if browser.platform.mac? || browser.platform.linux? || browser.platform.windows?
-      @is_desktop = true
-      @is_mobile = false
-    else
-      @is_mobile = true
-      @is_desktop = false
-      request.variant = :phone
-    end
+    @browser = Browser.new(request.user_agent)
+    # if browser.platform.mac? || browser.platform.linux? || browser.platform.windows?
+    #   @is_desktop = true
+    #   @is_mobile = false
+    # else
+    #   @is_mobile = true
+    #   @is_desktop = false
+    #   request.variant = :phone
+    # end
+    Rails.logger.info 'browser is ............'
+    # pry.binding
+
+    Rails.logger.info @browser
   end
 
   def current_wechat_authentication

@@ -13,7 +13,11 @@ class Users::SessionsController < Devise::SessionsController
   before_action :exchange_access_token_for_snsapi_userinfo, only: [:wechat_authorize]
 
   def new
-    redirect_to :wechat_authorize
+    if @browser.wechat?
+      redirect_to :wechat_authorize and return
+    else
+      render :new, resource: User.first
+    end
   end
 
   def wechat_authorize
