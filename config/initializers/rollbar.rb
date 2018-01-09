@@ -3,5 +3,11 @@
 require 'rollbar'
 
 Rollbar.configure do |config|
-  config.access_token = Settings.rollbar.access_token
+  if Rails.env.production?
+    config.enabled = true
+    config.access_token = Settings.rollbar.access_token
+  else
+    config.enabled = false
+  end
 end
+
