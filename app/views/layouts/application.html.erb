@@ -21,12 +21,10 @@
 
   </head>
   <body class="<%= underscore_body_class %>">
-
      <div id='container' class='container'>
         <%= yield %>
         <%= render 'loading_toast' %>
      </div>
-
   </body>
 
   <%= yield :js %>

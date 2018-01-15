@@ -6,7 +6,10 @@ class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   # prepend_before_action :authenticate_user!, :wechat_authorize
   # before_action :authenticated?, only: [:wechat_authorize]
-  # before_action :request_code, only: [:wechat_authorize]
+
+  before_action :request_code_for_mp, only: [:wechat_authorize]
+  before_action :request_code_for_open_web, only: [:wechat_scan]
+
   before_action :exchange_code_for_access_token_info, :exchange_access_token_for_snsapi_userinfo, only: [:auth_callback]
 
 
@@ -20,12 +23,10 @@ class Users::SessionsController < Devise::SessionsController
 
   # 微信网页授权登录
   def wechat_authorize
-    request_code
   end
 
   # 微信网页扫码登录
   def wechat_scan
-    request_code_for_open_web
   end
 
   # 授权之后或扫码之后的回调
@@ -58,14 +59,17 @@ class Users::SessionsController < Devise::SessionsController
   def request_code_for_mp
     redirect_uri = URI.encode(Settings.mp.redirect_uri, /\W/)
     request_code_uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Settings.mp.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
-    redirect_to request_code_uri && return
+    Rails.logger.info request_code_uri
+    redirect_to(request_code_uri) && return
   end
 
   # 1. 微信扫码登录第一步
   def request_code_for_open_web
     redirect_uri = URI.encode(Settings.open_web.redirect_uri, /\W/)
     request_code_uri = "https://open.weixin.qq.com/connect/qrconnect?appid=#{Settings.open_web.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=#{Settings.open_web.state}#wechat_redirect"
-    redirect_to request_code_uri && return
+    Rails.logger.info request_code_uri
+    Rails.logger.info 'sdfasdfads'
+    redirect_to(request_code_uri) && return
   end
 
   # 2 第二步：通过code换取网页授权access_token
