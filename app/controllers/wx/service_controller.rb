@@ -13,7 +13,7 @@ class Wx::ServiceController < ApplicationController
 
   layout 'weixin'
 
-  WEIXIN_TOKEN = Settings.weixin.token
+  WEIXIN_TOKEN = Settings.mp.token
 
   def verify
     p params[:echostr]

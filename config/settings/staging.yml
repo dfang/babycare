@@ -2,7 +2,7 @@ mp:
   app_id: wxfa3c7a8dc6ad872d
   app_secret: d20017912cc6a5977bf283ab58ffe409
   redirect_uri: http://wx.baojiankang.cc/wechat/auth_callback
-  token: bjk_staging
+  token: bjk
 
 wx_pay:
   app_id: wxfa3c7a8dc6ad872d
@@ -24,7 +24,7 @@ open_web:
   app_id: wx5009648228f277ec
   app_secret: fea287de8325e180ffcc8f6b35e29d1d
   redirect_uri: http://wx.baojiankang.cc/wechat/auth_callback
-  state: bjk_staging
+
 
 ronglian:
   SoftVersion: "2013-12-26"
