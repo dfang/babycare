@@ -27,7 +27,7 @@ sms_templates:
   notify_doctor_when_paid: 121710
 
 redis:
-  server_url: "redis://127.0.0.1:6379/0"
+  server_url: <%= ENV['REDIS_SERVER_URL'] %>
 
 rollbar:
   access_token: <%= ENV['ROLLBAR_ACCESS_TOKEN'] %>
