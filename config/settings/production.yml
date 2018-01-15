@@ -1,8 +1,8 @@
 mp:
   app_id: wxa887ef8490361f68
   app_secret: edec276827d57e92206db85f88d77db5
-  token: babycare
-
+  redirect_uri: http://wx.baojiankang.cc/wechat/auth_callback
+  token: bjk
 
 wx_pay:
   app_id: wxa887ef8490361f68
@@ -20,7 +20,8 @@ wx_pay:
 open_web:
   app_id: wx5009648228f277ec
   app_secret: fea287de8325e180ffcc8f6b35e29d1d
-  token: baojiankang
+  redirect_uri: http://wx.baojiankang.cc/wechat/auth_callback
+  state: bjk
 
 ronglian:
   SoftVersion: "2013-12-26"
