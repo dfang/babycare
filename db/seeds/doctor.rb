@@ -16,7 +16,6 @@ Doctor.create(
   license_front_media_id: "",
   id_card_back_media_id: "",
   id_card_back: nil,
-  verified: true,
   remark: "",
   avatar: nil,
   license_back: nil,

@@ -43,6 +43,10 @@ Rails.application.routes.draw do
     get 'validate_phone' => 'users/registrations#validate_phone', as: :validate_phone
     get 'bind_phone_success' => 'users/registrations#bind_phone_success', as: :bind_phone_success
     get 'update_success' => 'users/registrations#update_success', as: :update_success
+
+    get 'wechat/authorize' => 'users/sessions#wechat_authorize'
+    get 'wechat/scan' => 'users/sessions#wechat_scan'
+    get 'wechat/auth_callback' => 'users/sessions#auth_callback'
   end
 
   resources :users do

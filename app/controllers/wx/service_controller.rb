@@ -36,8 +36,8 @@ class Wx::ServiceController < ApplicationController
 
   def config_jssdk
     # 在rails 5 里面这里绝对不能叫config, 否则 SystemStackError (stack level too deep)
-    # 公众号必须和微信支付商户绑定才能调通支付，所以 Settings.weixin.app_id == Settings.wx_pay.app_id
-    app_id               =  Settings.weixin.app_id
+    # 公众号必须和微信支付商户绑定才能调通支付，所以 Settings.mp.app_id == Settings.wx_pay.app_id
+    app_id               =  Settings.mp.app_id
     api_key              =  Settings.wx_pay.api_key
     mch_id               =  Settings.wx_pay.mch_id
     noncestr             =  SecureRandom.hex

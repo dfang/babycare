@@ -1,4 +1,4 @@
-weixin:
+mp:
   app_id: wxa887ef8490361f68
   app_secret: edec276827d57e92206db85f88d77db5
   token: babycare
@@ -15,6 +15,12 @@ wx_pay:
   prepay_amount: 0.01
   pay_amount: 0.01
 
+
+# 开放平台网站应用
+open_web:
+  app_id: wx5009648228f277ec
+  app_secret: fea287de8325e180ffcc8f6b35e29d1d
+  token: baojiankang
 
 ronglian:
   SoftVersion: "2013-12-26"

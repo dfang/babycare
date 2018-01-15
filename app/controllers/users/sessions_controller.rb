@@ -2,32 +2,34 @@
 
 class Users::SessionsController < Devise::SessionsController
   before_action :authenticate_user!
-
   # before_action :wechat_authorize
   # before_action :configure_sign_in_params, only: [:create]
   # prepend_before_action :authenticate_user!, :wechat_authorize
+  # before_action :authenticated?, only: [:wechat_authorize]
+  # before_action :request_code, only: [:wechat_authorize]
+  before_action :exchange_code_for_access_token_info, :exchange_access_token_for_snsapi_userinfo, only: [:auth_callback]
 
-  before_action :authenticated?, only: [:wechat_authorize]
-  before_action :request_code, only: [:wechat_authorize]
-  before_action :exchange_code_for_access_token_info, only: [:wechat_authorize]
-  before_action :exchange_access_token_for_snsapi_userinfo, only: [:wechat_authorize]
 
   def new
     if @browser.wechat?
       redirect_to :wechat_authorize and return
     else
-      # render :new, resource: User.first
       super
     end
   end
 
+  # 微信网页授权登录
   def wechat_authorize
-    # wx_authenticate!
+    request_code
   end
 
-  def wxapp_login
-    p request
-    Rails.logger.info request
+  # 微信网页扫码登录
+  def wechat_scan
+    request_code_for_open_web
+  end
+
+  # 授权之后或扫码之后的回调
+  def auth_callback
   end
 
   protected
@@ -52,58 +54,41 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
-  # 1 第一步：用户同意授权，获取code
-  def request_code
-    return @code = params[:code] if params.key?(:code)
+  # 1. 公众号授权第一步：用户同意授权，获取code
+  def request_code_for_mp
+    redirect_uri = URI.encode(Settings.mp.redirect_uri, /\W/)
+    request_code_uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Settings.mp.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
+    redirect_to request_code_uri && return
+  end
 
-    # 认证第一步，如果code参数为空，那就重定向到微信认证去请求code参数
-    if @code.nil?
-      redirect_uri = URI.encode(request.url, /\W/)
-      Rails.logger.debug 'code参数为空，那就重定向到用户同意授权，获取code参数'
-      Rails.logger.debug '正常情况下，用户点击授权按钮就会去申请code参数，如果曾经授权过，此时静默授权，用户无感知'
-      Rails.logger.debug "redirect_uri is #{redirect_uri}"
-      redirect_to(get_code_uri(redirect_uri)) && return
-    end
+  # 1. 微信扫码登录第一步
+  def request_code_for_open_web
+    redirect_uri = URI.encode(Settings.open_web.redirect_uri, /\W/)
+    request_code_uri = "https://open.weixin.qq.com/connect/qrconnect?appid=#{Settings.open_web.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=#{Settings.open_web.state}#wechat_redirect"
+    redirect_to request_code_uri && return
   end
 
   # 2 第二步：通过code换取网页授权access_token
   def exchange_code_for_access_token_info
+    code = params[:code] if params.key?(:code)
     Rails.logger.info 'exchange_code_for_access_token_info'
 
-    if @code.present?
-      # 通过code换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同
-      token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{Settings.weixin.app_id}&secret=#{Settings.weixin.app_secret}&code=#{@code}&grant_type=authorization_code"
-      # token_info_response_data = JSON.parse(Faraday.get(token_url).body)
-      # Rails.logger.info "\n\nexchange_code_for_access_token response data is \n #{token_info_response_data}\n\n"
-      @access_token_info ||= JSON.parse(Faraday.get(token_url).body)
-      Rails.logger.info "access_token_info: #{@access_token_info}"
-
-      # unless @access_token_info['errcode']
-      #   Rails.cache.fetch :access_token_when_authorizing, expires_in: 7200.seconds do
-      #     @access_token_info['access_token']
-      #   end
-
-      #   Rails.cache.fetch :openid_when_authorizing, expires_in: 7200.seconds do
-      #     @access_token_info['openid']
-      #   end
-
-      #   Rails.cache.fetch :unionid_when_authorizing, expires_in: 7200.seconds do
-      #     @access_token_info['unionid']
-      #   end
-
-      #   Rails.cache.fetch :refresh_token_when_authorizing, expires_in: 30.days do
-      #     @access_token_info['refresh_token']
-      #   end
-      # end
-
+    if browser.wechat?
+      app_id = Settings.mp.app_id
+      app_secret = Settings.mp.app_secret
+    else
+      app_id = Settings.open_web.app_id
+      app_secret = Settings.open_web.app_secret
     end
+    @access_token_info = code_for_access_token_info(code, app_id, app_secret);
   end
 
-  # 4 第四步：拉取用户信息(需scope为 snsapi_userinfo), 并且创建Authentication
+  # 3 第三步：拉取用户信息(需scope为 snsapi_userinfo), 并且创建Authentication
   def exchange_access_token_for_snsapi_userinfo
     Rails.logger.info 'exchange_access_token_for_snsapi_userinfo'
 
     # @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
+
     @userinfo = exchange_access_token_for_userinfo(@access_token_info['access_token'], @access_token_info['openid'])
 
     # 有error_code, 一般是过期了，那就刷新token， 看第三步
@@ -161,9 +146,6 @@ class Users::SessionsController < Devise::SessionsController
     redirect_after_sign_in
   end
 
-  # FIXME
-  def wx_authenticate!; end
-
   def redirect_after_sign_in
     Rails.logger.info 'redirect_after_sign_in 根据不同的情况跳转到不同的页面'
     # redirect_to(edit_patients_settings_path) && return unless current_user.profile_complete?
@@ -171,12 +153,11 @@ class Users::SessionsController < Devise::SessionsController
     redirect_to(root_path) && return
   end
 
-  def get_code_uri(redirect_uri)
-    uri_for_get_code_from_weixin = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Settings.weixin.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=babycare#wechat_redirect"
+  def build_request_code_uri(redirect_uri, app_id, app_secret)
   end
 
   def refresh_token(refresh_token)
-    url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=#{Settings.weixin.app_id}&grant_type=refresh_token&refresh_token=#{refresh_token}"
+    url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=#{Settings.mp.app_id}&grant_type=refresh_token&refresh_token=#{refresh_token}"
     @access_token_info = JSON.parse(Faraday.get(url).body)
     unless @access_token_info['errcode']
       Rails.cache.fetch :access_token_when_authorizing, expires_in: 7200.seconds do
@@ -196,6 +177,16 @@ class Users::SessionsController < Devise::SessionsController
       end
     end
     @access_token_info
+  end
+
+  def code_for_access_token_info(code, app_id, app_secret)
+    token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{app_id}&secret=#{app_secret}&code=#{code}&grant_type=authorization_code"
+    access_token_info ||= JSON.parse(Faraday.get(token_url).body)
+    if access_token_info["access_token"].present?
+      return access_token_info
+    else
+      # retry
+    end
   end
 
   def exchange_access_token_for_userinfo(access_token, openid)

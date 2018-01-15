@@ -32,10 +32,12 @@ class ApplicationController < ActionController::Base
     #   @is_desktop = false
     #   request.variant = :phone
     # end
-    Rails.logger.info 'browser is ............'
-    # pry.binding
-
-    Rails.logger.info @browser
+    Rails.logger.info 'browser info from user agent'
+    Rails.logger.info request.user_agent
+    Rails.logger.info "device: #{@browser.device.name}"
+    Rails.logger.info "platform: #{@browser.platform.name}-#{@browser.platform.version}"
+    Rails.logger.info "platform: #{@browser.full_version}"
+    Rails.logger.info "browser: #{@browser.name}-#{@browser.version}"
   end
 
   def current_wechat_authentication

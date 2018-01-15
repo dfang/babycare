@@ -4,8 +4,8 @@ module WxApp
   module WxCommon
     extend self
 
-    WEIXIN_ID = Settings.weixin.app_id
-    WEIXIN_SECRET = Settings.weixin.app_secret
+    WEIXIN_ID = Settings.mp.app_id
+    WEIXIN_SECRET = Settings.mp.app_secret
 
     def get_conn
       conn = Faraday.new(url: 'https://api.weixin.qq.com/') do |faraday|

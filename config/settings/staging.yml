@@ -1,4 +1,4 @@
-weixin:
+mp:
   app_id: wxfa3c7a8dc6ad872d
   app_secret: d20017912cc6a5977bf283ab58ffe409
   token: bjk_staging
@@ -17,6 +17,13 @@ wx_pay:
   # 这里的单位是元
   prepay_amount: 0.01
   pay_amount: 0.01
+
+
+# 开放平台网站应用
+open_web:
+  app_id: wx5009648228f277ec
+  app_secret: fea287de8325e180ffcc8f6b35e29d1d
+  token: baojiankang
 
 ronglian:
   SoftVersion: "2013-12-26"
