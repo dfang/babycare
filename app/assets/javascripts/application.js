@@ -13,6 +13,4 @@
 //= require mobile/autosize
 
 //= require cable
-
-
 //= require wechat-jssdk-promise
