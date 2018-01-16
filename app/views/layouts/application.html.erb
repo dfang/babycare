@@ -9,16 +9,12 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <meta name='format-detection' content='telephone=no' />
     <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0' />
-
     <%= stylesheet_link_tag    'mobile', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= yield :css %>
     <%= csrf_meta_tags %>
     <%= javascript_include_tag "http://res.wx.qq.com/open/js/jweixin-1.2.0.js" %>
-
     <%= javascript_pack_tag 'application' %>
-
     <%= action_cable_meta_tag %>
-
   </head>
   <body class="<%= underscore_body_class %>">
      <div id='container' class='container'>
@@ -26,6 +22,5 @@
         <%= render 'loading_toast' %>
      </div>
   </body>
-
   <%= yield :js %>
 </html>

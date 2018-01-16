@@ -10,7 +10,7 @@
 
 <%= simple_form_for @doctor, url: wizard_path, method: 'PUT' do |f| %>
   <div class="weui-cells__title">你需要上传资料并通过我们的审核</div>
-  
+
   <div class="weui-cells weui-cells_form">
     <div class="weui-cell">
       <div class="weui-cell__hd">
@@ -167,7 +167,6 @@
   </div>
 
 <% end %>
-
 
 <%- content_for :js  do %>
   <%= javascript_include_tag :uploader %>

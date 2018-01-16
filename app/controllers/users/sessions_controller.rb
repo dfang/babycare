@@ -14,6 +14,7 @@ class Users::SessionsController < Devise::SessionsController
 
 
   def new
+    Rails.logger.info "session[:user_return_to] #{session[:user_return_to]}"
     if @browser.wechat?
       redirect_to :wechat_authorize and return
     else
@@ -67,8 +68,6 @@ class Users::SessionsController < Devise::SessionsController
   def request_code_for_open_web
     redirect_uri = URI.encode(Settings.open_web.redirect_uri, /\W/)
     request_code_uri = "https://open.weixin.qq.com/connect/qrconnect?appid=#{Settings.open_web.app_id}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=#{Settings.open_web.state}#wechat_redirect"
-    Rails.logger.info request_code_uri
-    Rails.logger.info 'sdfasdfads'
     redirect_to(request_code_uri) && return
   end
 
@@ -111,7 +110,6 @@ class Users::SessionsController < Devise::SessionsController
 
         redirect_to(wechat_authorize_path) && return
       end
-
       # @userinfo = exchange_access_token_for_userinfo(Rails.cache.fetch('access_token_when_authorizing'), Rails.cache.fetch('openid_when_authorizing'))
       @userinfo = exchange_access_token_for_userinfo(@access_token_info['access_token'], @access_token_info['openid'])
     end
@@ -145,14 +143,14 @@ class Users::SessionsController < Devise::SessionsController
       end
       Rails.logger.info "Authentication inspected : #{@authentication.inspect}"
     end
-
     sign_in(:user, @authentication.user)
     redirect_after_sign_in
   end
 
   def redirect_after_sign_in
-    Rails.logger.info 'redirect_after_sign_in 根据不同的情况跳转到不同的页面'
+    # Rails.logger.info 'redirect_after_sign_in 根据不同的情况跳转到不同的页面'
     # redirect_to(edit_patients_settings_path) && return unless current_user.profile_complete?
+    Rails.logger.info session[:user_return_to]
     redirect_to(session[:user_return_to]) && return if session[:user_return_to]
     redirect_to(root_path) && return
   end
@@ -186,6 +184,8 @@ class Users::SessionsController < Devise::SessionsController
   def code_for_access_token_info(code, app_id, app_secret)
     token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{app_id}&secret=#{app_secret}&code=#{code}&grant_type=authorization_code"
     access_token_info ||= JSON.parse(Faraday.get(token_url).body)
+    Rails.logger.info access_token_info
+
     if access_token_info["access_token"].present?
       return access_token_info
     else

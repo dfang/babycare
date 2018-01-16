@@ -7,8 +7,13 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker')
+//console.log('Hello World from Webpacker')
 
-import Rails from "rails-ujs";
+import $ from 'jquery'
+import Rails from 'rails-ujs'
+import parsley from 'parsley'
+
+console.log($.name);
+
 
 Rails.start();

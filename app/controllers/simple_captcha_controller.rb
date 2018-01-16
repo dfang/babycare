@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SimpleCaptchaController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def request_captcha
     return unless params.key?(:mobile_phone)
     to = params[:mobile_phone]
