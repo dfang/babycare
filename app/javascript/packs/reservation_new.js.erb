@@ -57,7 +57,7 @@ $(function() {
         });
     });
 
-    $(document).on("click", "#picker1", e => {
+    $(document).on("click", ".new_reservation .weui-uploader__input-box", e => {
       alert("picking files .........")
       // e.preventDefault();
       let $files = $(e.target).parents(".weui-uploader").find(".weui-uploader__files");
