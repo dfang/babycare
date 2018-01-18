@@ -2,16 +2,21 @@
   "presets": [
     ["env", {
       "modules": false,
-      "targets": { "node": "current" },
-      "debug": true
+      "targets": {
+        "browsers": "> 1%",
+        "uglify": true
+      },
+      "useBuiltIns": true
     }]
   ],
+
   "plugins": [
     "syntax-async-functions",
     "syntax-async-generators",
     "transform-async-to-generator",
     "syntax-dynamic-import",
-    "transform-object-rest-spread",
-    ["transform-class-properties", { "spec": true }]
+    "transform-object-rest-spread", ["transform-class-properties", {
+      "spec": true
+    }]
   ]
 }
