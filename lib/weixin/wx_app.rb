@@ -244,8 +244,9 @@ module WxApp
     end
 
     def generate_js_sdk_signature_str(noncestr, timestamp, url)
-      Rails.logger.info "jsapi_ticket is #{::WxApp::WxCommon.get_jsapi_ticket}"
-      js_sdk_signature_str = { jsapi_ticket: ::WxApp::WxCommon.get_jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k, v|
+      jsapi_ticket = WxApp::WxCommon.get_jsapi_ticket
+      Rails.logger.info "jsapi_ticket is #{jsapi_ticket}"
+      js_sdk_signature_str = { jsapi_ticket: jsapi_ticket, noncestr: noncestr, timestamp: timestamp, url: url }.sort.map do |k, v|
         "#{k}=#{v}" if v != '' && !v.nil?
       end.compact.join('&')
       Digest::SHA1.hexdigest(js_sdk_signature_str)
