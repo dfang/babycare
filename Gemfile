@@ -15,6 +15,8 @@ gem 'redis-namespace'
 gem 'sidekiq'
 gem 'sinatra'
 
+gem 'redis-rails'
+
 gem 'webpacker', '~> 3.2'
 
 gem 'wisper', '2.0.0'

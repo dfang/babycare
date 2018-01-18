@@ -16,17 +16,17 @@ mp:
   app_id: wxffecc41acd70ccd6
   app_secret: 8c76b7677de43e5ba1db3822c7343553
   token: yibutianxia
-  redirect_uri: http://babycare.natapp1.cc/wechat/auth_callback
+  redirect_uri: http://babycare.yhuan.cc/wechat/auth_callback
 
 # 开放平台网站应用
 open_web:
   app_id: wx5009648228f277ec
   app_secret: fea287de8325e180ffcc8f6b35e29d1d
-  redirect_uri: http://babycare.natapp1.cc/wechat/auth_callback
+  redirect_uri: http://babycare.yhuan.cc/wechat/auth_callback
   state: bjk
 
 common:
-  domain_name: 'http://babycare.natapp1.cc'
+  domain_name: 'http://babycare.yhuan.cc'
 
 wx_pay:
   app_id: wxfa3c7a8dc6ad872d

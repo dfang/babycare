@@ -17,38 +17,40 @@ module WxApp
 
     def get_access_token(_options = {})
       Rails.logger.info 'begin get_access_token .......'
-      Rails.cache.fetch 'weixin_access_token', expires_in: 3600.seconds do
-        # url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
-        # conn = get_conn
-        # response = conn.get url
-        url = (ENV['WX_ACCESS_TOKEN_URL']).to_s || 'localhost:8080'
-        response = Faraday.new.get(url)
-        json = JSON.parse(response.body)
-        access_token = json['access_token']
-        # url = "#{ENV['WX_ACCESS_TOKEN_URL']}" || "localhost:8080"
+      Rails.cache.fetch 'weixin_access_token', expires_in: 7000.seconds do
+        begin
+          url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
+          conn = get_conn
+          response = conn.get url
+        # url = (ENV['WX_ACCESS_TOKEN_URL']).to_s || 'localhost:8080'
         # response = Faraday.new.get(url)
-        # json = JSON.parse(response.body)
-        # Rails.logger.info "get_access_token response body is: \n#{json}"
-        # if json['access_token']
-        #   access_token = json['access_token']
-        # else
-        #   response = Faraday.new.get(url)
-        #   json = JSON.parse(response.body)
-        #   Rails.logger.info "get_access_token response body is: \n#{json}"
-        # end
+          json = JSON.parse(response.body)
+          Rails.logger.info(json)
+          raise json['errmsg'] if(json['errcode']).present?
+          access_token = json['access_token']
+        rescue => e
+          Rails.logger.error e.message
+          Rollbar.error(e)
+        end
       end
     end
 
     def get_jsapi_ticket
       Rails.logger.info 'begin get_jsapi_ticket .......'
-      Rails.cache.fetch 'jsapi_ticket', expires_in: 7200.seconds do
-        url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
-        Rails.logger.info "url is #{url}"
-        conn = get_conn
-        response = conn.get url
-        json = JSON.parse(response.body)
-        Rails.logger.info "get_jsapi_ticket response body is: \n#{json}"
-        jsapi_ticket = json['ticket']
+      Rails.cache.fetch 'jsapi_ticket', expires_in: 7000.seconds do
+        begin
+          url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
+          Rails.logger.info "url is #{url}"
+          conn = get_conn
+          response = conn.get url
+          json = JSON.parse(response.body)
+          Rails.logger.info "get_jsapi_ticket response body is: \n#{json}"
+          raise json['errmsg'] if(json['errcode']) > 0
+          jsapi_ticket = json['ticket']
+        rescue => e
+          Rails.logger.error e.message
+          Rollbar.error(e)
+        end
       end
     end
   end

@@ -20,7 +20,7 @@
             </p>
           </div>
 
-            
+
         </div>
       </div>
 
@@ -114,45 +114,7 @@
 	<%= stylesheet_link_tag :bootstrap_fontawesome %>
 <% end %>
 
-
-<%= content_for :js do %>
-  <%= javascript_tag do %>
-    $(function(){
-
-      $('.good_at').map(function(i,e){
-        values = []
-
-        $(e).find('span').map(function(){
-          values.push($(this).text())
-        })
-
-        $(e).tags({
-          values: values,
-          can_add: false,
-          can_delete: false
-        })
-
-
-      })
-
-      $('.tag_cell').each(function(i, e){
-
-        values = []
-
-        $(e).find('span').map(function(){
-          values.push($(this).text())
-        })
-
-        console.log(values);
-
-        $(e).tags({
-          values: values,
-          can_add: false,
-          can_delete: false
-        })
-
-      })
-
-    })
-  <% end %>
+<%- content_for :js  do %>
+  <%= javascript_pack_tag 'apply' %>
+  <%= javascript_pack_tag 'doctor_new' %>
 <% end %>

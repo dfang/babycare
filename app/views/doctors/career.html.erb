@@ -169,6 +169,6 @@
 <% end %>
 
 <%- content_for :js  do %>
-  <%= javascript_include_tag :uploader %>
-  <%= render 'uploader_js' %>
+  <%= javascript_pack_tag 'apply' %>
+  <%= javascript_pack_tag 'doctor_new' %>
 <% end %>

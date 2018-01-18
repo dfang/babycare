@@ -1,7 +1,6 @@
 <%- default_date = Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10).strftime("%Y-%m-%dT%H:%M") %>
 
 <%= simple_form_for Reservation.new, url: reservations_path, method: 'POST' do |f| %>
-
   <div class="weui-cells weui-cells_form">
 
     <% if current_user.children.any? %>
@@ -163,82 +162,18 @@
   <div class="weui-btn-area">
     <%= f.button :submit, "确定", class: "weui-btn weui-btn_primary", data: { disable_with: '正在提交...' } %>
   </div>
-
 <% end %>
-
-
-
 
 <%= content_for :js do %>
   <%= javascript_tag do %>
-    $(function(){
-        var symptom_tag_details = <%= raw @symptom_details %>;
-
-        $('#symptom-tags').tags({
-            values: <%= raw @symptoms %>,
-            templates: {
-              pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
-              number: '<sup><small>{0}</small></sup>'
-            },
-            input_name: "tag_list[]",
-            can_delete: false,
-            can_add: false
-        });
-
-        $(document).on('click', '#symptom-tags .pills-list .badge', function (e) {
-            $(e.target).siblings().removeClass('active').end().toggleClass('active')
-            tag = $(e.target).text()
-            details = []
-            for (var i = 0, len = symptom_tag_details.length; i < len; i++) {
-              if (symptom_tag_details[i].name == tag) {
-                details = symptom_tag_details[i].values
-              }
-            }
-            $('#symptom-tag-details').parents('.weui-cell').removeClass('hide')
-            $('#symptom-tag-details').empty()
-            $('#symptom-tag-details').tags({
-              values: details,
-              templates: {
-                pill: '<span class="badge badge-info tag-badge" data-tag-id="{1}" style="overflow: hidden; white-space: nowrap;" class="tag-remove">{0}</span>',
-                number: '<sup><small>{0}</small></sup>'
-              },
-              input_name: "tag_list[]",
-              can_delete: false,
-              can_add: false
-            });
-        })
-
-        $(document).on('click', '#symptom-tag-details .pills-list .badge', function (e) {
-            $(e.target).toggleClass('active')
-            details = []
-            $(e.target).parent('.pills-list').find('.badge.active').map(function (i, e) {
-              details.push($(e).text())
-            })
-
-            text = "大夫您好, 我的宝宝, "
-
-            console.log(text + details)
-            $('.weui-cell-remark .weui-textarea').val(text + details)
-        })
-
-        $('.simple_form.new_reservation').parsley({uiEnabled: true, errorsWrapper: ''}).on('field:error', function () {
-            $(this.$element).parents('.weui-cell').addClass('validation_error')
-        }).on('field:success', function () {
-            $(this.$element).parents('.weui-cell').removeClass('validation_error')
-        })
-    })
+      window.reservation = {
+        symptom_tag_details: <%= raw @symptom_details %>,
+        symptom_tags: <%= raw @symptoms %>
+      }
   <% end %>
 <% end %>
 
 
-
-
-
-
 <%- content_for :js  do %>
-
-  <%= javascript_pack_tag 'config_js_sdk',  'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'reservation_new',  'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'reservation_images_uploader',  'data-turbolinks-track': 'reload' %>
-
 <% end %>

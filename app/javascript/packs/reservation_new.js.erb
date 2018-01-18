@@ -1,51 +1,192 @@
-import $ from 'jquery';
+import $ from 'jquery'
 import wx from 'wechat-jssdk-promise';
+import jssdk from "./config_js_sdk";
+import util from './util';
 
+$(function() {
+  console.log(window.reservation);
+  jssdk.config(window.location);
 
-wx.ready( () => {
+  wx.ready(() => {
+    console.log("wx is ready");
+    // console.log("isWeiXin: " + isWeiXin());
+    // console.log("isAndroid: " + isAndroid());
 
-    $(document).on('click', '.weui-vcode-btn',  (e) => {
-        console.log('click get Location 222');
+    $(document).on("click", ".weui-vcode-btn", e => {
+      console.log("click get Location 222");
 
-        wx.getLocationAsync({
-          type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        }).then( (res) => {
+      wx
+        .getLocationAsync({
+          type: "wgs84" // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        })
+        .then(res => {
+          console.log(res);
           var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
           var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
           var speed = res.speed; // 速度，以米/每秒计
           var accuracy = res.accuracy; // 位置精度
-
           var data = {
             location: latitude + "," + longitude,
             key: "GHPBZ-BCE3X-GPT4A-7EJHJ-G2TPQ-PTFBQ",
             get_poi: 0,
             output: "jsonp"
-          }
+          };
           var url = "http://apis.map.qq.com/ws/geocoder/v1/?";
-          console.log('convert latitude and longitude to address');
+          console.log("convert latitude and longitude to address");
           $.ajax({
             type: "get",
-            dataType: 'jsonp',
+            dataType: "jsonp",
             data: data,
             jsonp: "callback",
             jsonpCallback: "QQmap",
             url: url,
-            success: function (json) {
+            success: function(json) {
               // var toStr = JSON.stringify(json);
-              console.log(json.result.address)
+              console.log(json.result.address);
               if (json.status == 0) {
                 // $('textarea[name="reservation[p_location]"]').val(json.result.address)
-                $('#location').val(json.result.address)
+                $("#location").val(json.result.address);
               }
             },
-            error: function (err) {
-              alert("服务端错误，请刷新浏览器后重试")
+            error: function(err) {
+              alert("服务端错误，请刷新浏览器后重试");
             }
-          })
-
-        }).catch( (res) => {
-           alert('获取地理位置失败');
+          });
         })
+        .catch(res => {
+          alert("获取地理位置失败");
+          console.log(res);
+        });
     });
 
-})
+     $(document).on("click", "#picker1", e => {
+      // e.preventDefault();
+      let $files = $(e.target)
+        .parents(".weui-uploader")
+        .find(".weui-uploader__files");
+      // let localIds = []
+
+      wx
+        .chooseImageAsync({
+          count: 9,
+          sizeType: ["original", "compressed"],
+          sourceType: ["album", "camera"]
+        })
+        .then(res => {
+          let serverIds = [];
+          let localIds = res.localIds;
+          let localIdsToPreview = res.localIds;
+          console.log("choosed " + localIdsToPreview.length + " images");
+
+          for (let i = 0, len = localIdsToPreview.length; i < len; i++) {
+            preview($files, localIdsToPreview[i]);
+          }
+
+          syncUpload(localIds, serverIds);
+        });
+
+      const preview = ($files, localId) => {
+        if (util.isAndroid()) {
+          appendToPlaceholder(localId);
+        } else {
+          wx
+            .getLocalImgDataAsync({
+              localId: localId
+            })
+            .then(res => {
+              let localData = res.localData;
+              appendToPlaceholder(localData);
+            });
+        }
+      };
+
+      const appendToPlaceholder = img => {
+        let $li = $('<li class="weui-uploader__file">');
+        let $gallery = $('<div class="weui-gallery" style="display: none;">');
+        let $galleryImg = $('<span class="weui-gallery__img">');
+        let $galleryOpr = $(
+          '<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>'
+        );
+        $li.css("background-image", "url(" + img + ")");
+        $galleryImg.css("background-image", "url(" + img + ")");
+        // $files.append($li);
+        $files
+          .parents(".weui-uploader")
+          .find(".weui-uploader__files")
+          .append($li);
+        $li.append($gallery);
+        $gallery.append($galleryImg);
+        $gallery.append($galleryOpr);
+      };
+
+      const syncUpload = (localIds, serverIds) => {
+        if (localIds.length > 0) {
+          let localId = localIds.shift();
+          wx
+            .uploadImageAsync({
+              localId: localId,
+              isShowProgressTips: 1
+            })
+            .then(res => {
+              console.log("serverId is : " + res.serverId);
+              serverIds.push(res.serverId);
+              syncUpload(localIds, serverIds);
+            });
+        } else {
+          console.log("上传成功!");
+          // write serverId to hidden fields
+          let $files = $("#picker1")
+            .parents(".weui-uploader")
+            .find("ul.weui-uploader__files");
+          // write($files, serverIds);
+          // let $lis = $files.find('li.weui-uploader__file')
+          let existings = $files.find("input:hidden").length;
+
+          console.log(existings);
+          console.log("serverIds are: ");
+          console.log(serverIds);
+
+          for (let i = 0, len = serverIds.length; i < len; i++) {
+            let mediaId_name =
+              "reservation[reservation_images_attributes][" +
+              (i + existings) +
+              "][media_id]";
+            console.log(mediaId_name);
+
+            let mediaId_value = serverIds[i];
+            console.log(mediaId_value);
+
+            let $input = $('<input type="hidden">')
+              .addClass("media-id")
+              .attr("name", mediaId_name)
+              .attr("value", mediaId_value);
+
+            $files.append($input);
+          }
+        }
+      };
+
+      const write = ($files, serverIds) => {
+        console.log("write funciton...");
+        console.log($files);
+        console.log(serverIds);
+
+        let $lis = $files.find("li.weui-uploader__file");
+        let existings = $lis.find("input:hidden").length;
+
+        for (let i = 0, len = serverIds.length; i < len; i++) {
+          let mediaId_name =
+            "reservation[reservation_images_attributes][" +
+            (i + existings) +
+            "][media_id]";
+          let mediaId_value = serverIds[i];
+          let $input = $('<input type="hidden">')
+            .attr("class", "media-id")
+            .attr("name", mediaId)
+            .attr("value", mediaId_value);
+          $files.append($input);
+        }
+      };
+    });
+  });
+});
