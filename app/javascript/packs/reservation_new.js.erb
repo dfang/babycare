@@ -58,10 +58,9 @@ $(function() {
     });
 
     $(document).on("click", "#picker1", e => {
+      console.log("picking files .........")
       // e.preventDefault();
       let $files = $(e.target).parents(".weui-uploader").find(".weui-uploader__files");
-      // let localIds = []
-
       wx.chooseImageAsync({
           count: 9,
           sizeType: ["original", "compressed"],
@@ -131,7 +130,6 @@ $(function() {
           for (let i = 0, len = serverIds.length; i < len; i++) {
             let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]";
             console.log(mediaId_name);
-
             let mediaId_value = serverIds[i];
             console.log(mediaId_value);
             let $input = $('<input type="hidden">').addClass("media-id").attr("name", mediaId_name).attr("value", mediaId_value);
