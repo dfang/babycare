@@ -14,4 +14,17 @@ module ReservationsHelper
       date.strftime('%Y-%m-%d%P%I:%M').gsub('am', '上午').gsub('pm', '下午')
     end
   end
+
+  def build_children_options(options)
+    avatar = if options[:gender] == 'male'
+                        '/boy.png'
+                     else
+                        '/girl.png'
+                     end
+    options.merge!({
+      email: "wx_user_#{SecureRandom.hex}@wx_email.com",
+      password: SecureRandom.hex,
+      avatar: avatar
+    })
+  end
 end

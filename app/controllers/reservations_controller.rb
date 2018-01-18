@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReservationsController < InheritedResources::Base
+  include ReservationsHelper
+
   before_action -> { authenticate_user!(force: true) }
 
   before_action :deny_doctors
@@ -24,20 +26,12 @@ class ReservationsController < InheritedResources::Base
 
   def create
     if !reservation_params.key?(:family_member_id)
-      child = current_user.children.build(family_member_params)
-      child.email = "wx_user_#{SecureRandom.hex}@wx_email.com"
-      child.password = SecureRandom.hex
-      child.avatar = if family_member_params[:gender] == 'male'
-                        '/boy.png'
-                     else
-                        '/girl.png'
-                     end
+      child = current_user.children.build(build_children_options(family_member_params))
       child.save!
       reservation_params.merge!(family_member_id: child.id)
     end
 
     @reservation = current_user.reservations.build(reservation_params)
-
     p reservation_params
     p @reservation
 
@@ -90,12 +84,12 @@ class ReservationsController < InheritedResources::Base
     redirect_to(restricted_reservations_path) && return if access.blank?
   end
 
-  def reservation_params
-    params.require(:reservation).permit!
-  end
-
   def family_member_params
     params.require(:user).permit!
+  end
+
+  def reservation_params
+    params.require(:reservation).permit!
   end
 
   def deny_doctors

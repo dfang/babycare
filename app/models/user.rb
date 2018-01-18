@@ -204,4 +204,5 @@ class User < OdooRecord
   def settle_all_transactions_right_now!
     transactions.pending.find_each(&:settle!)
   end
+
 end

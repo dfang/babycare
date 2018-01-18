@@ -15,11 +15,9 @@ $(function() {
     $(document).on("click", ".weui-vcode-btn", e => {
       console.log("click get Location 222");
 
-      wx
-        .getLocationAsync({
+      wx.getLocationAsync({
           type: "wgs84" // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        })
-        .then(res => {
+        }).then(res => {
           console.log(res);
           var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
           var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
@@ -59,20 +57,16 @@ $(function() {
         });
     });
 
-     $(document).on("click", "#picker1", e => {
+    $(document).on("click", "#picker1", e => {
       // e.preventDefault();
-      let $files = $(e.target)
-        .parents(".weui-uploader")
-        .find(".weui-uploader__files");
+      let $files = $(e.target).parents(".weui-uploader").find(".weui-uploader__files");
       // let localIds = []
 
-      wx
-        .chooseImageAsync({
+      wx.chooseImageAsync({
           count: 9,
           sizeType: ["original", "compressed"],
           sourceType: ["album", "camera"]
-        })
-        .then(res => {
+        }).then(res => {
           let serverIds = [];
           let localIds = res.localIds;
           let localIdsToPreview = res.localIds;
@@ -81,7 +75,6 @@ $(function() {
           for (let i = 0, len = localIdsToPreview.length; i < len; i++) {
             preview($files, localIdsToPreview[i]);
           }
-
           syncUpload(localIds, serverIds);
         });
 
@@ -89,11 +82,9 @@ $(function() {
         if (util.isAndroid()) {
           appendToPlaceholder(localId);
         } else {
-          wx
-            .getLocalImgDataAsync({
+          wx.getLocalImgDataAsync({
               localId: localId
-            })
-            .then(res => {
+            }).then(res => {
               let localData = res.localData;
               appendToPlaceholder(localData);
             });
@@ -104,16 +95,11 @@ $(function() {
         let $li = $('<li class="weui-uploader__file">');
         let $gallery = $('<div class="weui-gallery" style="display: none;">');
         let $galleryImg = $('<span class="weui-gallery__img">');
-        let $galleryOpr = $(
-          '<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>'
-        );
+        let $galleryOpr = $('<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>');
         $li.css("background-image", "url(" + img + ")");
         $galleryImg.css("background-image", "url(" + img + ")");
         // $files.append($li);
-        $files
-          .parents(".weui-uploader")
-          .find(".weui-uploader__files")
-          .append($li);
+        $files.parents(".weui-uploader").find(".weui-uploader__files").append($li);
         $li.append($gallery);
         $gallery.append($galleryImg);
         $gallery.append($galleryOpr);
@@ -122,12 +108,10 @@ $(function() {
       const syncUpload = (localIds, serverIds) => {
         if (localIds.length > 0) {
           let localId = localIds.shift();
-          wx
-            .uploadImageAsync({
+          wx.uploadImageAsync({
               localId: localId,
               isShowProgressTips: 1
-            })
-            .then(res => {
+            }).then(res => {
               console.log("serverId is : " + res.serverId);
               serverIds.push(res.serverId);
               syncUpload(localIds, serverIds);
@@ -135,9 +119,7 @@ $(function() {
         } else {
           console.log("上传成功!");
           // write serverId to hidden fields
-          let $files = $("#picker1")
-            .parents(".weui-uploader")
-            .find("ul.weui-uploader__files");
+          let $files = $("#picker1").parents(".weui-uploader").find("ul.weui-uploader__files");
           // write($files, serverIds);
           // let $lis = $files.find('li.weui-uploader__file')
           let existings = $files.find("input:hidden").length;
@@ -147,20 +129,12 @@ $(function() {
           console.log(serverIds);
 
           for (let i = 0, len = serverIds.length; i < len; i++) {
-            let mediaId_name =
-              "reservation[reservation_images_attributes][" +
-              (i + existings) +
-              "][media_id]";
+            let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]";
             console.log(mediaId_name);
 
             let mediaId_value = serverIds[i];
             console.log(mediaId_value);
-
-            let $input = $('<input type="hidden">')
-              .addClass("media-id")
-              .attr("name", mediaId_name)
-              .attr("value", mediaId_value);
-
+            let $input = $('<input type="hidden">').addClass("media-id").attr("name", mediaId_name).attr("value", mediaId_value);
             $files.append($input);
           }
         }
@@ -175,15 +149,9 @@ $(function() {
         let existings = $lis.find("input:hidden").length;
 
         for (let i = 0, len = serverIds.length; i < len; i++) {
-          let mediaId_name =
-            "reservation[reservation_images_attributes][" +
-            (i + existings) +
-            "][media_id]";
+          let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]";
           let mediaId_value = serverIds[i];
-          let $input = $('<input type="hidden">')
-            .attr("class", "media-id")
-            .attr("name", mediaId)
-            .attr("value", mediaId_value);
+          let $input = $('<input type="hidden">').attr("class", "media-id").attr("name", mediaId).attr("value", mediaId_value);
           $files.append($input);
         }
       };
