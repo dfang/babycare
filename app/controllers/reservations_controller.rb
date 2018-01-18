@@ -30,10 +30,13 @@ class ReservationsController < InheritedResources::Base
       child.save!
       reservation_params.merge!(family_member_id: child.id)
     end
-
     @reservation = current_user.reservations.build(reservation_params)
     p reservation_params
     p @reservation
+
+    Rails.logger.info @reservation.valid?
+    Rails.logger.info @reservation.errors.messages
+
 
     create! do
       status_reservation_path(resource)
@@ -110,6 +113,7 @@ class ReservationsController < InheritedResources::Base
   def ensure_registerd_membership
     # 如果是非会员， 第二次预约就要邀请他加入会员了
     # 如果是会员的， 第二次预约的判断资料是不是完善的，如果不是完善的话，就要提醒他完善了
+    true
   end
 
   def ensure_mobile_phone_valid?

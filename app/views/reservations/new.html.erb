@@ -149,7 +149,7 @@
           <div class="weui-uploader__bd">
             <ul class="weui-uploader__files" id="uploaderFiles">
             </ul>
-            <div class="weui-uploader__input-box" id='picker1'>
+            <div class="weui-uploader__input-box" id='picker1' style="cursor:pointer">
             </div>
             <p id="uploader-placeholder">上传症状照片、病历、检查单，方便医生作诊断，最多上传5张</p>
           </div>
@@ -175,5 +175,5 @@
 
 
 <%- content_for :js  do %>
-  <%= javascript_pack_tag 'reservation_new',  'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'reservation_new' %>
 <% end %>

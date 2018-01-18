@@ -29,15 +29,15 @@ module WxApp
           raise json['errmsg'] if(json['errcode']).present?
           access_token = json['access_token']
         rescue => e
-          Rails.logger.error e.message
-          Rollbar.error(e)
+          Rails.logger.fatal e.message
+          Rollbar.critical(e)
         end
       end
     end
 
     def get_jsapi_ticket
       Rails.logger.info 'begin get_jsapi_ticket .......'
-      Rails.cache.fetch 'jsapi_ticket', expires_in: 7000.seconds do
+      Rails.cache.fetch 'weixin_jsapi_ticket', expires_in: 7000.seconds do
         begin
           url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
           Rails.logger.info "url is #{url}"
@@ -49,7 +49,7 @@ module WxApp
           jsapi_ticket = json['ticket']
         rescue => e
           Rails.logger.error e.message
-          Rollbar.error(e)
+          Rollbar.critical(e)
         end
       end
     end
