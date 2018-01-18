@@ -58,7 +58,7 @@ $(function() {
     });
 
     $(document).on("click", "#picker1", e => {
-      console.log("picking files .........")
+      alert("picking files .........")
       // e.preventDefault();
       let $files = $(e.target).parents(".weui-uploader").find(".weui-uploader__files");
       wx.chooseImageAsync({
