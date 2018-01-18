@@ -1,9 +1,37 @@
 language: ruby
 dist: trusty
+rvm:
+  - 2.2
+before_install:
+  - gem update --system
+  - gem --version
+install:
+  - bundle install
+  - bundle exec rake DATABASE_URL=postgresql:does_not_exist assets:precompile
+
+env:
+  RAILS_ENV=staging
+
+addons:
+  chrome: stable
+  postgresql: 9.5
+
+services:
+  - redis-server
+
+sudo: false
+
+cache:
+  bundler: true
+  yarn: true
+  directories:
+    - vendor/bundle
+
+
 notifications:
   slack:
     rooms:
       - shouzheng:wfxDRgzppubfbLfilYQY1wtZ#travisci
       - shouzheng:wfxDRgzppubfbLfilYQY1wtZ#general
-env:
-  RAILS_ENV=staging
+
+
