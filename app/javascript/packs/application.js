@@ -14,9 +14,11 @@ import Rails from "rails-ujs";
 import Turbolinks from "turbolinks";
 import parsley from "parsley";
 
+
+
+import './captcha';
+
 console.log($.name);
-
-
 Rails.start();
 Turbolinks.start();
 
@@ -24,7 +26,7 @@ Turbolinks.start();
 // import config from './config_js_sdk'
 
 
-import weui from 'weui.js'
+// import weui from 'weui.js'
 
 
 // config(window.location)
