@@ -1,4 +1,4 @@
-<%- unless @doctor.verified? %>
+<%- unless current_user.doctor.verified? %>
   请等待我们的审核
 <% else  %>
   <div class="page msg_success js_show">
