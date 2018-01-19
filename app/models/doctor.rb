@@ -21,11 +21,11 @@ class Doctor < OdooRecord
     state :verified, :failed, :signed, :overdued
 
     event :verify do
-      transitions :from => :pending, :to => :failed
+      transitions :from => :pending, :to => :verified
     end
 
     event :deny do
-      transitions :from => :pending, :to => :verified
+      transitions :from => :pending, :to => :failed
     end
 
     event :sign do

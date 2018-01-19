@@ -24,8 +24,11 @@ class DoctorsController < InheritedResources::Base
   end
 
   def sign
-    @contract = Contract.new
-    # @contract.build_bank_account
+    if current_user.has_valid_contracts?
+      redirect_to doctors_status_path and return
+    else
+      @contract = Contract.new
+    end
   end
 
   def contract
@@ -47,9 +50,14 @@ class DoctorsController < InheritedResources::Base
   def new
     if current_user && current_user.doctor.present?
       @doctor = current_user.doctor
-      if @doctor.verified?
-        # redirect_to status_doctor_path(@doctor)
-        redirect_to(wizard_path(:finished)) && return
+      if current_user.has_valid_contracts?
+        redirect_to doctors_status_path and return
+      else
+        if @doctor.verified?
+          redirect_to(wizard_path(:finished)) && return
+        else
+          redirect_to(wizard_path(:career)) && return
+        end
       end
     else
       @doctor = current_user.build_doctor

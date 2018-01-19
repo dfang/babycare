@@ -198,11 +198,18 @@ class User < OdooRecord
     end
   end
 
+  def valid_contracts
+    contracts.where("end_at > ?", Time.zone.now)
+  end
+
+  def has_valid_contracts?
+    valid_contracts.any?
+  end
+
   private
 
   # method for testing
   def settle_all_transactions_right_now!
     transactions.pending.find_each(&:settle!)
   end
-
 end

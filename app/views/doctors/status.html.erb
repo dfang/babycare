@@ -1,14 +1,14 @@
-<%- if current_user.verified_doctor? %>
+<%- if current_user.verified_doctor? && current_user.has_valid_contracts? %>
   <div class="page msg_success js_show">
     <div class="weui-msg">
         <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
         <div class="weui-msg__text-area">
-            <h2 class="weui-msg__title">已通过验证</h2>
-            <p class="weui-msg__desc">您提交的个人信息已通过审核，在您正式使用本平台前，请先签订<a href="contract">合同</a></p>
+            <h2 class="weui-msg__title">合同生效中</h2>
+            <p class="weui-msg__desc">你还有一份<a href="contract">合同</a>正在履行</p>
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-                <a href="sign" class="weui-btn weui-btn_primary">去签合同</a>
+                <a href="contract" class="weui-btn weui-btn_primary">查看合同</a>
             </p>
         </div>
         <div class="weui-msg__extra-area">
@@ -21,8 +21,18 @@
         </div>
     </div>
 </div>
-<%- elsif current_user.doctor? %>
-  你还没有通过我们的审核
 <% else %>
-  请先提交申请资料和通过我们的审核
+  <div class="page msg_success js_show">
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+        <div class="weui-msg__text-area">
+            <h2 class="weui-msg__title">已通过验证</h2>
+            <p class="weui-msg__desc">您提交的个人信息已通过审核，在您正式使用本平台前，请先签订<a href="contract">合同</a></p>
+        </div>
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
+                <a href="sign" class="weui-btn weui-btn_primary">去签合同</a>
+            </p>
+        </div>
+    </div>
 <% end %>
