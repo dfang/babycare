@@ -45,7 +45,7 @@ class DoctorsController < InheritedResources::Base
   end
 
   def new
-    if current_user&.doctor.present?
+    if current_user && current_user.doctor.present?
       @doctor = current_user.doctor
       if @doctor.verified?
         # redirect_to status_doctor_path(@doctor)

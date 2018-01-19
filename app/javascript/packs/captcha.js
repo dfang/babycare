@@ -17,7 +17,7 @@ $(function () {
   );
 
   // 请求获取验证码
-  $(document).on( "click", "button.weui-vcode-btn.get-code", function (e) {
+  $(document).on("click", "button.weui-vcode-btn.get-code", function (e) {
       e.preventDefault();
       var mobile_phone = $(".weui-input.request-captcha").val();
       $.post("/simple_captcha/request_captcha", {
@@ -49,7 +49,7 @@ $(function () {
   );
 
   // 验证验证码when focusOut
-  $(document).on( "keyup", ".weui-input.captcha", function (e) {
+  $(document).on("keyup", ".weui-input.captcha", function (e) {
       var charCode = e.charCode || e.keyCode;
       // numbers
       if (96 <= charCode <= 105) {
