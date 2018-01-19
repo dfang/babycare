@@ -54,15 +54,15 @@ class DoctorsController < InheritedResources::Base
         redirect_to doctors_status_path and return
       else
         if @doctor.verified?
-          redirect_to(wizard_path(:finished)) && return
+          redirect_to(wizard_path(:finished)) and return
         else
-          redirect_to(wizard_path(:career)) && return
+          redirect_to(wizard_path(:career)) and return
         end
       end
     else
       @doctor = current_user.build_doctor
+      redirect_to(wizard_path(:basic)) and return
     end
-    redirect_to(wizard_path(:basic)) && return
   end
 
   def index

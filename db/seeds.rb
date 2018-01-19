@@ -43,3 +43,6 @@ require_relative './seeds/examination.rb'
 p 'Done .....'
 
 # City.find_or_create_by(name: "武汉市", pinyin: "wuhan")
+
+Wallet.where(balance_withdrawable: nil).update_all(balance_withdrawable: 0)
+Wallet.where(balance_unwithdrawable: nil).update_all(balance_unwithdrawable: 0)

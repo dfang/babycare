@@ -17,7 +17,11 @@
 
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
-          <a href="/doctors/wallet/withdraw" class="weui-btn weui-btn__primary">提现</a>
+          <% if current_user.wallet.balance_withdrawable_cny > 0%>
+            <a href="/doctors/wallet/withdraw" class="weui-btn weui-btn_primary">提现</a>
+          <% else %>
+            <a href="/doctors/wallet/withdraw" class="weui-btn weui-btn_primary disabled weui-btn_disabled">提现</a>
+          <% end %>
         </p>
     </div>
     <div class="weui-msg__extra-area">

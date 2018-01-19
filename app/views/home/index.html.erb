@@ -8,12 +8,11 @@
         <div class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <img src="banner1.jpg" alt="">
+              <img src="/banner1.jpg" alt="">
             </div>
             <div class="swiper-slide">
-              <img src="banner2.jpg" alt="">
+              <img src="/banner2.jpg" alt="">
             </div>
-            <!-- <div class="swiper-slide"><img src="images/banner2.jpg" alt=""></div> -->
           </div>
           <div class="swiper-pagination swiper-pagination-bullets">
             <span class="swiper-pagination-bullet"></span>
@@ -26,19 +25,19 @@
           <div class="weui-grids">
             <a href="/patients/family_members" class="weui-grid">
               <div class="weui-grid__icon">
-                <img src="children.png">
+                <img src="/children.png">
               </div>
               <p class="weui-grid__label">宝宝信息</p>
             </a>
             <a href="products/1" class="weui-grid">
               <div class="weui-grid__icon">
-                <img src="reserve.png" alt="">
+                <img src="/reserve.png" alt="">
               </div>
               <p class="weui-grid__label">立即预约</p>
             </a>
             <a href="/patients/reservations" class="weui-grid">
               <div class="weui-grid__icon">
-                <img src="reservation.png" alt="">
+                <img src="/reservation.png" alt="">
               </div>
               <p class="weui-grid__label">预约列表</p>
             </a>
@@ -140,25 +139,3 @@
 
   </div>
 </div>
-
-<%- content_for :js do %>
-  <script type="text/javascript">
-    var swiper = new Swiper('.swiper-container', {
-      spaceBetween: 30,
-      centeredSlides: true,
-      autoplay: {
-        delay: 2000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
-
-  </script>
-  <% end %>

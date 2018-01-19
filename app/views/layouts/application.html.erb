@@ -14,8 +14,9 @@
       <%= csrf_meta_tags %>
       <%= action_cable_meta_tag %>
       <%= javascript_include_tag "http://res.wx.qq.com/open/js/jweixin-1.2.0.js" %>
+      <%= javascript_include_tag 'mobile' %>
       <%= javascript_pack_tag 'vendor' %>
-      <%= javascript_pack_tag 'application' %>
+      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body class="<%= underscore_body_class %>">
     <div id='container' class='container'>
