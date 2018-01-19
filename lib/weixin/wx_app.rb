@@ -31,6 +31,7 @@ module WxApp
         rescue => e
           Rails.logger.fatal e.message
           Rollbar.critical(e)
+          nil
         end
       end
     end
@@ -50,6 +51,7 @@ module WxApp
         rescue => e
           Rails.logger.error e.message
           Rollbar.critical(e)
+          nil
         end
       end
     end
