@@ -1,2 +1,12 @@
 //= require jquery
-//= require mobile/config_js_sdk
+//= require mobile/bootstrap
+//= require mobile/bootstrap-tags
+//= require mobile/parsley
+
+
+$(function(){
+  // $("form.has_validations").parsley();
+
+
+
+})

@@ -10,18 +10,68 @@
 console.log('Hello World from Webpacker')
 
 import $ from "jquery";
-import Rails from "rails-ujs";
+
+// 加上这两句会破坏mobile.js里的.tags() 和 .parsley()
+// global.$ = $;
+// global.jQuery = $;
+
 import Turbolinks from "turbolinks";
-import parsley from "parsley";
 
-
+import './vendor';
+// import Parsley from "parsleyjs";
+// require("parsleyjs");
+import IM from './im';
+window.IM = IM;
 
 import './captcha';
 
-console.log($.name);
-Rails.start();
+// require('parsleyjs');
+
+// console.log($.name);
+// Rails.start();
 Turbolinks.start();
 
+// $.fn.parsley = new Parsley.Factory();
+
+$.ajaxSetup({
+  beforeSend: function(jqXHR) {
+    $("#loadingToast").fadeIn(100);
+  },
+  complete: function(jqXHR) {
+    // setTimeout(function () {
+    $("#loadingToast").hide(100);
+    // }, 1200);
+  }
+});
+
+$("docoment").on("click", "a.disabled, button.disabled", function(e){
+  e.preventDefault();
+  // return false;
+});
+
+$("#container").on("click", ".weui-tabbar__item", function() {
+  $(this).addClass("weui_bar_item__on").siblings(".weui_bar_item__on").removeClass("weui_bar_item__on");
+});
+
+// $(document).on("turbolinks:load", function() {
+  // var form = $("form.has_validations").parsley();
+  // new Parsley.Factory("form.has_validations");
+// })
+
+// $("form#new_doctor")
+//     .parsley({ uiEnabled: true, errorsWrapper: "" })
+//     .on("field:error", function() {
+//       $(this.$element)
+//         .parents(".weui-cell")
+//         .addClass("validation_error");
+//     })
+//     .on("field:success", function() {
+//       $(this.$element)
+//         .parents(".weui-cell")
+//         .removeClass("validation_error");
+//     });
+
+// new Parsley.Factory(".simple_form.new_reservation");
 
 // import config from './config_js_sdk'
 

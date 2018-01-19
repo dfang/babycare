@@ -11,7 +11,7 @@
     "bootstrap-star-rating": "^4.0.2",
     "coffeescript": "1.12.7",
     "dotenv": "^4.0.0",
-    "jquery": "2",
+    "jquery": "1.12",
     "jquery-ujs": "^1.2.2",
     "parsleyjs": "^2.8.0",
     "rails-erb-loader": "^5.2.1",
