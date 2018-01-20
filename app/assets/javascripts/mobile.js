@@ -7,6 +7,6 @@
 $(function(){
   // $("form.has_validations").parsley();
 
-
+  window.reservation = {}
 
 })

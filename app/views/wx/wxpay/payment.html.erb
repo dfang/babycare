@@ -8,6 +8,22 @@
   <%= render 'payment_status' %>
 <% end %>
 
+<%= content_for :js do %>
+  <%= javascript_tag do %>
+    $(function(){
+      window.reservation.orderParams = {
+          appId:     "<%= @order_params[:appId] %>",
+          timeStamp: "<%= @order_params[:timeStamp] %>",
+          nonceStr:  "<%= @order_params[:nonceStr] %>",
+          package:   "<%= @order_params[:package] %>",
+          paySign:   "<%= @order_params[:paySign] %>",
+          signType:  "<%= @order_params[:signType] %>",
+          reservation_id:  "<%= @order_params[:reservation_id] %>"
+        };
+    })
+  <% end %>
+<% end %>
+
 <%- content_for :js  do %>
   <%= javascript_pack_tag 'payment' %>
 <% end %>

@@ -74,7 +74,8 @@ class Wx::WxpayController < ApplicationController
         nonceStr:  js_pay_params.delete(:nonceStr),
         signType:  js_pay_params.delete(:signType),
         package:   js_pay_params.delete(:package),
-        paySign:   js_pay_params.delete(:paySign)
+        paySign:   js_pay_params.delete(:paySign),
+        reservation_id: @reservation.id
       }
 
       Rails.logger.info '@order_params is ......... \n'

@@ -4,32 +4,23 @@ import jssdk from "./config_js_sdk";
 
 $(function() {
   jssdk.config(window.location);
-
   wx.ready(() => {
     console.log("wx is ready");
-    <% if @order_params.present? %>
-        var orderParams = {
-          appId:     "<%= @order_params[:appId] %>",
-          timeStamp: "<%= @order_params[:timeStamp] %>",
-          nonceStr:  "<%= @order_params[:nonceStr] %>",
-          package:   "<%= @order_params[:package] %>",
-          paySign:   "<%= @order_params[:paySign] %>",
-          signType:  "<%= @order_params[:signType] %>"
-        };
 
     $(document).on('click', '#wechatPaymentBtn', function(e){
       console.log('choose WxPay')
+      var op = window.reservation.orderParams
       wx.chooseWXPay({
-                timestamp: orderParams.timeStamp,
-                nonceStr:  orderParams.nonceStr,
-                package:   orderParams.package,
-                signType:  orderParams.signType,
-                paySign:   orderParams.paySign,
+                timestamp: op.timeStamp,
+                nonceStr:  op.nonceStr,
+                package:   op.package,
+                signType:  op.signType,
+                paySign:   op.paySign,
                 success: function (res) {
                   if(res["errMsg"] == "chooseWXPay:ok"){
                     // check payments and change aasm_state in payment_notify_url(set when generate_payment_options)
                     // and redirect to reservation status page
-                    location.href = "<%= patients_reservation_path(@reservation) %>"
+                    location.href = "/patients/reservations/" + op.reservation_id
                   }
                 },
                 fail: function(res){
@@ -38,8 +29,6 @@ $(function() {
                 }
             });
     })
-
-    <% end %>
   });
 
 
