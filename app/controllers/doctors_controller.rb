@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DoctorsController < InheritedResources::Base
-  before_action -> { authenticate_user!(force: true) }
+  before_action :authenticate_user!
   include Wicked::Wizard
   steps :basic, :career, :finished
 

@@ -3,8 +3,11 @@
 class Doctors::ReservationsController < InheritedResources::Base
   before_action -> { authenticate_user!(force: true) }
   before_action :check_is_verified_doctor
-  # skip_before_action :check_is_verified_doctor, only: [ :status ]
-  custom_actions collection: %i[reservations status], member: %i[claim complete_offline_consult complete_online_consult]
+
+  # TODO should remove this, add csrf token in ajax header
+  skip_before_action :verify_authenticity_token, only: [ :status, :update ]
+
+  custom_actions collection: %i[reservations status not_found], member: %i[claim complete_offline_consult complete_online_consult]
 
   def reservations; end
 
@@ -40,6 +43,8 @@ class Doctors::ReservationsController < InheritedResources::Base
     # {"controller"=>"doctors/reservations", "action"=>"show", "id"=>"106"}
     super
   end
+
+  def not_found; end
 
   def detail; end
 

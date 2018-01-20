@@ -7,7 +7,7 @@
         <p>
             <% if resource.reservation_images.any?  %>
               <% resource.reservation_images.each do |image| %>
-                <%= image_tag image.data %>
+                <%= image_tag image.data if image.data.present? %>
               <% end %>
             <% end %>
         </p>

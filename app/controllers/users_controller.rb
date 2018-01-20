@@ -19,10 +19,10 @@ class UsersController < InheritedResources::Base
       @reservation = Reservation.where(doctor_id: current_user.doctor.id).where(user: user).order('updated_at DESC').first
       if @reservation.present?
         @reservation.scan_qrcode! if @reservation.to_consult?
-
         redirect_to(doctors_reservation_path(@reservation)) && return
       else
-        raise StandardError
+        # raise StandardError
+        redirect_to(not_found_doctors_reservations_path) && return
       end
 
     else

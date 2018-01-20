@@ -77,6 +77,8 @@ Rails.application.routes.draw do
     post 'contract'
 
     resources :reservations do
+      # 扫码时无预约提示页面
+      get 'not_found', on: :collection
       get 'status', on: :member
       # get 'detail', on: :member
       # get 'claim', on: :member

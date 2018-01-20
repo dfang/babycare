@@ -112,6 +112,7 @@
           url: '<%= doctors_reservation_path(resource) %>',
           type: 'PUT',
           data: {
+            csrf_token: $("meta[name=csrf-token]").attr('content'),
             reservation:{
               d_location: $('input[name="reservation[d_location]"]').val(),
               d_date: $('input[name="reservation[d_date]"]').val(),
