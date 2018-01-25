@@ -163,6 +163,9 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    graphiql-rails (1.4.8)
+      rails
+    graphql (1.7.8)
     groupify (0.9.0)
     haml (5.0.1)
       temple (>= 0.8.0)
@@ -497,6 +500,8 @@ DEPENDENCIES
   ffaker
   foreman
   friendly_id
+  graphiql-rails
+  graphql
   groupify
   haml-rails
   has_scope

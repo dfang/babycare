@@ -165,3 +165,8 @@ end
 # gem 'simplecov', :require => false, :group => :test
 
 # gem 'mocha', group: :test
+
+gem 'graphql'
+gem "graphiql-rails"
+
+gem 'graphiql-rails', group: :development
