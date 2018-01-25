@@ -15,18 +15,19 @@ module WxApp
       end
     end
 
-    def get_access_token(_options = {})
-      Rails.logger.info 'begin get_access_token .......'
-      Rails.cache.fetch 'weixin_access_token', expires_in: 7000.seconds do
+    def get_access_token(options = {})
+      if ENV['WX_ACCESS_TOKEN_URL'].to_s.present?
+        url =  ENV['WX_ACCESS_TOKEN_URL'].to_s
+      else
+        url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
+      end
+      Rails.logger.info "getAccessTokenUrl is #{url}"
+      Rails.cache.fetch 'weixin_access_token', expires_in: 7000.seconds, force: options[:force] || false do
         begin
-          url = "/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
-          conn = get_conn
-          response = conn.get url
-        # url = (ENV['WX_ACCESS_TOKEN_URL']).to_s || 'localhost:8080'
-        # response = Faraday.new.get(url)
+          response = Faraday.new.get(url)
           json = JSON.parse(response.body)
           Rails.logger.info(json)
-          raise json['errmsg'] if(json['errcode']).present?
+          raise json if(json['errcode']).present?
           access_token = json['access_token']
         rescue => e
           Rails.logger.fatal e.message
@@ -36,17 +37,25 @@ module WxApp
       end
     end
 
-    def get_jsapi_ticket
-      Rails.logger.info 'begin get_jsapi_ticket .......'
-      Rails.cache.fetch 'weixin_jsapi_ticket', expires_in: 7000.seconds do
+    def get_jsapi_ticket(options = {})
+      access_token = WxApp::WxCommon.get_access_token
+      if access_token.blank?
+        # should notify by sms
+        # Rails.logger.info "force to get_access_token"
+        access_token = WxApp::WxCommon.get_access_token(force: true)
+        if access_token.blank?
+          Rails.logger.fatal "eror when get_access_token with force option, so get_jsapi_ticket will failed as well ......"
+        end
+      end
+      weixin_jsapi_ticket = Rails.cache.fetch 'weixin_jsapi_ticket', expires_in: 7000.seconds, force: options[:force] do
         begin
-          url = "/cgi-bin/ticket/getticket?access_token=#{WxApp::WxCommon.get_access_token}&type=jsapi"
+          url = "/cgi-bin/ticket/getticket?access_token=#{access_token}&type=jsapi"
           Rails.logger.info "url is #{url}"
           conn = get_conn
           response = conn.get url
           json = JSON.parse(response.body)
           Rails.logger.info "get_jsapi_ticket response body is: \n#{json}"
-          raise json['errmsg'] if(json['errcode']) > 0
+          raise json if(json['errcode']) > 0
           jsapi_ticket = json['ticket']
         rescue => e
           Rails.logger.error e.message
@@ -54,6 +63,12 @@ module WxApp
           nil
         end
       end
+
+      if weixin_jsapi_ticket.blank?
+        WxApp::WxCommon.get_jsapi_ticket(force: true)
+        return
+      end
+      weixin_jsapi_ticket
     end
   end
 end
