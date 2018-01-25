@@ -17,10 +17,11 @@ $(function () {
         console.log('ready .....')
 
         $(document).on('click', '#picker1, #picker2, #picker3, #picker4', function (e) {
+          const pickerId = $(e.target).attr('id')
 
-          function uploadPhotosField() {
+          function uploadPhotosField(pickerId) {
             let uploadField = "";
-            switch ($(e.target).attr('id')) {
+            switch (pickerId) {
               case 'picker1':
                 uploadField = "doctor[id_card_front_media_id]"
                 break;
@@ -30,8 +31,10 @@ $(function () {
               case 'picker3':
                 uploadField = "doctor[license_front_media_id]"
                 break;
-              default:
+              case 'picker4':
                 uploadField = "doctor[license_back_media_id]"
+                break;
+              default:
                 break;
             }
             return uploadField
@@ -62,8 +65,8 @@ $(function () {
                   }).then(res => {
                     let localData = res.localData;
                     const $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localData + ")")
-                    const $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px");
-                    $li.append($i)
+                    // const $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px");
+                    // $li.append($i)
                     $files.append($li)
                   });
                 }
@@ -74,25 +77,25 @@ $(function () {
                   isShowProgressTips: 1,
                   success: function (res) {
                     // alert('upload complete, serverId is ')
-                    // alert(res.serverId)
+                    alert(res.serverId)
+                    alert(uploadPhotosField(pickerId))
 
-                    const $input = $('<input type="hidden">')
-                      .attr("name", uploadPhotosField)
-                      .attr("value", res.serverId);
-                    $li.append($input)
+                    const $input = $('<input type="hidden">').attr("name", uploadPhotosField(pickerId)).attr("value", res.serverId);
+                    // $li.append($input)
+                    $files.append($input)
 
                     // alert('input field name is')
                     // alert($li.find('input').attr('name'))
                     // alert('input field value is')
                     // alert($li.find('input').attr('value'))
                     // alert('images length is')
-                    // alert($files.find('li input').length);
+
+                    alert($files.find('input').length);
                   },
                   fail: function (res) {
                     alert(JSON.stringify(res));
                   }
                 })
-
               }
             }
           });

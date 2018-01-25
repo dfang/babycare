@@ -9,6 +9,6 @@ class ProcessDoctorIdCardFrontImageJob < ApplicationJob
     global_image = GlobalImage.create(remote_data_url: url)
     # 把wx.uploadImage 生成的 media_id 置空
     # image.media_id = ""
-    doctor.update_column(:id_card_front, global_image.data_url)
+    doctor.update_columns(id_card_front: global_image.data_url, id_card_front_media_id: nil)
   end
 end
