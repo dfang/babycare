@@ -18,9 +18,9 @@ module CommonHelper
   end
 
   def format_gender(str)
-    if str == 'male' || str == '0'
+    if str == 'male' || str == '1'
       "男"
-    elsif str == 'female' || str == '1'
+    elsif str == 'female' || str == '0'
       "女"
     else
       "未知"
