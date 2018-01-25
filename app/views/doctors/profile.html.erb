@@ -17,14 +17,14 @@
                     <div class="weui-cell__bd">
                         <p>生日</p>
                     </div>
-                    <div class="weui-cell__ft"><%= current_user.doctor.date_of_birth %></div>
+                    <div class="weui-cell__ft"><%= format_date_to_ymd(current_user.doctor.date_of_birth) %></div>
                 </div>
 
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
                         <p>性别</p>
                     </div>
-                    <div class="weui-cell__ft"><%= current_user.doctor.gender %></div>
+                    <div class="weui-cell__ft"><%= format_gender(current_user.doctor.gender) %></div>
                 </div>
 
                 <div class="weui-cell">
@@ -64,7 +64,7 @@
                 <div class="weui-media-box weui-media-box_text">
                     <h4 class="weui-media-box__title">家庭地址</h4>
                       <p class="weui-media-box__desc">
-                          <%= current_user.doctor.home_address %>
+                        <%= current_user.doctor.home_address %>
                       </p>
                 </div>
             </div>
@@ -80,10 +80,10 @@
                           <div class="weui-uploader__bd">
                               <ul class="weui-uploader__files" id="uploaderFiles">
                                   <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
-                                    <%= show_holder_or_image @doctor, :license_front, "79x79" %>
+                                    <%= show_holder_or_image current_user.doctor, :license_front, "79x79" %>
                                   </li>
                                   <li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)">
-                                    <%= show_holder_or_image @doctor, :license_back, "79x79" %>
+                                    <%= show_holder_or_image current_user.doctor, :license_back, "79x79" %>
                                   </li>
                               </ul>
                           </div>

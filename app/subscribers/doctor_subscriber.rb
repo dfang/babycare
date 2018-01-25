@@ -5,19 +5,23 @@ class DoctorSubscriber
     def update_doctor_successful(doctor)
       Rails.logger.info 'subscribed'
 
-      if doctor.license_front_media_id.present? && doctor.license_front_media_id_changed?
+      Rails.logger.info doctor.id_card_front_media_id
+      Rails.logger.info doctor.id_card_front_media_id.present?
+      Rails.logger.info doctor.id_card_front_media_id_changed?
+
+      if doctor.license_front_media_id.present?
         ProcessDoctorLicenceFrontImageJob.perform_now(doctor)
       end
 
-      if doctor.license_back_media_id.present? && doctor.license_back_media_id_changed?
+      if doctor.license_back_media_id.present?
         ProcessDoctorLicenceBackImageJob.perform_now(doctor)
       end
 
-      if doctor.id_card_front_media_id.present? && doctor.id_card_front_media_id_changed?
+      if doctor.id_card_front_media_id.present?
         ProcessDoctorIdCardFrontImageJob.perform_now(doctor)
       end
 
-      if doctor.id_card_back_media_id.present? && doctor.id_card_back_media_id_changed?
+      if doctor.id_card_back_media_id.present?
         ProcessDoctorIdCardBackImageJob.perform_now(doctor)
       end
     end
