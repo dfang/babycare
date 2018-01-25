@@ -11,8 +11,8 @@ class SimpleCaptchaController < ApplicationController
     # 生出验证码, 记录到数据库
     captcha = SimpleCaptcha.gen_captcha(to)
 
-    # 发出去
-    SmsCaptchaJob.perform_now(to, captcha)
+    # 发出去(valid in 2 minutes)
+    SmsCaptchaJob.perform_now(to, captcha, 2)
 
     head :ok
   end
