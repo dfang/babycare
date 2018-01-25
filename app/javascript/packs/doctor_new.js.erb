@@ -77,8 +77,8 @@ $(function () {
                   isShowProgressTips: 1,
                   success: function (res) {
                     // alert('upload complete, serverId is ')
-                    alert(res.serverId)
-                    alert(uploadPhotosField(pickerId))
+                    // alert(res.serverId)
+                    // alert(uploadPhotosField(pickerId))
 
                     const $input = $('<input type="hidden">').attr("name", uploadPhotosField(pickerId)).attr("value", res.serverId);
                     // $li.append($input)
@@ -90,7 +90,7 @@ $(function () {
                     // alert($li.find('input').attr('value'))
                     // alert('images length is')
 
-                    alert($files.find('input').length);
+                    // alert($files.find('input').length);
                   },
                   fail: function (res) {
                     alert(JSON.stringify(res));
