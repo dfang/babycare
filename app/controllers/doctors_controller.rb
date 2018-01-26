@@ -5,7 +5,7 @@ class DoctorsController < InheritedResources::Base
   helper_method :current_doctor
 
   include Wicked::Wizard
-  steps :basic, :career, :finished
+  steps :basic, :career
 
   before_action :check_legality, only: %i[index reservations]
   before_action :set_doctor, only: %i[show update sign contract]
@@ -115,7 +115,7 @@ class DoctorsController < InheritedResources::Base
   end
 
   def finish_wizard_path
-    status_doctor_path
+    doctors_status_path
   end
 
   private
