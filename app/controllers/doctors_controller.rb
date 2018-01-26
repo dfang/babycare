@@ -7,7 +7,7 @@ class DoctorsController < InheritedResources::Base
   include Wicked::Wizard
   steps :basic, :career, :finished
 
-  before_action :check_is_verified_doctor, only: %i[index reservations]
+  before_action :check_legality, only: %i[index reservations]
   before_action :set_doctor, only: %i[show update]
   # before_action :set_doctor, only: %i[status show edit update destroy online offline contract]
 
@@ -18,7 +18,7 @@ class DoctorsController < InheritedResources::Base
   def profile
   end
 
-  # 申请，审核状态页
+  # 申请，审核状态, 合同过期页
   def status
     Rails.logger.info 'status'
   end
@@ -95,7 +95,7 @@ class DoctorsController < InheritedResources::Base
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json
   def update
-    # @doctor.verify! unless Rails.env.production?
+    @doctor.verify! unless Rails.env.production?
 
     respond_to do |format|
       if @doctor.update(doctor_params.except(:captcha))
@@ -114,23 +114,10 @@ class DoctorsController < InheritedResources::Base
     end
   end
 
-  def finish_wizard_path
-    status_doctor_path
-  end
-
   private
 
-  def check_is_verified_doctor
+  def check_legality
     redirect_to doctors_status_path unless current_user.has_valid_contracts?
-    # if current_doctor.nil?
-    #   flash[:error] = '你还没提交资料申请我们的签约医生'
-    #   # redirect_to(global_denied_path) && return
-    #   redirect_to(doctors_status_path) && return
-    # end
-
-    # unless current_user.verified_doctor?
-    #   redirect_to(doctors_status_path) && return
-    # end
   end
 
   def set_doctor
