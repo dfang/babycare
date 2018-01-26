@@ -57,26 +57,3 @@ $("#container").on("click", ".weui-tabbar__item", function() {
   // var form = $("form.has_validations").parsley();
   // new Parsley.Factory("form.has_validations");
 // })
-
-// $("form#new_doctor")
-//     .parsley({ uiEnabled: true, errorsWrapper: "" })
-//     .on("field:error", function() {
-//       $(this.$element)
-//         .parents(".weui-cell")
-//         .addClass("validation_error");
-//     })
-//     .on("field:success", function() {
-//       $(this.$element)
-//         .parents(".weui-cell")
-//         .removeClass("validation_error");
-//     });
-
-// new Parsley.Factory(".simple_form.new_reservation");
-
-// import config from './config_js_sdk'
-
-
-// import weui from 'weui.js'
-
-
-// config(window.location)

@@ -2,11 +2,9 @@
 //= require mobile/bootstrap
 //= require mobile/bootstrap-tags
 //= require mobile/parsley
+//= require mobile/validate
 
 
 $(function(){
-  // $("form.has_validations").parsley();
-
   window.reservation = {}
-
 })
