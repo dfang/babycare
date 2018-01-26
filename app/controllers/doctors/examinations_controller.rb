@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class Doctors::ExaminationsController < ApplicationController
-  before_action -> { authenticate_user!(force: true) }
-
+class Doctors::ExaminationsController < Doctors::BaseController
   before_action :find_reservation, only: %i[new edit]
   before_action :prepare_checkboxs_data, only: %i[new edit]
 

@@ -2,23 +2,23 @@
 
 class DoctorsController < InheritedResources::Base
   before_action :authenticate_user!
+  helper_method :current_doctor
+
   include Wicked::Wizard
   steps :basic, :career, :finished
 
-  # before_action ->{ authenticate_user!( force: true ) }, except: [ :apply, :new, :create ]
-  # custom_actions :resource => :status
-
-  before_action :set_doctor, only: %i[status show edit update destroy online offline contract]
-  before_action :check_is_verified_doctor, only: %i[reservations index]
+  before_action :check_is_verified_doctor, only: %i[index reservations]
+  before_action :set_doctor, only: %i[show update]
+  # before_action :set_doctor, only: %i[status show edit update destroy online offline contract]
 
   def apply
     redirect_to new_doctor_path
   end
 
   def profile
-    # @resource = current_user.medical_records.first
   end
 
+  # 申请，审核状态页
   def status
     Rails.logger.info 'status'
   end
@@ -33,7 +33,6 @@ class DoctorsController < InheritedResources::Base
 
   def contract
     if request.post?
-      # binding.pry
       @contract = Contract.new(contract_params)
       @contract.user = current_user
       @bank_account = BankAccount.new(bank_account_params)
@@ -67,17 +66,10 @@ class DoctorsController < InheritedResources::Base
 
   def index
     p 'doctor index'
+    Rails.logger.info "医生个人中心"
   end
 
   def show
-    # Rails.logger.info params[:action]
-    # Rails.logger.info 'aaaa'
-    # if params.key?(:action) && pa
-    # @user = current_user
-    # case step
-    # when :find_friends
-    #   @friends = @user.find_friends
-    # end
     render_wizard
   end
 
@@ -103,7 +95,7 @@ class DoctorsController < InheritedResources::Base
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json
   def update
-    @doctor.update(aasm_state: :verified) unless Rails.env.production?
+    # @doctor.verify! unless Rails.env.production?
 
     respond_to do |format|
       if @doctor.update(doctor_params.except(:captcha))
@@ -115,16 +107,9 @@ class DoctorsController < InheritedResources::Base
         when :finish
           format.html
         end
-
-        # format.html { redirect_to @doctor, notice: 'Doctor was successfully updated.' }
-
-        # format.html { redirect_to apply_doctors_path, notice: 'Doctor was successfully created.' }
-        # format.json { render :show, status: :ok, location: @doctor }
       else
-        # render_wizard
         Rails.logger.info @doctor.errors.messages
         format.html { render_wizard }
-        # format.json { render json: @doctor.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -136,25 +121,26 @@ class DoctorsController < InheritedResources::Base
   private
 
   def check_is_verified_doctor
-    if current_user.doctor.nil?
-      flash[:error] = '你还没提交资料申请我们的签约医生'
-      redirect_to(global_denied_path) && return
-    end
+    redirect_to doctors_status_path unless current_user.has_valid_contracts?
+    # if current_doctor.nil?
+    #   flash[:error] = '你还没提交资料申请我们的签约医生'
+    #   # redirect_to(global_denied_path) && return
+    #   redirect_to(doctors_status_path) && return
+    # end
 
-    unless current_user.verified_doctor?
-      redirect_to(doctors_status_path) && return
-    end
+    # unless current_user.verified_doctor?
+    #   redirect_to(doctors_status_path) && return
+    # end
   end
 
   def set_doctor
-    @doctor = if current_user.doctor.present?
-                current_user.doctor
+    @doctor = if current_doctor.present?
+                current_doctor
               else
                 Doctor.new
               end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def doctor_params
     # params.require(:doctor).permit(:name, :gender, :age, :hospital, :location, :lat, :long, :verified, :date_of_birth, :mobile_phone, :remark, :id_card_num, :id_card_front, :id_card_back, :license, :job_title)
     params.require(:doctor).permit!
@@ -168,5 +154,9 @@ class DoctorsController < InheritedResources::Base
 
   def bank_account_params
     params.require(:contract).permit(:bank_account, {:bank_account => [:account_name, :bank_name, :account_number]})[:bank_account]
+  end
+
+  def current_doctor
+    @current_doctor ||= current_user.doctor if current_user.doctor.present?
   end
 end

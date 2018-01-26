@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class Doctors::TransactionsController < InheritedResources::Base
-  before_action -> { authenticate_user!(force: true) }, except: []
-
+class Doctors::TransactionsController < Doctors::BaseController
   # 提现 wallet/withdraw
   def create
     if current_user.wallet.balance_withdrawable >= transaction_params[:amount].to_f * 100

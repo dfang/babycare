@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Doctors::ReservationExaminationsController < ApplicationController
+class Doctors::ReservationExaminationsController < Doctors::BaseController
   def new; end
 
   def update; end

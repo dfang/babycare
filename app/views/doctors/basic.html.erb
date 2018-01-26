@@ -8,12 +8,13 @@
   <% method = 'PUT' %>
 <% end %>
 
-<%= form_for @doctor, url: wizard_path, method: 'PUT' do |f| %>
+<%= simple_form_for @doctor, url: wizard_path, method: 'PUT' do |f| %>
   <div class="weui-cells__title">基本信息</div>
+
   <div class="weui-cells weui-cells_form">
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui-label" for="">姓名</label>
+        <label class="weui-label" for="doctor_name">姓名</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
         <%= f.text_field :name, class: 'weui-input', data: { "parsley-required": "true" } %>
@@ -23,19 +24,19 @@
 
     <div class="weui-cell">
       <div class="weui-cell__hd">
-        <label class="weui-label" for="">生日</label>
+        <label class="weui-label" for="doctor_date_of_birth">生日</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <%= f.date_field :date_of_birth, class: 'weui-input' %>
+        <%= f.date_field :date_of_birth, class: 'weui-input', data: { "parsley-required": "true" } %>
       </div>
     </div>
 
     <div class="weui-cell weui-cell_select weui-cell_select-after">
         <div class="weui-cell__hd">
-            <label for="" class="weui-label">性别</label>
+            <label for="doctor_gender" class="weui-label">性别</label>
         </div>
         <div class="weui-cell__bd">
-            <select class="weui-select" name="doctor[gender]">
+            <select class="weui-select" name="doctor[gender]" id="doctor_gender">
                 <option value="1">男</option>
                 <option value="0">女</option>
             </select>
@@ -44,7 +45,7 @@
 
     <div class="weui-cell weui-cell_vcode">
       <div class="weui-cell__hd">
-        <label class="weui-label">手机号</label>
+        <label class="weui-label" for="doctor_mobile_phone">手机号</label>
       </div>
       <div class="weui-cell__bd">
         <%= f.text_field :mobile_phone, class: 'weui-input request-captcha', data: {
@@ -63,19 +64,18 @@
 
     <div class="weui-cell simple-captcha">
       <div class="weui-cell__hd">
-        <label class="weui-label">验证码</label>
+        <label class="weui-label" for="doctor_captcha">验证码</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
         <input
           name="doctor[captcha]"
+          id="doctor_captcha"
           class="weui-input captcha"
           placeholder="请输入六位验证码"
           type="number"
           data-parsley-required="true"
           data-parsley-type="integer"
           data-parsley-length="[6,6]">
-      </div>
-      <div class="weui-cell__ft">
       </div>
     </div>
   </div>

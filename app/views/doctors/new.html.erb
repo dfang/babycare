@@ -2,17 +2,4 @@
 
 <%- content_for :js  do %>
   <%= javascript_include_tag :uploader %>
-  <script type="text/javascript">
-    $(document).on("ready", function(){
-
-      $('.new_doctor, .edit_doctor').parsley({
-        uiEnabled: true,
-        errorsWrapper: ''
-      }).on('field:error', function() {
-        $(this.$element).parents('.weui-cell').addClass('validation_error')
-      }).on('field:success', function() {
-        $(this.$element).parents('.weui-cell').removeClass('validation_error')
-      })
-    })
-  </script>
 <% end %>

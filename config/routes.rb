@@ -165,7 +165,6 @@ Rails.application.routes.draw do
     end
     member do
       get 'reservations'
-      get 'status'
     end
   end
 

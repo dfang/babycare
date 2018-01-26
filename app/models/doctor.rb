@@ -18,14 +18,14 @@ class Doctor < OdooRecord
   aasm do
     # 四种状态，待审核，审核不通过,审核通过，签了合同的
     state :pending, :initial => true
-    state :verified, :failed, :signed, :overdued
+    state :verified, :denied, :signed, :overdued
 
     event :verify do
       transitions :from => :pending, :to => :verified
     end
 
     event :deny do
-      transitions :from => :pending, :to => :failed
+      transitions :from => :pending, :to => :denied
     end
 
     event :sign do
