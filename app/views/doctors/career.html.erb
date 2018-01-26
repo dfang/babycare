@@ -17,7 +17,7 @@
         <label class="weui-label">身份证号码</label>
       </div>
       <div class="weui-cell__bd weui-cell_primary">
-        <%= f.text_field :id_card_num, class: 'weui-input', data: { "parsley-required": "true", "parsley-pattern": /[(d{18})|(d{17}x)]/ } %>
+        <%= f.text_field :id_card_num, class: 'weui-input', data: { "parsley-required": "true", "pattern": "^\d{17}[\d|X]$" } %>
       </div>
     </div>
 
