@@ -1,6 +1,6 @@
 <%- default_date = Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10).strftime("%Y-%m-%dT%H:%M") %>
 
-<%= simple_form_for Reservation.new, url: reservations_path, method: 'POST', html: { class: 'parsley-validate new_reservation'} do |f| %>
+<%= simple_form_for Reservation.new, url: reservations_path, method: 'POST' do |f| %>
   <div class="weui-cells weui-cells_form">
 
     <% if current_user.children.any? %>
@@ -236,18 +236,6 @@
           $(".weui-cell-remark .weui-textarea").val(text + details);
         }
       );
-
-      $(".simple_form.parsley-validate").parsley({ uiEnabled: true, errorsWrapper: "" })
-        .on("field:error", function() {
-          $(this.$element)
-            .parents(".weui-cell")
-            .addClass("validation_error");
-        })
-        .on("field:success", function() {
-          $(this.$element)
-            .parents(".weui-cell")
-            .removeClass("validation_error");
-        });
     })
   <% end %>
 <% end %>
