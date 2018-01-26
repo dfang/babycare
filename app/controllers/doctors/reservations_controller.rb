@@ -4,22 +4,28 @@ class Doctors::ReservationsController < Doctors::BaseController
   # TODO should remove this, add csrf token in ajax header
   skip_before_action :verify_authenticity_token, only: [ :status, :update ]
 
-  custom_actions collection: %i[reservations status not_found], member: %i[claim complete_offline_consult complete_online_consult]
+  custom_actions collection: %i[available reservations status not_found], member: %i[claim complete_offline_consult complete_online_consult]
 
   def reservations; end
 
+
+  # 我要接单
+  def available
+    @reservations = current_user.doctor.reservations.prepaid
+  end
+
   def index
     Rails.logger.info params
-
-    @reservations = if params.key?(:aasm_state)
-                      # 医生我要接单页面
-                      # /doctors/reservations?aasm_state=prepaid
-                      current_user.doctor.reservations.prepaid
-                    else
-                      # 医生的所有预约页面
-                      # /doctors/reservations
-                      current_user.doctor.reservations.select { |r| !r.prepaid? }
-                    end
+    @reservations = current_user.doctor.reservations.select { |r| !r.prepaid? }
+    # @reservations = if params.key?(:aasm_state)
+    #                   # 医生我要接单页面
+    #                   # /doctors/reservations?aasm_state=prepaid
+    #                   current_user.doctor.reservations.prepaid
+    #                 else
+    #                   # 医生的所有预约页面
+    #                   # /doctors/reservations
+    #                   current_user.doctor.reservations.select { |r| !r.prepaid? }
+    #                 end
     # p params
     # if params.key?(:id)
     #   # /doctors/patients/22/reservations
