@@ -8,8 +8,7 @@ class DoctorsController < InheritedResources::Base
   steps :basic, :career, :finished
 
   before_action :check_legality, only: %i[index reservations]
-  before_action :set_doctor, only: %i[show update]
-  # before_action :set_doctor, only: %i[status show edit update destroy online offline contract]
+  before_action :set_doctor, only: %i[show update sign contract]
 
   def apply
     redirect_to new_doctor_path
@@ -112,6 +111,10 @@ class DoctorsController < InheritedResources::Base
         format.html { render_wizard }
       end
     end
+  end
+
+  def finish_wizard_path
+    status_doctor_path
   end
 
   private
