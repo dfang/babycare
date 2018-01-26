@@ -246,5 +246,5 @@ SimpleForm.setup do |config|
   # Defines which i18n scope will be used in Simple Form.
   # config.i18n_scope = 'simple_form'
 
-  config.form_class = 'simple-form parsley-validate'
+  config.default_form_class = 'simple-form parsley-validate'
 end

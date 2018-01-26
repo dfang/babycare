@@ -54,6 +54,5 @@ $("#container").on("click", ".weui-tabbar__item", function() {
 });
 
 // $(document).on("turbolinks:load", function() {
-  // var form = $("form.has_validations").parsley();
   // new Parsley.Factory("form.has_validations");
 // })

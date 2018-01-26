@@ -16,7 +16,7 @@
                 placeholder="请输入小孩身份证号码"
                 type="text"
                 maxlength="18"
-                pattern="^\d{17}[\d|X]$"
+                pattern="/^\d{18}|\d{17}X$/i"
                 data-parsley-required="true">
           </div>
       </div>
@@ -94,12 +94,6 @@
           $('.weui-input.birthdate').val(birthdate)
           $('.weui-input.birthdate').parents('.weui-cell').removeClass('validation_error')
         }
-      })
-
-      $('.simple_form.new_user').parsley({uiEnabled: true, errorsWrapper: ''}).on('field:error', function () {
-          $(this.$element).parents('.weui-cell').addClass('validation_error')
-      }).on('field:success', function () {
-          $(this.$element).parents('.weui-cell').removeClass('validation_error')
       })
   })
   <% end %>

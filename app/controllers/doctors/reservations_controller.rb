@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-class Doctors::ReservationsController < InheritedResources::Base
-  before_action -> { authenticate_user!(force: true) }
-  before_action :check_is_verified_doctor
-
+class Doctors::ReservationsController < Doctors::BaseController
   # TODO should remove this, add csrf token in ajax header
   skip_before_action :verify_authenticity_token, only: [ :status, :update ]
 

@@ -1,38 +1,16 @@
-<%- if current_user.verified_doctor? && current_user.has_valid_contracts? %>
-  <div class="page msg_success js_show">
-    <div class="weui-msg">
-        <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
-        <div class="weui-msg__text-area">
-            <h2 class="weui-msg__title">合同生效中</h2>
-            <p class="weui-msg__desc">你还有一份<a href="contract">合同</a>正在履行</p>
-        </div>
-        <div class="weui-msg__opr-area">
-            <p class="weui-btn-area">
-                <a href="contract" class="weui-btn weui-btn_primary">查看合同</a>
-            </p>
-        </div>
-        <div class="weui-msg__extra-area">
-            <div class="weui-footer">
-                <p class="weui-footer__links">
-                    <a href="sign" class="weui-footer__link">查看合同范本</a>
-                </p>
-                <p class="weui-footer__text">Copyright © 2017</p>
-            </div>
-        </div>
-    </div>
-</div>
-<% else %>
-  <div class="page msg_success js_show">
-    <div class="weui-msg">
-        <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
-        <div class="weui-msg__text-area">
-            <h2 class="weui-msg__title">已通过验证</h2>
-            <p class="weui-msg__desc">您提交的个人信息已通过审核，在您正式使用本平台前，请先签订<a href="contract">合同</a></p>
-        </div>
-        <div class="weui-msg__opr-area">
-            <p class="weui-btn-area">
-                <a href="sign" class="weui-btn weui-btn_primary">去签合同</a>
-            </p>
-        </div>
-    </div>
+<%- if current_user.has_valid_contracts? %>
+  <%= render 'doctors/statuses/has_valid_contracts' %>
+<% elsif current_user.has_expired_contracts? %>
+  <%= render 'doctors/statuses/has_expired_contracts' %>
+<% elsif current_doctor.blank? %>
+  <%= render 'doctors/statuses/welcome' %>
+<% elsif current_doctor.verified? %>
+  <%= render 'doctors/statuses/verified' %>
+<% elsif current_doctor.denied? %>
+  <%= render 'doctors/statuses/denied' %>
+<% elsif current_doctor.pending? %>
+  <%= render 'doctors/statuses/pending' %>
 <% end %>
+
+
+

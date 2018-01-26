@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class Doctors::MedicalRecordsController < InheritedResources::Base
-  before_action -> { authenticate_user!(force: true) }, except: []
-  before_action :check_is_verified_doctor
+class Doctors::MedicalRecordsController < Doctors::BaseController
   before_action :find_reservation
   # skip_before_action :find_reservation, except: [:create, :update ]
   # skip_before_action :find_reservation, only: [:index ]
@@ -81,9 +79,5 @@ class Doctors::MedicalRecordsController < InheritedResources::Base
       laboratory_examination_images_attributes: %i[id data media_id _destroy],
       imaging_examination_images_attributes: %i[id data media_id _destroy]
     )
-  end
-
-  def check_is_verified_doctor
-    redirect_to(doctors_status_path) unless current_user.verified_doctor?
   end
 end
