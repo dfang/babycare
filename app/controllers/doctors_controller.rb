@@ -19,6 +19,7 @@ class DoctorsController < InheritedResources::Base
 
   # 申请，审核状态, 合同过期页
   def status
+    redirect_to(wizard_path(:career)) and return if current_doctor.id_card_num.blank?
     Rails.logger.info 'status'
   end
 
