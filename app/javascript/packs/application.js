@@ -16,6 +16,7 @@ import $ from "jquery";
 // global.jQuery = $;
 
 import Turbolinks from "turbolinks";
+import Rails from "rails-ujs";
 
 import './vendor';
 // import Parsley from "parsleyjs";
@@ -28,7 +29,7 @@ import './captcha';
 // require('parsleyjs');
 
 // console.log($.name);
-// Rails.start();
+Rails.start();
 Turbolinks.start();
 
 // $.fn.parsley = new Parsley.Factory();
