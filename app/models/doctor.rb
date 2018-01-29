@@ -8,7 +8,11 @@ class Doctor < OdooRecord
 
   belongs_to :user
   # belongs_to :hospital
-  has_many :reservations, dependent: :destroy
+  with_options dependent: :destroy do |assoc|
+    assoc.has_many :reservations
+    assoc.has_many :contracts
+  end
+
   validates :name, :mobile_phone, presence: true
   JOB_TITLES = %w[主任医师 副主任医师 主治医师 住院医师].freeze
 
