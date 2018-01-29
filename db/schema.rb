@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180129091037) do
+ActiveRecord::Schema.define(version: 20180129023153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(version: 20180129091037) do
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "doctor_id"
+    t.index ["doctor_id"], name: "index_contracts_on_doctor_id"
     t.index ["user_id"], name: "index_contracts_on_user_id"
   end
 
@@ -141,7 +143,6 @@ ActiveRecord::Schema.define(version: 20180129091037) do
     t.string "license_front"
     t.string "license_back"
     t.string "job_title"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "good_at"
@@ -152,7 +153,6 @@ ActiveRecord::Schema.define(version: 20180129091037) do
     t.string "license_front_media_id"
     t.string "license_back_media_id"
     t.string "aasm_state"
-    t.index ["user_id"], name: "index_doctors_on_user_id"
   end
 
   create_table "examination_groups", force: :cascade do |t|
@@ -530,8 +530,8 @@ ActiveRecord::Schema.define(version: 20180129091037) do
   end
 
   add_foreign_key "bank_accounts", "users"
+  add_foreign_key "contracts", "doctors"
   add_foreign_key "contracts", "users"
-  add_foreign_key "doctors", "users"
   add_foreign_key "global_images", "users"
   add_foreign_key "hospitals", "cities"
   add_foreign_key "imaging_examination_images", "medical_records"

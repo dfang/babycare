@@ -15,5 +15,45 @@ import parsley from 'parsley'
 
 console.log($.name);
 
+import Turbolinks from "turbolinks";
+import Rails from "rails-ujs";
 
+import './vendor';
+// import Parsley from "parsleyjs";
+// require("parsleyjs");
+import IM from './im';
+window.IM = IM;
+
+import './captcha';
+
+// require('parsleyjs');
+
+// console.log($.name);
 Rails.start();
+Turbolinks.start();
+
+// $.fn.parsley = new Parsley.Factory();
+
+$.ajaxSetup({
+  beforeSend: function(jqXHR) {
+    $("#loadingToast").fadeIn(100);
+  },
+  complete: function(jqXHR) {
+    // setTimeout(function () {
+    $("#loadingToast").hide(100);
+    // }, 1200);
+  }
+});
+
+$("docoment").on("click", "a.disabled, button.disabled", function(e){
+  e.preventDefault();
+  // return false;
+});
+
+$("#container").on("click", ".weui-tabbar__item", function() {
+  $(this).addClass("weui_bar_item__on").siblings(".weui_bar_item__on").removeClass("weui_bar_item__on");
+});
+
+// $(document).on("turbolinks:load", function() {
+  // new Parsley.Factory("form.has_validations");
+// })
