@@ -2,4 +2,5 @@
 
 class Image < ApplicationRecord
   # mount_uploader :data, AdminImageUploader
+
 end

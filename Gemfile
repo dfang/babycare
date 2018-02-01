@@ -167,6 +167,10 @@ end
 # gem 'mocha', group: :test
 
 gem 'graphql'
-gem "graphiql-rails"
+# map Active Record models to GraphQL types, both for queries and mutations
+gem 'graphql-activerecord'
+
+gem 'graphql-rails-schemaker', group: :development
 
 gem 'graphiql-rails', group: :development
+gem 'graphql-rails_logger', group: :development

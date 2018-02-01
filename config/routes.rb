@@ -188,7 +188,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+    mount GraphiQL::Rails::Engine, as: :graphiql, at: "/graphiql", graphql_path: "/graphql"
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
