@@ -174,8 +174,6 @@ GEM
     graphql-batch (0.3.9)
       graphql (>= 0.8, < 2)
       promise.rb (~> 0.7.2)
-    graphql-rails-schemaker (0.1.0)
-      graphql (>= 0.19.0)
     graphql-rails_logger (1.0.0)
       rails (~> 5.0)
       rouge (~> 3.0)
@@ -518,7 +516,6 @@ DEPENDENCIES
   graphiql-rails
   graphql
   graphql-activerecord
-  graphql-rails-schemaker
   graphql-rails_logger
   groupify
   haml-rails

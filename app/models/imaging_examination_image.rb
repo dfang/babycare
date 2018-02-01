@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ImagingExaminationImage < Image
-  establish_connection("odoo_#{Rails.env}".to_sym)
-  self.table_name = 'fa_imaging_examination_image'
+  # establish_connection("odoo_#{Rails.env}".to_sym)
+  # self.table_name = 'fa_imaging_examination_image'
 
   include Wisper.model
   # 现在用微信js sdk 上传图片, 这个模型直接存七牛地址

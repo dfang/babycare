@@ -1,5 +1,15 @@
+Types::DateTimeType = GraphQL::ScalarType.define do
+  name 'DateTime'
+
+  coerce_input ->(value, _ctx) { Time.zone.parse(value) }
+  coerce_result ->(value, _ctx) { value.utc.iso8601 }
+end
+GraphQL::Models::DatabaseTypes.register(:datetime, Types::DateTimeType)
+
+
+
 # # The gem assumes that if your model is called `MyModel`, the corresponding type is `MyModelType`.
-# GraphQL::Models.model_to_graphql_type = -> (model_class) { "#{model_class.name}Graph".safe_constantize }
+GraphQL::Models.model_to_graphql_type = -> (model_class) { "#{model_class.name}Type".safe_constantize }
 
 # # This proc takes a Relay global ID, and returns the Active Record model.
 # GraphQL::Models.model_from_id = -> (id, context) {
