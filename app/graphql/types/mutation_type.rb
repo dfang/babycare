@@ -4,6 +4,10 @@ MedicalRecordInputType = GraphQL::InputObjectType.define do
   name 'MedicalRecordInputType'
   description 'Properties for creating a MedicalRecord'
 
+  argument :id, types.Int do
+    description 'table column user_id'
+  end
+
   argument :user_id, !types.Int do
     description 'table column user_id'
   end
@@ -167,9 +171,10 @@ Types::MutationType = GraphQL::ObjectType.define do
     argument :medical_record, MedicalRecordInputType
 
     resolve ->(t, args, c) {
-      Rails.logger.info args[:medical_record].to_h
       params = args[:medical_record].to_h
-      mr = MedicalRecord.find_by(id: params[:id])
+      Rails.logger.info params
+      mr = MedicalRecord.find_by(id: params["id"])
+      Rails.logger.info mr
       if mr.present?
         mr.update(params)
       end
