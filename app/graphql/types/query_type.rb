@@ -27,12 +27,22 @@ Types::QueryType = GraphQL::ObjectType.define do
     description "return one medical record by id"
 
     argument :id, !types.Int do
-      description "uesr_id"
+      description "medical id"
     end
 
     resolve ->(obj, args, ctx) {
       MedicalRecord.where(id: args[:id]).first
     }
+  end
 
+  field :unionIdForUserId, types.String do
+    argument :id, !types.Int do
+      description "union_id"
+    end
+
+    resolve ->(obj, args, ctx) {
+      auth = Authentication.where(unionid: args[:id]).first
+      auth.user_id
+    }
   end
 end
