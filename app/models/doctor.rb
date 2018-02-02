@@ -36,4 +36,20 @@ class Doctor < OdooRecord
       transitions :from => :verified, :to => :signed
     end
   end
+
+  def valid_contracts
+    contracts.where("end_at > ?", Time.zone.today)
+  end
+
+  def expired_contracts
+    contracts.where("end_at < ?", Time.zone.today)
+  end
+
+  def has_valid_contracts?
+    valid_contracts.any?
+  end
+
+  def has_expired_contracts?
+    expired_contracts.any?
+  end
 end

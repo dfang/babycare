@@ -1,9 +1,9 @@
-<%- if current_user.has_valid_contracts? %>
-  <%= render 'doctors/statuses/has_valid_contracts' %>
-<% elsif current_user.has_expired_contracts? %>
-  <%= render 'doctors/statuses/has_expired_contracts' %>
-<% elsif current_doctor.blank? %>
+<% if current_doctor.blank? %>
   <%= render 'doctors/statuses/welcome' %>
+<% elsif current_doctor.has_valid_contracts? %>
+  <%= render 'doctors/statuses/has_valid_contracts' %>
+<% elsif current_doctor.has_expired_contracts? %>
+  <%= render 'doctors/statuses/has_expired_contracts' %>
 <% elsif current_doctor.verified? %>
   <%= render 'doctors/statuses/verified' %>
 <% elsif current_doctor.denied? %>
@@ -11,6 +11,4 @@
 <% elsif current_doctor.pending? %>
   <%= render 'doctors/statuses/pending' %>
 <% end %>
-
-
 

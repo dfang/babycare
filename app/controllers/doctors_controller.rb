@@ -24,7 +24,7 @@ class DoctorsController < InheritedResources::Base
   end
 
   def sign
-    if current_user.has_valid_contracts?
+    if current_doctor.has_valid_contracts?
       redirect_to doctors_status_path and return
     else
       @contract = Contract.new
@@ -34,13 +34,13 @@ class DoctorsController < InheritedResources::Base
   def contract
     if request.post?
       @contract = Contract.new(contract_params)
-      @contract.user = current_user
+      @contract.doctor = current_doctor
       @bank_account = BankAccount.new(bank_account_params)
       @bank_account.user = current_user
       redirect_to doctors_contract_path and return if @contract.save && @bank_account.save
       render :sign
     else
-      @contract = current_user.contracts.last
+      @contract = current_doctor.contracts.last
       @bank_account = current_user.bank_accounts.last
     end
 
@@ -121,7 +121,7 @@ class DoctorsController < InheritedResources::Base
   private
 
   def check_legality
-    redirect_to doctors_status_path unless current_user.has_valid_contracts?
+    redirect_to doctors_status_path unless current_doctor && current_doctor.has_valid_contracts?
   end
 
   def set_doctor
