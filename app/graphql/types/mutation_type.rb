@@ -8,7 +8,7 @@ MedicalRecordInputType = GraphQL::InputObjectType.define do
     description 'table column user_id'
   end
 
-  argument :user_id, !types.Int do
+  argument :user_id, types.Int do
     description 'table column user_id'
   end
 

@@ -42,7 +42,11 @@ Types::QueryType = GraphQL::ObjectType.define do
 
     resolve ->(obj, args, ctx) {
       auth = Authentication.where(unionid: args[:id]).first
-      auth.user_id
+      if auth.present?
+        auth.user_id.to_s
+      else
+        ""
+      end
     }
   end
 end
