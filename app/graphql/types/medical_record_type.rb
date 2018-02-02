@@ -12,6 +12,7 @@ Types::MedicalRecordType = GraphQL::ObjectType.define do
     attr :weight
     attr :pulse
     attr :height
+    attr :date_of_birth
     attr :chief_complaint
     attr :vaccination_history
     attr :reservation_id
@@ -20,7 +21,6 @@ Types::MedicalRecordType = GraphQL::ObjectType.define do
     attr :family_history
     attr :user_id
     attr :temperature
-    attr :date_of_birth
     attr :blood_type
     attr :pain_score
     attr :bmi
