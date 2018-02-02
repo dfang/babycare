@@ -176,7 +176,4 @@ Types::MutationType = GraphQL::ObjectType.define do
       mr
     }
   end
-
-
-
 end

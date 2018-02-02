@@ -23,7 +23,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  field :medicalRecordsById, Types::MedicalRecordType do
+  field :medicalRecordById, Types::MedicalRecordType do
     description "return one medical record by id"
 
     argument :id, !types.Int do
