@@ -43,7 +43,7 @@
 1.1、如甲方会员用户，选择乙方做为专职医学咨询顾问。甲方应按照每人/年次500元（人民币）做为劳务费支付。上限人次甲乙双方协商解决或者补充协议。甲方会员用户选择乙方服务详见:<公司内部用户告知书>    
 甲方负责代扣代缴个人所得税（按照劳务所得代扣代缴）。在履行本协议期间如有劳务费调整或变化，则调整后按新标准执行。乙方的社会保险及其它福利由乙方所在单位承担或自行解决。        
 乙方个人银行账户信息如下：        
-<% if @bank_account.present? %>      
+<% if @bank_account.present? && @contract.present? %>      
    姓名： <%= @bank_account.account_name %>    
    开户行名称： <%= @bank_account.bank_name %>                   
    账号： <%= @bank_account.account_number %>    
