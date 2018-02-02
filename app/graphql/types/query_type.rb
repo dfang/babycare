@@ -36,7 +36,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :unionIdForUserId, types.String do
-    argument :id, !types.Int do
+    argument :id, !types.String do
       description "union_id"
     end
 
