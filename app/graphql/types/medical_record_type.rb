@@ -27,17 +27,18 @@ Types::MedicalRecordType = GraphQL::ObjectType.define do
     attr :blood_type
     attr :pain_score
     attr :bmi
-    attr :physical_examination
+    attr :oxygen_saturation
     attr :respiratory_rate
     attr :systolic_pressure
     attr :diastolic_pressure
     attr :onset_date
 
-    attr :preliminary_diagnosis
     attr :imaging_examination
+    attr :physical_examination
     attr :laboratory_and_supplementary_examinations
-    attr :oxygen_saturation
 
+    attr :treatment_recommendation
+    attr :preliminary_diagnosis
     attr :remarks
 
     attr :create_uid
@@ -50,7 +51,6 @@ Types::MedicalRecordType = GraphQL::ObjectType.define do
     attr :updated_at
     # interfaces [ActiveRecordTimestamp]
 
-    attr :treatment_recommendation
   end
 end
 

@@ -155,13 +155,28 @@ Types::MutationType = GraphQL::ObjectType.define do
     argument :medical_record, MedicalRecordInputType
 
     resolve ->(t, args, c) {
-      Rails.logger.info 'xxxxkjlknjjk'
-      Rails.logger.info t
-      Rails.logger.info c
-      Rails.logger.info args[:medical_record]
+      Rails.logger.info args[:medical_record].to_h
       mr = MedicalRecord.new(args[:medical_record].to_h)
       mr.save!
       mr
     }
   end
+
+  field :updateMedicalRecord, Types::MedicalRecordType do
+    description 'update a medical record'
+    argument :medical_record, MedicalRecordInputType
+
+    resolve ->(t, args, c) {
+      Rails.logger.info args[:medical_record].to_h
+      params = args[:medical_record].to_h
+      mr = MedicalRecord.find_by(id: params[:id])
+      if mr.present?
+        mr.update(params)
+      end
+      mr
+    }
+  end
+
+
+
 end
