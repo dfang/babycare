@@ -4,8 +4,9 @@ Types::MedicalRecordType = GraphQL::ObjectType.define do
   name 'MedicalRecord'
 
   backed_by_model :MedicalRecord do
-    attr :name
     attr :id
+    attr :user_id
+    attr :reservation_id
     attr :name
     attr :gender
     attr :identity_card
@@ -14,27 +15,31 @@ Types::MedicalRecordType = GraphQL::ObjectType.define do
     attr :height
     attr :date_of_birth
     attr :chief_complaint
+
     attr :vaccination_history
-    attr :reservation_id
-    attr :systolic_pressure
     attr :personal_history
+    attr :past_medical_history
+    attr :allergic_history
     attr :family_history
-    attr :user_id
+    attr :history_of_present_illness
+
     attr :temperature
     attr :blood_type
     attr :pain_score
     attr :bmi
     attr :physical_examination
     attr :respiratory_rate
+    attr :systolic_pressure
     attr :diastolic_pressure
     attr :onset_date
-    attr :remarks
-    attr :history_of_present_illness
-    attr :past_medical_history
-    attr :allergic_history
+
     attr :preliminary_diagnosis
     attr :imaging_examination
     attr :laboratory_and_supplementary_examinations
+    attr :oxygen_saturation
+
+    attr :remarks
+
     attr :create_uid
     attr :write_uid
     attr :create_date
