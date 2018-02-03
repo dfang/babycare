@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LaboratoryExaminationImage < Image
+class LaboratoryExaminationImage < ApplicationRecord
   # establish_connection("odoo_#{Rails.env}".to_sym)
   # self.table_name = 'fa_laboratory_examination_image'
   include Wisper.model

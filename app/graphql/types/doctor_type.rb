@@ -1,4 +1,4 @@
-Types::DoctorType = GraphQL::ObjectType.define do
+DoctorType = GraphQL::ObjectType.define do
   name "Doctor"
 
   backed_by_model :doctor do

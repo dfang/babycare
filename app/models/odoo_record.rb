@@ -6,4 +6,9 @@ class OdooRecord < ActiveRecord::Base
   establish_connection(ENV['ODOO_DATABASE_URL'] || "odoo_#{Rails.env}".to_sym)
 
   self.abstract_class = true
+
+  def gid
+    to_global_id
+  end
+
 end

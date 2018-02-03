@@ -1,8 +1,26 @@
 # frozen_string_literal: true
 
+MedicalRecordImageInputType = GraphQL::InputObjectType.define do
+  name 'MedicalRecordImageInputType'
+  description 'Properties for creating a MedicalRecord'
+
+  argument :data, types.String do
+    description "image data url"
+  end
+
+  argument :category, types.String do
+    description "category of medical record images"
+  end
+end
+
 MedicalRecordInputType = GraphQL::InputObjectType.define do
   name 'MedicalRecordInputType'
   description 'Properties for creating a MedicalRecord'
+
+  argument :medical_record_images_attributes, types[MedicalRecordImageInputType] do
+    description "medical record images"
+  end
+  # argument :laboratory_examination_images, types[LaboratoryExaminationImageInputType]
 
   argument :id, types.Int do
     description 'table column user_id'
@@ -142,20 +160,13 @@ MedicalRecordInputType = GraphQL::InputObjectType.define do
   # attr :write_date
 end
 
-Types::MutationType = GraphQL::ObjectType.define do
+MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
   # field :CreateMedicalRecord, Mutations::CreateMedicalRecordMutation.field
 
-  field :createMedicalRecord, Types::MedicalRecordType do
+  field :createMedicalRecord, MedicalRecordType do
     description 'create medical record'
-
-    # argument :name,   types.String
-    # argument :gender, types.String
-    # argument :weight, types.String
-    # argument :height, types.String
-    # argument :user,   !types.User
-
     argument :medical_record, MedicalRecordInputType
 
     resolve ->(t, args, c) {
@@ -166,7 +177,7 @@ Types::MutationType = GraphQL::ObjectType.define do
     }
   end
 
-  field :updateMedicalRecord, Types::MedicalRecordType do
+  field :updateMedicalRecord, MedicalRecordType do
     description 'update a medical record'
     argument :medical_record, MedicalRecordInputType
 

@@ -1,4 +1,9 @@
+Dir[File.dirname(__FILE__) + '/types/*.rb'].each {|file| require file }
+
 BabycareSchema = GraphQL::Schema.define do
-  mutation(Types::MutationType)
-  query(Types::QueryType)
+  query(QueryType)
+  mutation(MutationType)
+
+  use GraphQL::Batch
+  enable_preloading
 end

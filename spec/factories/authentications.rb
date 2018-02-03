@@ -6,8 +6,8 @@ FactoryGirl.define do
       provider :wechat
       uid 'ofUe6uGTMOaH2-CvIRl62ABoCJ_c'
       nickname 'Fang Duan'
-      # user  user1
-      association :user, factory: :user1
+      unionid 'oV5bUwuMUqVOX-WqpKxZGaoR_RVQ'
+      # association :user, factory: :user1
     end
 
     factory :authentication2 do

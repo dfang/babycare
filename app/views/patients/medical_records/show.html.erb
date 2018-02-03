@@ -51,7 +51,8 @@
                                 <%= show_medical_record_cell(resource, :temperature) %>
                                 <%= show_medical_record_cell(resource, :pulse) %>
                                 <%= show_medical_record_cell(resource, :respiratory_rate) %>
-                                <%= show_medical_record_cell(resource, :blood_pressure) %>
+                                <%= show_medical_record_cell(resource, :systolic_pressure) %>
+                                <%= show_medical_record_cell(resource, :diastolic_pressure) %>
                                 <%= show_medical_record_cell(resource, :oxygen_saturation) %>
                                 <%= show_medical_record_cell(resource, :pain_score) %>
                                 <%= show_medical_record_cell(resource, :physical_examination) %>
@@ -65,13 +66,7 @@
                                             </div>
                                             <div class="weui-uploader__bd">
                                                 <ul class="weui-uploader__files" id="uploaderFiles">
-                                                  <% if resource.laboratory_examination_images.any? %>
-                                                    <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
-                                                      <li class="weui-uploader__file" style="background-image:url(<%= image.data %>)">
-                                                        <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data%>">
-                                                      </li>
-                                                    <% end %>
-                                                  <% end %>
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -87,13 +82,7 @@
                                             </div>
                                             <div class="weui-uploader__bd">
                                                 <ul class="weui-uploader__files" id="uploaderFiles">
-                                                  <% if resource.laboratory_examination_images.any? %>
-                                                    <%  resource.laboratory_examination_images.each_with_index do |image, index| %>
-                                                      <li class="weui-uploader__file" style="background-image:url(<%= image.data %>)">
-                                                        <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data%>">
-                                                      </li>
-                                                    <% end %>
-                                                  <% end %>
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -108,13 +97,7 @@
                                           </div>
                                           <div class="weui-uploader__bd">
                                               <ul class="weui-uploader__files" id="uploaderFiles">
-                                                <% if resource.medical_record_images.any? %>
-                                                  <%  resource.medical_record_images.each_with_index do |image, index| %>
-                                                    <li class="weui-uploader__file" style="background-image:url(<%= image.data %>)">
-                                                      <input type="hidden" name="reservation[photos][<%= index + 1 %>]" value="<%= image.data%>">
-                                                    </li>
-                                                  <% end %>
-                                                <% end %>
+
                                               </ul>
                                           </div>
                                       </div>
@@ -129,7 +112,7 @@
                               </div>
 
                               <div class="weui-btn-area">
-                                <%= link_to "编辑", edit_patients_medical_record_path(resource), class: 'weui-btn weui-btn__primary' %>
+                                <%= link_to "编辑", edit_patients_medical_record_path(resource), class: 'weui-btn weui-btn_primary' %>
                               </div>
 
                             </div>

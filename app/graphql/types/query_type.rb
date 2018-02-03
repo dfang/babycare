@@ -1,4 +1,4 @@
-Types::QueryType = GraphQL::ObjectType.define do
+QueryType = GraphQL::ObjectType.define do
   name "Query"
   # Add root-level fields here.
   # They will be entry points for queries on your schema.
@@ -11,7 +11,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  field :allMedicalRecordsByUserId, types[Types::MedicalRecordType] do
+  field :allMedicalRecordsByUserId, types[MedicalRecordType] do
     description "return all medical records of an user"
 
     argument :user_id, !types.Int do
@@ -23,7 +23,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  field :medicalRecordById, Types::MedicalRecordType do
+  field :medicalRecordById, MedicalRecordType do
     description "return one medical record by id"
 
     argument :id, !types.Int do

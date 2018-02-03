@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ImagingExaminationImage < Image
+class ImagingExaminationImage < ApplicationRecord
   # establish_connection("odoo_#{Rails.env}".to_sym)
   # self.table_name = 'fa_imaging_examination_image'
 

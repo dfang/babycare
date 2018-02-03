@@ -167,6 +167,9 @@ end
 # gem 'mocha', group: :test
 
 gem 'graphql'
+gem 'graphql-batch'
+gem 'graphql-preload'
+
 # map Active Record models to GraphQL types, both for queries and mutations
 gem 'graphql-activerecord'
 

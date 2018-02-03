@@ -8,13 +8,14 @@ class MedicalRecord < OdooRecord
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :medical_record_images, class_name: 'MedicalRecordImage'
-    assoc.has_many :laboratory_examination_images, class_name: 'LaboratoryExaminationImage'
-    assoc.has_many :imaging_examination_images, class_name: 'ImagingExaminationImage'
+    # assoc.has_many :medical_record_images, class_name: 'MedicalRecordImage', inverse_of: :meidcal_record
+  #   assoc.has_many :laboratory_examination_images, class_name: 'LaboratoryExaminationImage'
+  #   assoc.has_many :imaging_examination_images, class_name: 'ImagingExaminationImage'
   end
 
   accepts_nested_attributes_for :medical_record_images, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :laboratory_examination_images, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :imaging_examination_images, reject_if: :all_blank, allow_destroy: true
+  # accepts_nested_attributes_for :laboratory_examination_images, reject_if: :all_blank, allow_destroy: true
+  # accepts_nested_attributes_for :imaging_examination_images, reject_if: :all_blank, allow_destroy: true
 
   GENDERS = [['男', :male], ['女', :female]].freeze
   TEMPERATURES = %w[37 37.5 38 38.5 39 39.5 40 40.5 41 41.5 42].map(&:to_f).freeze
@@ -34,4 +35,17 @@ class MedicalRecord < OdooRecord
       "#{name}的病历"
     end
   end
+
+  def medical_record_images_categoryA
+    medical_record_images.where(category: "病史")
+  end
+
+  def medical_record_images_categoryB
+    medical_record_images.where(category: "检查")
+  end
+
+  def medical_record_images_categoryC
+    medical_record_images.where(category: "诊断")
+  end
+
 end

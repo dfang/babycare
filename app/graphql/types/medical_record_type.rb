@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
-Types::MedicalRecordType = GraphQL::ObjectType.define do
-  name 'MedicalRecord'
+MedicalRecordType = GraphQL::ObjectType.define do
+  name 'MedicalRecordType'
+
+  # interfaces [GraphQL::Relay::Node.interface]
+  # global_id_field :id
 
   backed_by_model :MedicalRecord do
     attr :id
@@ -52,6 +55,29 @@ Types::MedicalRecordType = GraphQL::ObjectType.define do
     # interfaces [ActiveRecordTimestamp]
 
   end
+
+
+  field :medical_record_images, types[!MedicalRecordImageType] do
+    preload :medical_record_images
+    resolve ->(obj, args, ctx) { obj.medical_record_images }
+  end
+
+  field :medical_record_images_categoryA, types[!MedicalRecordImageType] do
+    preload :medical_record_images
+    resolve ->(obj, args, ctx) { obj.medical_record_images.where(category: "病史") }
+  end
+
+  field :medical_record_images_categoryB, types[!MedicalRecordImageType] do
+    preload :medical_record_images
+    resolve ->(obj, args, ctx) { obj.medical_record_images.where(category: "检查") }
+  end
+
+  field :medical_record_images_categoryC, types[!MedicalRecordImageType] do
+    preload :medical_record_images
+    resolve ->(obj, args, ctx) { obj.medical_record_images.where(category: "诊断") }
+  end
+
+
 end
 
 # mutation createMR {
