@@ -175,5 +175,5 @@ gem 'graphql-activerecord'
 
 # gem 'graphql-rails-schemaker', group: :development
 
-gem 'graphiql-rails', group: :development
+gem 'graphiql-rails'
 gem 'graphql-rails_logger', group: :development
