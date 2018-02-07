@@ -46,6 +46,11 @@ class User < OdooRecord
     assoc.has_many :bank_accounts
   end
 
+  delegate :valid_contracts, to: :doctor
+  delegate :expired_contracts, to: :doctor
+  delegate :has_valid_contracts?, to: :doctor
+  delegate :has_expired_contracts?, to: :doctor
+
   def reservations
     if verified_doctor?
       Reservation.where(doctor_id: id)
