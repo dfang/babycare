@@ -31,12 +31,7 @@
               <div class="weui-cell__ft"></div>
             <% end %>
 
-            <%= link_to patients_medical_records_path(family_member_id: @member), class: "weui-cell weui-cell_access" do %>
-              <div class="weui-cell__bd">
-                <p>关于<%= @member.name %>的病例信息</p>
-              </div>
-              <div class="weui-cell__ft"></div>
-            <% end %>
+
 
             <%= link_to edit_patients_family_member_path(@member), class: "weui-cell weui-cell_access" do %>
               <div class="weui-cell__bd">
