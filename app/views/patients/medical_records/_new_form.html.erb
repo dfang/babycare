@@ -168,17 +168,29 @@
                         </select>
                     </div>
                   </div>
-                  <!-- <%= f.input :blood_pressure, wrapper: :weui_input %> -->
+
                   <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
-                        <label for="" class="weui-label">血压(mmHg)</label>
+                        <label for="" class="weui-label">舒张压(mmHg)</label>
                     </div>
                     <div class="weui-cell__bd weui-cell_primary">
-                        <select class="weui-select" name="medical_record[blood_pressure]">
+                        <select class="weui-select" name="medical_record[diastolic_pressure]">
                           <%= options_for_select MedicalRecord::BLOOD_PRESSURES, 80 %>
                         </select>
                     </div>
                   </div>
+
+                  <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">收缩压(mmHg)</label>
+                    </div>
+                    <div class="weui-cell__bd weui-cell_primary">
+                        <select class="weui-select" name="medical_record[systolic_pressure]">
+                          <%= options_for_select MedicalRecord::BLOOD_PRESSURES, 80 %>
+                        </select>
+                    </div>
+                  </div>
+
                   <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label for="" class="weui-label">氧饱和度(%)</label>
@@ -208,7 +220,7 @@
                 </div>
 
                 <div class="weui-btn-area">
-                  <button class="weui-btn weui-btn__primary">确定</button>
+                  <button class="weui-btn weui-btn_primary">确定</button>
                 </div>
 
               <% end %>

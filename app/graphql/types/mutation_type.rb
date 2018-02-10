@@ -166,8 +166,6 @@ MutationType = GraphQL::ObjectType.define do
     argument :medical_record, MedicalRecordInputType
 
     resolve ->(t, args, c) {
-      binding.pry
-
       Rails.logger.info "args[:medical_record].to_h ----> "
       Rails.logger.info args[:medical_record].to_h
       mr = MedicalRecord.new(args[:medical_record].to_h)

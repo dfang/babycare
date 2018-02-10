@@ -6,7 +6,7 @@ class Doctors::BaseController < InheritedResources::Base
   protected
 
   def check_legality
-    redirect_to doctors_status_path unless current_doctor && current_docotr.has_valid_contracts?
+    redirect_to doctors_status_path unless current_doctor && current_doctor.has_valid_contracts?
   end
 
   def current_doctor

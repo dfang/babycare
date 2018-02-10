@@ -86,18 +86,18 @@
 
                 <div class="tab2 tab-content hidden">
                   <%= f.input :physical_examination, wrapper: :weui_input %>
-                  <%= f.input :laboratory_and_supplementary_examinations, wrapper: :weui_input %>
+                  <%= f.input :medical_record_images, wrapper: :weui_input %>
                   <div class="weui-cell">
                       <div class="weui-cell__bd">
                           <div class="weui-uploader weui_uploader2">
                               <div class="weui-uploader__hd">
-                                  <p class="weui-uploader__title">实验室检查图片</p>
+                                  <p class="weui-uploader__title">检查图片</p>
                                   <!-- <div class="weui-uploader__info">0/2</div> -->
                               </div>
                               <div class="weui-uploader__bd">
                                   <ul class="weui-uploader__files" id="uploaderFiles">
-                                    <% if resource.laboratory_examination_images.any? %>
-                                      <%= f.simple_fields_for :laboratory_examination_images %>
+                                    <% if resource.medical_record_images.any? %>
+                                      <%= f.simple_fields_for :medical_record_images %>
                                     <% end %>
                                   </ul>
                                   <div class="weui-uploader__input-box" id='picker2'>
@@ -111,13 +111,13 @@
                       <div class="weui-cell__bd">
                           <div class="weui-uploader weui_uploader3">
                               <div class="weui-uploader__hd">
-                                  <p class="weui-uploader__title">影像学意见图片</p>
+                                  <p class="weui-uploader__title">图片</p>
                                   <!-- <div class="weui-uploader__info">0/2</div> -->
                               </div>
                               <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="uploaderFiles">
-                                  <% if resource.imaging_examination_images.any? %>
-                                    <%= f.simple_fields_for :imaging_examination_images %>
+                                  <% if resource.medical_record_images.any? %>
+                                    <%= f.simple_fields_for :medical_record_images %>
                                   <% end %>
                                 </ul>
                                 <div class="weui-uploader__input-box" id='picker3'>
@@ -219,7 +219,7 @@
                 </div>
 
                 <div class="weui-btn-area">
-                  <button class="weui-btn weui-btn__primary">确定</button>
+                  <button class="weui-btn weui-btn_primary">确定</button>
                 </div>
 
               <% end %>

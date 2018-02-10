@@ -33,9 +33,9 @@ class Patients::MedicalRecordsController < Patients::BaseController
       end
       format.html do
         if @reservation.present?
-          patients_reservation_path(@reservation)
+          redirect_to patients_reservation_path(@reservation)
         else
-          patients_profile_path
+          redirect_to patients_profile_path
         end
       end
     end
@@ -95,7 +95,7 @@ class Patients::MedicalRecordsController < Patients::BaseController
   def medical_record_params
     params.require(:medical_record).permit(
       :create_date, :write_date, :weight, :laboratory_and_supplementary_examinations, :updated_at,
-      :pulse, :height, :blood_pressure, :chief_complaint, :vaccination_history, :personal_history,
+      :pulse, :height, :diastolic_pressure, :systolic_pressure, :chief_complaint, :vaccination_history, :personal_history,
       :family_history, :user_id, :temperature, :pain_score, :bmi, :physical_examination, :respiratory_rate,
       :onset_date, :remarks, :history_of_present_illness, :past_medical_history, :allergic_history,
       :preliminary_diagnosis, :treatment_recommendation, :imaging_examination, :created_at,
