@@ -2,82 +2,81 @@
 
 <%= simple_nested_form_for @member, url: patients_family_member_path(@member), method: 'PUT' do |f| %>
 
-<div class="weui-cells">
-  <div class="weui-cell">
-    <div class="weui-cell__hd">
-      <label class="weui-label">姓名</label>
-    </div>
-    <div class="weui-cell__bd">
-      <%= f.text_field :name, class: "weui-input", placeholder: "请输入小孩姓名", "data-parsley-required": true %>
-    </div>
-  </div>
-
-  <div class="weui-cell">
-    <div class="weui-cell__hd">
-      <label class="weui-label">身份证</label>
-    </div>
-    <div class="weui-cell__bd">
-      <%= f.text_field :identity_card, class: "weui-input", pattern: "[0-9][a-z]*", placeholder: "请输入小孩身份证号码", "data-parsley-required": true %>
-    </div>
-  </div>
-
-  <div class="weui-cell">
-    <div class="weui-cell__hd">
-      <label for="" class="weui-label">生日</label>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <%= f.text_field :birthdate, class: "weui-input", type: "date", placeholder: "生日", "data-parsley-required": true %>
-    </div>
-  </div>
-
-  <div class="weui-cell weui-cell_select weui-cell_select-after">
-    <div class="weui-cell__hd">
-      <label for="" class="weui-label">性别</label>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <select class="weui-select" name="user[gender]">
-        <%= options_for_select MedicalRecord::GENDERS, @member.gender %>
-      </select>
-    </div>
-  </div>
-
-  <div class="weui-cell weui-cell_select weui-cell_select-after">
-    <div class="weui-cell__hd">
-      <label for="" class="weui-label">血型</label>
-    </div>
-    <div class="weui-cell__bd weui-cell_primary">
-      <select class="weui-select" name="user[blood_type]">
-        <%= options_for_select Setting::BLOOD_TYPES, @member.blood_type %>
-      </select>
-    </div>
-  </div>
-
-  <div class="weui-cell">
+  <div class="weui-cells">
+    <div class="weui-cell">
       <div class="weui-cell__hd">
-          <label class="weui-label">过敏史</label>
+        <label class="weui-label">姓名</label>
       </div>
-  </div>
-  <div class="weui-cell">
       <div class="weui-cell__bd">
-          <textarea class="weui-textarea" name="user[allergic_history]" data-parsley-required="true" placeholder="请描述下有无过敏症状" rows="2"><%= @member.allergic_history %></textarea>
+        <%= f.text_field :name, class: "weui-input", placeholder: "请输入小孩姓名", "data-parsley-required": true %>
       </div>
-  </div>
+    </div>
 
-  <div class="weui-cell">
+    <div class="weui-cell">
       <div class="weui-cell__hd">
-          <label class="weui-label">疫苗史</label>
+        <label class="weui-label">身份证</label>
       </div>
-  </div>
-  <div class="weui-cell">
       <div class="weui-cell__bd">
-          <textarea class="weui-textarea" name="user[vaccination_history]" data-parsley-required="true" placeholder="请描述下是否正常接种疫苗" rows="2"><%= @member.vaccination_history %></textarea>
+        <%= f.text_field :identity_card, class: 'weui-input', placeholder: "请输入小孩身份证号码", data: { "parsley-required": "true" }, pattern: "/\\d{17}x|\\d{18}/i" %>
       </div>
+    </div>
+
+    <div class="weui-cell">
+      <div class="weui-cell__hd">
+        <label for="" class="weui-label">生日</label>
+      </div>
+      <div class="weui-cell__bd weui-cell_primary">
+        <%= f.text_field :birthdate, class: "weui-input", type: "date", placeholder: "生日", "data-parsley-required": true %>
+      </div>
+    </div>
+
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+      <div class="weui-cell__hd">
+        <label for="" class="weui-label">性别</label>
+      </div>
+      <div class="weui-cell__bd weui-cell_primary">
+        <select class="weui-select" name="user[gender]">
+          <%= options_for_select MedicalRecord::GENDERS, @member.gender %>
+        </select>
+      </div>
+    </div>
+
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+      <div class="weui-cell__hd">
+        <label for="" class="weui-label">血型</label>
+      </div>
+      <div class="weui-cell__bd weui-cell_primary">
+        <select class="weui-select" name="user[blood_type]">
+          <%= options_for_select Setting::BLOOD_TYPES, @member.blood_type %>
+        </select>
+      </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label">过敏史</label>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <textarea class="weui-textarea" name="user[allergic_history]" data-parsley-required="true" placeholder="请描述下有无过敏症状" rows="2"><%= @member.allergic_history %></textarea>
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label">疫苗史</label>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <textarea class="weui-textarea" name="user[vaccination_history]" data-parsley-required="true" placeholder="请描述下是否正常接种疫苗" rows="2"><%= @member.vaccination_history %></textarea>
+        </div>
+    </div>
+
   </div>
 
-</div>
-
-<div class="weui-btn-area">
-  <!-- <a class="weui-btn weui-btn__primary" href="javascript:">确定</a> -->
-  <button class="weui-btn weui-btn_primary">确定</button>
-</div>
+  <div class="weui-btn-area">
+    <button class="weui-btn weui-btn_primary">确定</button>
+  </div>
 <% end %>

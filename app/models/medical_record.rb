@@ -8,7 +8,7 @@ class MedicalRecord < OdooRecord
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :medical_record_images, class_name: 'MedicalRecordImage'
-    # assoc.has_many :medical_record_images, class_name: 'MedicalRecordImage', inverse_of: :meidcal_record
+  #   assoc.has_many :medical_record_images, class_name: 'MedicalRecordImage', inverse_of: :meidcal_record
   #   assoc.has_many :laboratory_examination_images, class_name: 'LaboratoryExaminationImage'
   #   assoc.has_many :imaging_examination_images, class_name: 'ImagingExaminationImage'
   end

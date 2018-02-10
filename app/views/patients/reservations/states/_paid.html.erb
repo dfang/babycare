@@ -5,7 +5,5 @@
 <%= render 'diagnosis_info' %>
 
 <div class="weui-btn-area">
-  <% unless resource.patient_has_rated? %>
-    <%= link_to '去评价', new_patients_rating_path(reservation_id: resource), class: 'weui-btn weui-btn_primary'  %>
-  <% end %>
+  <a href="tel:4000719136" class="weui-btn weui-btn__primary">拨打客服电话</a>
 </div>

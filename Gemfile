@@ -105,7 +105,7 @@ gem 'pundit'
 gem 'omniauth'
 gem 'omniauth-wechat-oauth2'
 
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.11', '>= 3.11.2'
 gem 'whenever', require: false
 
 gem 'foreman', group: :development

@@ -299,7 +299,7 @@ GEM
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
-    puma (3.10.0)
+    puma (3.11.2)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     qiniu (6.8.1)
@@ -546,7 +546,7 @@ DEPENDENCIES
   pg (~> 0.18)
   pry-rails
   pry-remote
-  puma (~> 3.7)
+  puma (~> 3.11, >= 3.11.2)
   pundit
   qiniu
   rails (~> 5.1.1)
