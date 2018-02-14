@@ -4,7 +4,7 @@ import wx from 'wechat-jssdk-promise';
 // export let config_js_sdk = (url) =>
 let url = location.href.split('#')[0]
 $.ajax({
-    url:        "/wx/config_jssdk.json?url=" + escape(url),
+    url:        '/wx/config_jssdk.json?url=' + escape(url),
     beforeSend: function(){},
     global:     false
 })

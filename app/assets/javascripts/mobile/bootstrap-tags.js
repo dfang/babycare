@@ -1,6 +1,6 @@
-;
+
 (function($) {
-    "use strict";
+    'use strict';
 
     var defaults = {
         values: [],
@@ -28,8 +28,8 @@
         input_name: 'tags[]',
 
         lang: {
-            delete: "Delete",
-            limit: "You have reached limit of only {0} tags to be added."
+            delete: 'Delete',
+            limit: 'You have reached limit of only {0} tags to be added.'
         },
 
         suggestion_limit: 15,
@@ -71,7 +71,7 @@
             $.ajax({
                 dataType: 'json', type: 'get', async: false, url: $self.options.values_url
             }).done(function(json) {
-                    if(typeof json == "object") {
+                    if(typeof json === 'object') {
                         $self.options.values = $.merge($self.options.values, json);
                     }
                 });
@@ -91,7 +91,7 @@
 
             var input = $(document.createElement('input'))
                 .addClass('tag-input')
-                .attr({"autocomplete": "off", "type": "text"})
+                .attr({'autocomplete': 'off', 'type': 'text'})
                 .css('outline', 'none')
                 .typeahead({
                     items: $self.options.suggestion_limit,
@@ -106,7 +106,7 @@
                                 dataType: 'json', type: 'post', async: false, url: $self.options.suggestion_url,
                                 data: {q: query, limit: $self.options.suggestion_limit}
                             }).done(function(json) {
-                                    if(typeof json == "object") {
+                                    if(typeof json === 'object') {
                                         suggestions = $.merge(suggestions, json);
                                     }
                                 });
@@ -189,7 +189,7 @@
                 delete values[key];
                 return true;
             }
-            if(typeof value == "string") {
+            if(typeof value === 'string') {
                 values[key] = {id: value, text: value, suggest: value};
             }
             values[key].suggest = values[key].suggest || values[key].text;
@@ -235,8 +235,8 @@
         if(unique) {
             if(!$self.options.onDuplicate){
                 var color = $(pills_list.children()[0]).css('background-color');
-                unique.stop().animate({"backgroundColor": $self.options.double_hilight}, 100, 'swing', function() {
-                    unique.stop().animate({"backgroundColor": color}, 100, 'swing', function(){
+                unique.stop().animate({'backgroundColor': $self.options.double_hilight}, 100, 'swing', function() {
+                    unique.stop().animate({'backgroundColor': color}, 100, 'swing', function(){
                         unique.css('background-color', '');
                     });
                 });
@@ -257,8 +257,8 @@
         if($self.options.can_delete) {
             icon = $(document.createElement('a'))
                 .attr({
-                    "href": "javascript:void(0)",
-                    "class": "tag-remove"
+                    'href': 'javascript:void(0)',
+                    'class': 'tag-remove'
                 })
                 .html($self.options.templates.delete_icon.toString())
                 .click(function() {
@@ -272,15 +272,15 @@
             .attr('data-tag-id', value.id)
             .append(num, icon, $(document.createElement('input'))
                 .attr({
-                    "data-tag-hidden": value.id,
-                    "name": $self.options.input_name,
-                    "type": "hidden",
-                    "value": value.id
+                    'data-tag-hidden': value.id,
+                    'name': $self.options.input_name,
+                    'type': 'hidden',
+                    'value': value.id
                 })
             )
             .css({
-                "overflow": "hidden",
-                "white-space": "nowrap"
+                'overflow': 'hidden',
+                'white-space': 'nowrap'
             });
 
         tag = $self.options.onBeforeAdd(tag, value);
@@ -300,7 +300,7 @@
             return;
         }
 
-        $tag.animate({width: 0, "padding-right": 0, "padding-left": 0}, 200, 'swing', function() {
+        $tag.animate({width: 0, 'padding-right': 0, 'padding-left': 0}, 200, 'swing', function() {
             var $this = $(this);
             if($self.options.remove_url) {
                 $.ajax({
@@ -323,10 +323,10 @@ if(!String.prototype.format) {
     String.prototype.format = function() {
         var args = arguments;
         return this.replace(/{(\d+)}/g, function(match, number) {
-            return typeof args[number] != 'undefined' ? args[number] : match;
+            return typeof args[number] !== 'undefined' ? args[number] : match;
         });
     };
 }
-;
+
 
 // https://github.com/Serhioromano/bootstrap-tags

@@ -16,7 +16,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) : typeof define === 'function' && define.amd ? define(['jquery'], factory) : global.parsley = factory(global.jQuery);
-})(this, function ($) {
+}(this, function ($) {
   'use strict';
 
   var globalID = 1;
@@ -70,7 +70,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       var num;
 
       try {
-        return value ? value == "true" || (value == "false" ? false : value == "null" ? null : !isNaN(num = Number(value)) ? num : /^[\[\{]/.test(value) ? $.parseJSON(value) : value) : value;
+        return value ? value == 'true' || (value == 'false' ? false : value == 'null' ? null : !isNaN(num = Number(value)) ? num : /^[\[\{]/.test(value) ? $.parseJSON(value) : value) : value;
       } catch (e) {
         return value;
       }
@@ -139,7 +139,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         if (arguments.length > 1) {
           throw Error('Second argument not supported');
         }
-        if (typeof prototype != 'object') {
+        if (typeof prototype !== 'object') {
           throw TypeError('Argument must be an object');
         }
         Object.prototype = prototype;
@@ -147,7 +147,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         Object.prototype = null;
         return result;
       };
-    })(),
+    }()),
 
     _SubmitSelector: 'input[type="submit"], button:submit'
   };
@@ -344,7 +344,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
 
     asyncIsValid: function asyncIsValid(group, force) {
-      ParsleyUtils__default.warnOnce("asyncIsValid is deprecated; please use whenValid instead");
+      ParsleyUtils__default.warnOnce('asyncIsValid is deprecated; please use whenValid instead');
       return this.whenValid({ group: group, force: force });
     },
 
@@ -505,11 +505,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
     alphanum: /^\w+$/i,
 
-    url: new RegExp("^" +
+    url: new RegExp('^' +
     // protocol identifier
-    "(?:(?:https?|ftp)://)?" + // ** mod: make scheme optional
+    '(?:(?:https?|ftp)://)?' + // ** mod: make scheme optional
     // user:pass authentication
-    "(?:\\S+(?::\\S*)?@)?" + "(?:" +
+    '(?:\\S+(?::\\S*)?@)?' + '(?:' +
     // IP address exclusion
     // private & local networks
     // "(?!(?:10|127)(?:\\.\\d{1,3}){3})" +   // ** mod: allow local networks
@@ -520,17 +520,17 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     // excludes reserved space >= 224.0.0.0
     // excludes network & broacast addresses
     // (first & last IP address of each class)
-    "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" + "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" + "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" + "|" +
+    '(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])' + '(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}' + '(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))' + '|' +
     // host name
     '(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)' +
     // domain name
     '(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*' +
     // TLD identifier
-    '(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + ")" +
+    '(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' + ')' +
     // port number
-    "(?::\\d{2,5})?" +
+    '(?::\\d{2,5})?' +
     // resource path
-    "(?:/\\S*)?" + "$", 'i')
+    '(?:/\\S*)?' + '$', 'i')
   };
   typeRegexes.range = typeRegexes.number;
 
@@ -1245,7 +1245,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       this.submitEvent = event;
       if (event) {
         this.submitEvent = $.extend({}, event, { preventDefault: function preventDefault() {
-            ParsleyUtils__default.warnOnce("Using `this.submitEvent.preventDefault()` is deprecated; instead, call `this.validationResult = false`");
+            ParsleyUtils__default.warnOnce('Using `this.submitEvent.preventDefault()` is deprecated; instead, call `this.validationResult = false`');
             _this5.validationResult = false;
           } });
       }
@@ -1987,7 +1987,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   var vernums = $.fn.jquery.split('.');
   if (parseInt(vernums[0]) <= 1 && parseInt(vernums[1]) < 8) {
-    throw "The loaded version of jQuery is too old. Please upgrade to 1.8.x or better.";
+    throw 'The loaded version of jQuery is too old. Please upgrade to 1.8.x or better.';
   }
   if (!vernums.forEach) {
     ParsleyUtils__default.warn('Parsley requires ES5 to run properly. Please include https://github.com/es-shims/es5-shim');
@@ -2090,7 +2090,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   var o = $({});
   var deprecated = function deprecated() {
-    ParsleyUtils__default.warnOnce("Parsley's pubsub module is deprecated; use the 'on' and 'off' methods on parsley instances or window.Parsley");
+    ParsleyUtils__default.warnOnce('Parsley\'s pubsub module is deprecated; use the \'on\' and \'off\' methods on parsley instances or window.Parsley');
   };
 
   // Returns an event handler that calls `fn` with the arguments it expects
@@ -2279,28 +2279,28 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   // This is included with the Parsley library itself,
   // thus there is no use in adding it to your project.
   Parsley.addMessages('en', {
-    defaultMessage: "This value seems to be invalid.",
+    defaultMessage: 'This value seems to be invalid.',
     type: {
-      email: "This value should be a valid email.",
-      url: "This value should be a valid url.",
-      number: "This value should be a valid number.",
-      integer: "This value should be a valid integer.",
-      digits: "This value should be digits.",
-      alphanum: "This value should be alphanumeric."
+      email: 'This value should be a valid email.',
+      url: 'This value should be a valid url.',
+      number: 'This value should be a valid number.',
+      integer: 'This value should be a valid integer.',
+      digits: 'This value should be digits.',
+      alphanum: 'This value should be alphanumeric.'
     },
-    notblank: "This value should not be blank.",
-    required: "This value is required.",
-    pattern: "This value seems to be invalid.",
-    min: "This value should be greater than or equal to %s.",
-    max: "This value should be lower than or equal to %s.",
-    range: "This value should be between %s and %s.",
-    minlength: "This value is too short. It should have %s characters or more.",
-    maxlength: "This value is too long. It should have %s characters or fewer.",
-    length: "This value length is invalid. It should be between %s and %s characters long.",
-    mincheck: "You must select at least %s choices.",
-    maxcheck: "You must select %s choices or fewer.",
-    check: "You must select between %s and %s choices.",
-    equalto: "This value should be the same."
+    notblank: 'This value should not be blank.',
+    required: 'This value is required.',
+    pattern: 'This value seems to be invalid.',
+    min: 'This value should be greater than or equal to %s.',
+    max: 'This value should be lower than or equal to %s.',
+    range: 'This value should be between %s and %s.',
+    minlength: 'This value is too short. It should have %s characters or more.',
+    maxlength: 'This value is too long. It should have %s characters or fewer.',
+    length: 'This value length is invalid. It should be between %s and %s characters long.',
+    mincheck: 'You must select at least %s choices.',
+    maxcheck: 'You must select %s choices or fewer.',
+    check: 'You must select between %s and %s choices.',
+    equalto: 'This value should be the same.'
   });
 
   Parsley.setLocale('en');
@@ -2367,7 +2367,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       }
 
     });
-  };
+  }
 
   var inputevent = new InputEvent();
 
@@ -2376,4 +2376,4 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   var parsley = Parsley;
 
   return parsley;
-});
+}));

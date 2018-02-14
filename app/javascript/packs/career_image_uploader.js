@@ -8,19 +8,19 @@ wx.ready( () => {
   // console.log("isWeiXin: " + isWeiXin());
   // console.log("isAndroid: " + isAndroid());
   // alert(util.isAndroid());
-  $(document).on("ready", function(){
+  $(document).on('ready', function(){
 
-    console.log("isisWeiXin: " + isWeiXin())
-    console.log("isAndroid: " + isAndroid())
+    console.log('isisWeiXin: ' + isWeiXin())
+    console.log('isAndroid: ' + isAndroid())
 
     if( true ){
       // z-index可以遮住plupload生成的上传按钮, iOS的plupload选择框有拍照功能，所以用plupload
       // android 用 wx js sdk, 设置z-index 把plupload上传按钮遮住
-      $(".weui-uploader__input-box").attr('z-index', 9999)
+      $('.weui-uploader__input-box').attr('z-index', 9999)
 
       url = location.href.split('#')[0]
       $.ajax({
-        url:        "/wx/config_jssdk.json?url=" + escape(url),
+        url:        '/wx/config_jssdk.json?url=' + escape(url),
         beforeSend: function(){},
         global:     false
       })
@@ -53,19 +53,19 @@ wx.ready( () => {
       $(document).on('click', '#picker1, #picker2, #picker3, #picker4', function(e){
 
         function uploadPhotosField(){
-          uploadField = ""
+          uploadField = ''
           switch ($(e.target).attr('id')) {
             case 'picker1':
-              uploadField = "doctor[id_card_front_media_id]"
+              uploadField = 'doctor[id_card_front_media_id]'
               break;
             case 'picker2':
-              uploadField = "doctor[id_card_back_media_id]"
+              uploadField = 'doctor[id_card_back_media_id]'
               break;
             case 'picker3':
-              uploadField = "doctor[license_front_media_id]"
+              uploadField = 'doctor[license_front_media_id]'
               break;
             default:
-              uploadField = "doctor[license_back_media_id]"
+              uploadField = 'doctor[license_back_media_id]'
               break;
           }
           return uploadField
@@ -84,8 +84,8 @@ wx.ready( () => {
                   $files = $(e.target).parents('.weui-uploader').find('.weui-uploader__files')
                   // $files.find('.weui-uploader__file.holder').remove()
                   $files.empty()
-                  $li = $('<li class="weui-uploader__file">').css("background-image", "url(" + localIds[i] + ")")
-                  $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css("float", "right").css("margin-top", "2px")
+                  $li = $('<li class="weui-uploader__file">').css('background-image', 'url(' + localIds[i] + ')')
+                  $i = $('<i class="weui-icon-delete weui-icon_gallery-delete"></i>').css('float', 'right').css('margin-top', '2px')
                   $li.append($i)
                   $files.append($li)
 
@@ -96,7 +96,7 @@ wx.ready( () => {
                       // alert('upload complete, serverId is ')
                       // alert(res.serverId)
 
-                      $input = $('<input type="hidden">').attr("name", uploadPhotosField).attr('value', res.serverId)
+                      $input = $('<input type="hidden">').attr('name', uploadPhotosField).attr('value', res.serverId)
                       $li.append($input)
 
                       // alert('input field name is')
