@@ -48,8 +48,8 @@ wx.ready( () => {
       let $gallery = $('<div class="weui-gallery" style="display: none;">');
       let $galleryImg = $('<span class="weui-gallery__img">');
       let $galleryOpr = $('<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>')
-      $li.css("background-image", "url(" + img + ")");
-      $galleryImg.css("background-image", "url(" + img + ")");
+      $li.css('background-image', 'url(' + img + ')');
+      $galleryImg.css('background-image', 'url(' + img + ')');
       // $files.append($li);
       $files.parents('.weui-uploader').find('.weui-uploader__files').append($li);
       $li.append($gallery);
@@ -64,7 +64,7 @@ wx.ready( () => {
             localId: localId,
             isShowProgressTips: 1
         }).then( (res) => {
-            console.log("serverId is : " + res.serverId);
+            console.log('serverId is : ' + res.serverId);
             serverIds.push(res.serverId);
             syncUpload(localIds, serverIds);
         });
@@ -81,7 +81,7 @@ wx.ready( () => {
           console.log(serverIds);
 
           for (let i = 0, len = serverIds.length; i < len; i++) {
-            let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]"
+            let mediaId_name = 'reservation[reservation_images_attributes][' + (i + existings) + '][media_id]'
             console.log(mediaId_name);
 
             let mediaId_value =  serverIds[i]
@@ -105,7 +105,7 @@ wx.ready( () => {
       let existings = $lis.find('input:hidden').length;
 
       for (let i = 0, len = serverIds.length; i < len; i++) {
-        let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]"
+        let mediaId_name = 'reservation[reservation_images_attributes][' + (i + existings) + '][media_id]'
         let mediaId_value =  serverIds[i]
         let $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', mediaId_value)
         $files.append($input);

@@ -50,8 +50,8 @@ wx.ready( () => {
       let $gallery = $('<div class="weui-gallery" style="display: none;">');
       let $galleryImg = $('<span class="weui-gallery__img">');
       let $galleryOpr = $('<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>')
-      $li.css("background-image", "url(" + img + ")");
-      $galleryImg.css("background-image", "url(" + img + ")");
+      $li.css('background-image', 'url(' + img + ')');
+      $galleryImg.css('background-image', 'url(' + img + ')');
       // $files.append($li);
       $files.parents('.weui-uploader').find('.weui-uploader__files').append($li);
       $li.append($gallery);
@@ -66,7 +66,7 @@ wx.ready( () => {
             localId: localId,
             isShowProgressTips: 1
         }).then( (res) => {
-            console.log("serverId is : " + res.serverId);
+            console.log('serverId is : ' + res.serverId);
             serverIds.push(res.serverId);
             syncUpload(localIds, serverIds);
         });
@@ -88,7 +88,7 @@ wx.ready( () => {
             console.log('input ' + i);
             console.log('serverIds are: ') ;
             console.log(serverIds);
-            let mediaId_name = "reservation_examinations_attributes[" + pickerId + "][reservation_examination_images_attributes][" + (i + existings) + "][media_id]"
+            let mediaId_name = 'reservation_examinations_attributes[' + pickerId + '][reservation_examination_images_attributes][' + (i + existings) + '][media_id]'
             console.log(mediaId_name);
 
             let mediaId_value =  serverIds[i]

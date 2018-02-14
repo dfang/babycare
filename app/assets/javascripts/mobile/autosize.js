@@ -15,10 +15,10 @@
 		factory(mod.exports, mod);
 		global.autosize = mod.exports;
 	}
-})(this, function (exports, module) {
+}(this, function (exports, module) {
 	'use strict';
 
-	var map = typeof Map === "function" ? new Map() : (function () {
+	var map = typeof Map === 'function' ? new Map() : (function () {
 		var keys = [];
 		var values = [];
 
@@ -43,7 +43,7 @@
 				}
 			}
 		};
-	})();
+	}());
 
 	var createEvent = function createEvent(name) {
 		return new Event(name, { bubbles: true });
@@ -287,4 +287,4 @@
 	}
 
 	module.exports = autosize;
-});
+}));

@@ -15,7 +15,7 @@ function isWeiXin(){
 
 function isAndroid(){
   var ua = navigator.userAgent.toLowerCase();
-  return ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+  return ua.indexOf('android') > -1; //&& ua.indexOf("mobile");
 }
 
 var uploader =  (function() {
@@ -33,7 +33,7 @@ var uploader =  (function() {
       max_file_size   : '10mb',
       url             : uploadUrl,
       flash_swf_url   : '/uploader.swf',
-      filters         : [ { title : "图片文件", extensions : "jpg,jpeg,gif,png,bmp" } ],
+      filters         : [ { title : '图片文件', extensions : 'jpg,jpeg,gif,png,bmp' } ],
       file_data_name  : 'file',
       multipart       : true,
       multi_selection : false,
@@ -59,7 +59,7 @@ var uploader =  (function() {
       // }
     })
 
-    webUploader.bind("BeforeUpload", function(up, file){
+    webUploader.bind('BeforeUpload', function(up, file){
       console.log('BeforeUpload')
       $button = $(up.settings.browse_button[0])
 
@@ -146,4 +146,4 @@ var uploader =  (function() {
   // })
 
 
-})();
+}());
