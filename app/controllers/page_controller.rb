@@ -9,5 +9,4 @@ class PageController < ApplicationController
   # 反馈
   def feedback
   end
-
 end

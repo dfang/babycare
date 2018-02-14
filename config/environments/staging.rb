@@ -93,7 +93,6 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-
   config.assets.initialize_on_precompile = false
 
   # Do not dump schema after migrations.
