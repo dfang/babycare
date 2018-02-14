@@ -18,7 +18,7 @@ wx.ready( () => {
       sizeType:   ['original', 'compressed'],
       sourceType: ['album', 'camera']
     }).then( (res) => {
-      let serverIds = []
+      let serverIds = [];
       let localIds = res.localIds;
       let localIdsToPreview = res.localIds;
       console.log('choosed ' + localIdsToPreview.length + ' images');
@@ -27,8 +27,8 @@ wx.ready( () => {
           preview($files, localIdsToPreview[i]);
         }
 
-      syncUpload(localIds, serverIds)
-    })
+      syncUpload(localIds, serverIds);
+    });
 
     const preview = ($files, localId) => {
       if (util.isAndroid()) {
@@ -39,15 +39,15 @@ wx.ready( () => {
         }).then((res) => {
           let localData = res.localData;
           appendToPlaceholder(localData);
-        })
+        });
       }
-    }
+    };
 
     const appendToPlaceholder = (img) => {
       let $li = $('<li class="weui-uploader__file">');
       let $gallery = $('<div class="weui-gallery" style="display: none;">');
       let $galleryImg = $('<span class="weui-gallery__img">');
-      let $galleryOpr = $('<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>')
+      let $galleryOpr = $('<div class="weui-gallery__opr"><i class="weui-icon-delete weui-icon_gallery-delete"></i></div>');
       $li.css("background-image", "url(" + img + ")");
       $galleryImg.css("background-image", "url(" + img + ")");
       // $files.append($li);
@@ -55,7 +55,7 @@ wx.ready( () => {
       $li.append($gallery);
       $gallery.append($galleryImg);
       $gallery.append($galleryOpr);
-    }
+    };
 
     const syncUpload = (localIds, serverIds) => {
       if (localIds.length > 0) {
@@ -81,10 +81,10 @@ wx.ready( () => {
           console.log(serverIds);
 
           for (let i = 0, len = serverIds.length; i < len; i++) {
-            let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]"
+            let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]";
             console.log(mediaId_name);
 
-            let mediaId_value =  serverIds[i]
+            let mediaId_value =  serverIds[i];
             console.log(mediaId_value);
 
             let $input = $('<input type="hidden">').addClass('media-id').attr('name', mediaId_name).attr('value', mediaId_value);
@@ -93,7 +93,7 @@ wx.ready( () => {
           }
       }
 
-    }
+    };
 
 
     const write = ($files, serverIds) => {
@@ -101,21 +101,21 @@ wx.ready( () => {
       console.log($files);
       console.log(serverIds);
 
-      let $lis = $files.find('li.weui-uploader__file')
+      let $lis = $files.find('li.weui-uploader__file');
       let existings = $lis.find('input:hidden').length;
 
       for (let i = 0, len = serverIds.length; i < len; i++) {
-        let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]"
-        let mediaId_value =  serverIds[i]
-        let $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', mediaId_value)
+        let mediaId_name = "reservation[reservation_images_attributes][" + (i + existings) + "][media_id]";
+        let mediaId_value =  serverIds[i];
+        let $input = $('<input type="hidden">').attr('class', 'media-id').attr('name', mediaId).attr('value', mediaId_value);
         $files.append($input);
       }
-    }
+    };
 
 
-  })
+  });
 
 
 
 
-})
+});

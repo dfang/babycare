@@ -2,7 +2,7 @@ import $ from 'jquery';
 import wx from 'wechat-jssdk-promise';
 
 // export let config_js_sdk = (url) =>
-let url = location.href.split('#')[0]
+let url = location.href.split('#')[0];
 $.ajax({
     url:        "/wx/config_jssdk.json?url=" + escape(url),
     beforeSend: function(){},
@@ -30,5 +30,5 @@ $.ajax({
   wx.error(function(e){
     console.log('wx.config is error');
     console.log(e.errMsg);
-  })
-})
+  });
+});

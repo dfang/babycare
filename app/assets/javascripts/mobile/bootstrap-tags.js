@@ -1,4 +1,4 @@
-;
+
 (function($) {
     "use strict";
 
@@ -58,7 +58,7 @@
         onBeforeRemove: function(pill) {
             return true;
         }
-    }
+    };
 
 
     function Tags(context, params) {
@@ -71,7 +71,7 @@
             $.ajax({
                 dataType: 'json', type: 'get', async: false, url: $self.options.values_url
             }).done(function(json) {
-                    if(typeof json == "object") {
+                    if(typeof json === "object") {
                         $self.options.values = $.merge($self.options.values, json);
                     }
                 });
@@ -106,7 +106,7 @@
                                 dataType: 'json', type: 'post', async: false, url: $self.options.suggestion_url,
                                 data: {q: query, limit: $self.options.suggestion_limit}
                             }).done(function(json) {
-                                    if(typeof json == "object") {
+                                    if(typeof json === "object") {
                                         suggestions = $.merge(suggestions, json);
                                     }
                                 });
@@ -116,8 +116,8 @@
                         suggestions = $self._prepare(suggestions);
 
                         $.each(suggestions, function(i, item) {
-                            mapped[item.suggest] = item
-                            labels.push(item.suggest)
+                            mapped[item.suggest] = item;
+                            labels.push(item.suggest);
                         });
 
                         return labels;
@@ -189,7 +189,7 @@
                 delete values[key];
                 return true;
             }
-            if(typeof value == "string") {
+            if(typeof value === "string") {
                 values[key] = {id: value, text: value, suggest: value};
             }
             values[key].suggest = values[key].suggest || values[key].text;
@@ -198,7 +198,7 @@
             values[key].num = parseInt(value.num || '0');
         });
         return values;
-    }
+    };
     Tags.prototype._addTag = function(pills_list, input, value) {
 
         if(!value) {
@@ -208,7 +208,7 @@
         if(this.addTag(pills_list, value)) {
             input.val('').focus();
         }
-    }
+    };
     Tags.prototype.addTag = function(pills_list, value) {
         var $self = this;
 
@@ -290,7 +290,7 @@
         $('[data-toggle="tooltip"]').tooltip();
 
         return true;
-    }
+    };
 
     Tags.prototype.removeTag = function(tag) {
         var $self = this;
@@ -310,23 +310,23 @@
             $self.options.onRemove($this);
             $this.remove();
         });
-    }
+    };
 
     $.fn.tags = function(params) {
         return this.each(function() {
             new Tags($(this), params);
-        })
-    }
+        });
+    };
 }(window.jQuery));
 
 if(!String.prototype.format) {
     String.prototype.format = function() {
         var args = arguments;
         return this.replace(/{(\d+)}/g, function(match, number) {
-            return typeof args[number] != 'undefined' ? args[number] : match;
+            return typeof args[number] !== 'undefined' ? args[number] : match;
         });
     };
 }
-;
+
 
 // https://github.com/Serhioromano/bootstrap-tags
