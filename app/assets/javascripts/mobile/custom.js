@@ -1,16 +1,16 @@
 $(document).on('click', '.weui-navbar__item', function (e) {
   $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
 
-  index = $('.weui-navbar__item').index($(e.target))
+  index = $('.weui-navbar__item').index($(e.target));
   console.log(index);
   $('.tab-content').not('.tab'+ (index+1)).hide();
-  $('.tab'+ (index+1)).show()
+  $('.tab'+ (index+1)).show();
 });
 
 
 function isWeiXin(){
   var ua = window.navigator.userAgent.toLowerCase();
-  return ua.match(/MicroMessenger/i) == 'micromessenger'
+  return ua.match(/MicroMessenger/i) == 'micromessenger';
 }
 
 function isAndroid(){
@@ -24,7 +24,7 @@ var uploader =  (function() {
 
     var webUploader;
     if(uploadType != 'multiple'){
-      uploadType = 'single'
+      uploadType = 'single';
     }
 
     webUploader = new plupload.Uploader({
@@ -40,30 +40,30 @@ var uploader =  (function() {
       dragdrop        : false,
       max_retries     : 3,
       multipart_params: { authenticity_token: $('meta[name="csrf-token"]').attr('content') }
-    })
+    });
 
-    webUploader.init()
+    webUploader.init();
 
     webUploader.bind('init', function(up, files){
-      console.log('init uploader')
-    })
+      console.log('init uploader');
+    });
 
     webUploader.bind('browse', function(up, files){
-      console.log('Browse')
-    })
+      console.log('Browse');
+    });
 
     webUploader.bind('FilesAdded', function(up, files){
-      console.log('FilesAdded')
+      console.log('FilesAdded');
       // if(!notAutoStart){
-        webUploader.start()
+        webUploader.start();
       // }
-    })
+    });
 
     webUploader.bind("BeforeUpload", function(up, file){
-      console.log('BeforeUpload')
-      $button = $(up.settings.browse_button[0])
+      console.log('BeforeUpload');
+      $button = $(up.settings.browse_button[0]);
 
-      holder = $button.parent('.fields').attr('id', Math.floor(Math.random()*100000+1))
+      holder = $button.parent('.fields').attr('id', Math.floor(Math.random()*100000+1));
       webUploader.settings.multipart_params = {
         file_id: file.id,
         pickerId: pickerId,
@@ -73,7 +73,7 @@ var uploader =  (function() {
         page: $button.parents('.upload').data('target'),
         authenticity_token: $('meta[name="csrf-token"]').attr('content'),
         holderId: $button.parent('.fields').attr('id')
-      }
+      };
 
       if(uploadType == 'multiple'){
         // console.log('uploading multiple images')
@@ -81,48 +81,48 @@ var uploader =  (function() {
         // console.log('you')
 
         if(!$(uploadTarget).find('.weui-uploader__file.holder').length > 0 ){
-          console.log(' has not holder so append a holder ')
-          $(uploadTarget).find('ul.weui-uploader__files').append('<li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>')
+          console.log(' has not holder so append a holder ');
+          $(uploadTarget).find('ul.weui-uploader__files').append('<li class="weui-uploader__file holder" style="background:rgba(74, 56, 66, 0.13)"></li>');
         }
       }
 
-    })
+    });
 
 
     webUploader.bind('UploadFile', function(up, file){
-      console.log('UploadFile')
-    })
+      console.log('UploadFile');
+    });
 
     webUploader.bind('UploadProgress', function(up, file){
-      console.log('UploadProgress')
-      text = file.percent + '%'
-      console.log(up)
-      console.log(file)
-      $(uploadTarget).find('li.weui-uploader__file:last').addClass('weui-uploader__file_status').html('<div class="weui-uploader__file-content">' + file.percent  + '%</div>')
-    })
+      console.log('UploadProgress');
+      text = file.percent + '%';
+      console.log(up);
+      console.log(file);
+      $(uploadTarget).find('li.weui-uploader__file:last').addClass('weui-uploader__file_status').html('<div class="weui-uploader__file-content">' + file.percent  + '%</div>');
+    });
 
     webUploader.bind('FileUploaded', function(up, file, data){
       // console.log('FileUploaded')
-      eval(data.response)
+      eval(data.response);
       // console.log(up)
       // console.log(file)
       // console.log(data)
-      $(uploadTarget).find('li.weui-uploader__file').removeClass('weui-uploader__file_status')
-    })
+      $(uploadTarget).find('li.weui-uploader__file').removeClass('weui-uploader__file_status');
+    });
 
     webUploader.bind('UploadComplete', function(up, files){
       // console.log('UploadComplete')
       up.destroy();
-    })
+    });
 
     webUploader.bind('Error', function(up, err){
-      alert('Error')
-      up.refresh()
-    })
+      alert('Error');
+      up.refresh();
+    });
 
     webUploader.bind('Destroy', function(up, file){
       // console.log('Destroy');
-    })
+    });
 
     return webUploader;
   }
@@ -146,4 +146,4 @@ var uploader =  (function() {
   // })
 
 
-})();
+}());

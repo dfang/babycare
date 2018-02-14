@@ -16,7 +16,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) : typeof define === 'function' && define.amd ? define(['jquery'], factory) : global.parsley = factory(global.jQuery);
-})(this, function ($) {
+}(this, function ($) {
   'use strict';
 
   var globalID = 1;
@@ -139,7 +139,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         if (arguments.length > 1) {
           throw Error('Second argument not supported');
         }
-        if (typeof prototype != 'object') {
+        if (typeof prototype !== 'object') {
           throw TypeError('Argument must be an object');
         }
         Object.prototype = prototype;
@@ -147,7 +147,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         Object.prototype = null;
         return result;
       };
-    })(),
+    }()),
 
     _SubmitSelector: 'input[type="submit"], button:submit'
   };
@@ -2367,7 +2367,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       }
 
     });
-  };
+  }
 
   var inputevent = new InputEvent();
 
@@ -2376,4 +2376,4 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   var parsley = Parsley;
 
   return parsley;
-});
+}));
