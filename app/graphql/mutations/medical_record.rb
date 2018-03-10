@@ -19,11 +19,11 @@ Mutations::CreateMedicalRecordMutation = GraphQL::Relay::Mutation.define do
     attr :height
   end
 
-  return_field :medical, MedicalRecord
+  return_field :medical_record, MedicalRecord
 
   resolve -> (inputs, context) {
     # Fetch (or create) the model that the mutation should change
-    model = Employee.find(inputs[:id])
+    model = MedicalRecord.find(inputs[:id])
 
     # Get the mutator
     mutator = mutator_definition.mutator(model, inputs, context)
@@ -40,6 +40,6 @@ Mutations::CreateMedicalRecordMutation = GraphQL::Relay::Mutation.define do
     # If that passes, let's save the changes and return the result
     mutator.save!
 
-    { employee: model }
+    { medical_record: model }
   }
 end

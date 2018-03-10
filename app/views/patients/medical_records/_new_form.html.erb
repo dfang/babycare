@@ -72,8 +72,7 @@
                       <div class="weui-cell__bd">
                           <div class="weui-uploader weui_uploader1">
                               <div class="weui-uploader__hd">
-                                  <p class="weui-uploader__title">既往病案资料图片(药品处方, 纸质病例, 收费单据, 治疗处方, 用户请自己拍照上传)</p>
-                                  <!-- <div class="weui-uploader__info">0/2</div> -->
+                                  <p class="weui-uploader__title">病史资料图片</p>
                               </div>
                               <div class="weui-uploader__bd">
                                   <ul class="weui-uploader__files" id="uploaderFiles">
@@ -228,3 +227,7 @@
         </div>
     </div>
 </div>
+
+<%- content_for :js  do %>
+  <%= javascript_pack_tag 'medical_record_new' %>
+<% end %>
