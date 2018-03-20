@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Contract < OdooRecord
   self.table_name = 'fa_contract'
   belongs_to :doctor

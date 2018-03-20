@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveRecordTimestamp = GraphQL::InterfaceType.define do
   name 'ActiveRecordTimestamp'
   field :createdAt, types.String, property: :created_at
