@@ -210,7 +210,7 @@ function QiniuJsSDK() {
 
                     return (function() {
                         return data;
-                    })();
+                    }());
                 }
             }
         }
@@ -489,7 +489,7 @@ function QiniuJsSDK() {
                 }
                 up.refresh(); // Reposition Flash/Silverlight
             };
-        })(_Error_Handler));
+        }(_Error_Handler)));
 
         uploader.bind('FileUploaded', (function(_FileUploaded_Handler) {
             return function(up, file, info) {
@@ -581,7 +581,7 @@ function QiniuJsSDK() {
                 }
 
             };
-        })(_FileUploaded_Handler));
+        }(_FileUploaded_Handler)));
 
         return uploader;
     };

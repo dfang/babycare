@@ -1,1 +1,1 @@
-import './examination_images_uploader.js'
+import './examination_images_uploader.js';

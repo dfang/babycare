@@ -9,7 +9,7 @@ class IM {
         reservation_id: reservation_id,
         caller_phone: caller_phone,
         callee_phone: callee_phone
-      })
+      });
   }
 
   static call_support(caller, callee, reservation_id, callee_phone){
@@ -19,7 +19,7 @@ class IM {
         callee: callee,
         reservation_id: reservation_id,
         callee_phone: callee_phone
-      })
+      });
   }
 
   send_sms(){
@@ -30,8 +30,8 @@ class IM {
     $.post('/background_jobs/cancel_reservation.json', {
       reservation_id: reservation_id
     }, function(data){
-      window.location.href = '/patients/reservations'
-    })
+      window.location.href = '/patients/reservations';
+    });
   }
 }
 

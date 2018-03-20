@@ -71,7 +71,7 @@
         async: false,
         url: $self.options.values_url
       }).done(function(json) {
-        if (typeof json == "object") {
+        if (typeof json === "object") {
           $self.options.values = $.merge($self.options.values, json);
         }
       });
@@ -110,7 +110,7 @@
                 url: $self.options.suggestion_url,
                 data: { q: query, limit: $self.options.suggestion_limit }
               }).done(function(json) {
-                if (typeof json == "object") {
+                if (typeof json === "object") {
                   suggestions = $.merge(suggestions, json);
                 }
               });
@@ -190,7 +190,7 @@
         delete values[key];
         return true;
       }
-      if (typeof value == "string") {
+      if (typeof value === "string") {
         values[key] = { id: value, text: value, suggest: value };
       }
       values[key].suggest = values[key].suggest || values[key].text;
@@ -361,13 +361,13 @@
       new Tags($(this), params);
     });
   };
-})(window.jQuery || $);
+}(window.jQuery || $));
 
 if (!String.prototype.format) {
   String.prototype.format = function() {
     var args = arguments;
     return this.replace(/{(\d+)}/g, function(match, number) {
-      return typeof args[number] != "undefined" ? args[number] : match;
+      return typeof args[number] !== "undefined" ? args[number] : match;
     });
   };
 }

@@ -7,5 +7,5 @@
 
 
 $(function(){
-  window.reservation = {}
-})
+  window.reservation = {};
+});
