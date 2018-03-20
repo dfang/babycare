@@ -3,9 +3,9 @@ import wx from 'wechat-jssdk-promise';
 
 class jssdk {
   static config(location) {
-    let url = location.href.split("#")[0];
+    let url = location.href.split('#')[0];
     $.ajax({
-      url: "/wx/config_jssdk.json?url=" + escape(url)
+      url: '/wx/config_jssdk.json?url=' + escape(url)
     }).done(function (data) {
       wx.config({
         appId: data.appId,
@@ -16,7 +16,7 @@ class jssdk {
       });
 
       wx.ready(function () {
-        console.log("wx.config is ready, checking js api available");
+        console.log('wx.config is ready, checking js api available');
         wx.checkJsApi({
           jsApiList: data.jsApiList,
           success: function (res) {
@@ -26,7 +26,7 @@ class jssdk {
       });
 
       wx.error(function (e) {
-        console.log("wx.config is error");
+        console.log('wx.config is error');
         console.log(e.errMsg);
       });
     });
