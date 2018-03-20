@@ -184,7 +184,7 @@ MutationType = GraphQL::ObjectType.define do
       mr = MedicalRecord.find_by(id: params["id"])
       Rails.logger.info mr
       if mr.present?
-        mr.medical_record_images.destroy_all!
+        mr.medical_record_images.delete_all
         mr.update(params)
       end
       Rails.logger.info mr
