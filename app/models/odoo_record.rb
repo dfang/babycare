@@ -10,5 +10,4 @@ class OdooRecord < ActiveRecord::Base
   def gid
     to_global_id
   end
-
 end

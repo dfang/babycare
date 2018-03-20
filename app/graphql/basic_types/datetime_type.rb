@@ -5,5 +5,4 @@ Types::DateTimeType = GraphQL::ScalarType.define do
   coerce_result ->(value, _ctx) { value.utc.iso8601 }
 end
 
-
 GraphQL::Models::DatabaseTypes.register(:datetime, Types::DateTimeType)
