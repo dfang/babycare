@@ -1,4 +1,4 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
 $(function () {
   // 输入手机号后获取验证码按钮可用
@@ -95,4 +95,4 @@ $(function () {
   //       .parents(".weui-cell")
   //       .removeClass("validation_error");
   //   });
-})
+});

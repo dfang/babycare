@@ -1,4 +1,4 @@
-import $ from 'jquery'
+import $ from 'jquery';
 import wx from 'wechat-jssdk-promise';
 import jssdk from "./config_js_sdk";
 import util from './util.js';
@@ -133,4 +133,4 @@ $(function () {
     });
   });
 
-})
+});
