@@ -13,4 +13,3 @@ Rollbar.configure do |config|
     config.access_token = Settings.rollbar.access_token
   end
 end
-

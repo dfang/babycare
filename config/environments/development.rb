@@ -76,4 +76,3 @@ Rails.application.configure do
     config.timeout_in = 3.minutes
   end
 end
-
