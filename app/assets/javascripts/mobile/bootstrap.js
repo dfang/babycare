@@ -18,9 +18,9 @@
  * ========================================================== */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
   /* CSS TRANSITION SUPPORT (http://www.modernizr.com/)
@@ -53,11 +53,11 @@
         end: transitionEnd
       }
 
-    })()
+    }())
 
   })
 
-}(window.jQuery);/* ==========================================================
+}(window.jQuery));/* ==========================================================
  * bootstrap-alert.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#alerts
  * ==========================================================
@@ -77,9 +77,9 @@
  * ========================================================== */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* ALERT CLASS DEFINITION
@@ -134,7 +134,7 @@
       var $this = $(this)
         , data = $this.data('alert')
       if (!data) $this.data('alert', (data = new Alert(this)))
-      if (typeof option == 'string') data[option].call($this)
+      if (typeof option === 'string') data[option].call($this)
     })
   }
 
@@ -155,7 +155,7 @@
 
   $(document).on('click.alert.data-api', dismiss, Alert.prototype.close)
 
-}(window.jQuery);/* ============================================================
+}(window.jQuery));/* ============================================================
  * bootstrap-button.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#buttons
  * ============================================================
@@ -175,9 +175,9 @@
  * ============================================================ */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* BUTTON PUBLIC CLASS DEFINITION
@@ -227,7 +227,7 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('button')
-        , options = typeof option == 'object' && option
+        , options = typeof option === 'object' && option
       if (!data) $this.data('button', (data = new Button(this, options)))
       if (option == 'toggle') data.toggle()
       else if (option) data.setState(option)
@@ -259,7 +259,7 @@
     $btn.button('toggle')
   })
 
-}(window.jQuery);/* ==========================================================
+}(window.jQuery));/* ==========================================================
  * bootstrap-carousel.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#carousel
  * ==========================================================
@@ -279,9 +279,9 @@
  * ========================================================== */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* CAROUSEL CLASS DEFINITION
@@ -422,10 +422,10 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('carousel')
-        , options = $.extend({}, $.fn.carousel.defaults, typeof option == 'object' && option)
-        , action = typeof option == 'string' ? option : options.slide
+        , options = $.extend({}, $.fn.carousel.defaults, typeof option === 'object' && option)
+        , action = typeof option === 'string' ? option : options.slide
       if (!data) $this.data('carousel', (data = new Carousel(this, options)))
-      if (typeof option == 'number') data.to(option)
+      if (typeof option === 'number') data.to(option)
       else if (action) data[action]()
       else if (options.interval) data.pause().cycle()
     })
@@ -465,7 +465,7 @@
     e.preventDefault()
   })
 
-}(window.jQuery);/* =============================================================
+}(window.jQuery));/* =============================================================
  * bootstrap-collapse.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#collapse
  * =============================================================
@@ -485,9 +485,9 @@
  * ============================================================ */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* COLLAPSE PUBLIC CLASS DEFINITION
@@ -596,9 +596,9 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('collapse')
-        , options = $.extend({}, $.fn.collapse.defaults, $this.data(), typeof option == 'object' && option)
+        , options = $.extend({}, $.fn.collapse.defaults, $this.data(), typeof option === 'object' && option)
       if (!data) $this.data('collapse', (data = new Collapse(this, options)))
-      if (typeof option == 'string') data[option]()
+      if (typeof option === 'string') data[option]()
     })
   }
 
@@ -631,7 +631,7 @@
     $(target).collapse(option)
   })
 
-}(window.jQuery);/* ============================================================
+}(window.jQuery));/* ============================================================
  * bootstrap-dropdown.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#dropdowns
  * ============================================================
@@ -651,9 +651,9 @@
  * ============================================================ */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* DROPDOWN CLASS DEFINITION
@@ -769,7 +769,7 @@
       var $this = $(this)
         , data = $this.data('dropdown')
       if (!data) $this.data('dropdown', (data = new Dropdown(this)))
-      if (typeof option == 'string') data[option].call($this)
+      if (typeof option === 'string') data[option].call($this)
     })
   }
 
@@ -795,7 +795,7 @@
     .on('click.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
     .on('keydown.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
 
-}(window.jQuery);
+}(window.jQuery));
 /* =========================================================
  * bootstrap-modal.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#modals
@@ -816,9 +816,9 @@
  * ========================================================= */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* MODAL CLASS DEFINITION
@@ -999,9 +999,9 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('modal')
-        , options = $.extend({}, $.fn.modal.defaults, $this.data(), typeof option == 'object' && option)
+        , options = $.extend({}, $.fn.modal.defaults, $this.data(), typeof option === 'object' && option)
       if (!data) $this.data('modal', (data = new Modal(this, options)))
-      if (typeof option == 'string') data[option]()
+      if (typeof option === 'string') data[option]()
       else if (options.show) data.show()
     })
   }
@@ -1042,7 +1042,7 @@
       })
   })
 
-}(window.jQuery);
+}(window.jQuery));
 /* ===========================================================
  * bootstrap-tooltip.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#tooltips
@@ -1064,9 +1064,9 @@
  * ========================================================== */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* TOOLTIP PUBLIC CLASS DEFINITION
@@ -1114,7 +1114,7 @@
   , getOptions: function (options) {
       options = $.extend({}, $.fn[this.type].defaults, this.$element.data(), options)
 
-      if (options.delay && typeof options.delay == 'number') {
+      if (options.delay && typeof options.delay === 'number') {
         options.delay = {
           show: options.delay
         , hide: options.delay
@@ -1175,7 +1175,7 @@
           $tip.addClass('fade')
         }
 
-        placement = typeof this.options.placement == 'function' ?
+        placement = typeof this.options.placement === 'function' ?
           this.options.placement.call(this, $tip[0], this.$element[0]) :
           this.options.placement
 
@@ -1254,7 +1254,7 @@
   , replaceArrow: function(delta, dimension, position){
       this
         .arrow()
-        .css(position, delta ? (50 * (1 - delta / dimension) + "%") : '')
+        .css(position, delta ? (50 * (1 - delta / dimension) + '%') : '')
     }
 
   , setContent: function () {
@@ -1297,7 +1297,7 @@
 
   , fixTitle: function () {
       var $e = this.$element
-      if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
+      if ($e.attr('title') || typeof($e.attr('data-original-title')) !== 'string') {
         $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
       }
     }
@@ -1308,7 +1308,7 @@
 
   , getPosition: function () {
       var el = this.$element[0]
-      return $.extend({}, (typeof el.getBoundingClientRect == 'function') ? el.getBoundingClientRect() : {
+      return $.extend({}, (typeof el.getBoundingClientRect === 'function') ? el.getBoundingClientRect() : {
         width: el.offsetWidth
       , height: el.offsetHeight
       }, this.$element.offset())
@@ -1320,7 +1320,7 @@
         , o = this.options
 
       title = $e.attr('data-original-title')
-        || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
+        || (typeof o.title === 'function' ? o.title.call($e[0]) :  o.title)
 
       return title
     }
@@ -1330,7 +1330,7 @@
     }
 
   , arrow: function(){
-      return this.$arrow = this.$arrow || this.tip().find(".tooltip-arrow")
+      return this.$arrow = this.$arrow || this.tip().find('.tooltip-arrow')
     }
 
   , validate: function () {
@@ -1374,9 +1374,9 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('tooltip')
-        , options = typeof option == 'object' && option
+        , options = typeof option === 'object' && option
       if (!data) $this.data('tooltip', (data = new Tooltip(this, options)))
-      if (typeof option == 'string') data[option]()
+      if (typeof option === 'string') data[option]()
     })
   }
 
@@ -1403,7 +1403,7 @@
     return this
   }
 
-}(window.jQuery);
+}(window.jQuery));
 /* ===========================================================
  * bootstrap-popover.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#popovers
@@ -1424,9 +1424,9 @@
  * =========================================================== */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* POPOVER PUBLIC CLASS DEFINITION
@@ -1464,7 +1464,7 @@
         , $e = this.$element
         , o = this.options
 
-      content = (typeof o.content == 'function' ? o.content.call($e[0]) :  o.content)
+      content = (typeof o.content === 'function' ? o.content.call($e[0]) :  o.content)
         || $e.attr('data-content')
 
       return content
@@ -1493,9 +1493,9 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('popover')
-        , options = typeof option == 'object' && option
+        , options = typeof option === 'object' && option
       if (!data) $this.data('popover', (data = new Popover(this, options)))
-      if (typeof option == 'string') data[option]()
+      if (typeof option === 'string') data[option]()
     })
   }
 
@@ -1517,7 +1517,7 @@
     return this
   }
 
-}(window.jQuery);
+}(window.jQuery));
 /* =============================================================
  * bootstrap-scrollspy.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#scrollspy
@@ -1538,9 +1538,9 @@
  * ============================================================== */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* SCROLLSPY CLASS DEFINITION
@@ -1647,9 +1647,9 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('scrollspy')
-        , options = typeof option == 'object' && option
+        , options = typeof option === 'object' && option
       if (!data) $this.data('scrollspy', (data = new ScrollSpy(this, options)))
-      if (typeof option == 'string') data[option]()
+      if (typeof option === 'string') data[option]()
     })
   }
 
@@ -1679,7 +1679,7 @@
     })
   })
 
-}(window.jQuery);/* ========================================================
+}(window.jQuery));/* ========================================================
  * bootstrap-tab.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#tabs
  * ========================================================
@@ -1699,9 +1699,9 @@
  * ======================================================== */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* TAB CLASS DEFINITION
@@ -1798,7 +1798,7 @@
       var $this = $(this)
         , data = $this.data('tab')
       if (!data) $this.data('tab', (data = new Tab(this)))
-      if (typeof option == 'string') data[option]()
+      if (typeof option === 'string') data[option]()
     })
   }
 
@@ -1822,7 +1822,7 @@
     $(this).tab('show')
   })
 
-}(window.jQuery);/* =============================================================
+}(window.jQuery));/* =============================================================
  * bootstrap-typeahead.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
  * =============================================================
@@ -1842,9 +1842,9 @@
  * ============================================================ */
 
 
-!function($){
+!(function($){
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* TYPEAHEAD PUBLIC CLASS DEFINITION
@@ -2121,9 +2121,9 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('typeahead')
-        , options = typeof option == 'object' && option
+        , options = typeof option === 'object' && option
       if (!data) $this.data('typeahead', (data = new Typeahead(this, options)))
-      if (typeof option == 'string') data[option]()
+      if (typeof option === 'string') data[option]()
     })
   }
 
@@ -2156,7 +2156,7 @@
     $this.typeahead($this.data())
   })
 
-}(window.jQuery);
+}(window.jQuery));
 /* ==========================================================
  * bootstrap-affix.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#affix
@@ -2177,9 +2177,9 @@
  * ========================================================== */
 
 
-!function ($) {
+!(function ($) {
 
-  "use strict"; // jshint ;_;
+  'use strict'; // jshint ;_;
 
 
  /* AFFIX CLASS DEFINITION
@@ -2206,9 +2206,9 @@
       , reset = 'affix affix-top affix-bottom'
       , affix
 
-    if (typeof offset != 'object') offsetBottom = offsetTop = offset
-    if (typeof offsetTop == 'function') offsetTop = offset.top()
-    if (typeof offsetBottom == 'function') offsetBottom = offset.bottom()
+    if (typeof offset !== 'object') offsetBottom = offsetTop = offset
+    if (typeof offsetTop === 'function') offsetTop = offset.top()
+    if (typeof offsetBottom === 'function') offsetBottom = offset.bottom()
 
     affix = this.unpin != null && (scrollTop + this.unpin <= position.top) ?
       false    : offsetBottom != null && (position.top + this.$element.height() >= scrollHeight - offsetBottom) ?
@@ -2233,9 +2233,9 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('affix')
-        , options = typeof option == 'object' && option
+        , options = typeof option === 'object' && option
       if (!data) $this.data('affix', (data = new Affix(this, options)))
-      if (typeof option == 'string') data[option]()
+      if (typeof option === 'string') data[option]()
     })
   }
 
@@ -2273,4 +2273,4 @@
   })
 
 
-}(window.jQuery);
+}(window.jQuery));
