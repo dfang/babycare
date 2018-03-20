@@ -6,8 +6,6 @@ Types::DateTimeType = GraphQL::ScalarType.define do
 end
 GraphQL::Models::DatabaseTypes.register(:datetime, Types::DateTimeType)
 
-
-
 # # The gem assumes that if your model is called `MyModel`, the corresponding type is `MyModelType`.
 GraphQL::Models.model_to_graphql_type = -> (model_class) { "#{model_class.name}Type".safe_constantize }
 
@@ -16,7 +14,6 @@ GraphQL::Models.model_to_graphql_type = -> (model_class) { "#{model_class.name}T
 #     model_type, model_id = NodeHelpers.decode_id(id)
 #     model_type.find(model_id)
 # }
-
 
 # This proc essentially reverses that process:
 # GraphQL::Models.id_for_model = -> (model_type_name, model_id) {
@@ -30,7 +27,6 @@ GraphQL::Models.model_to_graphql_type = -> (model_class) { "#{model_class.name}T
 #   user = context['user']
 #   model.authorize_changes!(action, user)
 # }
-
 
 # BabycareSchema  = GraphQL::Schema.define do
 #   # Set up the graphql-batch gem

@@ -8,7 +8,6 @@ class Doctors::ReservationsController < Doctors::BaseController
 
   def reservations; end
 
-
   # 我要接单
   def available
     @reservations = current_user.doctor.reservations.prepaid
