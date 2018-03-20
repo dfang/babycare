@@ -159,8 +159,6 @@ end
 MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
-  # field :CreateMedicalRecord, Mutations::CreateMedicalRecordMutation.field
-
   field :createMedicalRecord, MedicalRecordType do
     description 'create medical record'
     argument :medical_record, MedicalRecordInputType
@@ -186,6 +184,7 @@ MutationType = GraphQL::ObjectType.define do
       mr = MedicalRecord.find_by(id: params["id"])
       Rails.logger.info mr
       if mr.present?
+        mr.medical_record_images.destroy_all!
         mr.update(params)
       end
       Rails.logger.info mr
