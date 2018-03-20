@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PageController < ApplicationController
   def terms
   end
