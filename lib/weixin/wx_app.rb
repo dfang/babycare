@@ -17,7 +17,7 @@ module WxApp
 
     def get_access_token(options = {})
       if ENV['WX_ACCESS_TOKEN_URL'].to_s.present?
-        url =  ENV['WX_ACCESS_TOKEN_URL'].to_s
+        url = ENV['WX_ACCESS_TOKEN_URL'].to_s
       else
         url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{WEIXIN_ID}&secret=#{WEIXIN_SECRET}"
       end
@@ -27,7 +27,7 @@ module WxApp
           response = Faraday.new.get(url)
           json = JSON.parse(response.body)
           Rails.logger.info(json)
-          raise json if(json['errcode']).present?
+          raise json if (json['errcode']).present?
           access_token = json['access_token']
         rescue => e
           Rails.logger.fatal e.message
@@ -55,7 +55,7 @@ module WxApp
           response = conn.get url
           json = JSON.parse(response.body)
           Rails.logger.info "get_jsapi_ticket response body is: \n#{json}"
-          raise json if(json['errcode']) > 0
+          raise json if (json['errcode']) > 0
           jsapi_ticket = json['ticket']
         rescue => e
           Rails.logger.error e.message
