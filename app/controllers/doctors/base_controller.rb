@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Doctors::BaseController < InheritedResources::Base
   helper_method :current_doctor
   before_action :authenticate_user!

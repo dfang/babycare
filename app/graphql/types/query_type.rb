@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 QueryType = GraphQL::ObjectType.define do
   name "Query"
   # Add root-level fields here.

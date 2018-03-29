@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BankAccount < OdooRecord
   self.table_name = 'fa_bank_account'
 
