@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 DoctorType = GraphQL::ObjectType.define do
   name "Doctor"
 
