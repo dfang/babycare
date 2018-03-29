@@ -132,10 +132,10 @@ class Users::SessionsController < Devise::SessionsController
           )
 
           p 'user created ###########################'
-          @authentication = @user.create_wechat_authentication(provider: 'wechat',
+          @authentication = @user.create_wechat_authentication({provider: 'wechat',
                                                                nickname:   @userinfo['nickname'],
                                                                uid:     @userinfo['openid'],
-                                                               unionid:    @userinfo['unionid'])
+                                                               unionid:    @userinfo['unionid']})
           p 'authentication created  ###########################'
         end
       rescue StandardError => e

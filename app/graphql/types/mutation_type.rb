@@ -156,6 +156,22 @@ MedicalRecordInputType = GraphQL::InputObjectType.define do
   # attr :write_date
 end
 
+WxInfoInputType = GraphQL::InputObjectType.define do
+  name 'WxInfoInputType'
+  description 'Properties for creating a WxInfoInputType when from wx_app'
+
+  # {"openId":"o2RIJ0T0h_28cuHrPdVHOcHt4oT8","nickName":"Fang","gender":1,"language":"en","city":"Wuhan","province":"Hubei","country":"China","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEIoscgojpKy2hp19xx5IYKh8ibk2IJz95s9AbAnpvL2CIwKPJbNdbOscSYUr8XZG31JAtM2AtNMSGA/0","unionId":"oV5bUwuMUqVOX-WqpKxZGaoR_RVQ","watermark":{"timestamp":1522298991,"appid":"wx218800b558d61f52"}}
+  argument :openId, types.String
+  argument :nickName, types.String
+  argument :gender, types.String
+  argument :language, types.String
+  argument :city, types.String
+  argument :province, types.String
+  argument :country, types.String
+  argument :avatarUrl, types.String
+  argument :unionId, types.String
+end
+
 MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
@@ -189,6 +205,51 @@ MutationType = GraphQL::ObjectType.define do
       end
       Rails.logger.info mr
       mr
+    }
+  end
+
+  field :createUserFromWxApp, UserType do
+    description 'create user from wx app'
+    argument :wx_userinfo, WxInfoInputType
+
+    # 如果第一次使用小程序，但是从未使用过公众号，小程序的unionIdForuserID是获取不到userInfo的
+    # 所以需要先创建User和Authentication
+    resolve ->(t, args, c) {
+      params = args[:wx_userinfo].to_h.symbolize_keys!
+      Rails.logger.info params
+      Rails.logger.info params[:nickName]
+      
+      begin
+        authentication = Authentication.find_by(unionid: params[:unionId])
+        
+        if authentication.user.present?
+          return authentication.user
+        end
+
+        ActiveRecord::Base.transaction do
+          @user = User.create_wechat_user(
+            OpenStruct.new(
+              nickname: params[:nickName],
+              headimgurl: params[:avatarUrl],
+              sex:  params[:gender]
+            )
+          )
+          p 'user created ###########################'
+          @authentication = @user.create_wechat_authentication({
+                                                                provider:   "wechat",
+                                                                nickname:   params[:nickName],
+                                                                uid:        params[:openId],
+                                                                unionid:    params[:unionId]
+                                                              })
+          Rails.logger.info @authentication.valid?
+          Rails.logger.info @authentication.errors
+          p 'authentication created  ###########################'
+          @user
+        end
+      rescue StandardError => e
+        Rails.logger.info e.message
+        raise ActiveRecord::Rollback
+      end
     }
   end
 end

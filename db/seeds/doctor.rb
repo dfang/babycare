@@ -1,6 +1,6 @@
 Doctor.create(
   name: "测试医生",
-  gender: "0",
+  gender: "1",
   home_address: "中南路",
   id_card_front: nil,
   good_at: "外科",
