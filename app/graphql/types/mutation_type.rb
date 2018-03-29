@@ -219,36 +219,35 @@ MutationType = GraphQL::ObjectType.define do
       Rails.logger.info params
       Rails.logger.info params[:nickName]
       
-      begin
-        authentication = Authentication.find_by(unionid: params[:unionId])
-        
-        if authentication.user.present?
-          return authentication.user
+      authentication = Authentication.find_by(unionid: params[:unionId])
+      if authentication.present? && authentication.user.present?
+        return authentication.user
+      else
+        begin
+          ActiveRecord::Base.transaction do
+                @user = User.create_wechat_user(
+                  OpenStruct.new(
+                    nickname: params[:nickName],
+                    headimgurl: params[:avatarUrl],
+                    sex:  params[:gender]
+                  )
+                )
+                p 'user created ###########################'
+                @authentication = @user.create_wechat_authentication({
+                                                                      provider:   "wechat",
+                                                                      nickname:   params[:nickName],
+                                                                      uid:        params[:openId],
+                                                                      unionid:    params[:unionId]
+                                                                    })
+                Rails.logger.info @authentication.valid?
+                Rails.logger.info @authentication.errors
+                p 'authentication created  ###########################'
+                @user
+          end
+        rescue StandardError => e
+          Rails.logger.info e.message
+          raise ActiveRecord::Rollback
         end
-
-        ActiveRecord::Base.transaction do
-          @user = User.create_wechat_user(
-            OpenStruct.new(
-              nickname: params[:nickName],
-              headimgurl: params[:avatarUrl],
-              sex:  params[:gender]
-            )
-          )
-          p 'user created ###########################'
-          @authentication = @user.create_wechat_authentication({
-                                                                provider:   "wechat",
-                                                                nickname:   params[:nickName],
-                                                                uid:        params[:openId],
-                                                                unionid:    params[:unionId]
-                                                              })
-          Rails.logger.info @authentication.valid?
-          Rails.logger.info @authentication.errors
-          p 'authentication created  ###########################'
-          @user
-        end
-      rescue StandardError => e
-        Rails.logger.info e.message
-        raise ActiveRecord::Rollback
       end
     }
   end
