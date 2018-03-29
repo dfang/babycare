@@ -218,10 +218,10 @@ MutationType = GraphQL::ObjectType.define do
       params = args[:wx_userinfo].to_h.symbolize_keys!
       Rails.logger.info params
       Rails.logger.info params[:nickName]
-      
+
       begin
         authentication = Authentication.find_by(unionid: params[:unionId])
-        
+
         if authentication.user.present?
           return authentication.user
         end
