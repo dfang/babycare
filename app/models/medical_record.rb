@@ -47,5 +47,4 @@ class MedicalRecord < OdooRecord
   def medical_record_images_categoryC
     medical_record_images.where(category: "诊断")
   end
-
 end

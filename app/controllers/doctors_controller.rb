@@ -43,7 +43,6 @@ class DoctorsController < InheritedResources::Base
       @contract = current_doctor.contracts.last
       @bank_account = current_user.bank_accounts.last
     end
-
   end
 
   def new

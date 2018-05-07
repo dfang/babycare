@@ -53,9 +53,7 @@ MedicalRecordType = GraphQL::ObjectType.define do
     attr :created_at
     attr :updated_at
     # interfaces [ActiveRecordTimestamp]
-
   end
-
 
   field :medical_record_images, types[!MedicalRecordImageType] do
     preload :medical_record_images
@@ -76,8 +74,6 @@ MedicalRecordType = GraphQL::ObjectType.define do
     preload :medical_record_images
     resolve ->(obj, args, ctx) { obj.medical_record_images.where(category: "诊断") }
   end
-
-
 end
 
 # mutation createMR {
