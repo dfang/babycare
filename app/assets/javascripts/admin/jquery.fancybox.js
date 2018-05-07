@@ -11,9 +11,9 @@
  */
 
 (function (window, document, $, undefined) {
-  "use strict";
+  'use strict';
 
-  var H = $("html"),
+  var H = $('html'),
     W = $(window),
     D = $(document),
     F = $.fancybox = function () {
@@ -27,7 +27,7 @@
       return obj && obj.hasOwnProperty && obj instanceof $;
     },
     isString = function(str) {
-      return str && $.type(str) === "string";
+      return str && $.type(str) === 'string';
     },
     isPercentage = function(str) {
       return isString(str) && str.indexOf('%') > 0;
@@ -253,7 +253,7 @@
           hrefParts,
           selector;
 
-        if ($.type(element) === "object") {
+        if ($.type(element) === 'object') {
           // Check if is DOM element
           if (element.nodeType) {
             element = $(element);
@@ -591,7 +591,7 @@
     // Shrink content to fit inside viewport or restore if resized
     toggle: function ( action ) {
       if (F.isOpen) {
-        F.current.fitToView = $.type(action) === "boolean" ? action : !F.current.fitToView;
+        F.current.fitToView = $.type(action) === 'boolean' ? action : !F.current.fitToView;
 
         // Help browser to restore document dimensions
         if (isTouch) {
@@ -895,7 +895,7 @@
         inner : $('.fancybox-inner', coming.wrap)
       });
 
-      $.each(["Top", "Right", "Bottom", "Left"], function(i, v) {
+      $.each(['Top', 'Right', 'Bottom', 'Left'], function(i, v) {
         coming.skin.css('padding' + v, getValue(coming.padding[ i ]));
       });
 
@@ -1830,7 +1830,7 @@
       if (obj.locked && !this.el.hasClass('fancybox-lock')) {
         if (this.fixPosition !== false) {
           $('*:not(object)').filter(function(){
-            return ($(this).css('position') === 'fixed' && !$(this).hasClass("fancybox-overlay") && !$(this).hasClass("fancybox-wrap") );
+            return ($(this).css('position') === 'fixed' && !$(this).hasClass('fancybox-overlay') && !$(this).hasClass('fancybox-wrap') );
           }).addClass('fancybox-margin');
         }
 
@@ -1961,7 +1961,7 @@
       that.unbind('click.fb-start').bind('click.fb-start', run);
 
     } else {
-      D.undelegate(selector, 'click.fb-start').delegate(selector + ":not('.fancybox-item, .fancybox-nav')", 'click.fb-start', run);
+      D.undelegate(selector, 'click.fb-start').delegate(selector + ':not(\'.fancybox-item, .fancybox-nav\')', 'click.fb-start', run);
     }
 
     this.filter('[data-fancybox-start=1]').trigger('click');
@@ -2012,7 +2012,7 @@
 
     H.removeClass('fancybox-lock-test');
 
-    $("<style type='text/css'>.fancybox-margin{margin-right:" + (w2 - w1) + "px;}</style>").appendTo("head");
+    $('<style type=\'text/css\'>.fancybox-margin{margin-right:' + (w2 - w1) + 'px;}</style>').appendTo('head');
   });
 
 }(window, document, jQuery));

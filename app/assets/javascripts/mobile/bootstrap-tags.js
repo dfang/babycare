@@ -1,15 +1,15 @@
 (function($) {
-  "use strict";
+  'use strict';
 
   var defaults = {
     values: [],
-    values_url: "",
+    values_url: '',
 
     templates: {
       pill: '<span class="badge badge-info tag-badge">{0}</span>',
       add_pill: '<span class="badge badge-success tag-badge">...</span>',
       input_pill: '<span class="badge badge-success tag-badge"></span>',
-      number: " <sup><small>{0}</small></sup>",
+      number: ' <sup><small>{0}</small></sup>',
       plus_icon: '<i class="icon-plus-sign tag-icon"></i>',
       delete_icon:
         '<i class="icon-remove-sign tag-icon" data-toggle="tooltip" title="Delete"></i>',
@@ -18,27 +18,27 @@
 
     limit: 0,
 
-    tag_link_target: "", // may be _blank or other.
+    tag_link_target: '', // may be _blank or other.
 
     can_delete: true,
     can_add: true,
 
-    double_hilight: "#0B3549",
+    double_hilight: '#0B3549',
 
-    input_name: "tags[]",
+    input_name: 'tags[]',
 
     lang: {
-      delete: "Delete",
-      limit: "You have reached limit of only {0} tags to be added."
+      delete: 'Delete',
+      limit: 'You have reached limit of only {0} tags to be added.'
     },
 
     suggestion_limit: 15,
-    suggestion_url: "",
+    suggestion_url: '',
     suggestions: [],
 
     only_suggestions: false,
 
-    remove_url: "",
+    remove_url: '',
 
     onLoadDefaults: function(values) {
       return values;
@@ -66,20 +66,20 @@
 
     if ($self.options.values_url) {
       $.ajax({
-        dataType: "json",
-        type: "get",
+        dataType: 'json',
+        type: 'get',
         async: false,
         url: $self.options.values_url
       }).done(function(json) {
-        if (typeof json === "object") {
+        if (typeof json === 'object') {
           $self.options.values = $.merge($self.options.values, json);
         }
       });
     }
     $self.options.values = $self.options.onLoadDefaults($self.options.values);
 
-    var pills_list = $(document.createElement("span"))
-      .addClass("pills-list")
+    var pills_list = $(document.createElement('span'))
+      .addClass('pills-list')
       .appendTo(context);
 
     $self.options.values = $self._prepare($self.options.values);
@@ -91,10 +91,10 @@
       var labels = [],
         mapped = [];
 
-      var input = $(document.createElement("input"))
-        .addClass("tag-input")
-        .attr({ autocomplete: "off", type: "text" })
-        .css("outline", "none")
+      var input = $(document.createElement('input'))
+        .addClass('tag-input')
+        .attr({ autocomplete: 'off', type: 'text' })
+        .css('outline', 'none')
         .typeahead({
           items: $self.options.suggestion_limit,
           source: function(query, process) {
@@ -104,13 +104,13 @@
 
             if ($self.options.suggestion_url) {
               $.ajax({
-                dataType: "json",
-                type: "post",
+                dataType: 'json',
+                type: 'post',
                 async: false,
                 url: $self.options.suggestion_url,
                 data: { q: query, limit: $self.options.suggestion_limit }
               }).done(function(json) {
-                if (typeof json === "object") {
+                if (typeof json === 'object') {
                   suggestions = $.merge(suggestions, json);
                 }
               });
@@ -148,7 +148,7 @@
         .append(input)
         .append(
           $($self.options.templates.ok_icon)
-            .css("cursor", "pointer")
+            .css('cursor', 'pointer')
             .click(function(e) {
               e.stopPropagation();
               $self._addTag(pills_list, input);
@@ -159,12 +159,12 @@
         .appendTo(context);
 
       var wait = $($self.options.templates.add_pill)
-        .addClass("add-pill")
-        .css("cursor", "pointer")
+        .addClass('add-pill')
+        .css('cursor', 'pointer')
         .append(
-          $(document.createElement("span"))
+          $(document.createElement('span'))
             .attr({})
-            .addClass("tag-add")
+            .addClass('tag-add')
             .append($self.options.templates.plus_icon)
         )
         .click(function() {
@@ -174,7 +174,7 @@
           $this.hide();
 
           setTimeout(function() {
-            $("body").one("click", function() {
+            $('body').one('click', function() {
               add.hide();
               $this.show();
             });
@@ -190,13 +190,13 @@
         delete values[key];
         return true;
       }
-      if (typeof value === "string") {
+      if (typeof value === 'string') {
         values[key] = { id: value, text: value, suggest: value };
       }
       values[key].suggest = values[key].suggest || values[key].text;
-      values[key].url = value.url || "";
-      values[key].title = value.title || "";
-      values[key].num = parseInt(value.num || "0");
+      values[key].url = value.url || '';
+      values[key].title = value.title || '';
+      values[key].num = parseInt(value.num || '0');
     });
     return values;
   };
@@ -206,7 +206,7 @@
     }
 
     if (this.addTag(pills_list, value)) {
-      input.val("").focus();
+      input.val('').focus();
     }
   };
   Tags.prototype.addTag = function(pills_list, value) {
@@ -225,17 +225,17 @@
       return false;
     }
 
-    if (typeof value.id === "undefined" || typeof value.text === "undefined") {
-      $self.options.onError(11, "Not correct object format to create tag/pill");
-      $.error("Not correct object format to create tag/pill");
+    if (typeof value.id === 'undefined' || typeof value.text === 'undefined') {
+      $self.options.onError(11, 'Not correct object format to create tag/pill');
+      $.error('Not correct object format to create tag/pill');
     }
 
-    var unique = "";
+    var unique = '';
     $.each(pills_list.children(), function(key, val) {
       if (
         value.id.toString().toLowerCase() ==
         $(val)
-          .data("tag-id")
+          .data('tag-id')
           .toString()
           .toLowerCase()
       ) {
@@ -246,18 +246,18 @@
 
     if (unique) {
       if (!$self.options.onDuplicate) {
-        var color = $(pills_list.children()[0]).css("background-color");
+        var color = $(pills_list.children()[0]).css('background-color');
         unique
           .stop()
           .animate(
             { backgroundColor: $self.options.double_hilight },
             100,
-            "swing",
+            'swing',
             function() {
               unique
                 .stop()
-                .animate({ backgroundColor: color }, 100, "swing", function() {
-                  unique.css("background-color", "");
+                .animate({ backgroundColor: color }, 100, 'swing', function() {
+                  unique.css('background-color', '');
                 });
             }
           );
@@ -272,7 +272,7 @@
     if (value.url) {
       var title = value.title
         ? ' data-toggle="tooltip" title="' + value.title + '"'
-        : "";
+        : '';
       value.text =
         '<a class="tag-link" ' +
         title +
@@ -282,15 +282,15 @@
         value.url +
         '">' +
         value.text +
-        "</a>";
+        '</a>';
     }
 
-    var icon = "";
+    var icon = '';
     if ($self.options.can_delete) {
-      icon = $(document.createElement("a"))
+      icon = $(document.createElement('a'))
         .attr({
-          href: "javascript:void(0)",
-          class: "tag-remove"
+          href: 'javascript:void(0)',
+          class: 'tag-remove'
         })
         .html($self.options.templates.delete_icon.toString())
         .click(function() {
@@ -299,23 +299,23 @@
     }
 
     var num =
-      value.num > 0 ? $self.options.templates.number.format(value.num) : "";
+      value.num > 0 ? $self.options.templates.number.format(value.num) : '';
 
     var tag = $($self.options.templates.pill.format(value.text))
-      .attr("data-tag-id", value.id)
+      .attr('data-tag-id', value.id)
       .append(
         num,
         icon,
-        $(document.createElement("input")).attr({
-          "data-tag-hidden": value.id,
+        $(document.createElement('input')).attr({
+          'data-tag-hidden': value.id,
           name: $self.options.input_name,
-          type: "hidden",
+          type: 'hidden',
           value: value.id
         })
       )
       .css({
-        overflow: "hidden",
-        "white-space": "nowrap"
+        overflow: 'hidden',
+        'white-space': 'nowrap'
       });
 
     tag = $self.options.onBeforeAdd(tag, value);
@@ -329,25 +329,25 @@
 
   Tags.prototype.removeTag = function(tag) {
     var $self = this;
-    var $tag = $(tag).closest("[data-tag-id]");
+    var $tag = $(tag).closest('[data-tag-id]');
 
     if ($self.options.onBeforeRemove($tag) === false) {
       return;
     }
 
     $tag.animate(
-      { width: 0, "padding-right": 0, "padding-left": 0 },
+      { width: 0, 'padding-right': 0, 'padding-left': 0 },
       200,
-      "swing",
+      'swing',
       function() {
         var $this = $(this);
         if ($self.options.remove_url) {
           $.ajax({
-            dataType: "json",
-            type: "post",
+            dataType: 'json',
+            type: 'post',
             async: false,
             url: $self.options.remove_url,
-            data: { id: $this.data("tag-id") }
+            data: { id: $this.data('tag-id') }
           });
         }
         $self.options.onRemove($this);
@@ -367,7 +367,7 @@ if (!String.prototype.format) {
   String.prototype.format = function() {
     var args = arguments;
     return this.replace(/{(\d+)}/g, function(match, number) {
-      return typeof args[number] !== "undefined" ? args[number] : match;
+      return typeof args[number] !== 'undefined' ? args[number] : match;
     });
   };
 }
