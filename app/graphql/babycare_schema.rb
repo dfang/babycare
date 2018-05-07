@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Dir[File.dirname(__FILE__) + '/types/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/types/*.rb'].each { |file| require file }
 
 BabycareSchema = GraphQL::Schema.define do
   query(QueryType)

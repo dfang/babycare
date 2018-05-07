@@ -2,7 +2,7 @@
 
 class Doctors::ReservationsController < Doctors::BaseController
   # TODO should remove this, add csrf token in ajax header
-  skip_before_action :verify_authenticity_token, only: [ :status, :update ]
+  skip_before_action :verify_authenticity_token, only: [:status, :update]
 
   custom_actions collection: %i[available reservations status not_found], member: %i[claim complete_offline_consult complete_online_consult]
 
