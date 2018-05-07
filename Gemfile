@@ -28,7 +28,7 @@ gem 'wisper-activejob'
 gem 'dotenv-rails'
 
 gem 'rollbar'
-gem 'oj', '~> 2.16.1'
+gem 'oj'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
