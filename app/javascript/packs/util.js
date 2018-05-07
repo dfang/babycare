@@ -6,7 +6,7 @@ const util = {
 
   isAndroid: () => {
     let ua = navigator.userAgent.toLowerCase();
-    return ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+    return ua.indexOf('android') > -1; //&& ua.indexOf("mobile");
   }
 };
 

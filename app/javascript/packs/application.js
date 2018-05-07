@@ -9,14 +9,14 @@
 
 console.log('Hello World from Webpacker');
 
-import $ from "jquery";
+import $ from 'jquery';
 
 // 加上这两句会破坏mobile.js里的.tags() 和 .parsley()
 // global.$ = $;
 // global.jQuery = $;
 
-import Turbolinks from "turbolinks";
-import Rails from "rails-ujs";
+import Turbolinks from 'turbolinks';
+import Rails from 'rails-ujs';
 
 import './vendor';
 // import Parsley from "parsleyjs";
@@ -36,22 +36,22 @@ Turbolinks.start();
 
 $.ajaxSetup({
   beforeSend: function(jqXHR) {
-    $("#loadingToast").fadeIn(100);
+    $('#loadingToast').fadeIn(100);
   },
   complete: function(jqXHR) {
     // setTimeout(function () {
-    $("#loadingToast").hide(100);
+    $('#loadingToast').hide(100);
     // }, 1200);
   }
 });
 
-$("docoment").on("click", "a.disabled, button.disabled", function(e){
+$('docoment').on('click', 'a.disabled, button.disabled', function(e){
   e.preventDefault();
   // return false;
 });
 
-$("#container").on("click", ".weui-tabbar__item", function() {
-  $(this).addClass("weui_bar_item__on").siblings(".weui_bar_item__on").removeClass("weui_bar_item__on");
+$('#container').on('click', '.weui-tabbar__item', function() {
+  $(this).addClass('weui_bar_item__on').siblings('.weui_bar_item__on').removeClass('weui_bar_item__on');
 });
 
 // $(document).on("turbolinks:load", function() {

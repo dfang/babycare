@@ -19,8 +19,8 @@ function QiniuJsSDK() {
     };
 
     this.isImage = function(url) {
-        var res, suffix = "";
-        var imageSuffixes = ["png", "jpg", "jpeg", "gif", "bmp"];
+        var res, suffix = '';
+        var imageSuffixes = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
         var suffixMatch = /\.([a-zA-Z0-9]+)(\?|\@|$)/;
 
         if (!url || !suffixMatch.test(url)) {
@@ -37,10 +37,10 @@ function QiniuJsSDK() {
     };
 
     this.getFileExtension = function(filename) {
-        var tempArr = filename.split(".");
+        var tempArr = filename.split('.');
         var ext;
-        if (tempArr.length === 1 || (tempArr[0] === "" && tempArr.length === 2)) {
-            ext = "";
+        if (tempArr.length === 1 || (tempArr[0] === '' && tempArr.length === 2)) {
+            ext = '';
         } else {
             ext = tempArr.pop().toLowerCase(); //get the extension and make it lower-case
         }
@@ -184,7 +184,7 @@ function QiniuJsSDK() {
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();
         } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
         }
         return xmlhttp;
     };
@@ -198,7 +198,7 @@ function QiniuJsSDK() {
         if (data === null) {
             return data;
         }
-        if (typeof data === "string") {
+        if (typeof data === 'string') {
 
             // Make sure leading/trailing whitespace is removed (IE can't handle it)
             data = this.trim(data);
@@ -206,7 +206,7 @@ function QiniuJsSDK() {
             if (data) {
                 // Make sure the incoming data is actual JSON
                 // Logic borrowed from http://json.org/json2.js
-                if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g, "@").replace(/"[^"\\\r\n]*"|true|false|null|-?(?:\d+\.|)\d+(?:[eE][+-]?\d+|)/g, "]").replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
+                if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g, '@').replace(/"[^"\\\r\n]*"|true|false|null|-?(?:\d+\.|)\d+(?:[eE][+-]?\d+|)/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
                     return (function() {
                         return data;
@@ -217,7 +217,7 @@ function QiniuJsSDK() {
     };
 
     this.trim = function(text) {
-        return text === null ? "" : this.trim.call(text);
+        return text === null ? '' : this.trim.call(text);
     };
 
     //Todo ie7 handler / this.parseJSON bug;
@@ -273,7 +273,7 @@ function QiniuJsSDK() {
             if (!op.uptoken) {
                 var ajax = that.createAjax();
                 ajax.open('GET', that.uptoken_url, true);
-                ajax.setRequestHeader("If-Modified-Since", "0");
+                ajax.setRequestHeader('If-Modified-Since', '0');
                 ajax.onreadystatechange = function() {
                     if (ajax.readyState === 4 && ajax.status === 200) {
                         var res = that.parseJSON(ajax.responseText);
@@ -431,22 +431,22 @@ function QiniuJsSDK() {
                             var errorText = errorObj.error;
                             switch (err.status) {
                                 case 400:
-                                    errTip = "请求报文格式错误。";
+                                    errTip = '请求报文格式错误。';
                                     break;
                                 case 401:
-                                    errTip = "客户端认证授权失败。请重试或提交反馈。";
+                                    errTip = '客户端认证授权失败。请重试或提交反馈。';
                                     break;
                                 case 405:
-                                    errTip = "客户端请求错误。请重试或提交反馈。";
+                                    errTip = '客户端请求错误。请重试或提交反馈。';
                                     break;
                                 case 579:
-                                    errTip = "资源上传成功，但回调失败。";
+                                    errTip = '资源上传成功，但回调失败。';
                                     break;
                                 case 599:
-                                    errTip = "网络连接异常。请重试或提交反馈。";
+                                    errTip = '网络连接异常。请重试或提交反馈。';
                                     break;
                                 case 614:
-                                    errTip = "文件已存在。";
+                                    errTip = '文件已存在。';
                                     try {
                                         errorObj = that.parseJSON(errorObj.error);
                                         errorText = errorObj.error || 'file exists';
@@ -455,13 +455,13 @@ function QiniuJsSDK() {
                                     }
                                     break;
                                 case 631:
-                                    errTip = "指定空间不存在。";
+                                    errTip = '指定空间不存在。';
                                     break;
                                 case 701:
-                                    errTip = "上传数据块校验出错。请重试或提交反馈。";
+                                    errTip = '上传数据块校验出错。请重试或提交反馈。';
                                     break;
                                 default:
-                                    errTip = "未知错误。";
+                                    errTip = '未知错误。';
                                     break;
                             }
                             errTip = errTip + '(' + err.status + '：' + errorText + ')';
