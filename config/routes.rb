@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
+  get 'liveness', to: "home#liveness"
+  get 'readiness', to: "home#readiness"
+
   post "/graphql", to: "graphql#execute"
   namespace :doctors do
     get 'reservation_examinations/new'

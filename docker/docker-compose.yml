@@ -14,6 +14,12 @@ services:
     ports:
       - "5432:5432"
 
+  odoo:
+    image: dfang/odoo-backend
+    container_name: odoo
+    volumes:
+      - ./bootstrap_odoo_db.py:/tmp/bootstrap_odoo_db.py
+  
   puma:
     # image: babycare
     container_name: babycare

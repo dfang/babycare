@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:liveness, :readiness]
+
+  def liveness
+    render json: "OK"  
+  end
+
+  def readiness
+    render json: "OK" 
+  end
 
   def index; end
 

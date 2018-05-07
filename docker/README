@@ -1,0 +1,9 @@
+# README
+
+本地开发时, 这样(db+odoo on docker, rails s on local) 最方便
+
+docker-compose -f docker-compose.local.yaml up -d
+
+docker exec odoo python /tmp/bootstrap_odoo_db.py
+
+rails db:setup
