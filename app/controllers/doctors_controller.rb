@@ -144,7 +144,7 @@ class DoctorsController < InheritedResources::Base
   end
 
   def bank_account_params
-    params.require(:contract).permit(:bank_account, {:bank_account => [:account_name, :bank_name, :account_number]})[:bank_account]
+    params.require(:contract).permit(:bank_account, { :bank_account => [:account_name, :bank_name, :account_number] })[:bank_account]
   end
 
   def current_doctor
