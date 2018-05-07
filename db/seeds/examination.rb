@@ -5,7 +5,6 @@ g4 = ExaminationGroup.create(name: "X光")
 g5 = ExaminationGroup.create(name: "CT平扫")
 g6 = ExaminationGroup.create(name: "特殊感染性疾病检查列表")
 
-
 Examination.create(name: '血常规', examination_group_id: g1.id)
 Examination.create(name: 'C反应蛋白', examination_group_id: g1.id)
 Examination.create(name: '支原体衣原体抗体检查', examination_group_id: g1.id)

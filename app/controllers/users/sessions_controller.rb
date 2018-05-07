@@ -13,7 +13,6 @@ class Users::SessionsController < Devise::SessionsController
 
   before_action :exchange_code_for_access_token_info, :exchange_access_token_for_snsapi_userinfo, only: [:auth_callback]
 
-
   def new
     Rails.logger.info "session[:user_return_to] #{session[:user_return_to]}"
     if @browser.wechat?

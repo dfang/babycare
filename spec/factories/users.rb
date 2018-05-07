@@ -9,7 +9,6 @@ FactoryGirl.define do
     name { FFaker::Name.name }
   end
 
-
     factory :user1 do
       email 'df1228@gmail.com'
       password 'fake_password_for_factory_girl_to_work'
@@ -27,5 +26,4 @@ FactoryGirl.define do
       avatar 'http://wx.qlogo.cn/mmopen/wPnFnHcH8f8rREicMnuAO1BicFHiaMH0RamnIMt2icy9VgJwWP4H2Bah29Wv6R3E8VPBEep5v8t9Z78NzA0SKfkkJTnribBXC5icmia/0'
       mobile_phone '17762575774'
     end
-
 end
